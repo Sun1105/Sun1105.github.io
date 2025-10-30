@@ -71,69 +71,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-test02" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/10/30/test02/" class="article-date">
-  <time class="dt-published" datetime="2025-10-30T13:00:00.000Z" itemprop="datePublished">2025-10-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/10/30/test02/">在 Spring Boot 项目中，将 DTO 或 Entity 对象以 键值对 JSON 格式输出到日志（log）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>✅ 一、使用 Jackson（推荐）</p>
-<p>Spring Boot 默认集成了 Jackson，所以你可以直接用它把对象转成 JSON。</p>
-<p>示例代码：</p>
-<p>import com.fasterxml.jackson.core.JsonProcessingException;<br>import com.fasterxml.jackson.databind.ObjectMapper;<br>import org.slf4j.Logger;<br>import org.slf4j.LoggerFactory;</p>
-<p>public class LogUtil {<br>    private static final Logger log &#x3D; LoggerFactory.getLogger(LogUtil.class);<br>    private static final ObjectMapper mapper &#x3D; new ObjectMapper();</p>
-<pre><code>public static void logAsJson(Object obj) {
-    try {
-        String json = mapper.writeValueAsString(obj);
-        log.info(&quot;Object JSON: {}&quot;, json);
-    } catch (JsonProcessingException e) {
-        log.error(&quot;Failed to convert object to JSON&quot;, e);
-    }
-}
-</code></pre>
-<p>}</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/30/test02/" data-id="cuidCJD07hkkiOx7oNewc7weA" data-title="在 Spring Boot 项目中，将 DTO 或 Entity 对象以 键值对 JSON 格式输出到日志（log）" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-  <div class="edit-link">
-    <a href="https://github.com/Sun1105/blog-source/edit/main/source/_posts/test02.md" target="_blank">📝 编辑此页</a>
-  </div>
-
-
-  
     <article id="post-test01" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/10/30/test01/" class="article-date">
@@ -175,7 +112,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/30/test01/" data-id="cuidvn-OGYi571JXrvew4vE3O" data-title="在 Spring Boot 项目中，将 DTO 或 Entity 对象以 键值对 JSON 格式输出到日志（log）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/10/30/test01/" data-id="cuid1jUNOK8J9ef61acb7tYn_" data-title="在 Spring Boot 项目中，将 DTO 或 Entity 对象以 键值对 JSON 格式输出到日志（log）" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -197,6 +134,44 @@
 
 
   
+    <article id="post-test02" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/10/30/test02/" class="article-date">
+  <time class="dt-published" datetime="2025-10-30T13:00:00.000Z" itemprop="datePublished">2025-10-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/10/30/test02/" data-id="cuidrB29mdjCNNrdxFw3UMJLt" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+  <div class="edit-link">
+    <a href="https://github.com/Sun1105/blog-source/edit/main/source/_posts/test02.md" target="_blank">📝 编辑此页</a>
+  </div>
+
+
+  
     <article id="post-test03" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/10/30/test03/" class="article-date">
@@ -207,38 +182,13 @@
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/10/30/test03/">在 Spring Boot 项目中，将 DTO 或 Entity 对象以 键值对 JSON 格式输出到日志（log）</a>
-    </h1>
-  
-
-      </header>
-    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>✅ 一、使用 Jackson（推荐）</p>
-<p>Spring Boot 默认集成了 Jackson，所以你可以直接用它把对象转成 JSON。</p>
-<p>示例代码：</p>
-<p>import com.fasterxml.jackson.core.JsonProcessingException;<br>import com.fasterxml.jackson.databind.ObjectMapper;<br>import org.slf4j.Logger;<br>import org.slf4j.LoggerFactory;</p>
-<p>public class LogUtil {<br>    private static final Logger log &#x3D; LoggerFactory.getLogger(LogUtil.class);<br>    private static final ObjectMapper mapper &#x3D; new ObjectMapper();</p>
-<pre><code>public static void logAsJson(Object obj) {
-    try {
-        String json = mapper.writeValueAsString(obj);
-        log.info(&quot;Object JSON: {}&quot;, json);
-    } catch (JsonProcessingException e) {
-        log.error(&quot;Failed to convert object to JSON&quot;, e);
-    }
-}
-</code></pre>
-<p>}</p>
-
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/30/test03/" data-id="cuidMvaZr8yJkohLdgclUPVgX" data-title="在 Spring Boot 项目中，将 DTO 或 Entity 对象以 键值对 JSON 格式输出到日志（log）" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/10/30/test03/" data-id="cuidP848TVEUwpPhbs610g7JP" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -299,7 +249,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/10/30/hello-world/" data-id="cuidrFyR67hQeOKjwfSKn69YX" data-title="我的博客" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2025/10/30/hello-world/" data-id="cuidKR7QUtcNKJsls5E9SVfOA" data-title="我的博客" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -364,15 +314,15 @@
       <ul>
         
           <li>
-            <a href="/2025/10/30/test02/">在 Spring Boot 项目中，将 DTO 或 Entity 对象以 键值对 JSON 格式输出到日志（log）</a>
-          </li>
-        
-          <li>
             <a href="/2025/10/30/test01/">在 Spring Boot 项目中，将 DTO 或 Entity 对象以 键值对 JSON 格式输出到日志（log）</a>
           </li>
         
           <li>
-            <a href="/2025/10/30/test03/">在 Spring Boot 项目中，将 DTO 或 Entity 对象以 键值对 JSON 格式输出到日志（log）</a>
+            <a href="/2025/10/30/test02/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/10/30/test03/">(no title)</a>
           </li>
         
           <li>
