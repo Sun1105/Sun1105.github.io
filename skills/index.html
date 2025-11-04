@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Sun Blog</title>
+  <title>技能树 | Sun Blog</title>
   <meta name="description" content="一个记录开发、学习与生活点滴的博客">
 
   <!-- ===== 全局样式引入 ===== -->
@@ -149,7 +149,89 @@
 
   <!-- ===== 主体内容区 ===== -->
   <main id="main-content">
-    
+    <!--
+  page.ejs
+  通用页面模板（Hexo 主题使用）
+  功能：
+    - 标题、日期（可选）
+    - 页面正文内容（Markdown 渲染）
+    - 可选侧边栏、导航条由 layout.ejs 提供
+    - 适用于独立页面（如关于、联系、说明等）
+
+  使用说明：
+    放置在 themes/<your-theme>/layout/page.ejs
+    页面 Markdown 文件位于 source 目录下，可自定义 Front Matter
+-->
+
+<article class="page-article">
+  <!-- 标题区 -->
+  
+    <header class="page-header">
+      <h1 class="page-title">技能树</h1>
+      
+        <p class="page-meta">发布于 2025-01-15</p>
+      
+    </header>
+  
+
+  <!-- 页面正文 -->
+  <div class="page-content">
+    <h2 id="🧑‍💻-编程语言"><a href="#🧑‍💻-编程语言" class="headerlink" title="🧑‍💻 编程语言"></a>🧑‍💻 编程语言</h2><ul>
+<li><strong>Java</strong>：精通，熟悉 Spring Boot、MyBatis 等主流框架</li>
+<li><strong>Python</strong>：掌握数据处理与 OpenCV 图像处理</li>
+<li><strong>JavaScript</strong>：能进行前端调试与模板优化</li>
+<li><strong>Shell &#x2F; VBA</strong>：擅长自动化工具开发</li>
+</ul>
+<hr>
+<h2 id="🏗️-系统架构与后端"><a href="#🏗️-系统架构与后端" class="headerlink" title="🏗️ 系统架构与后端"></a>🏗️ 系统架构与后端</h2><ul>
+<li>企业级系统架构设计与优化</li>
+<li>微服务与 CI&#x2F;CD 流程</li>
+<li>DevOps 与云端部署（Vercel、Docker、Azure）</li>
+</ul>
+<hr>
+<h2 id="🗄️-数据库与数据分析"><a href="#🗄️-数据库与数据分析" class="headerlink" title="🗄️ 数据库与数据分析"></a>🗄️ 数据库与数据分析</h2><ul>
+<li>Oracle 数据库：复杂 SQL、性能调优</li>
+<li>MySQL &#x2F; PostgreSQL：常规开发与维护</li>
+<li>数据建模与结构化分析</li>
+</ul>
+<hr>
+<h2 id="🧩-工具链与自动化"><a href="#🧩-工具链与自动化" class="headerlink" title="🧩 工具链与自动化"></a>🧩 工具链与自动化</h2><ul>
+<li>自动化测试工具开发</li>
+<li>流程优化与模块化设计</li>
+<li>Git &#x2F; GitHub &#x2F; GitLab 工作流</li>
+</ul>
+<hr>
+<h2 id="🎨-其他技能"><a href="#🎨-其他技能" class="headerlink" title="🎨 其他技能"></a>🎨 其他技能</h2><ul>
+<li>技术博客搭建与 SEO 优化</li>
+<li>多语言技术交流（中日双语）</li>
+<li>知识整理与文档化习惯</li>
+</ul>
+
+  </div>
+
+  <!-- 页脚占位（可选） -->
+  
+    <footer class="page-footer">
+      <p>版权声明：本文内容由作者提供，如需转载请注明来源。</p>
+    </footer>
+  
+</article>
+
+<!-- 可选局部脚本 -->
+<script>
+  // 页面内部可能需要的 JS，如滚动效果、交互等
+</script>
+
+<!-- 推荐 CSS（可放在 theme 的 CSS 文件中） -->
+<!--
+.page-article { max-width: 900px; margin: 0 auto; padding: 24px; }
+.page-header { margin-bottom: 20px; }
+.page-title { font-size: 2rem; font-weight: 600; }
+.page-meta { color: #777; font-size: 0.9rem; margin-top: 4px; }
+.page-content { line-height: 1.8; font-size: 1rem; }
+.page-footer { margin-top: 36px; border-top: 1px solid #eee; padding-top: 18px; font-size: 0.9rem; color: #555; }
+-->
+
   </main>
 
   

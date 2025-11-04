@@ -1,265 +1,190 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
-  <meta charset="utf-8">
-  
-  
-  <title>标签: 博客 | Sun Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sun Blog</title>
   <meta name="description" content="一个记录开发、学习与生活点滴的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sun Blog">
-<meta property="og:url" content="https://blog-source-lime.vercel.app/tags/%E5%8D%9A%E5%AE%A2/index.html">
-<meta property="og:site_name" content="Sun Blog">
-<meta property="og:description" content="一个记录开发、学习与生活点滴的博客">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="SUN">
-<meta property="article:tag" content="Hexo">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="Spring Boot">
-<meta property="article:tag" content="日本生活">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Sun Blog" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  <!-- ===== 全局样式引入 ===== -->
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <link rel="stylesheet" href="/css/post-list.css">
+  <link rel="stylesheet" href="/css/layout.css">
 
-  
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+  <!-- ===== 字体与图标 ===== -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 
-<meta name="generator" content="Hexo 8.1.0"></head>
+  <!-- ===== 登录状态检查 ===== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const onLoginPage = window.location.pathname.startsWith("/login");
+      if (!onLoginPage && !localStorage.getItem("isLoggedIn")) {
+        window.location.href = "/login/";
+      }
+    });
+  </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Sun Blog</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">技术笔记与生活记录</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog-source-lime.vercel.app"></form>
-      </div>
-    </div>
-  </div>
+  
+    <!-- ===== 顶部导航栏 ===== -->
+    <header class="top-nav">
+  <div class="logo"><a href="/">首页</a></div>
+  <nav class="menu">
+    <!-- 固定入口 -->
+    <a href="/new-note/">新建笔记</a>
+
+    <!-- 新增的独立页面入口 -->
+    <a href="/about/">关于我</a>
+    <a href="/projects/">我的项目</a>
+    <a href="/skills/">技能树</a>
+
+    <!-- 技术分类菜单 -->
+    
+    
+      <button class="menu-btn" onclick="selectMenu('Java')">Java</button>
+    
+      <button class="menu-btn" onclick="selectMenu('SpringBoot')">SpringBoot</button>
+    
+      <button class="menu-btn" onclick="selectMenu('JUnit')">JUnit</button>
+    
+      <button class="menu-btn" onclick="selectMenu('Maven')">Maven</button>
+    
+      <button class="menu-btn" onclick="selectMenu('Mybatis')">Mybatis</button>
+    
+      <button class="menu-btn" onclick="selectMenu('Git')">Git</button>
+    
+      <button class="menu-btn" onclick="selectMenu('SQL')">SQL</button>
+    
+      <button class="menu-btn" onclick="selectMenu('VBA')">VBA</button>
+    
+      <button class="menu-btn" onclick="selectMenu('Azure')">Azure</button>
+    
+      <button class="menu-btn" onclick="selectMenu('Docker')">Docker</button>
+    
+      <button class="menu-btn" onclick="selectMenu('前端')">前端</button>
+    
+      <button class="menu-btn" onclick="selectMenu('架构分析')">架构分析</button>
+    
+      <button class="menu-btn" onclick="selectMenu('快捷键')">快捷键</button>
+    
+
+    <!-- 退出按钮 -->
+    <button class="logout" onclick="logout()">退出</button>
+  </nav>
 </header>
 
-      <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2025" class="archive-year">2025</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2025/10/30/test01/" class="archive-article-date">
-  <time class="dt-published" datetime="2025-10-30T13:00:00.000Z" itemprop="datePublished">10月 30</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/10/30/test01/">在 Spring Boot 项目中，将 DTO 或 Entity 对象以 键值对 JSON 格式输出到日志（log）</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2025/10/30/test02/" class="archive-article-date">
-  <time class="dt-published" datetime="2025-10-30T13:00:00.000Z" itemprop="datePublished">10月 30</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/10/30/test02/">第一次编辑</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2025/10/30/test03/" class="archive-article-date">
-  <time class="dt-published" datetime="2025-10-30T13:00:00.000Z" itemprop="datePublished">10月 30</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/10/30/test03/">再次修改自动部署</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2025/11/01/hello-world/">我的博客</a>
-          </li>
-        
-          <li>
-            <a href="/2025/11/01/demo-post/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2025/10/30/test01/">在 Spring Boot 项目中，将 DTO 或 Entity 对象以 键值对 JSON 格式输出到日志（log）</a>
-          </li>
-        
-          <li>
-            <a href="/2025/10/30/test02/">第一次编辑</a>
-          </li>
-        
-          <li>
-            <a href="/2025/10/30/test03/">再次修改自动部署</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
+    <!-- ===== 侧边栏 ===== -->
+    <aside class="sidebar" id="sidebar">
+  <h3 class="sidebar-title">📘 分类导航</h3>
+  <ul id="navList">
+    <li>请选择上方分类</li>
+  </ul>
 </aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2025 SUN<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
 
-    </div>
-    <nav id="mobile-nav">
+<script>
+  // ====== 菜单数据 ======
+  const menuData = {
+    'Java': ['基础语法', '集合框架', 'Stream 流', '异常处理'],
+    'SpringBoot': ['项目结构', 'Controller', 'Service', '配置文件'],
+    'JUnit': ['单元测试', 'Mock 测试', '参数化测试'],
+    'Maven': ['依赖管理', '插件配置', '生命周期'],
+    'Mybatis': ['Mapper', 'SQL语句', '分页插件'],
+    'Git': ['基本命令', '分支操作', '冲突解决'],
+    'SQL': ['SELECT', 'JOIN', '事务'],
+    'VBA': ['Excel 自动化', '表单操作', '宏安全'],
+    'Azure': ['App Service', 'DevOps', 'Blob 存储'],
+    'Docker': ['镜像构建', '容器运行', 'Compose 管理'],
+    '前端': ['HTML/CSS', 'JavaScript', 'React/Vue 概览'],
+    '架构分析': ['分层设计', 'DDD', '微服务结构'],
+    '快捷键': ['VSCode 快捷键', 'Eclipse 快捷键']
+  };
+
+  // ====== 由 header 调用的函数：点击上方按钮时触发 ======
+  function selectMenu(category) {
+    const navList = document.getElementById('navList');
+    navList.innerHTML = '';
+
+    // 没有数据情况
+    if (!menuData[category]) {
+      navList.innerHTML = '<li>暂无内容</li>';
+      return;
+    }
+
+    // 动态生成侧边栏项
+    menuData[category].forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+
+      // 点击侧边栏项 → 激活样式 & 更新右侧内容
+      li.addEventListener('click', () => {
+        // 激活样式
+        document.querySelectorAll('#navList li').forEach(el => el.classList.remove('active'));
+        li.classList.add('active');
+
+        // 更新右侧主内容区
+        const main = document.getElementById('main-content');
+        if (main) {
+          main.innerHTML = `
+            <div class="content-card">
+              <h2>${item}</h2>
+              <p>这是 <strong>${category}</strong> 分类下的 <strong>${item}</strong> 内容示例。</p>
+              <p>（此处可以替换成 Markdown 渲染内容或文章列表）</p>
+            </div>
+          `;
+        }
+      });
+
+      navList.appendChild(li);
+    });
+  }
+</script>
+
   
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+
+  <!-- ===== 主体内容区 ===== -->
+  <main id="main-content">
     
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
+  </main>
 
   
-<script src="/fancybox/jquery.fancybox.min.js"></script>
+    <!-- ===== 页脚 ===== -->
+    <footer>
+  <p>
+    © 2025 SUN | Powered by Hexo + Vercel
+  </p>
+</footer>
+  
 
+  <!-- ===== 全局脚本区域 ===== -->
+  <script>
+    // ===== 退出登录函数 =====
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "/login/";
+    }
 
+    // ===== 平滑滚动至顶部 =====
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
 
+  <!-- 可选的“返回顶部”按钮 -->
+  <button id="backToTop" title="回到顶部">↑</button>
 
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
+  <script>
+    // ===== 返回顶部按钮逻辑 =====
+    const topBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      topBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    topBtn.addEventListener('click', scrollToTop);
+  </script>
 </body>
 </html>

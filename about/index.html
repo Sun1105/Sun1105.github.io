@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Sun Blog</title>
+  <title>关于我 | Sun Blog</title>
   <meta name="description" content="一个记录开发、学习与生活点滴的博客">
 
   <!-- ===== 全局样式引入 ===== -->
@@ -149,7 +149,74 @@
 
   <!-- ===== 主体内容区 ===== -->
   <main id="main-content">
-    
+    <!--
+  page.ejs
+  通用页面模板（Hexo 主题使用）
+  功能：
+    - 标题、日期（可选）
+    - 页面正文内容（Markdown 渲染）
+    - 可选侧边栏、导航条由 layout.ejs 提供
+    - 适用于独立页面（如关于、联系、说明等）
+
+  使用说明：
+    放置在 themes/<your-theme>/layout/page.ejs
+    页面 Markdown 文件位于 source 目录下，可自定义 Front Matter
+-->
+
+<article class="page-article">
+  <!-- 标题区 -->
+  
+    <header class="page-header">
+      <h1 class="page-title">关于我</h1>
+      
+        <p class="page-meta">发布于 2025-01-01</p>
+      
+    </header>
+  
+
+  <!-- 页面正文 -->
+  <div class="page-content">
+    <h2 id="👋-你好，我是SUN"><a href="#👋-你好，我是SUN" class="headerlink" title="👋 你好，我是SUN"></a>👋 你好，我是SUN</h2><p>我是一名专注于 <strong>Java 后端开发</strong> 与 <strong>系统架构优化</strong> 的工程师，平时喜欢整理技术笔记和分享学习心得。</p>
+<h3 id="🔧-技术栈"><a href="#🔧-技术栈" class="headerlink" title="🔧 技术栈"></a>🔧 技术栈</h3><ul>
+<li>Java &#x2F; Spring Boot &#x2F; MyBatis</li>
+<li>Oracle 数据库与复杂数据分析</li>
+<li>自动化工具开发（Shell、VBA、Excel）</li>
+<li>图像处理与 OpenCV 应用</li>
+<li>DevOps 流程与云端部署（Vercel 等）</li>
+</ul>
+<h3 id="📚-兴趣方向"><a href="#📚-兴趣方向" class="headerlink" title="📚 兴趣方向"></a>📚 兴趣方向</h3><ul>
+<li>企业级系统架构与技术升级</li>
+<li>自动化测试与工具链优化</li>
+<li>图像处理与多语言技术交流</li>
+<li>健康生活习惯与结构化学习</li>
+</ul>
+<h3 id="🎯-目标"><a href="#🎯-目标" class="headerlink" title="🎯 目标"></a>🎯 目标</h3><p>持续提升项目质量与效率，同时把学习过程沉淀为知识体系，帮助更多开发者少走弯路。</p>
+
+  </div>
+
+  <!-- 页脚占位（可选） -->
+  
+    <footer class="page-footer">
+      <p>版权声明：本文内容由作者提供，如需转载请注明来源。</p>
+    </footer>
+  
+</article>
+
+<!-- 可选局部脚本 -->
+<script>
+  // 页面内部可能需要的 JS，如滚动效果、交互等
+</script>
+
+<!-- 推荐 CSS（可放在 theme 的 CSS 文件中） -->
+<!--
+.page-article { max-width: 900px; margin: 0 auto; padding: 24px; }
+.page-header { margin-bottom: 20px; }
+.page-title { font-size: 2rem; font-weight: 600; }
+.page-meta { color: #777; font-size: 0.9rem; margin-top: 4px; }
+.page-content { line-height: 1.8; font-size: 1rem; }
+.page-footer { margin-top: 36px; border-top: 1px solid #eee; padding-top: 18px; font-size: 0.9rem; color: #555; }
+-->
+
   </main>
 
   
