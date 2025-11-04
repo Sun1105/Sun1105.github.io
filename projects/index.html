@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>我的项目 | Sun Blog</title>
+  <meta name="description" content="一个记录开发、学习与生活点滴的博客">
+
+  <!-- ===== 全局样式引入 ===== -->
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <link rel="stylesheet" href="/css/post-list.css">
+  <link rel="stylesheet" href="/css/layout.css">
+
+  <!-- ===== 字体与图标 ===== -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+  <!-- ===== 登录状态检查 ===== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const onLoginPage = window.location.pathname.startsWith("/login");
+      if (!onLoginPage && !localStorage.getItem("isLoggedIn")) {
+        window.location.href = "/login/";
+      }
+    });
+  </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  
+    <!-- ===== 顶部导航栏 ===== -->
+    <header class="top-nav">
+  <div class="logo"><a href="/">首页</a></div>
+  <nav class="menu">
+    <!-- 固定入口 -->
+    <a href="/new-note/">新建笔记</a>
+
+    <!-- 新增的独立页面入口 -->
+    <a href="/about/">关于我</a>
+    <a href="/projects/">我的项目</a>
+    <a href="/skills/">技能树</a>
+
+    <!-- 技术分类菜单 -->
+    
+    
+      <button class="menu-btn" onclick="selectMenu('Java')">Java</button>
+    
+      <button class="menu-btn" onclick="selectMenu('SpringBoot')">SpringBoot</button>
+    
+      <button class="menu-btn" onclick="selectMenu('JUnit')">JUnit</button>
+    
+      <button class="menu-btn" onclick="selectMenu('Maven')">Maven</button>
+    
+      <button class="menu-btn" onclick="selectMenu('Mybatis')">Mybatis</button>
+    
+      <button class="menu-btn" onclick="selectMenu('Git')">Git</button>
+    
+      <button class="menu-btn" onclick="selectMenu('SQL')">SQL</button>
+    
+      <button class="menu-btn" onclick="selectMenu('VBA')">VBA</button>
+    
+      <button class="menu-btn" onclick="selectMenu('Azure')">Azure</button>
+    
+      <button class="menu-btn" onclick="selectMenu('Docker')">Docker</button>
+    
+      <button class="menu-btn" onclick="selectMenu('前端')">前端</button>
+    
+      <button class="menu-btn" onclick="selectMenu('架构分析')">架构分析</button>
+    
+      <button class="menu-btn" onclick="selectMenu('快捷键')">快捷键</button>
+    
+
+    <!-- 退出按钮 -->
+    <button class="logout" onclick="logout()">退出</button>
+  </nav>
+</header>
+
+
+    <!-- ===== 侧边栏 ===== -->
+    <aside class="sidebar" id="sidebar">
+  <h3 class="sidebar-title">📘 分类导航</h3>
+  <ul id="navList">
+    <li>请选择上方分类</li>
+  </ul>
+</aside>
+
+<script>
+  // ====== 菜单数据 ======
+  const menuData = {
+    'Java': ['基础语法', '集合框架', 'Stream 流', '异常处理'],
+    'SpringBoot': ['项目结构', 'Controller', 'Service', '配置文件'],
+    'JUnit': ['单元测试', 'Mock 测试', '参数化测试'],
+    'Maven': ['依赖管理', '插件配置', '生命周期'],
+    'Mybatis': ['Mapper', 'SQL语句', '分页插件'],
+    'Git': ['基本命令', '分支操作', '冲突解决'],
+    'SQL': ['SELECT', 'JOIN', '事务'],
+    'VBA': ['Excel 自动化', '表单操作', '宏安全'],
+    'Azure': ['App Service', 'DevOps', 'Blob 存储'],
+    'Docker': ['镜像构建', '容器运行', 'Compose 管理'],
+    '前端': ['HTML/CSS', 'JavaScript', 'React/Vue 概览'],
+    '架构分析': ['分层设计', 'DDD', '微服务结构'],
+    '快捷键': ['VSCode 快捷键', 'Eclipse 快捷键']
+  };
+
+  // ====== 由 header 调用的函数：点击上方按钮时触发 ======
+  function selectMenu(category) {
+    const navList = document.getElementById('navList');
+    navList.innerHTML = '';
+
+    // 没有数据情况
+    if (!menuData[category]) {
+      navList.innerHTML = '<li>暂无内容</li>';
+      return;
+    }
+
+    // 动态生成侧边栏项
+    menuData[category].forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+
+      // 点击侧边栏项 → 激活样式 & 更新右侧内容
+      li.addEventListener('click', () => {
+        // 激活样式
+        document.querySelectorAll('#navList li').forEach(el => el.classList.remove('active'));
+        li.classList.add('active');
+
+        // 更新右侧主内容区
+        const main = document.getElementById('main-content');
+        if (main) {
+          main.innerHTML = `
+            <div class="content-card">
+              <h2>${item}</h2>
+              <p>这是 <strong>${category}</strong> 分类下的 <strong>${item}</strong> 内容示例。</p>
+              <p>（此处可以替换成 Markdown 渲染内容或文章列表）</p>
+            </div>
+          `;
+        }
+      });
+
+      navList.appendChild(li);
+    });
+  }
+</script>
+
+  
+
+  <!-- ===== 主体内容区 ===== -->
+  <main id="main-content">
+    <!--
+  page.ejs
+  通用页面模板（Hexo 主题使用）
+  功能：
+    - 标题、日期（可选）
+    - 页面正文内容（Markdown 渲染）
+    - 可选侧边栏、导航条由 layout.ejs 提供
+    - 适用于独立页面（如关于、联系、说明等）
+
+  使用说明：
+    放置在 themes/<your-theme>/layout/page.ejs
+    页面 Markdown 文件位于 source 目录下，可自定义 Front Matter
+-->
+
+<article class="page-article">
+  <!-- 标题区 -->
+  
+    <header class="page-header">
+      <h1 class="page-title">我的项目</h1>
+      
+        <p class="page-meta">发布于 2025-01-10</p>
+      
+    </header>
+  
+
+  <!-- 页面正文 -->
+  <div class="page-content">
+    <h2 id="🚀-项目经验"><a href="#🚀-项目经验" class="headerlink" title="🚀 项目经验"></a>🚀 项目经验</h2><h3 id="1-企业级金融系统改造"><a href="#1-企业级金融系统改造" class="headerlink" title="1. 企业级金融系统改造"></a>1. 企业级金融系统改造</h3><ul>
+<li><strong>角色</strong>：后端开发 &amp; 架构优化</li>
+<li><strong>技术栈</strong>：Java、Spring Boot、MyBatis、Oracle</li>
+<li><strong>成果</strong>：推动旧系统升级到现代化架构，优化性能并提升稳定性。</li>
+</ul>
+<hr>
+<h3 id="2-自动化测试与工具开发"><a href="#2-自动化测试与工具开发" class="headerlink" title="2. 自动化测试与工具开发"></a>2. 自动化测试与工具开发</h3><ul>
+<li><strong>角色</strong>：工具链开发者</li>
+<li><strong>技术栈</strong>：Shell、VBA、Excel</li>
+<li><strong>成果</strong>：开发自动化测试与运维工具，显著提升团队效率。</li>
+</ul>
+<hr>
+<h3 id="3-图像处理与-OpenCV-应用"><a href="#3-图像处理与-OpenCV-应用" class="headerlink" title="3. 图像处理与 OpenCV 应用"></a>3. 图像处理与 OpenCV 应用</h3><ul>
+<li><strong>角色</strong>：算法实现 &amp; 工具开发</li>
+<li><strong>技术栈</strong>：Python、OpenCV</li>
+<li><strong>成果</strong>：实现差分分析与标注工具，支持模块化与自动化报告生成。</li>
+</ul>
+<hr>
+<h3 id="4-博客系统搭建与优化"><a href="#4-博客系统搭建与优化" class="headerlink" title="4. 博客系统搭建与优化"></a>4. 博客系统搭建与优化</h3><ul>
+<li><strong>角色</strong>：全栈开发</li>
+<li><strong>技术栈</strong>：Hexo、EJS、Vercel</li>
+<li><strong>成果</strong>：搭建个人技术博客，优化主题与 SEO，支持多仓库内容管理。</li>
+</ul>
+
+  </div>
+
+  <!-- 页脚占位（可选） -->
+  
+    <footer class="page-footer">
+      <p>版权声明：本文内容由作者提供，如需转载请注明来源。</p>
+    </footer>
+  
+</article>
+
+<!-- 可选局部脚本 -->
+<script>
+  // 页面内部可能需要的 JS，如滚动效果、交互等
+</script>
+
+<!-- 推荐 CSS（可放在 theme 的 CSS 文件中） -->
+<!--
+.page-article { max-width: 900px; margin: 0 auto; padding: 24px; }
+.page-header { margin-bottom: 20px; }
+.page-title { font-size: 2rem; font-weight: 600; }
+.page-meta { color: #777; font-size: 0.9rem; margin-top: 4px; }
+.page-content { line-height: 1.8; font-size: 1rem; }
+.page-footer { margin-top: 36px; border-top: 1px solid #eee; padding-top: 18px; font-size: 0.9rem; color: #555; }
+-->
+
+  </main>
+
+  
+    <!-- ===== 页脚 ===== -->
+    <footer>
+  <p>
+    © 2025 SUN | Powered by Hexo + Vercel
+  </p>
+</footer>
+  
+
+  <!-- ===== 全局脚本区域 ===== -->
+  <script>
+    // ===== 退出登录函数 =====
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "/login/";
+    }
+
+    // ===== 平滑滚动至顶部 =====
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+
+  <!-- 可选的“返回顶部”按钮 -->
+  <button id="backToTop" title="回到顶部">↑</button>
+
+  <script>
+    // ===== 返回顶部按钮逻辑 =====
+    const topBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      topBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    topBtn.addEventListener('click', scrollToTop);
+  </script>
+</body>
+</html>
