@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <!-- 设置字符集为 UTF-8 -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 响应式布局，适配移动设备 -->
+
+  <!-- 页面标题 -->
+  <!-- 如果当前页面有标题，则显示 "页面标题 | 网站标题" -->
+  <!-- 否则只显示网站标题 config.title -->
+  <title>
+    📒 在线笔记 | Sun Blog
+  </title>
+
+  <!-- 页面描述，用于 SEO -->
+  <meta name="description" content="一个记录开发、学习与生活点滴的博客">
+
+  <!-- ===== 全局样式引入 ===== -->
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <link rel="stylesheet" href="/css/post-list.css">
+  <link rel="stylesheet" href="/css/page.css">
+  <link rel="stylesheet" href="/css/category.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <!-- 各模块样式，便于维护 -->
+
+  <!-- ===== 字体与图标 ===== -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <!-- 网站 favicon 和 Google 字体 -->
+
+  <!-- ===== 登录状态检查 ===== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const onLoginPage = window.location.pathname.startsWith("/login");
+      if (!onLoginPage && !localStorage.getItem("isLoggedIn")) {
+        window.location.href = "/login/";
+      }
+      // 如果未登录且不在登录页，自动跳转到登录页
+    });
+  </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  
+    <!-- ===== 顶部导航栏 ===== -->
+    <header class="top-nav">
+  <!-- ============================
+       顶部导航栏模块
+       功能：
+         - 显示网站 logo
+         - 提供主菜单导航
+         - 技术分类下拉菜单
+         - 新建笔记 / 关于我 / 我的项目 / 技能树
+         - 小屏幕汉堡菜单切换
+         - 退出登录按钮
+  ============================ -->
+
+  <!-- 网站 Logo -->
+  <div class="logo">
+    <a href="/">首页</a>
+    <!-- 点击跳转到网站首页 -->
+  </div>
+
+  <!-- 汉堡按钮（小屏幕时显示） -->
+  <button class="menu-toggle" onclick="toggleMenu()" aria-label="切换菜单">☰</button>
+  <!-- onclick 调用 toggleMenu() 切换移动端菜单显示状态 -->
+
+  <!-- 主菜单容器 -->
+  <nav class="menu">
+
+    <!-- 普通菜单项 -->
+    <a href="/new-note/">新建笔记</a>
+    <a href="/notes/">笔记列表</a>
+    <a href="/archives/">时间轴</a>
+    <a href="/about/">关于我</a>
+    <a href="/projects/">项目集</a>
+    <a href="/skills/">技能树</a>
+    <!-- 点击跳转到对应页面 -->
+
+    <!-- 技术分类下拉菜单 -->
+    <div class="dropdown">
+      <button class="menu-btn" type="button">技术分类</button>
+      <!-- 下拉按钮，点击显示分类列表 -->
+
+      <div class="dropdown-content">
+        
+
+        
+          <!-- 遍历技术分类数组，生成菜单项 -->
+          <!-- 跳转到 /categories/分类名/ 页面 -->
+          <a href="/categories/Java/">Java</a>
+
+          <!-- 如果希望点击动态更新侧边栏而不是跳转，可改为：
+          <a href="javascript:void(0)" onclick="selectMenu('Java')">Java</a> -->
+          
+        
+          <!-- 遍历技术分类数组，生成菜单项 -->
+          <!-- 跳转到 /categories/分类名/ 页面 -->
+          <a href="/categories/SpringBoot/">SpringBoot</a>
+
+          <!-- 如果希望点击动态更新侧边栏而不是跳转，可改为：
+          <a href="javascript:void(0)" onclick="selectMenu('SpringBoot')">SpringBoot</a> -->
+          
+        
+          <!-- 遍历技术分类数组，生成菜单项 -->
+          <!-- 跳转到 /categories/分类名/ 页面 -->
+          <a href="/categories/JUnit/">JUnit</a>
+
+          <!-- 如果希望点击动态更新侧边栏而不是跳转，可改为：
+          <a href="javascript:void(0)" onclick="selectMenu('JUnit')">JUnit</a> -->
+          
+        
+          <!-- 遍历技术分类数组，生成菜单项 -->
+          <!-- 跳转到 /categories/分类名/ 页面 -->
+          <a href="/categories/Maven/">Maven</a>
+
+          <!-- 如果希望点击动态更新侧边栏而不是跳转，可改为：
+          <a href="javascript:void(0)" onclick="selectMenu('Maven')">Maven</a> -->
+          
+        
+          <!-- 遍历技术分类数组，生成菜单项 -->
+          <!-- 跳转到 /categories/分类名/ 页面 -->
+          <a href="/categories/Mybatis/">Mybatis</a>
+
+          <!-- 如果希望点击动态更新侧边栏而不是跳转，可改为：
+          <a href="javascript:void(0)" onclick="selectMenu('Mybatis')">Mybatis</a> -->
+          
+        
+          <!-- 遍历技术分类数组，生成菜单项 -->
+          <!-- 跳转到 /categories/分类名/ 页面 -->
+          <a href="/categories/Git/">Git</a>
+
+          <!-- 如果希望点击动态更新侧边栏而不是跳转，可改为：
+          <a href="javascript:void(0)" onclick="selectMenu('Git')">Git</a> -->
+          
+        
+          <!-- 遍历技术分类数组，生成菜单项 -->
+          <!-- 跳转到 /categories/分类名/ 页面 -->
+          <a href="/categories/SQL/">SQL</a>
+
+          <!-- 如果希望点击动态更新侧边栏而不是跳转，可改为：
+          <a href="javascript:void(0)" onclick="selectMenu('SQL')">SQL</a> -->
+          
+        
+          <!-- 遍历技术分类数组，生成菜单项 -->
+          <!-- 跳转到 /categories/分类名/ 页面 -->
+          <a href="/categories/VBA/">VBA</a>
+
+          <!-- 如果希望点击动态更新侧边栏而不是跳转，可改为：
+          <a href="javascript:void(0)" onclick="selectMenu('VBA')">VBA</a> -->
+          
+        
+          <!-- 遍历技术分类数组，生成菜单项 -->
+          <!-- 跳转到 /categories/分类名/ 页面 -->
+          <a href="/categories/Azure/">Azure</a>
+
+          <!-- 如果希望点击动态更新侧边栏而不是跳转，可改为：
+          <a href="javascript:void(0)" onclick="selectMenu('Azure')">Azure</a> -->
+          
+        
+          <!-- 遍历技术分类数组，生成菜单项 -->
+          <!-- 跳转到 /categories/分类名/ 页面 -->
+          <a href="/categories/Docker/">Docker</a>
+
+          <!-- 如果希望点击动态更新侧边栏而不是跳转，可改为：
+          <a href="javascript:void(0)" onclick="selectMenu('Docker')">Docker</a> -->
+          
+        
+          <!-- 遍历技术分类数组，生成菜单项 -->
+          <!-- 跳转到 /categories/分类名/ 页面 -->
+          <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+
+          <!-- 如果希望点击动态更新侧边栏而不是跳转，可改为：
+          <a href="javascript:void(0)" onclick="selectMenu('前端')">前端</a> -->
+          
+        
+          <!-- 遍历技术分类数组，生成菜单项 -->
+          <!-- 跳转到 /categories/分类名/ 页面 -->
+          <a href="/categories/%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90/">架构分析</a>
+
+          <!-- 如果希望点击动态更新侧边栏而不是跳转，可改为：
+          <a href="javascript:void(0)" onclick="selectMenu('架构分析')">架构分析</a> -->
+          
+        
+          <!-- 遍历技术分类数组，生成菜单项 -->
+          <!-- 跳转到 /categories/分类名/ 页面 -->
+          <a href="/categories/%E5%BF%AB%E6%8D%B7%E9%94%AE/">快捷键</a>
+
+          <!-- 如果希望点击动态更新侧边栏而不是跳转，可改为：
+          <a href="javascript:void(0)" onclick="selectMenu('快捷键')">快捷键</a> -->
+          
+        
+      </div>
+    </div>
+    <!-- 技术分类下拉菜单结束 -->
+
+    <!-- 退出登录按钮 -->
+    <button class="logout" onclick="logout()">退出</button>
+    <!-- 点击调用 logout() 清除登录状态并跳转登录页 -->
+
+  </nav>
+  <!-- 主菜单容器结束 -->
+
+</header>
+<!-- 顶部导航栏结束 -->
+
+    <!-- 导入 header 部分模板 -->
+
+    <!-- ===== 侧边栏 ===== -->
+    <aside class="sidebar" id="sidebar">
+  <!-- ============================
+       侧边栏模块
+       功能：
+         - 自动读取 Hexo 分类数据
+         - 自动读取 Hexo 标签数据
+         - 渲染为分类导航和标签云
+  ============================ -->
+
+  <!-- 分类导航 -->
+  <h3 class="sidebar-title">📘 分类导航</h3>
+  <ul class="category-list">
+    
+      
+        <li>
+          <a href="/categories/JUnit/">
+            JUnit (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="/categories/Java/">
+            Java (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="/categories/Springboot/">
+            Springboot (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="/categories/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/">
+            第一篇文章 (1)
+          </a>
+        </li>
+      
+    
+  </ul>
+
+  <!-- 标签云 -->
+  <h3 class="sidebar-title">🏷️ 标签云</h3>
+  <ul class="tag-list">
+    
+      
+        <li>
+          <a href="/tags/JUnit/">
+            JUnit (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="/tags/Java/">
+            Java (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="/tags/Springboot/">
+            Springboot (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="/tags/log/">
+            log (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="/tags/%E5%9F%BA%E7%A1%80/">
+            基础 (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="/tags/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/">
+            第一篇文章 (1)
+          </a>
+        </li>
+      
+    
+  </ul>
+</aside>
+
+    <!-- 导入 sidebar 部分模板 -->
+  
+
+  <!-- ===== 主体内容区 ===== -->
+  <main id="main-content">
+    <section class="main-section">   
+  <!-- ============================
+       在线笔记系统模块
+       功能：
+         - 列出已有文章
+         - 新建文章
+         - 编辑文章（标题、分类、标签、内容）
+         - 实时 Markdown 预览
+         - 保存到 GitHub 仓库，触发 Vercel 自动部署
+  ============================ -->
+  <h1 style="text-align:center;">📒 在线笔记系统</h1>
+
+  <div style="max-width:1000px; margin:20px auto;">
+    <!-- 新建文章按钮 -->
+    <button id="newNoteBtn" style="padding:10px 15px; background:#0078d7; color:#fff; border:none; border-radius:5px; cursor:pointer;">📝 新建文章</button>
+
+    <!-- 文章列表容器 -->
+    <div id="noteList" style="margin-top:20px;"></div>
+
+    <!-- 编辑器弹窗 -->
+    <div id="editorModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);">
+      <div style="background:#fff; width:90%; max-width:800px; margin:50px auto; padding:20px; border-radius:8px; position:relative;">
+        <h2 id="editorTitle">编辑文章</h2>
+
+        <!-- 标题输入框 -->
+        <input type="text" id="noteTitle" placeholder="标题" style="width:100%; padding:8px; margin-bottom:10px;">
+
+        <!-- 分类输入框 -->
+        <input type="text" id="noteCategory" placeholder="分类" style="width:100%; padding:8px; margin-bottom:10px;">
+
+        <!-- 标签输入框 -->
+        <input type="text" id="noteTags" placeholder="标签，用逗号分隔" style="width:100%; padding:8px; margin-bottom:10px;">
+
+        <!-- 内容输入框 -->
+        <textarea id="noteContent" rows="15" style="width:100%; padding:8px;"></textarea>
+
+        <!-- 保存/取消按钮 -->
+        <div style="margin-top:10px; display:flex; gap:10px;">
+          <button id="saveNoteBtn" style="flex:1; padding:10px; background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer;">💾 保存</button>
+          <button id="cancelEditBtn" style="flex:1; padding:10px; background:#dc3545; color:#fff; border:none; border-radius:5px; cursor:pointer;">❌ 取消</button>
+        </div>
+
+        <!-- Markdown 实时预览 -->
+        <div id="preview" style="margin-top:20px; padding:10px; border:1px solid #ddd; border-radius:5px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+  const owner = "你的GitHub用户名";   // 替换成你的 GitHub 用户名
+  const repo = "你的仓库名";          // 替换成你的仓库名
+  const postsDir = "_posts";          // Hexo 文章目录
+  let editingNote = null;             // 当前正在编辑的文章对象
+
+  const noteListDiv = document.getElementById('noteList');
+  const editorModal = document.getElementById('editorModal');
+  const noteTitle = document.getElementById('noteTitle');
+  const noteCategory = document.getElementById('noteCategory'); // 分类输入框
+  const noteTags = document.getElementById('noteTags');
+  const noteContent = document.getElementById('noteContent');
+  const saveNoteBtn = document.getElementById('saveNoteBtn');
+  const cancelEditBtn = document.getElementById('cancelEditBtn');
+  const previewDiv = document.getElementById('preview');
+
+  // ========================
+  // 1️⃣ 列出文章列表
+  // ========================
+  async function loadNotes() {
+    noteListDiv.innerHTML = "加载中...";
+    try {
+      const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${postsDir}`);
+      const data = await res.json();
+      if(res.ok){
+        noteListDiv.innerHTML = "";
+        data.forEach(file => {
+          if(file.name.endsWith(".md")){
+            const div = document.createElement('div');
+            div.style.padding = "10px";
+            div.style.borderBottom = "1px solid #ddd";
+            div.style.cursor = "pointer";
+            div.textContent = file.name;
+            div.addEventListener('click', () => openEditor(file));
+            noteListDiv.appendChild(div);
+          }
+        });
+      } else {
+        noteListDiv.innerHTML = "❌ 获取文章列表失败：" + JSON.stringify(data);
+      }
+    } catch(err){
+      noteListDiv.innerHTML = "❌ 网络错误：" + err.message;
+    }
+  }
+
+  // ========================
+  // 2️⃣ 打开编辑器
+  // ========================
+  async function openEditor(file){
+    editingNote = file;
+    try {
+      const res = await fetch(file.download_url);
+      const contentText = await res.text();
+      const shaRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${postsDir}/${file.name}`);
+      const shaData = await shaRes.json();
+      editingNote.sha = shaData.sha;
+
+      // 填充编辑器
+      noteTitle.value = contentText.match(/title:\s*(.*)/)?.[1] || file.name;
+      noteCategory.value = contentText.match(/category:\s*(.*)/)?.[1] || ""; // 分类
+      noteTags.value = contentText.match(/tags:\s*\[(.*)\]/)?.[1] || "";
+      noteContent.value = contentText.split('---').slice(2).join('---').trim();
+
+      previewDiv.innerHTML = marked.parse(noteContent.value);
+      editorModal.style.display = "block";
+    } catch(err){
+      alert("❌ 打开编辑器失败：" + err.message);
+    }
+  }
+
+  // ========================
+  // 3️⃣ 新建文章
+  // ========================
+  document.getElementById('newNoteBtn').addEventListener('click', () => {
+    editingNote = null;
+    noteTitle.value = "";
+    noteCategory.value = "";
+    noteTags.value = "";
+    noteContent.value = "";
+    previewDiv.innerHTML = "";
+    editorModal.style.display = "block";
+  });
+
+  // ========================
+  // 4️⃣ 保存文章
+  // ========================
+  saveNoteBtn.addEventListener('click', async () => {
+    const title = noteTitle.value.trim();
+    const category = noteCategory.value.trim(); // 分类
+    const tags = noteTags.value.split(',').map(t=>t.trim()).filter(Boolean);
+    const content = noteContent.value.trim();
+
+    if(!title || !content){
+      alert("标题和内容不能为空！");
+      return;
+    }
+
+    const mdContent = `---
+  title: ${title}
+  category: ${category}
+  tags: [${tags.join(',')}]
+  date: ${new Date().toISOString()}
+  ---
+
+  ${content}
+  `;
+
+    try {
+      let path, sha, message;
+      if(editingNote){
+        path = `${postsDir}/${editingNote.name}`;
+        sha = editingNote.sha;
+        message = `编辑文章: ${title}`;
+      } else {
+        const fileName = `${Date.now()}-${title.replace(/\s+/g,'-')}.md`;
+        path = `${postsDir}/${fileName}`;
+        sha = undefined;
+        message = `新建文章: ${title}`;
+      }
+
+      const res = await fetch(editingNote ? '/api/edit-note' : '/api/new-note', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ path, sha, content: mdContent, message })
+      });
+
+      const data = await res.json();
+      if(res.ok){
+        alert('✅ 保存成功！请稍等 Vercel 自动部署。');
+        editorModal.style.display = "none";
+        loadNotes();
+      } else {
+        alert('❌ 保存失败：' + JSON.stringify(data.error));
+      }
+    } catch(err){
+      alert("❌ 网络或服务器错误：" + err.message);
+    }
+  });
+
+  // ========================
+  // 5️⃣ 取消编辑
+  // ========================
+  cancelEditBtn.addEventListener('click', () => {
+    editorModal.style.display = "none";
+  });
+
+  // ========================
+  // 6️⃣ 实时 Markdown 预览
+  // ========================
+  noteContent.addEventListener('input', () => {
+    previewDiv.innerHTML = marked.parse(noteContent.value);
+  });
+
+  // ========================
+  // 7️⃣ 初始化加载文章列表
+  // ========================
+  loadNotes();
+  </script>
+</section>
+    <!-- 渲染当前页面内容 -->
+    <!--  保证 HTML 正常渲染，不转义 -->
+  </main>
+
+  <!-- ===== 全局脚本区域 ===== -->
+  <script>
+    // ===== 退出登录函数 =====
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "/login/";
+      // 清除登录标记并跳转登录页
+    }
+
+    // ===== 平滑滚动至顶部 =====
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      // 平滑滚动到页面顶部
+    }
+
+    // ===== 切换小屏幕菜单展开/收起 =====
+    function toggleMenu() {
+      const menu = document.querySelector('header.top-nav .menu');
+      if (menu) {
+        menu.classList.toggle('show');
+        // 切换菜单显示状态，便于移动端操作
+      }
+    }
+  </script>
+
+  <!-- ===== 可选的“返回顶部”按钮 ===== -->
+  <button id="backToTop" title="回到顶部">↑</button>
+
+  <script>
+    // ===== 返回顶部按钮逻辑 =====
+    const topBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      // 当页面向下滚动超过 300px 显示按钮，否则隐藏
+      topBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    topBtn.addEventListener('click', scrollToTop);
+    // 点击按钮触发平滑滚动到顶部
+  </script>
+</body>
+</html>
