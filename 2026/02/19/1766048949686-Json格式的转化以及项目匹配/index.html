@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <!-- 设置字符集为 UTF-8 -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 响应式布局，适配移动设备 -->
+
+  <!-- 页面标题 -->
+  <!-- 如果当前页面有标题，则显示 "页面标题 | 网站标题" -->
+  <!-- 否则只显示网站标题 config.title -->
+  <title>
+    JSON Key-Value 提取及处理工具 | Sun Blog
+  </title>
+
+  <!-- 页面描述，用于 SEO -->
+  <meta name="description" content="一个记录开发、学习与生活点滴的博客">
+
+  <!-- ===== 全局样式引入 ===== -->
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <link rel="stylesheet" href="/css/post-list.css">
+  <link rel="stylesheet" href="/css/page.css">
+  <link rel="stylesheet" href="/css/category.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <!-- 各模块样式，便于维护 -->
+
+  <!-- ===== 字体与图标 ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <!-- 网站 favicon 和 Google 字体 -->
+
+  <!-- ===== 登录状态检查 ===== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const onLoginPage = window.location.pathname.startsWith("/login");
+      if (!onLoginPage && !localStorage.getItem("isLoggedIn")) {
+        window.location.href = "/login/";
+      }
+      // 如果未登录且不在登录页，自动跳转到登录页
+    });
+  </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  
+    <!-- ===== 顶部导航栏 ===== -->
+    <header class="top-nav">
+  <!-- ============================
+       顶部导航栏模块
+       功能：
+         - 显示网站 logo
+         - 提供主菜单导航
+         - 技术分类下拉菜单
+         - 新建笔记 / 关于我 / 我的项目 / 技能树
+         - 小屏幕汉堡菜单切换
+         - 退出登录按钮
+  ============================ -->
+
+  <!-- 网站 Logo -->
+  <div class="logo">
+    <a href="/">首页</a>
+    <!-- 点击跳转到网站首页 -->
+  </div>
+
+  <!-- 搜索栏（左侧显示） -->
+  <div class="search-bar" style="margin-right: auto; margin-left: 20px; position: relative;">
+    <input type="text" id="local-search-input" placeholder="搜索标题 / 内容 / 关键词..." autocomplete="off" />
+    <button id="search-btn">搜索</button>
+  </div>
+
+  <!-- 搜索结果抽屉（右侧滑出） -->
+  <div id="search-drawer" class="search-drawer">
+    <div class="drawer-header">
+      <h3>搜索结果 <span id="search-count" style="font-size:0.8rem; color:#666; font-weight:normal;"></span></h3>
+      <button id="close-drawer" aria-label="关闭">×</button>
+    </div>
+    <div id="drawer-content" class="drawer-content">
+      <div class="empty-state">请输入关键词进行搜索</div>
+    </div>
+  </div>
+
+  <!-- 汉堡按钮（小屏幕时显示） -->
+  <button class="menu-toggle" onclick="toggleMenu()" aria-label="切换菜单">☰</button>
+  <!-- onclick 调用 toggleMenu() 切换移动端菜单显示状态 -->
+
+  <!-- 主菜单容器 -->
+  <nav class="menu">
+
+    <!-- 普通菜单项 -->
+    <a href="/new-note/">新建笔记</a>
+    <a href="/notes/">笔记列表</a>
+    <a href="/archives/">时间轴</a>
+    <a href="/about/">关于我</a>
+    <a href="/projects/">项目集</a>
+    <a href="/skills/">技能树</a>
+    <button type="button" id="study-main-btn" class="menu-btn">学习资料</button>
+    <!-- 点击跳转到对应页面 -->
+
+    <!-- 技术分类下拉菜单 -->
+    <div class="dropdown">
+      <button class="menu-btn" type="button">技术分类</button>
+      <!-- 下拉按钮，点击显示分类列表 -->
+
+      <div class="dropdown-content">
+        
+          
+            <a href="/categories/01-%E8%A7%A3%E9%87%8A%E8%AF%B4%E6%98%8E/">01-解释说明</a>
+          
+            <a href="/categories/AI%E7%BB%84%E5%90%88/">AI组合</a>
+          
+            <a href="/categories/DB%E7%99%BB%E5%BD%95%E8%AE%BE%E7%BD%AE/">DB登录设置</a>
+          
+            <a href="/categories/ITA/">ITA</a>
+          
+            <a href="/categories/JUnit/">JUnit</a>
+          
+            <a href="/categories/TOOL/">TOOL</a>
+          
+            <a href="/categories/URL/">URL</a>
+          
+            <a href="/categories/%E3%83%A1%E3%83%A2/">メモ</a>
+          
+            <a href="/categories/%E5%85%A8%E6%A0%88%E6%8A%80%E6%9C%AF%E6%B8%85%E5%8D%95/">全栈技术清单</a>
+          
+            <a href="/categories/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">命令执行</a>
+          
+            <a href="/categories/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">思维导图</a>
+          
+            <a href="/categories/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B0/">日语笔记</a>
+          
+            <a href="/categories/%E6%A8%A1%E6%9D%BF/">模板</a>
+          
+            <a href="/categories/%E8%A8%AD%E8%A8%88%E6%9B%B8%E7%9B%B8%E9%96%A2/">設計書相関</a>
+          
+            <a href="/categories/%E8%AE%A1%E5%88%92/">计划</a>
+          
+            <a href="/categories/%E9%85%8D%E7%BD%AE/">配置</a>
+          
+            <a href="/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/">项目管理</a>
+          
+        
+      </div>
+    </div>
+    <!-- 技术分类下拉菜单结束 -->
+
+    <!-- 退出登录按钮 -->
+    <button class="logout" onclick="logout()">退出</button>
+    <!-- 点击调用 logout() 清除登录状态并跳转登录页 -->
+
+  </nav>
+  <!-- 主菜单容器结束 -->
+
+</header>
+<!-- 顶部导航栏结束 -->
+
+<script>
+  // 全站搜索功能
+  const searchInput = document.getElementById('local-search-input');
+  const searchBtn = document.getElementById('search-btn');
+  const searchDrawer = document.getElementById('search-drawer');
+  const drawerContent = document.getElementById('drawer-content');
+  const closeDrawerBtn = document.getElementById('close-drawer');
+  const searchCount = document.getElementById('search-count');
+
+  let searchData = [];
+
+  // 加载搜索数据
+  async function loadSearchData() {
+    if (searchData.length > 0) return;
+    try {
+      const response = await fetch('/search.xml');
+      const str = await response.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(str, "text/xml");
+      const entries = xml.querySelectorAll('entry');
+      
+      searchData = Array.from(entries).map(entry => {
+        return {
+          title: entry.querySelector('title')?.textContent || '',
+          content: entry.querySelector('content')?.textContent || '',
+          url: entry.querySelector('url')?.textContent || '',
+          categories: Array.from(entry.querySelectorAll('category')).map(c => c.textContent.trim()),
+          tags: Array.from(entry.querySelectorAll('tag')).map(t => t.textContent.trim())
+        };
+      });
+    } catch (e) {
+      console.error('Search data load failed:', e);
+      drawerContent.innerHTML = '<div class="error-state">搜索数据加载失败，请刷新重试</div>';
+    }
+  }
+
+  // 打开抽屉
+  function openDrawer() {
+    searchDrawer.classList.add('open');
+  }
+
+  // 关闭抽屉
+  function closeDrawer() {
+    searchDrawer.classList.remove('open');
+  }
+
+  // 执行搜索
+  async function performSearch() {
+    const term = searchInput.value.trim().toLowerCase();
+    
+    // 即使为空也打开抽屉，显示提示
+    openDrawer();
+
+    if (!term) {
+      drawerContent.innerHTML = '<div class="empty-state">请输入关键词开始搜索...</div>';
+      searchCount.textContent = '';
+      return;
+    }
+    
+    drawerContent.innerHTML = '<div class="loading-state">正在搜索...</div>';
+
+    // 确保数据已加载
+    if (searchData.length === 0) {
+      await loadSearchData();
+    }
+    
+    const keywords = term.split(/[\s\-]+/);
+    
+    const matched = searchData.filter(item => {
+      const title = item.title.toLowerCase();
+      const content = item.content.toLowerCase();
+      const meta = (item.categories.join(' ') + ' ' + item.tags.join(' ')).toLowerCase();
+      
+      return keywords.some(k => title.includes(k) || content.includes(k) || meta.includes(k));
+    });
+    
+    searchCount.textContent = `(共 ${matched.length} 条)`;
+
+    if (matched.length > 0) {
+      const html = matched.map(item => {
+        // 高亮关键词逻辑
+        let displayTitle = item.title;
+        let displayContent = item.content.replace(/<[^>]+>/g, "");
+        
+        // 简单截取预览
+        const snippetLength = 100;
+        // 尝试找到第一个关键词的位置
+        let firstIndex = -1;
+        for (const k of keywords) {
+          const idx = displayContent.toLowerCase().indexOf(k);
+          if (idx !== -1) {
+            firstIndex = idx;
+            break;
+          }
+        }
+        
+        let start = 0;
+        if (firstIndex > 20) {
+          start = firstIndex - 20;
+        }
+        
+        let snippet = displayContent.substring(start, start + snippetLength);
+        if (start > 0) snippet = '...' + snippet;
+        if (start + snippetLength < displayContent.length) snippet = snippet + '...';
+
+        // 简单的关键词高亮（不区分大小写替换）
+        keywords.forEach(k => {
+          if(!k) return;
+          const reg = new RegExp(`(${k})`, 'gi');
+          displayTitle = displayTitle.replace(reg, '<mark>$1</mark>');
+          snippet = snippet.replace(reg, '<mark>$1</mark>');
+        });
+
+        return `
+          <a href="${item.url}" class="search-item">
+            <div class="search-item-title">${displayTitle}</div>
+            <div class="search-item-content">${snippet}</div>
+            <div class="search-item-meta">
+              ${item.categories.length ? `<span class="tag category">${item.categories[0]}</span>` : ''}
+              ${item.tags.map(t => `<span class="tag">#${t}</span>`).join(' ')}
+            </div>
+          </a>
+        `;
+      }).join('');
+      drawerContent.innerHTML = html;
+    } else {
+      drawerContent.innerHTML = '<div class="empty-state">没有找到相关内容</div>';
+    }
+  }
+
+  // 按钮点击触发搜索
+  if (searchBtn) {
+    searchBtn.addEventListener('click', function() {
+      performSearch();
+    });
+  }
+
+  // 回车触发搜索
+  searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      performSearch();
+    }
+  });
+
+  // 关闭按钮事件
+  if (closeDrawerBtn) {
+    closeDrawerBtn.addEventListener('click', closeDrawer);
+  }
+
+  // 点击遮罩层关闭（如果在抽屉外点击）
+  // 这里我们做一个简单的处理：如果点击了主内容区域，也可以关闭
+  document.addEventListener('click', function(e) {
+    // 如果抽屉打开，且点击的不是抽屉本身，也不是搜索框/按钮
+    if (searchDrawer.classList.contains('open') && 
+        !searchDrawer.contains(e.target) && 
+        !searchInput.contains(e.target) && 
+        e.target !== searchBtn) {
+      closeDrawer();
+    }
+  });
+</script>
+
+    <!-- 导入 header 部分模板 -->
+
+    <!-- ===== 侧边栏 ===== -->
+    <aside class="sidebar" id="sidebar">
+  <!-- ============================
+       侧边栏模块
+       功能：
+         - 自动读取 Hexo 分类数据
+         - 自动读取 Hexo 标签数据
+         - 渲染为分类导航和标签云
+  ============================ -->
+
+  <!-- 分类导航 -->
+  <details class="sidebar-widget">
+    <summary class="sidebar-title">📘 分类导航</summary>
+    <ul class="category-list">
+      
+        
+          <li>
+            <a href="/categories/01-%E8%A7%A3%E9%87%8A%E8%AF%B4%E6%98%8E/">
+              <span class="sidebar-name">01-解释说明</span>
+              <span class="sidebar-count">3</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/AI%E7%BB%84%E5%90%88/">
+              <span class="sidebar-name">AI组合</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/DB%E7%99%BB%E5%BD%95%E8%AE%BE%E7%BD%AE/">
+              <span class="sidebar-name">DB登录设置</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/ITA/">
+              <span class="sidebar-name">ITA</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/JUnit/">
+              <span class="sidebar-name">JUnit</span>
+              <span class="sidebar-count">3</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/TOOL/">
+              <span class="sidebar-name">TOOL</span>
+              <span class="sidebar-count">9</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/URL/">
+              <span class="sidebar-name">URL</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/%E3%83%A1%E3%83%A2/">
+              <span class="sidebar-name">メモ</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/%E5%85%A8%E6%A0%88%E6%8A%80%E6%9C%AF%E6%B8%85%E5%8D%95/">
+              <span class="sidebar-name">全栈技术清单</span>
+              <span class="sidebar-count">5</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">
+              <span class="sidebar-name">命令执行</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">
+              <span class="sidebar-name">思维导图</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/%E6%97%A5%E8%AF%AD%E7%AC%94%E8%AE%B0/">
+              <span class="sidebar-name">日语笔记</span>
+              <span class="sidebar-count">59</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/%E6%A8%A1%E6%9D%BF/">
+              <span class="sidebar-name">模板</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/%E8%A8%AD%E8%A8%88%E6%9B%B8%E7%9B%B8%E9%96%A2/">
+              <span class="sidebar-name">設計書相関</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/%E8%AE%A1%E5%88%92/">
+              <span class="sidebar-name">计划</span>
+              <span class="sidebar-count">3</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/%E9%85%8D%E7%BD%AE/">
+              <span class="sidebar-name">配置</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/">
+              <span class="sidebar-name">项目管理</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </details>
+
+  <!-- 分割线 -->
+  <div class="sidebar-divider"></div>
+
+  <!-- 标签云 -->
+  <details class="sidebar-widget">
+    <summary class="sidebar-title">🏷️ 标签云</summary>
+    <ul class="tag-list">
+      
+        
+          <li>
+            <a href="/tags/hta/">
+              <span class="sidebar-name">.hta</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/A5M2/">
+              <span class="sidebar-name">A5M2</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/AI%E7%BB%84%E5%90%88/">
+              <span class="sidebar-name">AI组合</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/API%E8%AF%B7%E6%B1%82/">
+              <span class="sidebar-name">API请求</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Controller/">
+              <span class="sidebar-name">Controller</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Git/">
+              <span class="sidebar-name">Git</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Oracle/">
+              <span class="sidebar-name">Oracle</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/PC%E9%85%8D%E7%BD%AE/">
+              <span class="sidebar-name">PC配置</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/PMO/">
+              <span class="sidebar-name">PMO</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/VBA/">
+              <span class="sidebar-name">VBA</span>
+              <span class="sidebar-count">7</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/log/">
+              <span class="sidebar-name">log</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E3%83%A1%E3%83%A2/">
+              <span class="sidebar-name">メモ</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%85%A8%E6%A0%88%E6%8A%80%E6%9C%AF%E6%B8%85%E5%8D%95/">
+              <span class="sidebar-name">全栈技术清单</span>
+              <span class="sidebar-count">5</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%A4%A7%E5%9E%8BIT%E9%A1%B9%E7%9B%AE%E6%B5%81%E7%A8%8B/">
+              <span class="sidebar-name">大型IT项目流程</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%B7%A5%E5%85%B7/">
+              <span class="sidebar-name">工具</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%BC%8F%E6%A0%B7%E4%B9%A6%E5%81%9A%E6%88%90/">
+              <span class="sidebar-name">式样书做成</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%89%A7%E8%A1%8C%E7%B1%BB/">
+              <span class="sidebar-name">执行类</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%8A%80%E6%9C%AF%E7%82%B9%E8%AF%B4%E6%98%8E/">
+              <span class="sidebar-name">技术点说明</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E8%AF%AD%E5%8D%95%E8%AF%8D/">
+              <span class="sidebar-name">日语单词</span>
+              <span class="sidebar-count">44</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E8%AF%AD%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/">
+              <span class="sidebar-name">日语学习计划</span>
+              <span class="sidebar-count">3</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E8%AF%AD%E8%AF%AD%E6%B3%95/">
+              <span class="sidebar-name">日语语法</span>
+              <span class="sidebar-count">15</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%A6%82%E8%A6%81/">
+              <span class="sidebar-name">概要</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%A9%B3%E7%B4%B0%E8%A8%AD%E8%A8%88/">
+              <span class="sidebar-name">詳細設計</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E9%85%8D%E7%BD%AE/">
+              <span class="sidebar-name">配置</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </details>
+
+  <div class="sidebar-divider"></div>
+
+  <details class="sidebar-widget">
+    <summary class="sidebar-title" id="sidebar-study-title">📚 学习资料</summary>
+    <ul class="study-list">
+      <li>
+        <select id="file-type-select" style="width: 100%; padding: 6px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.85rem;">
+          <option value="pdf">PDF 文件</option>
+          <option value="image">图片文件</option>
+        </select>
+      </li>
+      <li>
+        <select id="category-select" style="width: 100%; margin-top: 6px; padding: 6px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.85rem;">
+          <option value="bcs">标初上</option>
+          <option value="bcx">标初下</option>
+          <option value="bzs">标中上</option>
+          <option value="bzx">标中下</option>
+          <option value="bgs">标高上</option>
+          <option value="bgx">标高下</option>
+        </select>
+      </li>
+      <li>
+        <button type="button" id="pdf-upload-btn" style="width: 100%; padding: 8px 12px; border-radius: 6px; border: none; background: #0f766e; color: #fff; cursor: pointer; font-size: 0.9rem;">上传文件</button>
+      </li>
+      <li>
+        <input type="file" id="pdf-upload-input" accept="application/pdf" multiple style="width: 100%; margin-top: 8px; font-size: 0.85rem;">
+      </li>
+    </ul>
+    <div class="study-groups">
+      <div class="study-group collapsed">
+        <div class="study-group-title">标初上</div>
+        <ul id="study-bcs">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标初下</div>
+        <ul id="study-bcx">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标中上</div>
+        <ul id="study-bzs">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标中下</div>
+        <ul id="study-bzx">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标高上</div>
+        <ul id="study-bgs">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标高下</div>
+        <ul id="study-bgx">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</aside>
+
+    <!-- 导入 sidebar 部分模板 -->
+  
+
+  <!-- ===== 主体内容区 ===== -->
+  <main id="main-content">
+    <!--
+  post.ejs
+  文章详情页模板
+  功能：
+    - 显示文章标题
+    - 显示文章发布日期和标签
+    - 渲染文章正文内容
+-->
+
+<article class="post">
+  <!-- 单篇文章容器，用于文章详情页布局和样式 -->
+
+  <!-- 文章标题 -->
+  <h1 class="post-title">JSON Key-Value 提取及处理工具</h1>
+  <!-- page.title → 当前文章标题 -->
+
+  <!-- 文章元信息：发布日期 + 标签 -->
+  <div class="post-meta">
+    <span>发表于 2026-02-19</span>
+    <!-- 显示文章发布日期 -->
+
+    
+      <!-- 判断文章是否有标签 -->
+
+      <span>标签：
+        
+          <a href="/tags/VBA/">VBA</a>
+          
+          <!-- 遍历文章标签，生成标签链接 -->
+          <!-- 多个标签用逗号分隔 -->
+        
+      </span>
+
+    
+    <!-- 标签判断结束 -->
+  </div>
+  <!-- 文章元信息结束 -->
+
+  <!-- 文章正文内容 -->
+  <div class="post-content">
+    
+
+    
+      <h2 id="1-Java-程序"><a href="#1-Java-程序" class="headerlink" title="1. Java 程序"></a>1. Java 程序</h2><h3 id="1-1-打包命令"><a href="#1-1-打包命令" class="headerlink" title="1.1 打包命令"></a>1.1 打包命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编译</span></span><br><span class="line">javac -d out JsonKeyValueExtractorGui.java</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成 manifest</span></span><br><span class="line"><span class="built_in">echo</span> Main-Class: JsonKeyValueExtractorGui &gt; manifest.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打包 jar</span></span><br><span class="line">jar cfm json2txt.jar manifest.txt -C out .</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-Java-源代码"><a href="#1-2-Java-源代码" class="headerlink" title="1.2 Java 源代码"></a>1.2 Java 源代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionEvent;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionListener;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.util.prefs.Preferences;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * JsonKeyValueExtractorGui</span></span><br><span class="line"><span class="comment"> * 用于从JSON文本中提取Key-Value，并输出到TXT文件</span></span><br><span class="line"><span class="comment"> * 支持记忆上次保存路径，初次为 D:\Json\text.txt</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JsonKeyValueExtractorGui</span> &#123;</span><br><span class="line">    <span class="comment">// 偏好项的键名，用于存储上次保存路径</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">PREF_KEY_LAST_PATH</span> <span class="operator">=</span> <span class="string">&quot;lastSavePath&quot;</span>;</span><br><span class="line">    <span class="comment">// 默认的初始保存路径</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DEFAULT_PATH</span> <span class="operator">=</span> <span class="string">&quot;D:\\Json\\text.txt&quot;</span>;</span><br><span class="line">    <span class="comment">// Preferences对象，基于当前类所在包，用于持久化保存/读取参数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Preferences</span> <span class="variable">prefs</span> <span class="operator">=</span> Preferences.userNodeForPackage(JsonKeyValueExtractorGui.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 主方法，程序入口</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 以线程安全方式在Swing UI线程中执行GUI创建</span></span><br><span class="line">        SwingUtilities.invokeLater(JsonKeyValueExtractorGui::createAndShowGui);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建和显示主界面</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">createAndShowGui</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">JFrame</span> <span class="variable">frame</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JFrame</span>(<span class="string">&quot;JSON Key-Value 提取器&quot;</span>); <span class="comment">// 新建窗口，设置标题</span></span><br><span class="line">        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); <span class="comment">// 关闭窗口时退出程序</span></span><br><span class="line">        frame.setSize(<span class="number">600</span>, <span class="number">500</span>); <span class="comment">// 设置窗口尺寸</span></span><br><span class="line">        frame.setLocationRelativeTo(<span class="literal">null</span>); <span class="comment">// 居中显示窗口</span></span><br><span class="line"></span><br><span class="line">        <span class="type">JTextArea</span> <span class="variable">inputArea</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JTextArea</span>(<span class="number">20</span>, <span class="number">50</span>); <span class="comment">// 创建20行50列的多行文本输入区</span></span><br><span class="line">        <span class="type">JScrollPane</span> <span class="variable">scrollPane</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JScrollPane</span>(inputArea); <span class="comment">// 将文本区放入带滚动条的面板</span></span><br><span class="line">        <span class="type">JButton</span> <span class="variable">processButton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JButton</span>(<span class="string">&quot;确定并输出到TXT&quot;</span>); <span class="comment">// 新建按钮</span></span><br><span class="line">        <span class="type">JLabel</span> <span class="variable">infoLabel</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="string">&quot;请粘贴Postman返回的JSON，然后点击“确定并输出到TXT”&quot;</span>); <span class="comment">// 顶部提示</span></span><br><span class="line"></span><br><span class="line">        frame.setLayout(<span class="keyword">new</span> <span class="title class_">BorderLayout</span>()); <span class="comment">// 设置窗口布局为BorderLayout</span></span><br><span class="line">        frame.add(infoLabel, BorderLayout.NORTH); <span class="comment">// 将提示标签放在顶部</span></span><br><span class="line">        frame.add(scrollPane, BorderLayout.CENTER); <span class="comment">// 将文本区放在中间</span></span><br><span class="line">        frame.add(processButton, BorderLayout.SOUTH); <span class="comment">// 将按钮放到底部</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 为按钮添加点击事件监听器</span></span><br><span class="line">        processButton.addActionListener(<span class="keyword">new</span> <span class="title class_">ActionListener</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span> &#123;</span><br><span class="line">                <span class="type">String</span> <span class="variable">inputText</span> <span class="operator">=</span> inputArea.getText(); <span class="comment">// 获取文本区输入内容</span></span><br><span class="line">                <span class="keyword">if</span> (inputText.trim().isEmpty()) &#123; <span class="comment">// 判断输入内容是否为空</span></span><br><span class="line">                    <span class="comment">// 如果为空，弹出错误对话框并退出事件</span></span><br><span class="line">                    JOptionPane.showMessageDialog(frame, <span class="string">&quot;输入内容不能为空&quot;</span>, <span class="string">&quot;错误&quot;</span>, JOptionPane.ERROR_MESSAGE);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="type">String</span> <span class="variable">lastPath</span> <span class="operator">=</span> prefs.get(PREF_KEY_LAST_PATH, DEFAULT_PATH); <span class="comment">// 获取上次保存路径，如无则用默认</span></span><br><span class="line">                <span class="type">File</span> <span class="variable">lastFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(lastPath); <span class="comment">// 构造文件对象</span></span><br><span class="line"></span><br><span class="line">                <span class="type">JFileChooser</span> <span class="variable">fileChooser</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JFileChooser</span>(); <span class="comment">// 新建文件选择器</span></span><br><span class="line">                fileChooser.setDialogTitle(<span class="string">&quot;选择输出txt文件保存位置&quot;</span>); <span class="comment">// 对话框标题</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">// 设置文件选择器的默认目录</span></span><br><span class="line">                <span class="keyword">if</span> (lastFile.getParentFile() != <span class="literal">null</span> &amp;&amp; lastFile.getParentFile().exists()) &#123;</span><br><span class="line">                    fileChooser.setCurrentDirectory(lastFile.getParentFile()); <span class="comment">// 父目录存在则设为默认目录</span></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    lastFile.getParentFile().mkdirs(); <span class="comment">// 如果目录不存在则先创建</span></span><br><span class="line">                    fileChooser.setCurrentDirectory(lastFile.getParentFile()); <span class="comment">// 再设为默认目录</span></span><br><span class="line">                &#125;</span><br><span class="line">                fileChooser.setSelectedFile(<span class="keyword">new</span> <span class="title class_">File</span>(lastFile.getName())); <span class="comment">// 默认文件名为上次名</span></span><br><span class="line"></span><br><span class="line">                <span class="type">int</span> <span class="variable">userSelection</span> <span class="operator">=</span> fileChooser.showSaveDialog(frame); <span class="comment">// 显示保存对话框，等待用户选择</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (userSelection == JFileChooser.APPROVE_OPTION) &#123; <span class="comment">// 用户点击“保存”</span></span><br><span class="line">                    <span class="type">File</span> <span class="variable">fileToSave</span> <span class="operator">=</span> fileChooser.getSelectedFile(); <span class="comment">// 获取用户选定的文件</span></span><br><span class="line">                    <span class="comment">// 使用UTF-8编码写入文件</span></span><br><span class="line">                    <span class="keyword">try</span> (<span class="type">BufferedWriter</span> <span class="variable">writer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedWriter</span>(<span class="keyword">new</span> <span class="title class_">OutputStreamWriter</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(fileToSave), <span class="string">&quot;UTF-8&quot;</span>))) &#123;</span><br><span class="line">                        <span class="type">String</span> <span class="variable">processResult</span> <span class="operator">=</span> processJsonLines(inputText); <span class="comment">// 处理输入内容为Key-Value串</span></span><br><span class="line">                        writer.write(processResult); <span class="comment">// 写入文件</span></span><br><span class="line">                        <span class="comment">// 提示保存成功及保存路径</span></span><br><span class="line">                        JOptionPane.showMessageDialog(frame, <span class="string">&quot;处理完成！结果已保存到:\n&quot;</span> + fileToSave.getAbsolutePath(), <span class="string">&quot;成功&quot;</span>, JOptionPane.INFORMATION_MESSAGE);</span><br><span class="line">                        prefs.put(PREF_KEY_LAST_PATH, fileToSave.getAbsolutePath()); <span class="comment">// 记忆本次保存路径</span></span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception ex) &#123; <span class="comment">// 捕捉写文件过程异常</span></span><br><span class="line">                        JOptionPane.showMessageDialog(frame, <span class="string">&quot;输出时出错: &quot;</span> + ex.getMessage(), <span class="string">&quot;错误&quot;</span>, JOptionPane.ERROR_MESSAGE);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        frame.setVisible(<span class="literal">true</span>); <span class="comment">// 显示主窗口</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 处理输入字符串，逐行提取key和value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> input 输入的JSON文本</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 获取的&quot;key[TAB]value&quot;格式的内容，每行一个键值对</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String <span class="title function_">processJsonLines</span><span class="params">(String input)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">result</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(); <span class="comment">// 用于拼接最后的全部输出字符串</span></span><br><span class="line">        String[] lines = input.split(<span class="string">&quot;\\r?\\n&quot;</span>); <span class="comment">// 将输入按行切分，兼容Windows和Unix换行</span></span><br><span class="line">        <span class="keyword">for</span> (String line : lines) &#123; <span class="comment">// 遍历每一行</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">trimmed</span> <span class="operator">=</span> line.trim(); <span class="comment">// 去掉首尾空格</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">colonIdx</span> <span class="operator">=</span> trimmed.indexOf(<span class="string">&#x27;:&#x27;</span>); <span class="comment">// 查找第一个冒号下标</span></span><br><span class="line">            <span class="keyword">if</span> (colonIdx &gt; <span class="number">0</span>) &#123; <span class="comment">// 仅处理含有冒号的行</span></span><br><span class="line">                <span class="type">String</span> <span class="variable">beforeColon</span> <span class="operator">=</span> trimmed.substring(<span class="number">0</span>, colonIdx).trim(); <span class="comment">// :前为key部分（含引号等）</span></span><br><span class="line">                <span class="type">String</span> <span class="variable">afterColon</span> <span class="operator">=</span> trimmed.substring(colonIdx + <span class="number">1</span>).trim(); <span class="comment">// :后为value部分（含逗号或引号等）</span></span><br><span class="line">                <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="literal">null</span>, value = <span class="string">&quot;&quot;</span>; <span class="comment">// 初始化key和value变量</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">firstQuote</span> <span class="operator">=</span> beforeColon.indexOf(<span class="string">&#x27;&quot;&#x27;</span>); <span class="comment">// 查找key第一个引号</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">secondQuote</span> <span class="operator">=</span> beforeColon.indexOf(<span class="string">&#x27;&quot;&#x27;</span>, firstQuote + <span class="number">1</span>); <span class="comment">// 查找key第二个引号</span></span><br><span class="line">                <span class="keyword">if</span> (firstQuote &gt;= <span class="number">0</span> &amp;&amp; secondQuote &gt; firstQuote) &#123; <span class="comment">// 确实被&quot;&quot;包围</span></span><br><span class="line">                    <span class="type">String</span> <span class="variable">possibleKey</span> <span class="operator">=</span> beforeColon.substring(firstQuote + <span class="number">1</span>, secondQuote); <span class="comment">// 提取引号内key名</span></span><br><span class="line">                    <span class="keyword">if</span> (possibleKey.matches(<span class="string">&quot;[a-zA-Z0-9_]+&quot;</span>)) &#123;  <span class="comment">// key只允许英文字母、数字、下划线</span></span><br><span class="line">                        key = possibleKey; <span class="comment">// 提取成功</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (key != <span class="literal">null</span>) &#123; <span class="comment">// 如果key已经提取</span></span><br><span class="line">                    afterColon = afterColon.replaceAll(<span class="string">&quot;,$&quot;</span>, <span class="string">&quot;&quot;</span>); <span class="comment">// 去除末尾逗号</span></span><br><span class="line">                    <span class="keyword">if</span> (afterColon.startsWith(<span class="string">&quot;\&quot;&quot;</span>)) &#123; <span class="comment">// value是字符串</span></span><br><span class="line">                        <span class="type">int</span> <span class="variable">vq1</span> <span class="operator">=</span> afterColon.indexOf(<span class="string">&#x27;&quot;&#x27;</span>); <span class="comment">// 第一个引号</span></span><br><span class="line">                        <span class="type">int</span> <span class="variable">vq2</span> <span class="operator">=</span> afterColon.indexOf(<span class="string">&#x27;&quot;&#x27;</span>, vq1 + <span class="number">1</span>); <span class="comment">// 第二个引号</span></span><br><span class="line">                        <span class="keyword">if</span> (vq1 &gt;= <span class="number">0</span> &amp;&amp; vq2 &gt; vq1)</span><br><span class="line">                            value = afterColon.substring(vq1 + <span class="number">1</span>, vq2); <span class="comment">// 提取引号内的字符串value</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 追加到输出，格式key+TAB+value+换行</span></span><br><span class="line">                    result.append(key).append(<span class="string">&quot;\t&quot;</span>).append(value).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result.toString(); <span class="comment">// 返回全部结果</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-RunBat-启动-Java-程序"><a href="#2-RunBat-启动-Java-程序" class="headerlink" title="2. RunBat (启动 Java 程序)"></a>2. RunBat (启动 Java 程序)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">&#x27;【功能】运行指定文件夹下的“起動.bat”批处理文件，如果文件不存在则弹窗并写入日志</span><br><span class="line">Public Sub RunBat(folderPath As String)</span><br><span class="line">    &#x27; 声明变量：wsh为脚本Shell对象，batPath为批处理文件路径</span><br><span class="line">    Dim wsh As Object</span><br><span class="line">    Dim batPath As String</span><br><span class="line">    &#x27; 拼接批处理文件完整路径</span><br><span class="line">    batPath = folderPath &amp; &quot;\起動.bat&quot;</span><br><span class="line">    </span><br><span class="line">    &#x27; 判断起動.bat文件是否存在</span><br><span class="line">    If Dir(batPath) &lt;&gt; &quot;&quot; Then</span><br><span class="line">        &#x27; 文件存在，创建WScript.Shell对象</span><br><span class="line">        Set wsh = CreateObject(&quot;WScript.Shell&quot;)</span><br><span class="line">        &#x27; 用cmd切换到目标目录并运行起動.bat，窗口显示，等待命令完成</span><br><span class="line">        wsh.Run &quot;cmd.exe /k &quot;&quot;cd /d &quot; &amp; folderPath &amp; &quot; &amp; 起動.bat&quot;&quot;&quot;, 1, True</span><br><span class="line">    Else</span><br><span class="line">        &#x27; 文件不存在，弹窗提示</span><br><span class="line">        MsgBox &quot;文件不存在：&quot; &amp; batPath, vbExclamation</span><br><span class="line">        &#x27; 记录错误到日志</span><br><span class="line">        LogError &quot;文件不存在：&quot; &amp; batPath</span><br><span class="line">    End If</span><br><span class="line">End Sub</span><br><span class="line"></span><br><span class="line">&#x27;【功能】尝试打开指定的Excel文件（相对路径），如不存在则提示并写入日志</span><br><span class="line">Public Sub OpenExcelTool(relativePath As String)</span><br><span class="line">    &#x27; 声明变量：filePath为要打开的Excel文件的完整路径</span><br><span class="line">    Dim filePath As String</span><br><span class="line">    &#x27; 以当前工作簿的目录为基础拼接目标文件路径</span><br><span class="line">    filePath = ThisWorkbook.Path &amp; &quot;\&quot; &amp; relativePath</span><br><span class="line">    </span><br><span class="line">    &#x27; 判断Excel文件是否存在</span><br><span class="line">    If Dir(filePath) &lt;&gt; &quot;&quot; Then</span><br><span class="line">        &#x27; 存在则直接以新窗口方式打开</span><br><span class="line">        Workbooks.Open filePath</span><br><span class="line">    Else</span><br><span class="line">        &#x27; 不存在则弹窗提示并写入日志</span><br><span class="line">        MsgBox &quot;Excel 文件不存在：&quot; &amp; filePath, vbExclamation</span><br><span class="line">        LogError &quot;Excel 文件不存在：&quot; &amp; filePath</span><br><span class="line">    End If</span><br><span class="line">End Sub</span><br><span class="line"></span><br><span class="line">&#x27;【功能】将错误信息写入当前工作簿目录下的ErrorLog.txt文件，每条带有时间戳</span><br><span class="line">Public Sub LogError(errorMsg As String)</span><br><span class="line">    &#x27; 声明变量：logFile为日志文件路径，fNum为可用文件号</span><br><span class="line">    Dim logFile As String</span><br><span class="line">    Dim fNum As Integer</span><br><span class="line">    &#x27; 拼接日志文件路径</span><br><span class="line">    logFile = ThisWorkbook.Path &amp; &quot;\ErrorLog.txt&quot;</span><br><span class="line">    </span><br><span class="line">    &#x27; 获取空闲文件号，追加方式打开日志文件（无则创建）</span><br><span class="line">    fNum = FreeFile</span><br><span class="line">    Open logFile For Append As #fNum</span><br><span class="line">    &#x27; 写入内容：当前时间 + 错误信息</span><br><span class="line">    Print #fNum, Now &amp; &quot; - &quot; &amp; errorMsg</span><br><span class="line">    &#x27; 关闭文件</span><br><span class="line">    Close #fNum</span><br><span class="line">End Sub</span><br><span class="line"></span><br><span class="line">&#x27;【功能】用于一键运行D:\Json目录下的起動.bat批处理文件</span><br><span class="line">Public Sub RunServerBat()</span><br><span class="line">    &#x27; 直接调用RunBat子程序，参数为D:\Json</span><br><span class="line">    RunBat &quot;D:\Json&quot;</span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-ImportKeyValueFromTxt-读取-Java-程序生成的文件内容"><a href="#3-ImportKeyValueFromTxt-读取-Java-程序生成的文件内容" class="headerlink" title="3. ImportKeyValueFromTxt (读取 Java 程序生成的文件内容)"></a>3. ImportKeyValueFromTxt (读取 Java 程序生成的文件内容)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">&#x27;【功能】导入由Java工具导出的key-value文本文件，将内容填入Sheet &quot;2&quot; 的A2/B2起始的列中</span><br><span class="line">Sub ImportKeyValueFromTxt()</span><br><span class="line">    &#x27; 声明工作表变量</span><br><span class="line">    Dim ws As Worksheet</span><br><span class="line">    &#x27; 存放所有行的字符串数组</span><br><span class="line">    Dim arrLines() As String</span><br><span class="line">    &#x27; 用于存储完整文件内容的字符串</span><br><span class="line">    Dim txt As String</span><br><span class="line">    &#x27; 循环变量</span><br><span class="line">    Dim i As Long</span><br><span class="line">    &#x27; 存储每行分割后的键值对</span><br><span class="line">    Dim kv As Variant</span><br><span class="line">    &#x27; 用于文件读取的ADODB对象</span><br><span class="line">    Dim fso As Object</span><br><span class="line">    &#x27; 存储选中的文件路径</span><br><span class="line">    Dim filePath As String</span><br><span class="line"></span><br><span class="line">    &#x27; 弹出文件选择对话框，让用户选择txt文件</span><br><span class="line">    filePath = Application.GetOpenFilename(&quot;Text Files (*.txt),*.txt&quot;, , &quot;ファイルを選択してください&quot;)</span><br><span class="line">    &#x27; 如果用户按了取消，则退出</span><br><span class="line">    If filePath = &quot;False&quot; Then Exit Sub</span><br><span class="line"></span><br><span class="line">    &#x27; 错误捕获：尝试获取名为&quot;2&quot;的工作表</span><br><span class="line">    On Error Resume Next</span><br><span class="line">    Set ws = ThisWorkbook.Sheets(&quot;2&quot;)</span><br><span class="line">    On Error GoTo 0</span><br><span class="line">    &#x27; 没有找到Sheet &quot;2&quot;时提醒并退出</span><br><span class="line">    If ws Is Nothing Then</span><br><span class="line">        MsgBox &quot;シート２が見つかりません&quot;, vbExclamation</span><br><span class="line">        Exit Sub</span><br><span class="line">    End If</span><br><span class="line"></span><br><span class="line">    &#x27; 激活目标工作表</span><br><span class="line">    ws.Activate</span><br><span class="line"></span><br><span class="line">    &#x27; 清除原有A2:B列的数据，防止残留</span><br><span class="line">    ws.Range(&quot;A2:B&quot; &amp; ws.Rows.Count).ClearContents</span><br><span class="line"></span><br><span class="line">    &#x27; 创建ADODB.Stream对象以utf-8编码方式读取文件</span><br><span class="line">    Set fso = CreateObject(&quot;ADODB.Stream&quot;)</span><br><span class="line">    fso.Charset = &quot;utf-8&quot;</span><br><span class="line">    fso.Open</span><br><span class="line">    fso.LoadFromFile filePath      &#x27; 载入用户选择的文件</span><br><span class="line">    txt = fso.ReadText             &#x27; 读入全部文本内容</span><br><span class="line">    fso.Close</span><br><span class="line"></span><br><span class="line">    &#x27; 用LF(&#x27;\n&#x27;)分割成每一行的数组</span><br><span class="line">    arrLines = Split(txt, vbLf)</span><br><span class="line"></span><br><span class="line">    &#x27; 按行写入Excel，A2起为key，B2起为value</span><br><span class="line">    For i = 0 To UBound(arrLines)</span><br><span class="line">        If Trim(arrLines(i)) &lt;&gt; &quot;&quot; Then                 &#x27; 跳过空行</span><br><span class="line">            kv = Split(arrLines(i), vbTab)              &#x27; 用Tab分割为数组</span><br><span class="line">            ws.Cells(i + 2, 1).Value = kv(0)            &#x27; A列写key</span><br><span class="line">            If UBound(kv) &gt;= 1 Then</span><br><span class="line">                ws.Cells(i + 2, 2).Value = kv(1)        &#x27; B列写value（如有）</span><br><span class="line">            Else</span><br><span class="line">                ws.Cells(i + 2, 2).Value = &quot;&quot;           &#x27; 否则B列空</span><br><span class="line">            End If</span><br><span class="line">        End If</span><br><span class="line">    Next i</span><br><span class="line"></span><br><span class="line">    &#x27; 弹窗提示处理完成</span><br><span class="line">    MsgBox &quot;取得完了&quot;, vbInformation</span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Mapping-项目与值进行匹配"><a href="#4-Mapping-项目与值进行匹配" class="headerlink" title="4. Mapping (项目与值进行匹配)"></a>4. Mapping (项目与值进行匹配)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">Option Explicit</span><br><span class="line"></span><br><span class="line">&#x27;【功能】规范化Key值（去除全角空格并做Trim）</span><br><span class="line">Private Function CleanKey(ByVal v As Variant) As String</span><br><span class="line">    Dim s As String</span><br><span class="line">    &#x27; 转换为字符串</span><br><span class="line">    s = CStr(v)</span><br><span class="line">    &#x27; 去除全角空格（ChrW(12288) 是全角空格）</span><br><span class="line">    s = Replace(s, ChrW(12288), &quot;&quot;)</span><br><span class="line">    &#x27; 去除前后半角空格</span><br><span class="line">    s = Trim(s)</span><br><span class="line">    &#x27; 返回处理后的字符串作为Key</span><br><span class="line">    CleanKey = s</span><br><span class="line">End Function</span><br><span class="line"></span><br><span class="line">&#x27;【功能】将Sheet2的key/value批量填入Sheet1（并做key清洗，填充前清除旧内容）</span><br><span class="line">Public Sub FillItemsAndValues()</span><br><span class="line">    &#x27; wsSrc：来源sheet2，wsTgt：目标sheet1</span><br><span class="line">    Dim wsSrc As Worksheet, wsTgt As Worksheet</span><br><span class="line">    Dim lastSrc As Long, lastTgt As Long &#x27; 数据的最后一行序号</span><br><span class="line">    Dim r As Long                        &#x27; 行循环变量</span><br><span class="line">    Dim dict As Object                   &#x27; 字典，存储清洗后的key与原始key/value</span><br><span class="line">    Dim k As String                      &#x27; 经过CleanKey处理后的key</span><br><span class="line">    Dim itemName As Variant, itemValue As Variant</span><br><span class="line">    </span><br><span class="line">    &#x27; 设置目标（1）和来源（2）工作表对象</span><br><span class="line">    Set wsTgt = ThisWorkbook.Sheets(&quot;1&quot;)</span><br><span class="line">    Set wsSrc = ThisWorkbook.Sheets(&quot;2&quot;)</span><br><span class="line">    </span><br><span class="line">    &#x27; 查找Sheet2最后一行（A列）</span><br><span class="line">    lastSrc = wsSrc.Cells(wsSrc.Rows.Count, 1).End(xlUp).Row</span><br><span class="line">    &#x27; 查找Sheet1最后一行（A列）</span><br><span class="line">    lastTgt = wsTgt.Cells(wsTgt.Rows.Count, 1).End(xlUp).Row</span><br><span class="line">    </span><br><span class="line">    &#x27; 创建Scripting.Dictionary对象保存key和(key, value)</span><br><span class="line">    Set dict = CreateObject(&quot;Scripting.Dictionary&quot;)</span><br><span class="line">    </span><br><span class="line">    &#x27; 将Sheet2中A、B列的全部数据写入字典，以规范化key为键</span><br><span class="line">    For r = 2 To lastSrc</span><br><span class="line">        k = CleanKey(wsSrc.Cells(r, 1).Value)</span><br><span class="line">        If Len(k) &gt; 0 Then</span><br><span class="line">            itemName = wsSrc.Cells(r, 1).Value</span><br><span class="line">            itemValue = wsSrc.Cells(r, 2).Value</span><br><span class="line">            dict(k) = Array(itemName, itemValue)</span><br><span class="line">        End If</span><br><span class="line">    Next r</span><br><span class="line">    </span><br><span class="line">    &#x27; 清空Sheet1中目标填充列（B列、D列；从第2行到底）</span><br><span class="line">    wsTgt.Range(wsTgt.Cells(2, 2), wsTgt.Cells(lastTgt, 2)).ClearContents</span><br><span class="line">    wsTgt.Range(wsTgt.Cells(2, 4), wsTgt.Cells(lastTgt, 4)).ClearContents</span><br><span class="line">    </span><br><span class="line">    &#x27; 提高效率：关闭屏幕刷新及自动计算</span><br><span class="line">    Application.ScreenUpdating = False</span><br><span class="line">    Application.Calculation = xlCalculationManual</span><br><span class="line">    </span><br><span class="line">    &#x27; 用Sheet1每一行A列的key（做清洗）去字典里查找，</span><br><span class="line">    &#x27; 找到就将原始key写到B列，对应value写到D列</span><br><span class="line">    For r = 2 To lastTgt</span><br><span class="line">        k = CleanKey(wsTgt.Cells(r, 1).Value)</span><br><span class="line">        If dict.Exists(k) Then</span><br><span class="line">            wsTgt.Cells(r, 2).Value = dict(k)(0) &#x27; B列写原始key</span><br><span class="line">            wsTgt.Cells(r, 4).Value = dict(k)(1) &#x27; D列写value</span><br><span class="line">        End If</span><br><span class="line">    Next r</span><br><span class="line">    </span><br><span class="line">    &#x27; 还原Excel设置</span><br><span class="line">    Application.Calculation = xlCalculationAutomatic</span><br><span class="line">    Application.ScreenUpdating = True</span><br><span class="line">    </span><br><span class="line">    &#x27; 处理完成，弹窗提示</span><br><span class="line">    MsgBox &quot;マッピング完了&quot;, vbInformation</span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
+      <!-- 渲染文章正文 HTML -->
+      <!-- 使用  不转义 HTML，保证内容中的标签生效 -->
+    
+  </div>
+  <!-- 文章正文结束 -->
+
+</article>
+<!-- 单篇文章容器结束 -->
+
+    <!-- 渲染当前页面内容 -->
+    <!--  保证 HTML 正常渲染，不转义 -->
+
+    <section id="study-main-panel" style="display:none; margin-top:24px;">
+      <h2 style="font-size:1.2rem; margin-bottom:12px;">📚 学习资料列表</h2>
+      <div id="study-main-groups">
+        <div class="study-group collapsed">
+          <div class="study-group-title">标初上</div>
+          <ul id="study-main-bcs">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标初下</div>
+          <ul id="study-main-bcx">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标中上</div>
+          <ul id="study-main-bzs">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标中下</div>
+          <ul id="study-main-bzx">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标高上</div>
+          <ul id="study-main-bgs">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标高下</div>
+          <ul id="study-main-bgx">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="study-viewer" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.9);z-index:2000;align-items:center;justify-content:center;">
+    <div style="position:relative;width:96vw;max-width:1200px;max-height:96vh;background:#020617;padding:10px 16px 14px;border-radius:10px;box-shadow:0 22px 70px rgba(0,0,0,0.7);display:flex;flex-direction:column;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;color:#e5e7eb;font-size:0.95rem;">
+        <span id="study-viewer-title" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:75vw;"></span>
+        <button id="study-viewer-close" style="border:none;background:transparent;color:#e5e7eb;font-size:1.3rem;cursor:pointer;line-height:1;">×</button>
+      </div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;margin:4px 0 6px;">
+        <img id="study-viewer-img" src="" alt="" style="max-width:100%;max-height:84vh;border-radius:4px;background:#020617;" />
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:10px;">
+        <button id="study-viewer-prev" style="min-width:80px;padding:6px 12px;border-radius:6px;border:none;background:#1e293b;color:#e5e7eb;cursor:pointer;font-size:0.9rem;">上一张</button>
+        <button id="study-viewer-next" style="min-width:80px;padding:6px 12px;border-radius:6px;border:none;background:#1e293b;color:#e5e7eb;cursor:pointer;font-size:0.9rem;">下一张</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 全局脚本区域 ===== -->
+  <script>
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "/login/";
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function toggleMenu() {
+      const menu = document.querySelector('header.top-nav .menu');
+      if (menu) {
+        menu.classList.toggle('show');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const uploadInput = document.getElementById('pdf-upload-input');
+      const uploadBtn = document.getElementById('pdf-upload-btn');
+      const typeSelect = document.getElementById('file-type-select');
+      const categorySelect = document.getElementById('category-select');
+      const studyPanel = document.getElementById('study-main-panel');
+      const studyMainBtn = document.getElementById('study-main-btn');
+      const sidebarStudyTitle = document.getElementById('sidebar-study-title');
+      const viewer = document.getElementById('study-viewer');
+      const viewerImg = document.getElementById('study-viewer-img');
+      const viewerTitle = document.getElementById('study-viewer-title');
+      const viewerPrev = document.getElementById('study-viewer-prev');
+      const viewerNext = document.getElementById('study-viewer-next');
+      const viewerClose = document.getElementById('study-viewer-close');
+
+      const studyFilesMap = {};
+      let currentCategory = null;
+      let currentIndex = 0;
+
+      const CATEGORY_CONFIG = [
+        { key: 'bcs', label: '标初上' },
+        { key: 'bcx', label: '标初下' },
+        { key: 'bzs', label: '标中上' },
+        { key: 'bzx', label: '标中下' },
+        { key: 'bgs', label: '标高上' },
+        { key: 'bgx', label: '标高下' }
+      ];
+
+      function getListEl(key) {
+        return document.getElementById('study-' + key);
+      }
+
+      function getMainListEl(key) {
+        return document.getElementById('study-main-' + key);
+      }
+
+      function updateAccept() {
+        if (!uploadInput || !typeSelect) return;
+        if (typeSelect.value === 'image') {
+          uploadInput.accept = 'image/*';
+        } else {
+          uploadInput.accept = 'application/pdf';
+        }
+      }
+
+      function isLocalhost() {
+        return (
+          location.hostname === 'localhost' ||
+          location.hostname === '127.0.0.1' ||
+          location.hostname === ''
+        );
+      }
+
+      async function fetchStudyList(catKey) {
+        if (!isLocalhost()) {
+          try {
+            const apiRes = await fetch('/api/study-list?category=' + encodeURIComponent(catKey));
+            if (apiRes.ok) {
+              const apiData = await apiRes.json();
+              if (Array.isArray(apiData.files)) {
+                return apiData.files;
+              }
+            }
+          } catch (e) {
+          }
+        }
+
+        try {
+          const ghRes = await fetch(
+            'https://api.github.com/repos/Sun1105/hexo-source/contents/source/study/' + catKey
+          );
+          if (!ghRes.ok) {
+            return [];
+          }
+          const ghData = await ghRes.json();
+          return Array.isArray(ghData) ? ghData : [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      async function loadResources() {
+        for (const cat of CATEGORY_CONFIG) {
+          const sideList = getListEl(cat.key);
+          const mainList = getMainListEl(cat.key);
+
+          if (sideList) {
+            sideList.innerHTML = '<li>加载中...</li>';
+          }
+          if (mainList) {
+            mainList.innerHTML = '<li>加载中...</li>';
+          }
+
+          const list = await fetchStudyList(cat.key);
+          const files = Array.isArray(list)
+            ? list.filter(file => file.name && /\.(pdf|png|jpe?g|gif|webp|svg)$/i.test(file.name))
+            : [];
+
+          studyFilesMap[cat.key] = files;
+
+          if (!files.length) {
+            if (sideList) sideList.innerHTML = '<li>暂无文件</li>';
+            if (mainList) mainList.innerHTML = '<li>暂无文件</li>';
+            continue;
+          }
+
+          const parts = files.map((file, index) => {
+            const href =
+              file.download_url ||
+              file.html_url ||
+              (file.path ? '/' + file.path.replace(/^source\//, '') : '#');
+            return (
+              '<li>' +
+                '<a href="' + href + '" target="_blank" class="study-file-link" data-category="' +
+                cat.key + '" data-index="' + index + '">' +
+                  '<span class="sidebar-name">' + file.name + '</span>' +
+                '</a>' +
+              '</li>'
+            );
+          });
+
+          if (sideList) {
+            sideList.innerHTML = parts.join('');
+            bindStudyLinks(sideList);
+          }
+          if (mainList) {
+            mainList.innerHTML = parts.join('');
+            bindStudyLinks(mainList);
+          }
+        }
+      }
+
+      loadResources();
+
+      if (typeSelect) {
+        typeSelect.addEventListener('change', updateAccept);
+        updateAccept();
+      }
+
+      function openViewer(category, index) {
+        const list = studyFilesMap[category] || [];
+        if (!list.length) return;
+
+        if (index < 0) index = 0;
+        if (index >= list.length) index = list.length - 1;
+
+        const file = list[index];
+        const href =
+          file.download_url ||
+          file.html_url ||
+          (file.path ? '/' + file.path.replace(/^source\//, '') : '#');
+
+        currentCategory = category;
+        currentIndex = index;
+
+        if (viewerImg) {
+          viewerImg.src = href;
+        }
+        if (viewerTitle) {
+          viewerTitle.textContent = file.name || '';
+        }
+        if (viewer) {
+          viewer.style.display = 'flex';
+        }
+
+        if (viewerPrev) {
+          viewerPrev.disabled = index <= 0;
+        }
+        if (viewerNext) {
+          viewerNext.disabled = index >= list.length - 1;
+        }
+      }
+
+      function closeViewer() {
+        if (viewer) {
+          viewer.style.display = 'none';
+        }
+      }
+
+      function showOffset(delta) {
+        if (!currentCategory) return;
+        openViewer(currentCategory, currentIndex + delta);
+      }
+
+      function onStudyLinkClick(event) {
+        if (!viewer || !viewerImg) return;
+        event.preventDefault();
+        const category = this.getAttribute('data-category');
+        const index = parseInt(this.getAttribute('data-index'), 10) || 0;
+        openViewer(category, index);
+      }
+
+      function bindStudyLinks(container) {
+        const links = container.querySelectorAll('a.study-file-link');
+        links.forEach(link => {
+          link.addEventListener('click', onStudyLinkClick);
+        });
+      }
+
+      function showStudyPanel() {
+        if (!studyPanel) return;
+        const main = document.getElementById('main-content');
+        if (main) {
+          const children = Array.from(main.children);
+          children.forEach(child => {
+            if (child.id === 'study-main-panel') {
+              child.style.display = 'block';
+            } else {
+              child.style.display = 'none';
+            }
+          });
+          main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      if (studyMainBtn) {
+        studyMainBtn.addEventListener('click', () => {
+          showStudyPanel();
+          loadResources();
+        });
+      }
+
+      // 左侧“学习资料”标题只负责展开侧边栏，不再强制切换主内容
+
+      const groupTitles = document.querySelectorAll('.study-group-title');
+      groupTitles.forEach(title => {
+        const group = title.parentElement;
+        const list = group.querySelector('ul');
+        if (!list) return;
+        title.addEventListener('click', () => {
+          group.classList.toggle('collapsed');
+        });
+      });
+
+      if (uploadBtn && uploadInput) {
+        uploadBtn.addEventListener('click', () => {
+          if (!uploadInput.files || !uploadInput.files.length) {
+            alert('请选择要上传的文件');
+            return;
+          }
+
+          const files = Array.from(uploadInput.files);
+          const type = typeSelect ? typeSelect.value : 'pdf';
+          const category = categorySelect ? categorySelect.value : 'bcs';
+
+          const invalid = files.some(file => {
+            const name = file.name.toLowerCase();
+            if (type === 'pdf') {
+              return !name.endsWith('.pdf');
+            }
+            if (type === 'image') {
+              return !/\.(png|jpe?g|gif|webp|svg)$/.test(name);
+            }
+            return true;
+          });
+
+          if (invalid) {
+            if (type === 'pdf') {
+              alert('仅支持扩展名为 .pdf 的文件');
+            } else if (type === 'image') {
+              alert('仅支持图片文件');
+            } else {
+              alert('文件类型不支持');
+            }
+            return;
+          }
+
+          uploadBtn.disabled = true;
+          uploadBtn.textContent = '上传中...';
+
+          let successCount = 0;
+          let failCount = 0;
+
+          function uploadAt(index) {
+            if (index >= files.length) {
+              const message = '上传完成：成功 ' + successCount + ' 个，失败 ' + failCount + ' 个';
+              alert(message);
+              uploadInput.value = '';
+              loadResources();
+              uploadBtn.disabled = false;
+              uploadBtn.textContent = '上传文件';
+              return;
+            }
+
+            const file = files[index];
+            const reader = new FileReader();
+
+            reader.onload = event => {
+              (async () => {
+                try {
+                  const dataUrl = event.target.result;
+                  const base64 = dataUrl.split(',')[1];
+
+                  const res = await fetch('/api/upload-pdf', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                      filename: file.name,
+                      content: base64,
+                      type,
+                      category
+                    })
+                  });
+
+                  if (res.ok) {
+                    successCount += 1;
+                  } else {
+                    failCount += 1;
+                    const status = res.status;
+                    let errorMsg = '未知错误';
+                    try {
+                      const errData = await res.json();
+                      errorMsg = errData.error || JSON.stringify(errData);
+                    } catch (e2) {
+                      if (status === 413) {
+                        errorMsg = '文件太大 (Payload Too Large)';
+                      } else {
+                        errorMsg = '服务器错误 (' + status + ')';
+                      }
+                    }
+                    console.error('上传失败:', file.name, errorMsg);
+                    alert('文件 "' + file.name + '" 上传失败: ' + errorMsg);
+                  }
+                } catch (e) {
+                  failCount += 1;
+                } finally {
+                  uploadAt(index + 1);
+                }
+              })();
+            };
+
+            reader.onerror = () => {
+              failCount += 1;
+              uploadAt(index + 1);
+            };
+
+            reader.readAsDataURL(file);
+          }
+
+          uploadAt(0);
+        });
+      }
+
+      if (viewerClose) {
+        viewerClose.addEventListener('click', () => {
+          closeViewer();
+        });
+      }
+
+      if (viewerPrev) {
+        viewerPrev.addEventListener('click', () => {
+          showOffset(-1);
+        });
+      }
+
+      if (viewerNext) {
+        viewerNext.addEventListener('click', () => {
+          showOffset(1);
+        });
+      }
+
+      if (viewer) {
+        viewer.addEventListener('click', event => {
+          if (event.target === viewer) {
+            closeViewer();
+          }
+        });
+      }
+
+      document.addEventListener('keydown', event => {
+        if (!viewer || viewer.style.display === 'none') return;
+        if (event.key === 'Escape') {
+          closeViewer();
+        } else if (event.key === 'ArrowLeft') {
+          showOffset(-1);
+        } else if (event.key === 'ArrowRight') {
+          showOffset(1);
+        }
+      });
+    });
+  </script>
+
+  <!-- ===== 可选的“返回顶部”按钮 ===== -->
+  <button id="backToTop" title="回到顶部">↑</button>
+
+  <script>
+    // ===== 返回顶部按钮逻辑 =====
+    const topBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      // 当页面向下滚动超过 300px 显示按钮，否则隐藏
+      topBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    topBtn.addEventListener('click', scrollToTop);
+    // 点击按钮触发平滑滚动到顶部
+  </script>
+
+  <!-- ===== Mermaid 流程图支持 ===== -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    
+    document.addEventListener("DOMContentLoaded", async () => {
+      mermaid.initialize({ startOnLoad: false, theme: 'default' });
+
+      // 查找并转换 mermaid 代码块
+      const mermaidBlocks = document.querySelectorAll('pre > code.language-mermaid');
+      if (mermaidBlocks.length > 0) {
+        mermaidBlocks.forEach(block => {
+          const content = block.textContent;
+          const pre = block.parentElement;
+          const div = document.createElement('div');
+          div.className = 'mermaid';
+          div.textContent = content;
+          pre.parentNode.replaceChild(div, pre);
+        });
+
+        // 渲染
+        await mermaid.run({
+          querySelector: '.mermaid'
+        });
+      }
+    });
+  </script>
+  <!-- ===== 引入编辑器弹窗组件 ===== -->
+  <div id="editorModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index: 1000;">
+  <div style="background:#fff; width:90%; max-width:800px; margin:50px auto; padding:20px; border-radius:8px; position:relative; max-height: 90vh; overflow-y: auto;">
+    <h2 id="editorTitle">编辑文章</h2>
+
+    <!-- 标题输入框 -->
+    <input type="text" id="noteTitle" placeholder="标题" style="width:100%; padding:8px; margin-bottom:10px;">
+
+    <!-- 文件名输入框 (新增) -->
+    <div style="margin-bottom: 10px; font-size: 0.85rem; color: #666; display: flex; align-items: center; gap: 10px;">
+        <label for="noteFilename" style="white-space: nowrap;">文件路径:</label>
+        <input type="text" id="noteFilename" placeholder="source/_posts/filename.md" style="flex: 1; padding: 5px; font-family: monospace; color: #555;">
+    </div>
+
+    <!-- 分类输入框 -->
+    <input type="text" id="noteCategory" placeholder="分类" style="width:100%; padding:8px; margin-bottom:10px;">
+
+    <!-- 标签输入框 -->
+    <input type="text" id="noteTags" placeholder="标签，用逗号分隔" style="width:100%; padding:8px; margin-bottom:10px;">
+
+    <!-- 内容输入框 -->
+    <textarea id="noteContent" rows="15" style="width:100%; padding:8px; font-family: monospace;"></textarea>
+
+    <!-- 保存/取消按钮 -->
+    <div style="margin-top:10px; display:flex; gap:10px;">
+      <button id="saveNoteBtn" style="flex:1; padding:10px; background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer;">💾 保存</button>
+      <button id="cancelEditBtn" style="flex:1; padding:10px; background:#dc3545; color:#fff; border:none; border-radius:5px; cursor:pointer;">❌ 取消</button>
+    </div>
+
+    <!-- Markdown 实时预览 -->
+    <div id="preview" style="margin-top:20px; padding:10px; border:1px solid #ddd; border-radius:5px; background: #f9f9f9;"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  window.mermaid = mermaid;
+  mermaid.initialize({ startOnLoad: false });
+</script>
+<script>
+(function() {
+  const owner = "Sun1105";              // GitHub 用户名
+  const repo = "hexo-source";           // 仓库名
+  const postsDir = "source/_posts";     // 文章目录
+  let editingNote = null;               // 当前正在编辑的文章对象
+
+  const editorModal = document.getElementById('editorModal');
+  const noteTitle = document.getElementById('noteTitle');
+  const noteFilename = document.getElementById('noteFilename');
+  const noteCategory = document.getElementById('noteCategory');
+  const noteTags = document.getElementById('noteTags');
+  const noteContent = document.getElementById('noteContent');
+  const saveNoteBtn = document.getElementById('saveNoteBtn');
+  const cancelEditBtn = document.getElementById('cancelEditBtn');
+  const previewDiv = document.getElementById('preview');
+
+  // 渲染预览（含 Mermaid 支持）
+  const renderPreview = async (content) => {
+    const trimmed = content.trim();
+    // 检测是否为完整 HTML 文档
+    const isFullHtml = trimmed.match(/^\s*<!DOCTYPE/i) || trimmed.match(/^\s*<html/i);
+
+    if (isFullHtml) {
+        // 使用 iframe 渲染完整 HTML
+        previewDiv.innerHTML = '<iframe id="previewFrame" style="width:100%; height:500px; border:1px solid #eee;"></iframe>';
+        const frame = document.getElementById('previewFrame');
+        if (frame) {
+            const doc = frame.contentDocument || frame.contentWindow.document;
+            doc.open();
+            doc.write(content);
+            doc.close();
+        }
+        return;
+    }
+
+    // Markdown 渲染
+    previewDiv.innerHTML = marked.parse(content);
+
+    if (window.mermaid) {
+      const mermaidBlocks = previewDiv.querySelectorAll('code.language-mermaid');
+      if (mermaidBlocks.length > 0) {
+        mermaidBlocks.forEach(block => {
+          const content = block.textContent;
+          const pre = block.parentElement;
+          const div = document.createElement('div');
+          div.className = 'mermaid';
+          div.textContent = content;
+          if (pre && pre.parentNode) {
+            pre.parentNode.replaceChild(div, pre);
+          }
+        });
+        try {
+          await window.mermaid.run({ querySelector: '#preview .mermaid' });
+        } catch (e) {
+          console.error("Mermaid render error:", e);
+        }
+      }
+    }
+  };
+
+  // 暴露给全局的函数
+  window.openEditor = async function(pathOrFile) {
+    let file;
+    
+    if (!pathOrFile) {
+        // 新建文章
+        file = null;
+    } else if (typeof pathOrFile === 'string') {
+        // 如果传入的是字符串（路径），则获取文件信息
+        let cleanPath = pathOrFile.replace(/\\/g, '/'); // 确保是正斜杠
+        if (!cleanPath.startsWith('source/')) {
+            cleanPath = 'source/' + cleanPath;
+        }
+        
+        // 处理中文路径
+        const encodedPath = cleanPath.split('/').map(encodeURIComponent).join('/');
+
+        try {
+            console.log(`正在获取文件信息: ${encodedPath}`);
+            const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${encodedPath}`);
+            if (!res.ok) {
+                const errText = await res.text();
+                throw new Error(`无法获取文件信息 (Status: ${res.status}): ${errText}`);
+            }
+            file = await res.json();
+        } catch (e) {
+            console.error(e);
+            alert('获取文件失败: ' + e.message + '\n请检查控制台 (F12) 获取更多信息。');
+            return;
+        }
+    } else {
+        file = pathOrFile;
+    }
+
+    editingNote = file;
+    editorModal.style.display = "block";
+
+    if (!file) {
+        // 新建模式
+        noteTitle.value = "";
+        noteFilename.value = "source/_posts/" + Date.now() + ".md"; // 默认文件名
+        noteCategory.value = "";
+        noteTags.value = "";
+        noteContent.value = "";
+        previewDiv.innerHTML = "";
+        document.getElementById('editorTitle').innerText = "新建文章";
+        return;
+    }
+
+    // 编辑模式
+    document.getElementById('editorTitle').innerText = "编辑文章";
+    noteTitle.value = "加载中...";
+    noteFilename.value = file.path || ""; // 填充文件路径
+    noteContent.value = "加载中...";
+
+    try {
+      // 获取文件内容
+      let content = "";
+      if (file.content && file.encoding === 'base64') {
+          // 使用 TextDecoder 处理 UTF-8 字符，比 escape/decodeURIComponent 更现代且稳健
+          try {
+              const binaryString = window.atob(file.content.replace(/\n/g, ""));
+              const bytes = new Uint8Array(binaryString.length);
+              for (let i = 0; i < binaryString.length; i++) {
+                  bytes[i] = binaryString.charCodeAt(i);
+              }
+              content = new TextDecoder('utf-8').decode(bytes);
+          } catch (e) {
+              console.warn("TextDecoder failed, falling back to legacy decode:", e);
+              content = decodeURIComponent(escape(window.atob(file.content.replace(/\n/g, ""))));
+          }
+      } else if (file.download_url) {
+          // 文件较大时（>1MB），API 不返回 content，需从 download_url 获取
+          console.log("File content too large, fetching from download_url...");
+          const rawRes = await fetch(file.download_url);
+          if (!rawRes.ok) {
+              throw new Error(`无法从 download_url 获取内容: ${rawRes.status}`);
+          }
+          content = await rawRes.text();
+      } else {
+          // 兜底：如果 API 返回结构不符合预期
+          if (file.content) {
+             // 非 base64 编码？直接使用
+             content = file.content;
+          } else {
+             throw new Error("未找到文件内容 (No content field and no download_url)");
+          }
+      }
+
+      // 解析Front Matter
+      // 使用 js-yaml 解析
+      const parts = content.split(/^---$/m);
+      if (parts.length >= 3) {
+        const frontMatterRaw = parts[1];
+        const body = parts.slice(2).join('---').trim();
+        
+        try {
+            const frontMatter = jsyaml.load(frontMatterRaw);
+            
+            // 标题
+            noteTitle.value = frontMatter.title || "";
+            
+            // 分类
+            if (frontMatter.categories) {
+                if (Array.isArray(frontMatter.categories)) {
+                    // 如果是数组，展平并用逗号分隔
+                    noteCategory.value = frontMatter.categories.flat().join(", ");
+                } else {
+                    noteCategory.value = frontMatter.categories;
+                }
+            } else if (frontMatter.category) {
+                 // 兼容 category 字段
+                 if (Array.isArray(frontMatter.category)) {
+                    noteCategory.value = frontMatter.category.flat().join(", ");
+                } else {
+                    noteCategory.value = frontMatter.category;
+                }
+            } else {
+                noteCategory.value = "";
+            }
+
+            // 标签
+            if (frontMatter.tags) {
+                if (Array.isArray(frontMatter.tags)) {
+                    noteTags.value = frontMatter.tags.flat().join(", ");
+                } else {
+                    noteTags.value = frontMatter.tags;
+                }
+            } else {
+                noteTags.value = "";
+            }
+
+        } catch (e) {
+            console.error("YAML parsing error:", e);
+            alert("YAML 解析失败，请手动检查 Front Matter 格式");
+        }
+
+        noteContent.value = body;
+        renderPreview(body);
+
+      } else {
+        // 没有Front Matter
+        noteTitle.value = file.name.replace(/\.md$/, '');
+        noteContent.value = content;
+        renderPreview(content);
+      }
+
+    } catch (e) {
+      console.error(e);
+      noteContent.value = "读取内容失败: " + e.message;
+    }
+  };
+
+  // 监听输入，实时预览
+  noteContent.addEventListener('input', () => {
+    renderPreview(noteContent.value);
+  });
+
+  // 关闭
+  cancelEditBtn.onclick = () => {
+    editorModal.style.display = "none";
+    editingNote = null;
+  };
+
+  // 点击外部关闭
+  window.onclick = (event) => {
+    if (event.target == editorModal) {
+      editorModal.style.display = "none";
+      editingNote = null;
+    }
+  };
+
+  // 保存
+  saveNoteBtn.onclick = async () => {
+    const title = noteTitle.value.trim();
+    const content = noteContent.value;
+    const categories = noteCategory.value.trim();
+    const tags = noteTags.value.trim();
+    let filepath = noteFilename.value.trim();
+
+    if (!title) {
+      alert("请输入标题");
+      return;
+    }
+    
+    if (!filepath) {
+        alert("请输入文件路径");
+        return;
+    }
+    
+    // 确保路径以 source/ 开头 (可选，视需求而定，Hexo通常在source下)
+    if (!filepath.startsWith('source/')) {
+        filepath = 'source/' + filepath;
+    }
+    // 确保以 .md 结尾
+    if (!filepath.endsWith('.md')) {
+        filepath += '.md';
+    }
+
+    // 构造新的文件内容（含 Front Matter）
+    let newFileContent = "---\n";
+    newFileContent += `title: ${title}\n`;
+    newFileContent += `date: ${new Date().toISOString()}\n`;
+    if (categories) newFileContent += `categories: [${categories}]\n`;
+    if (tags) newFileContent += `tags: [${tags}]\n`;
+    newFileContent += "---\n\n";
+    newFileContent += content;
+
+    // Base64 编码
+    // const contentBase64 = window.btoa(unescape(encodeURIComponent(newFileContent)));
+    // API 期望直接的字符串，它会在后端进行 Base64 编码
+    
+    const sha = editingNote ? editingNote.sha : null;
+    // const path = editingNote ? editingNote.path : `source/_posts/${Date.now()}-${title}.md`;
+    
+    // 使用用户指定的文件路径
+    // 注意：如果是重命名（修改了路径），sha 应该为 null（视为新文件），或者后端支持移动操作
+    // 这里简化处理：如果路径变了，就视为创建新文件。旧文件依然存在（除非后端有处理逻辑）。
+    // 真正的重命名需要 delete old + create new
+    
+    const isRename = editingNote && (editingNote.path !== filepath);
+    const finalSha = isRename ? null : sha; 
+    
+    const payload = {
+        path: filepath,
+        message: sha ? `Update ${title}` : `Create ${title}`,
+        content: newFileContent, // 直接发送内容，后端处理 Base64
+        sha: finalSha
+    };
+
+    // 决定调用哪个后端 API (本地代理)
+    // 注意：这里我们调用本地的 Serverless Function 或者 Next.js API 路由
+    // 如果是纯 Hexo 静态站，通常没有后端。
+    // 但用户之前的 new-note.js 暗示了有 Vercel API 支持。
+    // 我们需要确认 API 路径。根据之前的分析，API 在 api/ 目录下。
+    // Vercel 会将 api/ 目录下的文件部署为 Serverless Functions。
+    // 假设路径是 /api/new-note 和 /api/edit-note
+
+    // 修复：如果是重命名（isRename=true）或者新建文件（!editingNote），finalSha 为 null
+    // 此时应该调用 /api/new-note，而不是 /api/edit-note
+    const apiUrl = finalSha ? '/api/edit-note' : '/api/new-note';
+
+    saveNoteBtn.disabled = true;
+    saveNoteBtn.innerText = "保存中...";
+
+    try {
+        const res = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        
+        if (res.ok) {
+            alert("保存成功！即将刷新...");
+            location.reload();
+        } else {
+            alert("保存失败: " + (data.error || JSON.stringify(data)));
+        }
+    } catch (e) {
+        console.error(e);
+        alert("请求失败: " + e.message);
+    } finally {
+        saveNoteBtn.disabled = false;
+        saveNoteBtn.innerText = "💾 保存";
+    }
+  };
+})();
+</script>
+</body>
+</html>
