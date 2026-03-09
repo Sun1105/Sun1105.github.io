@@ -11,7 +11,7 @@
   <!-- 如果当前页面有标题，则显示 "页面标题 | 网站标题" -->
   <!-- 否则只显示网站标题 config.title -->
   <title>
-    Sun Blog
+    dump比較 | Sun Blog
   </title>
 
   <!-- 页面描述，用于 SEO -->
@@ -718,732 +718,683 @@
   <!-- ===== 主体内容区 ===== -->
   <main id="main-content">
     <!--
-  category.ejs
-  分类页面模板
+  post.ejs
+  文章详情页模板
   功能：
-    - 显示分类标题
-    - 遍历当前分类下所有文章
-    - 渲染文章卡片列表
-    - 当分类下无文章时显示提示
+    - 显示文章标题
+    - 显示文章发布日期和标签
+    - 渲染文章正文内容
 -->
 
-<section class="main-section">
-  <!-- 页面主容器，控制布局和样式 -->
-
-  <!-- 分类标题 -->
-  <h2 class="section-title">📘 TOOL 分类</h2>
-  <!-- emoji 📘 用于视觉增强 -->
-  <!-- TOOL 动态输出当前页面所属分类名称 -->
-  <!-- 显示示例：📘 Java 分类 -->
-
-  <div class="post-list">
-    <!-- 文章列表容器，用于放置文章卡片 -->
-
-    
-    <!-- 判断当前分类下是否有文章 -->
-    <!-- page.posts → 当前页面文章数组 -->
-    <!-- page.posts.length → 文章数量，大于 0 则进入循环 -->
-
-      
-      <!-- 遍历当前分类下每篇文章 post -->
-      <!-- post 对象包含文章标题、路径、日期、分类、标签、摘要等信息 -->
-
-        <!--
-  _partial/post-card.ejs
-  功能：
-    - 渲染单篇文章的卡片
-    - 包含标题、发布日期、分类、标签、摘要、阅读全文按钮
-    - 可在分类页、标签页、归档页复用
--->
-
-<article class="post-card">
-  <!-- 单篇文章卡片容器，用于布局和样式 -->
+<article class="post">
+  <!-- 单篇文章容器，用于文章详情页布局和样式 -->
 
   <!-- 文章标题 -->
-  <h3 class="post-title">
-    <a href="/2026/03/08/1766472319352-dump%E6%AF%94%E8%BC%83/">dump比較</a>
-    <!-- 链接到文章详情页 -->
-    <!-- url_for(post.path) → 生成文章路径 -->
-    <!-- post.title → 当前文章标题 -->
-  </h3>
+  <h1 class="post-title">dump比較</h1>
+  <!-- page.title → 当前文章标题 -->
 
-  <!-- 文章元信息：发布日期 + 分类 + 标签 -->
-  <p class="post-meta">
-    发布于 2026-03-09
+  <!-- 文章元信息：发布日期 + 标签 -->
+  <div class="post-meta">
+    <span>发表于 2026-03-09</span>
     <!-- 显示文章发布日期 -->
 
-     |
-      分类：
-      
-        <a href="/categories/TOOL/">TOOL</a>
-        
-        <!-- 遍历文章分类 -->
-        <!-- 多个分类用逗号分隔 -->
-      
     
+      <!-- 判断文章是否有标签 -->
 
-     |
-      标签：
-      
-        <a href="/tags/VBA/">VBA</a>
+      <span>标签：
         
-        <!-- 遍历文章标签 -->
-        <!-- 多个标签用逗号分隔 -->
-      
+          <a href="/tags/VBA/">VBA</a>
+          
+          <!-- 遍历文章标签，生成标签链接 -->
+          <!-- 多个标签用逗号分隔 -->
+        
+      </span>
+
     
-  </p>
+    <!-- 标签判断结束 -->
+  </div>
   <!-- 文章元信息结束 -->
 
-  <!-- 文章摘要 -->
-  <p class="post-excerpt">
+  <!-- 文章正文内容 -->
+  <div class="post-content">
     
-    Option Explicit                                 ‘ 强制变量声明，避免隐式变量导致的错误Private RESULT_FALSE_COLOR As Lo...
-  </p>
 
-  <!-- 操作按钮容器 -->
-  <div class="post-actions">
-    <!-- 阅读全文按钮 -->
-    <a href="/2026/03/08/1766472319352-dump%E6%AF%94%E8%BC%83/" class="read-more">阅读全文 →</a>
-    <!-- 编辑按钮 -->
-    <button onclick="openEditor('_posts/1766472319352-dump比較.md')" class="read-more">✏️ 编辑</button>
+    
+      <p>Option Explicit                                 ‘ 强制变量声明，避免隐式变量导致的错误<br>Private RESULT_FALSE_COLOR As Long              ‘ 用于着色 FALSE 判定的颜色（变量，运行时赋值）</p>
+<p>‘ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ユーザー調整オプション &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;<br>Const MATCH_BY_KEY As Boolean &#x3D; False           ‘ 是否按“键列”突合：False&#x3D;按行号突合（默认），True&#x3D;按键值突合<br>Const KEY_COL_NAME As String &#x3D; “”               ‘ 键列标题名（仅在 MATCH_BY_KEY&#x3D;True 时生效；空则用首字段列作为键）<br>Const DATETIME_TOL_SEC As Double &#x3D; 1            ‘ 日期时间比较的容差（单位：秒）<br>‘ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<p>Public Sub RunBat()                             ‘ 主过程：抽取两表块、输出到Sheet3并比较生成判定<br>    Dim ws1 As Worksheet, ws2 As Worksheet, ws3 As Worksheet   ‘ 工作表对象引用<br>    Dim lastRow1 As Long, lastRow2 As Long, outRow As Long     ‘ 两表的最后行号、Sheet3当前输出行<br>    Dim tableDict1 As Object, tableDict2 As Object, tblKey As Variant  ‘ 存放块信息的字典、遍历键变量<br>    Dim tblHeaders1 As Object, tblHeaders2 As Object           ‘ 存放各块的表头（Variant 数组）<br>    Dim i As Long, key As String, sqlText As String, headerRow As Long  ‘ 临时变量：循环计数、键、SQL、表头行<br>    Dim tableName As String, colCount As Long, dataStart1 As Long, dataEnd1 As Long ‘ 表名、列数、块数据起止<br>    Dim cyanColor As Long, grayColor As Long, yellowColor As Long       ‘ 配色变量</p>
+<pre><code>cyanColor = RGB(135, 231, 173)                       &#39; 青绿色（用于表头行底色）
+grayColor = RGB(221, 235, 247)                       &#39; 灰蓝色（用于每个块的标题行）
+yellowColor = RGB(255, 255, 0)                       &#39; 黄色（示例：导航行或你也可用于 FALSE）
+                                                     &#39; 如需 FALSE 为红色，可把 RESULT_FALSE_COLOR 赋值为 RGB(255,0,0)
+RESULT_FALSE_COLOR = yellowColor                      &#39; 设置“FALSE 着色”为黄色；若要红色改为 RGB(255,0,0)
+
+Const firstColOffset As Long = 2                      &#39; 输出起始列偏移：结果从列B（=2）开始写
+
+Set ws1 = ThisWorkbook.Sheets(&quot;1&quot;)                    &#39; 绑定 Sheet &quot;1&quot;
+Set ws2 = ThisWorkbook.Sheets(&quot;2&quot;)                    &#39; 绑定 Sheet &quot;2&quot;
+Set ws3 = ThisWorkbook.Sheets(&quot;3&quot;)                    &#39; 绑定 Sheet &quot;3&quot;
+ws3.Cells.Clear                                       &#39; 清空 Sheet3（含数据、格式、颜色）
+
+Set tableDict1 = CreateObject(&quot;Scripting.Dictionary&quot;) &#39; 创建字典：保存Sheet1每个SQL块的元信息
+Set tblHeaders1 = CreateObject(&quot;Scripting.Dictionary&quot;)&#39; 创建字典：保存Sheet1各块的表头行数组
+Set tableDict2 = CreateObject(&quot;Scripting.Dictionary&quot;) &#39; 创建字典：保存Sheet2每个SQL块的元信息
+Set tblHeaders2 = CreateObject(&quot;Scripting.Dictionary&quot;)&#39; 创建字典：保存Sheet2各块的表头行数组
+
+lastRow1 = ws1.Cells(ws1.Rows.Count, 1).End(xlUp).Row  &#39; 求 Sheet1 的“最后有数据的行号”（按列A上探）
+lastRow2 = ws2.Cells(ws2.Rows.Count, 1).End(xlUp).Row  &#39; 求 Sheet2 的“最后有数据的行号”（按列A上探）
+outRow = 1                                             &#39; Sheet3 输出行初始为第 1 行
+
+&#39; ===== Sheet1 ブロック抽出 =================================================
+For i = 1 To lastRow1                                  &#39; 遍历 Sheet1 的每一行
+    If Left$(CStr(ws1.Cells(i, 1).Value), 7) = &quot;SELECT &quot; Then  &#39; 若该行以 &quot;SELECT &quot; 开头，则视为一个块的开始
+        sqlText = CStr(ws1.Cells(i, 1).Value)          &#39; 记录当前块的 SQL 语句（作为键）
+        tableName = &quot;&quot;                                 &#39; 初始化块的表名
+
+        &#39; FROM～WHERE の簡易抽出
+        Dim sqlParts() As String                       &#39; 用于临时切分 SQL 的数组
+        If InStr(1, sqlText, &quot;FROM&quot;, vbTextCompare) &gt; 0 Then  &#39; 若包含 &quot;FROM&quot;
+            sqlParts = Split(sqlText, &quot;FROM&quot;)          &#39; 以 &quot;FROM&quot; 切分
+            If UBound(sqlParts) &gt;= 1 Then              &#39; 确保存在 FROM 右侧部分
+                If InStr(1, sqlParts(1), &quot;WHERE&quot;, vbTextCompare) &gt; 0 Then &#39; 若右侧含 WHERE
+                    tableName = Trim$(Split(sqlParts(1), &quot;WHERE&quot;)(0))     &#39; 取 FROM 与 WHERE 间文本作为表名
+                Else
+                    tableName = Trim$(sqlParts(1))     &#39; 否则取 FROM 右侧全部作为表名（粗略）
+                End If
+            End If
+        End If
+
+        headerRow = i + 1                              &#39; 表头行：SQL 下方一行
+        colCount = ws1.Cells(headerRow, ws1.Columns.Count).End(xlToLeft).Column &#39; 统计表头的最右非空列
+
+        dataStart1 = i + 2                             &#39; 数据区起始：SQL 下两行
+        dataEnd1 = dataStart1                          &#39; 数据区终止先设为起始
+
+        &#39; ——以下循环：按“整行是否有值且未遇到下一个SELECT”来延伸数据区终止行——
+        Do While (dataEnd1 + 1 &lt;= lastRow1) _          &#39; 续行1：未超出Sheet1最后行
+                 And (Left$(CStr(ws1.Cells(dataEnd1 + 1, 1).Value), 7) &lt;&gt; &quot;SELECT &quot;) _ &#39; 续行2：下一行不是新块的SQL
+                 And (WorksheetFunction.CountA(ws1.Range(ws1.Cells(dataEnd1 + 1, 1), ws1.Cells(dataEnd1 + 1, colCount))) &gt; 0)  &#39; 续行3：该行1~表头末列至少有一个值
+            dataEnd1 = dataEnd1 + 1                    &#39; 若符合条件则把数据终止行下移一行
+        Loop                                           &#39; 直到不满足条件为止
+
+        key = sqlText                                  &#39; 以 SQL 本身作为块的唯一键
+        If Not tableDict1.Exists(key) Then             &#39; 若字典中还没有该键
+            tableDict1.Add key, Array(tableName, sqlText, headerRow, dataStart1, dataEnd1, colCount) &#39; 存入元信息
+            tblHeaders1(key) = ws1.Cells(headerRow, 1).Resize(1, colCount).Value                     &#39; 取表头行的整行值（1×N 数组）
+        End If
+    End If
+Next i                                                 &#39; 下一行
+
+&#39; ===== Sheet2 ブロック抽出 =================================================
+For i = 1 To lastRow2                                  &#39; 遍历 Sheet2 的每一行
+    If Left$(CStr(ws2.Cells(i, 1).Value), 7) = &quot;SELECT &quot; Then  &#39; 识别块开始
+        sqlText = CStr(ws2.Cells(i, 1).Value)          &#39; 记录 SQL
+        headerRow = i + 1                              &#39; 表头行为 SQL 下方一行
+        colCount = ws2.Cells(headerRow, ws2.Columns.Count).End(xlToLeft).Column &#39; 表头最后列
+
+        dataStart1 = i + 2                             &#39; 数据起始
+        dataEnd1 = dataStart1                          &#39; 数据终止初始化
+
+        &#39; ——同理：用“整行是否有值” + “未遇到新SELECT”来判定块的结束——
+        Do While (dataEnd1 + 1 &lt;= lastRow2) _          &#39; 续行1：未超出Sheet2最后行
+                 And (Left$(CStr(ws2.Cells(dataEnd1 + 1, 1).Value), 7) &lt;&gt; &quot;SELECT &quot;) _ &#39; 续行2：下一行不是新块
+                 And (WorksheetFunction.CountA(ws2.Range(ws2.Cells(dataEnd1 + 1, 1), ws2.Cells(dataEnd1 + 1, colCount))) &gt; 0)  &#39; 续行3：该行1~末列至少有值
+            dataEnd1 = dataEnd1 + 1                    &#39; 延伸数据终止行
+        Loop
+
+        key = sqlText                                  &#39; 以 SQL 作为块键
+        If Not tableDict2.Exists(key) Then             &#39; 若字典中无该键
+            tableDict2.Add key, Array(sqlText, headerRow, dataStart1, dataEnd1, colCount) &#39; 存元信息（Sheet2）
+            tblHeaders2(key) = ws2.Cells(headerRow, 1).Resize(1, colCount).Value         &#39; 存表头行数组（Sheet2）
+        End If
+    End If
+Next i
+
+&#39; ===== 出力＆比較 ==========================================================
+Dim tblKeyVar As Variant                              &#39; 遍历块键的变量
+For Each tblKeyVar In tableDict1.Keys                 &#39; 遍历所有 Sheet1 的块键
+    Dim arr1, arr2, header1, header2                  &#39; 临时：存放块信息数组、表头数组
+    Dim startFieldCol1 As Long, startFieldCol2 As Long &#39; 每块的实际字段起始列（表头首列可能为空）
+    Dim actualFieldCount As Long, actualFieldCount2 As Long &#39; 实际字段数（总列数-起始偏移+1）
+    Dim iCol As Long                                   &#39; 列循环计数
+
+    arr1 = tableDict1(tblKeyVar)                       &#39; 取 Sheet1 当前块元信息
+    tableName = arr1(0)                                &#39; 表名（粗略提取）
+    sqlText = arr1(1)                                  &#39; SQL 文本
+    Dim headerRow1 As Long: headerRow1 = arr1(2)       &#39; 表头行（Sheet1）
+    Dim dataStartA As Long: dataStartA = arr1(3)       &#39; 数据起始行（Sheet1）
+    Dim dataEndA As Long:   dataEndA = arr1(4)         &#39; 数据终止行（Sheet1）
+    Dim colCount1 As Long:  colCount1 = arr1(5)        &#39; 列数（Sheet1）
+    header1 = tblHeaders1(tblKeyVar)                   &#39; 表头行数组（Sheet1）
+
+    Dim hasTable2 As Boolean: hasTable2 = tableDict2.Exists(tblKeyVar) &#39; Sheet2 是否存在对应块
+
+    &#39; 見出しラベル
+    ws3.Cells(outRow, 1).Value = tableName             &#39; 输出块标题：表名
+    ws3.Rows(outRow).Interior.Color = grayColor        &#39; 标题行底色（灰蓝）
+    outRow = outRow + 1                                &#39; 下一行
+    ws3.Cells(outRow, 1).Value = sqlText               &#39; 输出 SQL 文本
+    outRow = outRow + 1                                &#39; 下一行
+
+    &#39; ナビ行（如需保留，可取消注释）
+    &#39; ws3.Cells(outRow, 1).Value = &quot;Ctrl+→&quot;           &#39; 导航提示（可选）
+    &#39; ws3.Cells(outRow, firstColOffset).Value = &quot;★&quot;    &#39; 导航标记（可选）
+    &#39; ws3.Range(ws3.Cells(outRow, 1), ws3.Cells(outRow, colCount1 + 1)).Interior.Color = yellowColor &#39; 导航行底色
+    &#39; outRow = outRow + 1                              &#39; 导航行结束，移到下一行
+
+    &#39; ==== Sheet1 のヘッダー ====
+    startFieldCol1 = 1                                 &#39; 假设字段从表头第1列开始
+    If Trim$(CStr(header1(1, 1) &amp; &quot;&quot;)) = &quot;&quot; Then startFieldCol1 = 2  &#39; 若表头第1列为空，则从第2列开始
+
+    actualFieldCount = colCount1 - startFieldCol1 + 1  &#39; 实际字段数（去掉可能的前导空列）
+    For iCol = 0 To actualFieldCount - 1               &#39; 遍历所有字段列
+        With ws3.Cells(outRow, iCol + firstColOffset)  &#39; 定位到 Sheet3 的输出单元格
+            .Value = ws1.Cells(headerRow1, startFieldCol1 + iCol).Value  &#39; 写入表头文字
+            .NumberFormat = &quot;@&quot;                        &#39; 表头强制为文本
+        End With
+    Next iCol
+    ws3.Range(ws3.Cells(outRow, firstColOffset), ws3.Cells(outRow, firstColOffset + actualFieldCount - 1)).Interior.Color = cyanColor &#39; 表头行底色（青绿）
+    Dim headerVal1 As Long: headerVal1 = outRow        &#39; 记录 Sheet1 表头所在的行号
+    outRow = outRow + 1                                 &#39; 移到数据区第一行
+
+    &#39; ==== Sheet1 のデータ ====
+    Dim dataCount1 As Long                             &#39; Sheet1 数据行数
+    dataCount1 = dataEndA - dataStartA + 1             &#39; 计算数据行数
+
+    Dim dRow As Long, lastDataRow1 As Long             &#39; 数据区循环行号、最后一行记录
+    For dRow = 0 To dataCount1 - 1                     &#39; 遍历每一条记录
+        For iCol = 0 To actualFieldCount - 1           &#39; 遍历每一个字段
+            Dim src1 As Range, dst1 As Range           &#39; 源单元格、目标单元格
+            Set src1 = ws1.Cells(dataStartA + dRow, startFieldCol1 + iCol) &#39; 源：Sheet1 对应单元格
+            Set dst1 = ws3.Cells(outRow, iCol + firstColOffset)            &#39; 目标：Sheet3 输出位置
+            dst1.Value = src1.Value                    &#39; 复制“值”（保持类型）
+            On Error Resume Next                       &#39; 尝试复制显示格式，出错则忽略
+            dst1.NumberFormatLocal = src1.NumberFormatLocal  &#39; 同步源的本地化格式（日期等保持显示）
+            On Error GoTo 0                            &#39; 恢复错误处理
+        Next iCol
+        outRow = outRow + 1                            &#39; 填完一行后下移
+    Next dRow
+    lastDataRow1 = outRow - 1                          &#39; 记录 Sheet1 数据块在 Sheet3 的最后行
+
+    &#39; 罫線（为表头+数据区画边框）
+    With ws3.Range(ws3.Cells(headerVal1, firstColOffset), ws3.Cells(lastDataRow1, firstColOffset + actualFieldCount - 1)).Borders
+        .LineStyle = xlContinuous                      &#39; 连续线
+        .Weight = xlThin                               &#39; 细线
+    End With
+
+    outRow = outRow + 1                                &#39; Sheet1 块与下方内容之间空一行
+
+    &#39; ==== Sheet2 がある場合 ====
+    Dim headerRow2 As Long, dataStartB As Long, dataEndB As Long, colCount2 As Long &#39; Sheet2 对应块的元信息
+    If hasTable2 Then                                  &#39; 若 Sheet2 存在对应块
+        arr2 = tableDict2(tblKeyVar)                   &#39; 取该块元信息数组
+        headerRow2 = arr2(1)                           &#39; 表头行（Sheet2）
+        dataStartB = arr2(2)                           &#39; 数据起始行（Sheet2）
+        dataEndB = arr2(3)                             &#39; 数据终止行（Sheet2）
+        colCount2 = arr2(4)                            &#39; 列数（Sheet2）
+        header2 = tblHeaders2(tblKeyVar)               &#39; 表头数组（Sheet2）
+
+        startFieldCol2 = 1                             &#39; 默认从第1列表头开始
+        If Trim$(CStr(header2(1, 1) &amp; &quot;&quot;)) = &quot;&quot; Then startFieldCol2 = 2  &#39; 若第1列表头为空，从第2列起
+        actualFieldCount2 = colCount2 - startFieldCol2 + 1               &#39; 实际字段数（Sheet2）
+
+        ws3.Cells(outRow, 1).Value = sqlText           &#39; 再输出一次 SQL（用于区分上下两表）
+        outRow = outRow + 1                            &#39; 下一行
+
+        &#39; Sheet2 ヘッダー
+        For iCol = 0 To actualFieldCount2 - 1          &#39; 遍历字段列
+            With ws3.Cells(outRow, iCol + firstColOffset)    &#39; 定位输出单元格
+                .Value = ws2.Cells(headerRow2, startFieldCol2 + iCol).Value &#39; 写入表头文字
+                .NumberFormat = &quot;@&quot;                    &#39; 表头设为文本
+            End With
+        Next iCol
+        ws3.Range(ws3.Cells(outRow, firstColOffset), ws3.Cells(outRow, firstColOffset + actualFieldCount2 - 1)).Interior.Color = cyanColor &#39; 表头底色
+        Dim headerVal2 As Long: headerVal2 = outRow    &#39; 记录 Sheet2 表头所在行
+        outRow = outRow + 1                            &#39; 移到数据区起始行
+
+        &#39; Sheet2 データ
+        Dim dataCount2 As Long                         &#39; Sheet2 数据行数
+        dataCount2 = dataEndB - dataStartB + 1         &#39; 计算数据行数
+        Dim curDataRow2Start As Long: curDataRow2Start = outRow  &#39; 记录数据区开始行（备用）
+
+        For dRow = 0 To dataCount2 - 1                 &#39; 遍历每一条记录
+            For iCol = 0 To actualFieldCount2 - 1      &#39; 遍历每一列
+                Dim src2 As Range, dst2 As Range       &#39; 源/目标单元格
+                Set src2 = ws2.Cells(dataStartB + dRow, startFieldCol2 + iCol) &#39; 源：Sheet2
+                Set dst2 = ws3.Cells(outRow, iCol + firstColOffset)            &#39; 目标：Sheet3
+                dst2.Value = src2.Value                &#39; 复制值（保持类型）
+                On Error Resume Next                   &#39; 尝试复制显示格式
+                dst2.NumberFormatLocal = src2.NumberFormatLocal &#39; 同步源格式
+                On Error GoTo 0                        &#39; 恢复错误处理
+            Next iCol
+            outRow = outRow + 1                        &#39; 数据行下移
+        Next dRow
+
+        Dim lastDataRow2 As Long: lastDataRow2 = outRow - 1 &#39; 记录 Sheet2 数据块在 Sheet3 的最后行
+        With ws3.Range(ws3.Cells(headerVal2, firstColOffset), ws3.Cells(lastDataRow2, firstColOffset + actualFieldCount2 - 1)).Borders
+            .LineStyle = xlContinuous                  &#39; 连续线
+            .Weight = xlThin                           &#39; 细线
+        End With
+
+        &#39; ===== 判定 =====
+        Dim maxRow As Long                             &#39; 计算两表数据行数的最大值
+        maxRow = WorksheetFunction.Max(dataCount1, dataCount2) &#39; 取较大者，逐行对齐比较
+        outRow = outRow + 1                            &#39; 判定区上方空一行
+
+        If MATCH_BY_KEY Then                           &#39; 如果启用“按键值突合”
+            &#39; ---------- キー突合せモード ----------
+            Dim keyColIndex1 As Long, keyColIndex2 As Long                       &#39; 键列的绝对列号（两表）
+            keyColIndex1 = ResolveKeyColumnIndex(ws1, headerRow1, startFieldCol1, actualFieldCount, KEY_COL_NAME) &#39; 解析Sheet1键列
+            keyColIndex2 = ResolveKeyColumnIndex(ws2, headerRow2, startFieldCol2, actualFieldCount2, KEY_COL_NAME) &#39; 解析Sheet2键列
+
+            Dim map1 As Object, map2 As Object                                   &#39; 键 → 行号 的映射字典
+            Set map1 = BuildKeyToRowMap(ws1, dataStartA, dataEndA, keyColIndex1) &#39; 由Sheet1构建映射（重复键取最后）
+            Set map2 = BuildKeyToRowMap(ws2, dataStartB, dataEndB, keyColIndex2) &#39; 由Sheet2构建映射
+
+            Dim uni As Object: Set uni = UnionKeys(map1, map2)                   &#39; 两表键的并集
+
+            Dim k As Variant, r1 As Long, r2 As Long                             &#39; 遍历每个键并取对应行
+            For Each k In uni.Keys
+                If ws3.Cells(outRow, 1).Value = &quot;&quot; Then ws3.Cells(outRow, 1).Value = &quot;判定 (Key=&quot; &amp; k &amp; &quot;)&quot; &#39; 首行写“判定”标题（含键）
+                r1 = NzLng(map1(k))                                              &#39; Sheet1 该键所在行（0 表示无）
+                r2 = NzLng(map2(k))                                              &#39; Sheet2 该键所在行（0 表示无）
+                WriteCompareRow ws3, ws1, ws2, outRow, firstColOffset, _         &#39; 写出一行判定（逐列 TRUE/FALSE）
+                                headerRow1, startFieldCol1, actualFieldCount, r1, _
+                                headerRow2, startFieldCol2, actualFieldCount2, r2
+                outRow = outRow + 1                                              &#39; 判定行下移
+            Next k
+
+        Else                                           &#39; 否则按行号一一对应比较
+            For dRow = 0 To maxRow - 1                 &#39; 从第 0 条到 maxRow-1 条记录
+                If dRow = 0 Then ws3.Cells(outRow, 1).Value = &quot;判定&quot; &#39; 首行在A列输出“判定”
+                WriteCompareRow ws3, ws1, ws2, outRow, firstColOffset, _         &#39; 写出一行判定（逐列）
+                                headerRow1, startFieldCol1, actualFieldCount, dataStartA + dRow, _
+                                headerRow2, startFieldCol2, actualFieldCount2, dataStartB + dRow
+                outRow = outRow + 1                                              &#39; 判定行下移
+            Next dRow
+        End If
+
+        outRow = outRow + 1                              &#39; 判定区与下一个块之间空一行
+
+    Else                                                 &#39; 若 Sheet2 未找到对应块
+        ws3.Cells(outRow, 1).Value = &quot;Sheet2見つかりません&quot; &#39; 在A列提示“Sheet2未找到”
+        outRow = outRow + 2                               &#39; 空两行
+    End If
+
+    outRow = outRow + 1                                    &#39; 每个块之间再空一行
+Next tblKeyVar                                            &#39; 遍历下一个块键
+
+ws3.Cells.Font.Name = &quot;Meiryo UI&quot;                          &#39; 设置 Sheet3 使用 Meiryo UI 字体
+
+MsgBox &quot;Sheet3導出完了&quot;                                     &#39; 弹窗提示：导出完成
+</code></pre>
+<p>End Sub</p>
+<p>Private Sub WriteCompareRow(ByVal wsOut As Worksheet, _        ‘ 子过程：写出一行“判定”结果（逐列 TRUE&#x2F;FALSE）<br>                            ByVal ws1 As Worksheet, ByVal ws2 As Worksheet, _<br>                            ByVal outRow As Long, ByVal firstColOffset As Long, _<br>                            ByVal headerRow1 As Long, ByVal startFieldCol1 As Long, ByVal fieldCount1 As Long, ByVal row1 As Long, _<br>                            ByVal headerRow2 As Long, ByVal startFieldCol2 As Long, ByVal fieldCount2 As Long, ByVal row2 As Long)</p>
+<pre><code>Dim iCol As Long                                            &#39; 列循环计数
+For iCol = 0 To fieldCount1 - 1                             &#39; 遍历 Sheet1 的每一个字段列（作为基准列数）
+    Dim v1 As Variant, v2 As Variant                        &#39; 两侧待比较的值
+
+    If row1 &gt;= headerRow1 + 1 Then v1 = ws1.Cells(row1, startFieldCol1 + iCol).Value Else v1 = Empty &#39; 若行存在则取 Sheet1 值，否则 Empty
+    If row2 &gt;= headerRow2 + 1 Then                           &#39; 若 Sheet2 该行存在
+        If iCol &lt;= fieldCount2 - 1 Then                      &#39; 且该列在 Sheet2 的字段范围内
+            v2 = ws2.Cells(row2, startFieldCol2 + iCol).Value &#39; 取 Sheet2 值
+        Else
+            v2 = Empty                                        &#39; 否则视为空
+        End If
+    Else
+        v2 = Empty                                            &#39; 若 Sheet2 行不存在则为空
+    End If
+
+    Dim isEq As Boolean                                      &#39; 该列是否相等
+    isEq = AreEqualValue(v1, v2)                              &#39; 调用比较函数判断（日期容差、0与空、数值/字符串等规则）
+
+    With wsOut.Cells(outRow, iCol + firstColOffset)           &#39; 定位到判定单元格
+        .Value = IIf(isEq, &quot;TRUE&quot;, &quot;FALSE&quot;)                   &#39; 写入字符串 &quot;TRUE&quot;/&quot;FALSE&quot;
+        .NumberFormat = &quot;@&quot;                                   &#39; 判定结果作为文本处理
+        If Not isEq Then
+            .Interior.Color = RESULT_FALSE_COLOR              &#39; 若不相等则按预设颜色着色（如黄色或红色）
+        Else
+            .Interior.Pattern = xlNone                        &#39; 相等则清除填充（可按需改成绿色等）
+        End If
+    End With
+Next iCol                                                     &#39; 下一列
+</code></pre>
+<p>End Sub</p>
+<p>Private Function AreEqualValue(ByVal v1 As Variant, ByVal v2 As Variant) As Boolean  ‘ 值比较函数（含多种规则）<br>    ‘ — 规则0：0 与 空必定不相等 —<br>    If (IsZeroLike(v1) And IsEmptyLike(v2)) Or (IsZeroLike(v2) And IsEmptyLike(v1)) Then<br>        AreEqualValue &#x3D; False                                     ‘ 一边为0，一边为空 &#x3D;&gt; 直接 False<br>        Exit Function<br>    End If</p>
+<pre><code>&#39; --- 规则1：双方都为空 =&gt; 相等 ---
+If IsEmptyLike(v1) And IsEmptyLike(v2) Then
+    AreEqualValue = True                                      &#39; 两边都空 =&gt; True
+    Exit Function
+End If
+
+&#39; --- 规则2：日期/时间比较（按序列值，支持秒级容差） ---
+If IsDateLike(v1) Or IsDateLike(v2) Then
+    On Error GoTo Fallback                                    &#39; 尝试转为 Double（序列值），失败转入后备
+    Dim d1 As Double, d2 As Double
+    d1 = CDbl(v1): d2 = CDbl(v2)                              &#39; 转为序列值
+    AreEqualValue = (Abs(d1 - d2) &lt;= (DATETIME_TOL_SEC / 86400#)) &#39; 容差：秒÷一天（86400）
+    Exit Function
+</code></pre>
+<p>Fallback:<br>        ‘ 若无法转为数值（例如字符串日期格式异常），则落回到后面的字符串比较<br>    End If</p>
+<pre><code>&#39; --- 规则3：双方皆为数值 =&gt; 数值比较 ---
+If IsNumeric(v1) And IsNumeric(v2) Then
+    AreEqualValue = (CDbl(v1) = CDbl(v2))                     &#39; 转为双精度再比较
+    Exit Function
+End If
+
+&#39; --- 规则4：字符串比较（去空格、&quot;NULL&quot; 视为空、大小写不敏感） ---
+Dim s1 As String, s2 As String
+s1 = NormalizeString(v1)                                      &#39; 归一化字符串1
+s2 = NormalizeString(v2)                                      &#39; 归一化字符串2
+AreEqualValue = (StrComp(s1, s2, vbTextCompare) = 0)          &#39; 忽略大小写比较
+</code></pre>
+<p>End Function</p>
+<p>Private Function NormalizeString(ByVal v As Variant) As String    ‘ 字符串归一化（空&#x2F;NULL→空串）<br>    If IsEmptyLike(v) Then<br>        NormalizeString &#x3D; “”                                      ‘ 空值统一为空串<br>    Else<br>        NormalizeString &#x3D; Trim$(CStr(v))                          ‘ 转字符串并修剪空格<br>        If UCase$(NormalizeString) &#x3D; “NULL” Then NormalizeString &#x3D; “”  ‘ 字面 “NULL” 也当空<br>    End If<br>End Function</p>
+<p>Private Function IsEmptyLike(ByVal v As Variant) As Boolean       ‘ 判断“空值”集合<br>    IsEmptyLike &#x3D; (IsEmpty(v) Or IsNull(v) Or (CStr(v) &#x3D; “”) Or (UCase$(Trim$(CStr(v))) &#x3D; “NULL”)) ‘ 空&#x2F;Null&#x2F;空串&#x2F;“NULL”<br>End Function</p>
+<p>Private Function IsDateLike(ByVal v As Variant) As Boolean        ‘ 宽松判断是否可当作日期<br>    On Error Resume Next                                          ‘ 先尝试转为数值（Excel 日期序列）<br>    Dim tmp As Double: tmp &#x3D; CDbl(v)<br>    IsDateLike &#x3D; (Err.Number &#x3D; 0 And tmp &gt; 0)                     ‘ 能转且&gt;0 视为可能是日期序列<br>    Err.Clear<br>    On Error GoTo 0<br>    If Not IsDateLike Then IsDateLike &#x3D; IsDate(v)                 ‘ 否则再用 VBA 的 IsDate 兜底判断<br>End Function</p>
+<p>Private Function ResolveKeyColumnIndex(ByVal ws As Worksheet, ByVal headerRow As Long, ByVal startFieldCol As Long, ByVal fieldCount As Long, ByVal keyHeader As String) As Long<br>                                                                 ‘ 解析“键列”的绝对列号：优先匹配标题名，否则回退到首字段列<br>    Dim idx As Long<br>    If LenB(keyHeader) &#x3D; 0 Then<br>        ResolveKeyColumnIndex &#x3D; startFieldCol                     ‘ 未给标题名则直接用首字段列<br>        Exit Function<br>    End If<br>    For idx &#x3D; 0 To fieldCount - 1                                 ‘ 遍历字段列，寻找与标题名一致的列<br>        If StrComp(CStr(ws.Cells(headerRow, startFieldCol + idx).Value), keyHeader, vbTextCompare) &#x3D; 0 Then<br>            ResolveKeyColumnIndex &#x3D; startFieldCol + idx           ‘ 找到匹配列，返回绝对列号<br>            Exit Function<br>        End If<br>    Next idx<br>    ResolveKeyColumnIndex &#x3D; startFieldCol                         ‘ 未找到则回退到首字段列<br>End Function</p>
+<p>Private Function BuildKeyToRowMap(ByVal ws As Worksheet, ByVal dataStart As Long, ByVal dataEnd As Long, ByVal keyCol As Long) As Object<br>                                                                 ‘ 构建“键 → 行号”的映射（若有重复键，采用最后一次出现的行）<br>    Dim d As Object: Set d &#x3D; CreateObject(“Scripting.Dictionary”)<br>    Dim r As Long, k As Variant<br>    For r &#x3D; dataStart To dataEnd                                  ‘ 遍历数据区每一行<br>        k &#x3D; ws.Cells(r, keyCol).Value                             ‘ 取该行键值<br>        If Not IsEmptyLike(k) Then d(CStr(k)) &#x3D; r                 ‘ 非空则记录（字符串化键）<br>    Next r<br>    Set BuildKeyToRowMap &#x3D; d                                      ‘ 返回字典<br>End Function</p>
+<p>Private Function UnionKeys(ByVal d1 As Object, ByVal d2 As Object) As Object<br>                                                                 ‘ 取两个键字典的并集（只关心键名）<br>    Dim u As Object: Set u &#x3D; CreateObject(“Scripting.Dictionary”)<br>    Dim k As Variant<br>    For Each k In d1.Keys: u(k) &#x3D; True: Next k                   ‘ 先放入字典1的键<br>    For Each k In d2.Keys: u(k) &#x3D; True: Next k                   ‘ 再放入字典2的键（重复自动覆盖为同一键）<br>    Set UnionKeys &#x3D; u                                             ‘ 返回并集字典<br>End Function</p>
+<p>Private Function NzLng(ByVal v As Variant) As Long               ‘ 将可空变体转为 Long（Empty→0，否则转 Long）<br>    If IsEmpty(v) Then NzLng &#x3D; 0 Else NzLng &#x3D; CLng(v)<br>End Function</p>
+<p>Private Function IsZeroLike(ByVal v As Variant) As Boolean       ‘ 判断是否为“0”（数值0或字符串”0”）<br>    If IsEmpty(v) Or IsNull(v) Then<br>        IsZeroLike &#x3D; False                                       ‘ 空&#x2F;Null 不是 0<br>    ElseIf IsNumeric(v) Then<br>        IsZeroLike &#x3D; (CDbl(v) &#x3D; 0)                               ‘ 数值型且等于 0<br>    Else<br>        IsZeroLike &#x3D; (Trim$(CStr(v)) &#x3D; “0”)                      ‘ 字符串内容正好是 “0”<br>    End If<br>End Function</p>
+<p>Option Explicit</p>
+<p>Const MATCH_BY_KEY As Boolean &#x3D; False<br>Const KEY_COL_NAME As String &#x3D; “”<br>Const DATETIME_TOL_SEC As Double &#x3D; 1</p>
+<p>Public Sub RunBat()<br>    Dim ws1 As Worksheet, ws2 As Worksheet, ws3 As Worksheet<br>    Dim lastRow1 As Long, lastRow2 As Long, outRow As Long<br>    Dim tableDict1 As Object, tableDict2 As Object, tblKey As Variant<br>    Dim tblHeaders1 As Object, tblHeaders2 As Object<br>    Dim i As Long, key As String, sqlText As String, headerRow As Long<br>    Dim tableName As String, colCount As Long, dataStart1 As Long, dataEnd1 As Long<br>    Dim cyanColor As Long, grayColor As Long, yellowColor As Long<br>    cyanColor &#x3D; RGB(135, 231, 173)<br>    grayColor &#x3D; RGB(221, 235, 247)<br>    yellowColor &#x3D; RGB(255, 255, 0)<br>    Const firstColOffset As Long &#x3D; 2</p>
+<pre><code>Set ws1 = ThisWorkbook.Sheets(&quot;1&quot;)
+Set ws2 = ThisWorkbook.Sheets(&quot;2&quot;)
+Set ws3 = ThisWorkbook.Sheets(&quot;3&quot;)
+ws3.Cells.Clear
+
+Set tableDict1 = CreateObject(&quot;Scripting.Dictionary&quot;)
+Set tblHeaders1 = CreateObject(&quot;Scripting.Dictionary&quot;)
+Set tableDict2 = CreateObject(&quot;Scripting.Dictionary&quot;)
+Set tblHeaders2 = CreateObject(&quot;Scripting.Dictionary&quot;)
+
+lastRow1 = ws1.Cells(ws1.Rows.Count, 1).End(xlUp).Row
+lastRow2 = ws2.Cells(ws2.Rows.Count, 1).End(xlUp).Row
+outRow = 1
+
+For i = 1 To lastRow1
+    If Left$(CStr(ws1.Cells(i, 1).Value), 7) = &quot;SELECT &quot; Then
+        sqlText = CStr(ws1.Cells(i, 1).Value)
+        tableName = &quot;&quot;
+
+        Dim sqlParts() As String
+        If InStr(1, sqlText, &quot;FROM&quot;, vbTextCompare) &gt; 0 Then
+            sqlParts = Split(sqlText, &quot;FROM&quot;)
+            If UBound(sqlParts) &gt;= 1 Then
+                If InStr(1, sqlParts(1), &quot;WHERE&quot;, vbTextCompare) &gt; 0 Then
+                    tableName = Trim$(Split(sqlParts(1), &quot;WHERE&quot;)(0))
+                Else
+                    tableName = Trim$(sqlParts(1))
+                End If
+            End If
+        End If
+
+        headerRow = i + 1
+        colCount = ws1.Cells(headerRow, ws1.Columns.Count).End(xlToLeft).Column
+
+        dataStart1 = i + 2
+        dataEnd1 = dataStart1
+
+        Do While (dataEnd1 + 1 &lt;= lastRow1) _
+                 And (Left$(CStr(ws1.Cells(dataEnd1 + 1, 1).Value), 7) &lt;&gt; &quot;SELECT &quot;) _
+                 And (WorksheetFunction.CountA(ws1.Range(ws1.Cells(dataEnd1 + 1, 1), ws1.Cells(dataEnd1 + 1, colCount))) &gt; 0)
+            dataEnd1 = dataEnd1 + 1
+        Loop
+
+        key = sqlText
+        If Not tableDict1.Exists(key) Then
+            tableDict1.Add key, Array(tableName, sqlText, headerRow, dataStart1, dataEnd1, colCount)
+            tblHeaders1(key) = ws1.Cells(headerRow, 1).Resize(1, colCount).Value
+        End If
+    End If
+Next i
+
+For i = 1 To lastRow2
+    If Left$(CStr(ws2.Cells(i, 1).Value), 7) = &quot;SELECT &quot; Then
+        sqlText = CStr(ws2.Cells(i, 1).Value)
+        headerRow = i + 1
+        colCount = ws2.Cells(headerRow, ws2.Columns.Count).End(xlToLeft).Column
+
+        dataStart1 = i + 2
+        dataEnd1 = dataStart1
+
+        Do While (dataEnd1 + 1 &lt;= lastRow2) _
+                 And (Left$(CStr(ws2.Cells(dataEnd1 + 1, 1).Value), 7) &lt;&gt; &quot;SELECT &quot;) _
+                 And (WorksheetFunction.CountA(ws2.Range(ws2.Cells(dataEnd1 + 1, 1), ws2.Cells(dataEnd1 + 1, colCount))) &gt; 0)
+            dataEnd1 = dataEnd1 + 1
+        Loop
+
+        key = sqlText
+        If Not tableDict2.Exists(key) Then
+            tableDict2.Add key, Array(sqlText, headerRow, dataStart1, dataEnd1, colCount)
+            tblHeaders2(key) = ws2.Cells(headerRow, 1).Resize(1, colCount).Value
+        End If
+    End If
+Next i
+
+Dim tblKeyVar As Variant
+For Each tblKeyVar In tableDict1.Keys
+    Dim arr1, arr2, header1, header2
+    Dim startFieldCol1 As Long, startFieldCol2 As Long
+    Dim actualFieldCount As Long, actualFieldCount2 As Long
+    Dim iCol As Long
+
+    arr1 = tableDict1(tblKeyVar)
+    tableName = arr1(0)
+    sqlText = arr1(1)
+    Dim headerRow1 As Long: headerRow1 = arr1(2)
+    Dim dataStartA As Long: dataStartA = arr1(3)
+    Dim dataEndA As Long:   dataEndA = arr1(4)
+    Dim colCount1 As Long:  colCount1 = arr1(5)
+    header1 = tblHeaders1(tblKeyVar)
+
+    Dim hasTable2 As Boolean: hasTable2 = tableDict2.Exists(tblKeyVar)
+
+    ws3.Cells(outRow, 1).Value = tableName
+    ws3.Rows(outRow).Interior.Color = grayColor
+    outRow = outRow + 1
+    ws3.Cells(outRow, 1).Value = sqlText
+    outRow = outRow + 1
+
+    ws3.Cells(outRow, 1).Value = &quot;Ctrl+→&quot;
+    ws3.Cells(outRow, firstColOffset).Value = &quot;★&quot;
+    ws3.Range(ws3.Cells(outRow, 1), ws3.Cells(outRow, colCount1 + 1)).Interior.Color = yellowColor
+    outRow = outRow + 1
+
+    startFieldCol1 = 1
+    If Trim$(CStr(header1(1, 1) &amp; &quot;&quot;)) = &quot;&quot; Then startFieldCol1 = 2
+
+    actualFieldCount = colCount1 - startFieldCol1 + 1
+    For iCol = 0 To actualFieldCount - 1
+        With ws3.Cells(outRow, iCol + firstColOffset)
+            .Value = ws1.Cells(headerRow1, startFieldCol1 + iCol).Value
+            .NumberFormat = &quot;@&quot;
+        End With
+    Next iCol
+    ws3.Range(ws3.Cells(outRow, firstColOffset), ws3.Cells(outRow, firstColOffset + actualFieldCount - 1)).Interior.Color = cyanColor
+    Dim headerVal1 As Long: headerVal1 = outRow
+    outRow = outRow + 1
+
+    Dim dataCount1 As Long
+    dataCount1 = dataEndA - dataStartA + 1
+
+    Dim dRow As Long, lastDataRow1 As Long
+    For dRow = 0 To dataCount1 - 1
+        For iCol = 0 To actualFieldCount - 1
+            Dim src1 As Range, dst1 As Range
+            Set src1 = ws1.Cells(dataStartA + dRow, startFieldCol1 + iCol)
+            Set dst1 = ws3.Cells(outRow, iCol + firstColOffset)
+            dst1.Value = src1.Value
+            On Error Resume Next
+            dst1.NumberFormatLocal = src1.NumberFormatLocal
+            On Error GoTo 0
+        Next iCol
+        outRow = outRow + 1
+    Next dRow
+    lastDataRow1 = outRow - 1
+
+    With ws3.Range(ws3.Cells(headerVal1, firstColOffset), ws3.Cells(lastDataRow1, firstColOffset + actualFieldCount - 1)).Borders
+        .LineStyle = xlContinuous
+        .Weight = xlThin
+    End With
+
+    outRow = outRow + 1
+
+    Dim headerRow2 As Long, dataStartB As Long, dataEndB As Long, colCount2 As Long
+    If hasTable2 Then
+        arr2 = tableDict2(tblKeyVar)
+        headerRow2 = arr2(1)
+        dataStartB = arr2(2)
+        dataEndB = arr2(3)
+        colCount2 = arr2(4)
+        header2 = tblHeaders2(tblKeyVar)
+
+        startFieldCol2 = 1
+        If Trim$(CStr(header2(1, 1) &amp; &quot;&quot;)) = &quot;&quot; Then startFieldCol2 = 2
+        actualFieldCount2 = colCount2 - startFieldCol2 + 1
+
+        ws3.Cells(outRow, 1).Value = sqlText
+        outRow = outRow + 1
+
+        For iCol = 0 To actualFieldCount2 - 1
+            With ws3.Cells(outRow, iCol + firstColOffset)
+                .Value = ws2.Cells(headerRow2, startFieldCol2 + iCol).Value
+                .NumberFormat = &quot;@&quot;
+            End With
+        Next iCol
+        ws3.Range(ws3.Cells(outRow, firstColOffset), ws3.Cells(outRow, firstColOffset + actualFieldCount2 - 1)).Interior.Color = cyanColor
+        Dim headerVal2 As Long: headerVal2 = outRow
+        outRow = outRow + 1
+
+        Dim dataCount2 As Long
+        dataCount2 = dataEndB - dataStartB + 1
+        Dim curDataRow2Start As Long: curDataRow2Start = outRow
+
+        For dRow = 0 To dataCount2 - 1
+            For iCol = 0 To actualFieldCount2 - 1
+                Dim src2 As Range, dst2 As Range
+                Set src2 = ws2.Cells(dataStartB + dRow, startFieldCol2 + iCol)
+                Set dst2 = ws3.Cells(outRow, iCol + firstColOffset)
+                dst2.Value = src2.Value
+                On Error Resume Next
+                dst2.NumberFormatLocal = src2.NumberFormatLocal
+                On Error GoTo 0
+            Next iCol
+            outRow = outRow + 1
+        Next dRow
+
+        Dim lastDataRow2 As Long: lastDataRow2 = outRow - 1
+        With ws3.Range(ws3.Cells(headerVal2, firstColOffset), ws3.Cells(lastDataRow2, firstColOffset + actualFieldCount2 - 1)).Borders
+            .LineStyle = xlContinuous
+            .Weight = xlThin
+        End With
+
+        Dim maxRow As Long
+        maxRow = WorksheetFunction.Max(dataCount1, dataCount2)
+        outRow = outRow + 1
+
+        If MATCH_BY_KEY Then
+            Dim keyColIndex1 As Long, keyColIndex2 As Long
+            keyColIndex1 = ResolveKeyColumnIndex(ws1, headerRow1, startFieldCol1, actualFieldCount, KEY_COL_NAME)
+            keyColIndex2 = ResolveKeyColumnIndex(ws2, headerRow2, startFieldCol2, actualFieldCount2, KEY_COL_NAME)
+
+            Dim map1 As Object, map2 As Object
+            Set map1 = BuildKeyToRowMap(ws1, dataStartA, dataEndA, keyColIndex1)
+            Set map2 = BuildKeyToRowMap(ws2, dataStartB, dataEndB, keyColIndex2)
+
+            Dim uni As Object: Set uni = UnionKeys(map1, map2)
+
+            Dim k As Variant, r1 As Long, r2 As Long
+            For Each k In uni.Keys
+                If ws3.Cells(outRow, 1).Value = &quot;&quot; Then ws3.Cells(outRow, 1).Value = &quot;判定 (Key=&quot; &amp; k &amp; &quot;)&quot;
+                r1 = NzLng(map1(k))
+                r2 = NzLng(map2(k))
+                WriteCompareRow ws3, ws1, ws2, outRow, firstColOffset, _
+                                headerRow1, startFieldCol1, actualFieldCount, r1, _
+                                headerRow2, startFieldCol2, actualFieldCount2, r2
+                outRow = outRow + 1
+            Next k
+
+        Else
+            For dRow = 0 To maxRow - 1
+                If dRow = 0 Then ws3.Cells(outRow, 1).Value = &quot;判定&quot;
+                WriteCompareRow ws3, ws1, ws2, outRow, firstColOffset, _
+                                headerRow1, startFieldCol1, actualFieldCount, dataStartA + dRow, _
+                                headerRow2, startFieldCol2, actualFieldCount2, dataStartB + dRow
+                outRow = outRow + 1
+            Next dRow
+        End If
+
+        outRow = outRow + 1
+
+    Else
+        ws3.Cells(outRow, 1).Value = &quot;Sheet2見つかりません&quot;
+        outRow = outRow + 2
+    End If
+
+    outRow = outRow + 1
+Next tblKeyVar
+
+ws3.Cells.Font.Name = &quot;Meiryo UI&quot;
+
+MsgBox &quot;Sheet3導出完了&quot;
+</code></pre>
+<p>End Sub</p>
+<p>Private Sub WriteCompareRow(ByVal wsOut As Worksheet, _<br>                            ByVal ws1 As Worksheet, ByVal ws2 As Worksheet, _<br>                            ByVal outRow As Long, ByVal firstColOffset As Long, _<br>                            ByVal headerRow1 As Long, ByVal startFieldCol1 As Long, ByVal fieldCount1 As Long, ByVal row1 As Long, _<br>                            ByVal headerRow2 As Long, ByVal startFieldCol2 As Long, ByVal fieldCount2 As Long, ByVal row2 As Long)<br>    Dim iCol As Long<br>    For iCol &#x3D; 0 To fieldCount1 - 1<br>        Dim v1 As Variant, v2 As Variant</p>
+<pre><code>    If row1 &gt;= headerRow1 + 1 Then v1 = ws1.Cells(row1, startFieldCol1 + iCol).Value Else v1 = Empty
+    If row2 &gt;= headerRow2 + 1 Then
+        If iCol &lt;= fieldCount2 - 1 Then
+            v2 = ws2.Cells(row2, startFieldCol2 + iCol).Value
+        Else
+            v2 = Empty
+        End If
+    Else
+        v2 = Empty
+    End If
+
+    wsOut.Cells(outRow, iCol + firstColOffset).Value = IIf(AreEqualValue(v1, v2), &quot;TRUE&quot;, &quot;FALSE&quot;)
+    wsOut.Cells(outRow, iCol + firstColOffset).NumberFormat = &quot;@&quot;
+Next iCol
+</code></pre>
+<p>End Sub</p>
+<p>Private Function AreEqualValue(ByVal v1 As Variant, ByVal v2 As Variant) As Boolean<br>    If IsEmptyLike(v1) And IsEmptyLike(v2) Then<br>        AreEqualValue &#x3D; True<br>        Exit Function<br>    End If</p>
+<pre><code>If IsDateLike(v1) Or IsDateLike(v2) Then
+    On Error GoTo Fallback
+    Dim d1 As Double, d2 As Double
+    d1 = CDbl(v1): d2 = CDbl(v2)
+    AreEqualValue = (Abs(d1 - d2) &lt;= (DATETIME_TOL_SEC / 86400#))
+    Exit Function
+</code></pre>
+<p>Fallback:<br>    End If</p>
+<pre><code>If IsNumeric(v1) And IsNumeric(v2) Then
+    AreEqualValue = (CDbl(v1) = CDbl(v2))
+    Exit Function
+End If
+
+Dim s1 As String, s2 As String
+s1 = NormalizeString(v1)
+s2 = NormalizeString(v2)
+AreEqualValue = (StrComp(s1, s2, vbTextCompare) = 0)
+</code></pre>
+<p>End Function</p>
+<p>Private Function NormalizeString(ByVal v As Variant) As String<br>    If IsEmptyLike(v) Then<br>        NormalizeString &#x3D; “”<br>    Else<br>        NormalizeString &#x3D; Trim$(CStr(v))<br>        If UCase$(NormalizeString) &#x3D; “NULL” Then NormalizeString &#x3D; “”<br>    End If<br>End Function</p>
+<p>Private Function IsEmptyLike(ByVal v As Variant) As Boolean<br>    IsEmptyLike &#x3D; (IsEmpty(v) Or IsNull(v) Or (CStr(v) &#x3D; “”) Or (UCase$(Trim$(CStr(v))) &#x3D; “NULL”))<br>End Function</p>
+<p>Private Function IsDateLike(ByVal v As Variant) As Boolean<br>    On Error Resume Next<br>    Dim tmp As Double: tmp &#x3D; CDbl(v)<br>    IsDateLike &#x3D; (Err.Number &#x3D; 0 And tmp &gt; 0)<br>    Err.Clear<br>    On Error GoTo 0<br>    If Not IsDateLike Then IsDateLike &#x3D; IsDate(v)<br>End Function</p>
+<p>Private Function ResolveKeyColumnIndex(ByVal ws As Worksheet, ByVal headerRow As Long, ByVal startFieldCol As Long, ByVal fieldCount As Long, ByVal keyHeader As String) As Long<br>    Dim idx As Long<br>    If LenB(keyHeader) &#x3D; 0 Then<br>        ResolveKeyColumnIndex &#x3D; startFieldCol<br>        Exit Function<br>    End If<br>    For idx &#x3D; 0 To fieldCount - 1<br>        If StrComp(CStr(ws.Cells(headerRow, startFieldCol + idx).Value), keyHeader, vbTextCompare) &#x3D; 0 Then<br>            ResolveKeyColumnIndex &#x3D; startFieldCol + idx<br>            Exit Function<br>        End If<br>    Next idx<br>    ResolveKeyColumnIndex &#x3D; startFieldCol<br>End Function</p>
+<p>Private Function BuildKeyToRowMap(ByVal ws As Worksheet, ByVal dataStart As Long, ByVal dataEnd As Long, ByVal keyCol As Long) As Object<br>    Dim d As Object: Set d &#x3D; CreateObject(“Scripting.Dictionary”)<br>    Dim r As Long, k As Variant<br>    For r &#x3D; dataStart To dataEnd<br>        k &#x3D; ws.Cells(r, keyCol).Value<br>        If Not IsEmptyLike(k) Then d(CStr(k)) &#x3D; r<br>    Next r<br>    Set BuildKeyToRowMap &#x3D; d<br>End Function</p>
+<p>Private Function UnionKeys(ByVal d1 As Object, ByVal d2 As Object) As Object<br>    Dim u As Object: Set u &#x3D; CreateObject(“Scripting.Dictionary”)<br>    Dim k As Variant<br>    For Each k In d1.Keys: u(k) &#x3D; True: Next k<br>    For Each k In d2.Keys: u(k) &#x3D; True: Next k<br>    Set UnionKeys &#x3D; u<br>End Function</p>
+<p>Private Function NzLng(ByVal v As Variant) As Long<br>    If IsEmpty(v) Then NzLng &#x3D; 0 Else NzLng &#x3D; CLng(v)<br>End Function</p>
+
+      <!-- 渲染文章正文 HTML -->
+      <!-- 使用  不转义 HTML，保证内容中的标签生效 -->
+    
   </div>
-  <!-- 链接到文章详情页 -->
-  <!-- CSS class "read-more" 用于样式化按钮 -->
+  <!-- 文章正文结束 -->
 
 </article>
-<!-- 单篇文章卡片结束 -->
-
-        <!-- 调用局部模板 _partial/post-card.ejs 渲染文章卡片 -->
-        <!-- 将当前文章对象 post 传入模板 -->
-        <!--  输出 HTML，不转义，保证标签正常显示 -->
-
-      
-      <!-- 遍历当前分类下每篇文章 post -->
-      <!-- post 对象包含文章标题、路径、日期、分类、标签、摘要等信息 -->
-
-        <!--
-  _partial/post-card.ejs
-  功能：
-    - 渲染单篇文章的卡片
-    - 包含标题、发布日期、分类、标签、摘要、阅读全文按钮
-    - 可在分类页、标签页、归档页复用
--->
-
-<article class="post-card">
-  <!-- 单篇文章卡片容器，用于布局和样式 -->
-
-  <!-- 文章标题 -->
-  <h3 class="post-title">
-    <a href="/2026/02/19/1764146234548-VBA%E5%B7%A5%E5%85%B7/">VBA工具</a>
-    <!-- 链接到文章详情页 -->
-    <!-- url_for(post.path) → 生成文章路径 -->
-    <!-- post.title → 当前文章标题 -->
-  </h3>
-
-  <!-- 文章元信息：发布日期 + 分类 + 标签 -->
-  <p class="post-meta">
-    发布于 2026-02-19
-    <!-- 显示文章发布日期 -->
-
-     |
-      分类：
-      
-        <a href="/categories/TOOL/">TOOL</a>
-        
-        <!-- 遍历文章分类 -->
-        <!-- 多个分类用逗号分隔 -->
-      
-    
-
-     |
-      标签：
-      
-        <a href="/tags/VBA/">VBA</a>
-        
-        <!-- 遍历文章标签 -->
-        <!-- 多个标签用逗号分隔 -->
-      
-    
-  </p>
-  <!-- 文章元信息结束 -->
-
-  <!-- 文章摘要 -->
-  <p class="post-excerpt">
-    
-    VBA 工具宏说明文档概述本 VBA 工具提供以下功能：
-
-运行批处理文件（如服务器启动脚本）
-打开指定 Excel 工具文件
-记录错误日志
-
-该工具适用于自动化操作，减少手动执行命令和打开文件的工作...
-  </p>
-
-  <!-- 操作按钮容器 -->
-  <div class="post-actions">
-    <!-- 阅读全文按钮 -->
-    <a href="/2026/02/19/1764146234548-VBA%E5%B7%A5%E5%85%B7/" class="read-more">阅读全文 →</a>
-    <!-- 编辑按钮 -->
-    <button onclick="openEditor('_posts/1764146234548-VBA工具.md')" class="read-more">✏️ 编辑</button>
-  </div>
-  <!-- 链接到文章详情页 -->
-  <!-- CSS class "read-more" 用于样式化按钮 -->
-
-</article>
-<!-- 单篇文章卡片结束 -->
-
-        <!-- 调用局部模板 _partial/post-card.ejs 渲染文章卡片 -->
-        <!-- 将当前文章对象 post 传入模板 -->
-        <!--  输出 HTML，不转义，保证标签正常显示 -->
-
-      
-      <!-- 遍历当前分类下每篇文章 post -->
-      <!-- post 对象包含文章标题、路径、日期、分类、标签、摘要等信息 -->
-
-        <!--
-  _partial/post-card.ejs
-  功能：
-    - 渲染单篇文章的卡片
-    - 包含标题、发布日期、分类、标签、摘要、阅读全文按钮
-    - 可在分类页、标签页、归档页复用
--->
-
-<article class="post-card">
-  <!-- 单篇文章卡片容器，用于布局和样式 -->
-
-  <!-- 文章标题 -->
-  <h3 class="post-title">
-    <a href="/2026/02/19/1765537635892-VBA%E5%B7%A5%E5%85%B7/">VBA工具</a>
-    <!-- 链接到文章详情页 -->
-    <!-- url_for(post.path) → 生成文章路径 -->
-    <!-- post.title → 当前文章标题 -->
-  </h3>
-
-  <!-- 文章元信息：发布日期 + 分类 + 标签 -->
-  <p class="post-meta">
-    发布于 2026-02-19
-    <!-- 显示文章发布日期 -->
-
-     |
-      分类：
-      
-        <a href="/categories/TOOL/">TOOL</a>
-        
-        <!-- 遍历文章分类 -->
-        <!-- 多个分类用逗号分隔 -->
-      
-    
-
-     |
-      标签：
-      
-        <a href="/tags/VBA/">VBA</a>
-        
-        <!-- 遍历文章标签 -->
-        <!-- 多个标签用逗号分隔 -->
-      
-    
-  </p>
-  <!-- 文章元信息结束 -->
-
-  <!-- 文章摘要 -->
-  <p class="post-excerpt">
-    
-    ■Excelシート名：1想定項目	実施項目	想定値	実施値
-シート名：2実施項目	実施値
-■マクロ
-1,在 Excel 按 Alt + F11 打开 VBA 编辑器。2,在左侧工程窗格找到放置 Com...
-  </p>
-
-  <!-- 操作按钮容器 -->
-  <div class="post-actions">
-    <!-- 阅读全文按钮 -->
-    <a href="/2026/02/19/1765537635892-VBA%E5%B7%A5%E5%85%B7/" class="read-more">阅读全文 →</a>
-    <!-- 编辑按钮 -->
-    <button onclick="openEditor('_posts/1765537635892-VBA工具.md')" class="read-more">✏️ 编辑</button>
-  </div>
-  <!-- 链接到文章详情页 -->
-  <!-- CSS class "read-more" 用于样式化按钮 -->
-
-</article>
-<!-- 单篇文章卡片结束 -->
-
-        <!-- 调用局部模板 _partial/post-card.ejs 渲染文章卡片 -->
-        <!-- 将当前文章对象 post 传入模板 -->
-        <!--  输出 HTML，不转义，保证标签正常显示 -->
-
-      
-      <!-- 遍历当前分类下每篇文章 post -->
-      <!-- post 对象包含文章标题、路径、日期、分类、标签、摘要等信息 -->
-
-        <!--
-  _partial/post-card.ejs
-  功能：
-    - 渲染单篇文章的卡片
-    - 包含标题、发布日期、分类、标签、摘要、阅读全文按钮
-    - 可在分类页、标签页、归档页复用
--->
-
-<article class="post-card">
-  <!-- 单篇文章卡片容器，用于布局和样式 -->
-
-  <!-- 文章标题 -->
-  <h3 class="post-title">
-    <a href="/2026/02/19/1766048949686-Json%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%BD%AC%E5%8C%96%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%8C%B9%E9%85%8D/">JSON Key-Value 提取及处理工具</a>
-    <!-- 链接到文章详情页 -->
-    <!-- url_for(post.path) → 生成文章路径 -->
-    <!-- post.title → 当前文章标题 -->
-  </h3>
-
-  <!-- 文章元信息：发布日期 + 分类 + 标签 -->
-  <p class="post-meta">
-    发布于 2026-02-19
-    <!-- 显示文章发布日期 -->
-
-     |
-      分类：
-      
-        <a href="/categories/TOOL/">TOOL</a>
-        
-        <!-- 遍历文章分类 -->
-        <!-- 多个分类用逗号分隔 -->
-      
-    
-
-     |
-      标签：
-      
-        <a href="/tags/VBA/">VBA</a>
-        
-        <!-- 遍历文章标签 -->
-        <!-- 多个标签用逗号分隔 -->
-      
-    
-  </p>
-  <!-- 文章元信息结束 -->
-
-  <!-- 文章摘要 -->
-  <p class="post-excerpt">
-    
-    1. Java 程序1.1 打包命令12345678# 编译javac -d out JsonKeyValueExtractorGui.java# 生成 manifestecho Main-Class...
-  </p>
-
-  <!-- 操作按钮容器 -->
-  <div class="post-actions">
-    <!-- 阅读全文按钮 -->
-    <a href="/2026/02/19/1766048949686-Json%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%BD%AC%E5%8C%96%E4%BB%A5%E5%8F%8A%E9%A1%B9%E7%9B%AE%E5%8C%B9%E9%85%8D/" class="read-more">阅读全文 →</a>
-    <!-- 编辑按钮 -->
-    <button onclick="openEditor('_posts/1766048949686-Json格式的转化以及项目匹配.md')" class="read-more">✏️ 编辑</button>
-  </div>
-  <!-- 链接到文章详情页 -->
-  <!-- CSS class "read-more" 用于样式化按钮 -->
-
-</article>
-<!-- 单篇文章卡片结束 -->
-
-        <!-- 调用局部模板 _partial/post-card.ejs 渲染文章卡片 -->
-        <!-- 将当前文章对象 post 传入模板 -->
-        <!--  输出 HTML，不转义，保证标签正常显示 -->
-
-      
-      <!-- 遍历当前分类下每篇文章 post -->
-      <!-- post 对象包含文章标题、路径、日期、分类、标签、摘要等信息 -->
-
-        <!--
-  _partial/post-card.ejs
-  功能：
-    - 渲染单篇文章的卡片
-    - 包含标题、发布日期、分类、标签、摘要、阅读全文按钮
-    - 可在分类页、标签页、归档页复用
--->
-
-<article class="post-card">
-  <!-- 单篇文章卡片容器，用于布局和样式 -->
-
-  <!-- 文章标题 -->
-  <h3 class="post-title">
-    <a href="/2026/02/19/1766471377854-IF%E9%A0%85%E7%9B%AE-key-value-JSON-request%E6%83%85%E5%A0%B1-/">IF項目（key-value）➡ JSON（request情報）</a>
-    <!-- 链接到文章详情页 -->
-    <!-- url_for(post.path) → 生成文章路径 -->
-    <!-- post.title → 当前文章标题 -->
-  </h3>
-
-  <!-- 文章元信息：发布日期 + 分类 + 标签 -->
-  <p class="post-meta">
-    发布于 2026-02-19
-    <!-- 显示文章发布日期 -->
-
-     |
-      分类：
-      
-        <a href="/categories/TOOL/">TOOL</a>
-        
-        <!-- 遍历文章分类 -->
-        <!-- 多个分类用逗号分隔 -->
-      
-    
-
-     |
-      标签：
-      
-        <a href="/tags/VBA/">VBA</a>
-        
-        <!-- 遍历文章标签 -->
-        <!-- 多个标签用逗号分隔 -->
-      
-    
-  </p>
-  <!-- 文章元信息结束 -->
-
-  <!-- 文章摘要 -->
-  <p class="post-excerpt">
-    
-    ‘&amp;#x3D;&amp;#x3D;&amp;#x3D;&amp;#x3D;&amp;#x3D;&amp;#x3D;&amp;#x3D;&amp;#x3D;&amp;#x3D;&amp;#x3D;&amp;#x3D;&amp;#x3D;&amp;#x3D;&amp;#x3D;&amp;#x3D;&amp;#x3D;&amp;#x...
-  </p>
-
-  <!-- 操作按钮容器 -->
-  <div class="post-actions">
-    <!-- 阅读全文按钮 -->
-    <a href="/2026/02/19/1766471377854-IF%E9%A0%85%E7%9B%AE-key-value-JSON-request%E6%83%85%E5%A0%B1-/" class="read-more">阅读全文 →</a>
-    <!-- 编辑按钮 -->
-    <button onclick="openEditor('_posts/1766471377854-IF項目-key-value-JSON-request情報-.md')" class="read-more">✏️ 编辑</button>
-  </div>
-  <!-- 链接到文章详情页 -->
-  <!-- CSS class "read-more" 用于样式化按钮 -->
-
-</article>
-<!-- 单篇文章卡片结束 -->
-
-        <!-- 调用局部模板 _partial/post-card.ejs 渲染文章卡片 -->
-        <!-- 将当前文章对象 post 传入模板 -->
-        <!--  输出 HTML，不转义，保证标签正常显示 -->
-
-      
-      <!-- 遍历当前分类下每篇文章 post -->
-      <!-- post 对象包含文章标题、路径、日期、分类、标签、摘要等信息 -->
-
-        <!--
-  _partial/post-card.ejs
-  功能：
-    - 渲染单篇文章的卡片
-    - 包含标题、发布日期、分类、标签、摘要、阅读全文按钮
-    - 可在分类页、标签页、归档页复用
--->
-
-<article class="post-card">
-  <!-- 单篇文章卡片容器，用于布局和样式 -->
-
-  <!-- 文章标题 -->
-  <h3 class="post-title">
-    <a href="/2026/02/19/1767602784375-SQL%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/">SQL生成工具</a>
-    <!-- 链接到文章详情页 -->
-    <!-- url_for(post.path) → 生成文章路径 -->
-    <!-- post.title → 当前文章标题 -->
-  </h3>
-
-  <!-- 文章元信息：发布日期 + 分类 + 标签 -->
-  <p class="post-meta">
-    发布于 2026-02-19
-    <!-- 显示文章发布日期 -->
-
-     |
-      分类：
-      
-        <a href="/categories/TOOL/">TOOL</a>
-        
-        <!-- 遍历文章分类 -->
-        <!-- 多个分类用逗号分隔 -->
-      
-    
-
-     |
-      标签：
-      
-        <a href="/tags/VBA/">VBA</a>
-        
-        <!-- 遍历文章标签 -->
-        <!-- 多个标签用逗号分隔 -->
-      
-    
-  </p>
-  <!-- 文章元信息结束 -->
-
-  <!-- 文章摘要 -->
-  <p class="post-excerpt">
-    
-    
-  table.sweb-report {
-    border-collapse: collapse;
-    width: 90%;
-    margin: 30px auto;
-    fon...
-  </p>
-
-  <!-- 操作按钮容器 -->
-  <div class="post-actions">
-    <!-- 阅读全文按钮 -->
-    <a href="/2026/02/19/1767602784375-SQL%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7/" class="read-more">阅读全文 →</a>
-    <!-- 编辑按钮 -->
-    <button onclick="openEditor('_posts/1767602784375-SQL生成工具.md')" class="read-more">✏️ 编辑</button>
-  </div>
-  <!-- 链接到文章详情页 -->
-  <!-- CSS class "read-more" 用于样式化按钮 -->
-
-</article>
-<!-- 单篇文章卡片结束 -->
-
-        <!-- 调用局部模板 _partial/post-card.ejs 渲染文章卡片 -->
-        <!-- 将当前文章对象 post 传入模板 -->
-        <!--  输出 HTML，不转义，保证标签正常显示 -->
-
-      
-      <!-- 遍历当前分类下每篇文章 post -->
-      <!-- post 对象包含文章标题、路径、日期、分类、标签、摘要等信息 -->
-
-        <!--
-  _partial/post-card.ejs
-  功能：
-    - 渲染单篇文章的卡片
-    - 包含标题、发布日期、分类、标签、摘要、阅读全文按钮
-    - 可在分类页、标签页、归档页复用
--->
-
-<article class="post-card">
-  <!-- 单篇文章卡片容器，用于布局和样式 -->
-
-  <!-- 文章标题 -->
-  <h3 class="post-title">
-    <a href="/2026/02/19/1767603733844-%E5%8F%98%E9%87%8F%E8%AF%8D%E5%85%B8/">变量词典</a>
-    <!-- 链接到文章详情页 -->
-    <!-- url_for(post.path) → 生成文章路径 -->
-    <!-- post.title → 当前文章标题 -->
-  </h3>
-
-  <!-- 文章元信息：发布日期 + 分类 + 标签 -->
-  <p class="post-meta">
-    发布于 2026-02-19
-    <!-- 显示文章发布日期 -->
-
-     |
-      分类：
-      
-        <a href="/categories/TOOL/">TOOL</a>
-        
-        <!-- 遍历文章分类 -->
-        <!-- 多个分类用逗号分隔 -->
-      
-    
-
-     |
-      标签：
-      
-        <a href="/tags/VBA/">VBA</a>
-        
-        <!-- 遍历文章标签 -->
-        <!-- 多个标签用逗号分隔 -->
-      
-    
-  </p>
-  <!-- 文章元信息结束 -->
-
-  <!-- 文章摘要 -->
-  <p class="post-excerpt">
-    
-    
-  .block-table {
-    border-collapse: separate;
-    border-spacing: 0;
-    margin: 32px 0 30px 0;
- ...
-  </p>
-
-  <!-- 操作按钮容器 -->
-  <div class="post-actions">
-    <!-- 阅读全文按钮 -->
-    <a href="/2026/02/19/1767603733844-%E5%8F%98%E9%87%8F%E8%AF%8D%E5%85%B8/" class="read-more">阅读全文 →</a>
-    <!-- 编辑按钮 -->
-    <button onclick="openEditor('_posts/1767603733844-变量词典.md')" class="read-more">✏️ 编辑</button>
-  </div>
-  <!-- 链接到文章详情页 -->
-  <!-- CSS class "read-more" 用于样式化按钮 -->
-
-</article>
-<!-- 单篇文章卡片结束 -->
-
-        <!-- 调用局部模板 _partial/post-card.ejs 渲染文章卡片 -->
-        <!-- 将当前文章对象 post 传入模板 -->
-        <!--  输出 HTML，不转义，保证标签正常显示 -->
-
-      
-      <!-- 遍历当前分类下每篇文章 post -->
-      <!-- post 对象包含文章标题、路径、日期、分类、标签、摘要等信息 -->
-
-        <!--
-  _partial/post-card.ejs
-  功能：
-    - 渲染单篇文章的卡片
-    - 包含标题、发布日期、分类、标签、摘要、阅读全文按钮
-    - 可在分类页、标签页、归档页复用
--->
-
-<article class="post-card">
-  <!-- 单篇文章卡片容器，用于布局和样式 -->
-
-  <!-- 文章标题 -->
-  <h3 class="post-title">
-    <a href="/2026/02/19/1764510854184-%E8%BD%BB%E9%87%8F%E7%89%88-Web-API/">轻量版 Web API</a>
-    <!-- 链接到文章详情页 -->
-    <!-- url_for(post.path) → 生成文章路径 -->
-    <!-- post.title → 当前文章标题 -->
-  </h3>
-
-  <!-- 文章元信息：发布日期 + 分类 + 标签 -->
-  <p class="post-meta">
-    发布于 2026-02-19
-    <!-- 显示文章发布日期 -->
-
-     |
-      分类：
-      
-        <a href="/categories/TOOL/">TOOL</a>
-        
-        <!-- 遍历文章分类 -->
-        <!-- 多个分类用逗号分隔 -->
-      
-    
-
-     |
-      标签：
-      
-        <a href="/tags/API%E8%AF%B7%E6%B1%82/">API请求</a>
-        
-        <!-- 遍历文章标签 -->
-        <!-- 多个标签用逗号分隔 -->
-      
-    
-  </p>
-  <!-- 文章元信息结束 -->
-
-  <!-- 文章摘要 -->
-  <p class="post-excerpt">
-    
-    
-
-
-    
-    
-    API Tester (Lite)
-
-&amp;lt;script src=&amp;quot;https://cdn.tailwindcss.com&amp;quot;&amp;gt;&amp;lt;/s...
-  </p>
-
-  <!-- 操作按钮容器 -->
-  <div class="post-actions">
-    <!-- 阅读全文按钮 -->
-    <a href="/2026/02/19/1764510854184-%E8%BD%BB%E9%87%8F%E7%89%88-Web-API/" class="read-more">阅读全文 →</a>
-    <!-- 编辑按钮 -->
-    <button onclick="openEditor('_posts/1764510854184-轻量版-Web-API.md')" class="read-more">✏️ 编辑</button>
-  </div>
-  <!-- 链接到文章详情页 -->
-  <!-- CSS class "read-more" 用于样式化按钮 -->
-
-</article>
-<!-- 单篇文章卡片结束 -->
-
-        <!-- 调用局部模板 _partial/post-card.ejs 渲染文章卡片 -->
-        <!-- 将当前文章对象 post 传入模板 -->
-        <!--  输出 HTML，不转义，保证标签正常显示 -->
-
-      
-      <!-- 遍历当前分类下每篇文章 post -->
-      <!-- post 对象包含文章标题、路径、日期、分类、标签、摘要等信息 -->
-
-        <!--
-  _partial/post-card.ejs
-  功能：
-    - 渲染单篇文章的卡片
-    - 包含标题、发布日期、分类、标签、摘要、阅读全文按钮
-    - 可在分类页、标签页、归档页复用
--->
-
-<article class="post-card">
-  <!-- 单篇文章卡片容器，用于布局和样式 -->
-
-  <!-- 文章标题 -->
-  <h3 class="post-title">
-    <a href="/2026/02/19/1771489495316/">ツール一覧.hta</a>
-    <!-- 链接到文章详情页 -->
-    <!-- url_for(post.path) → 生成文章路径 -->
-    <!-- post.title → 当前文章标题 -->
-  </h3>
-
-  <!-- 文章元信息：发布日期 + 分类 + 标签 -->
-  <p class="post-meta">
-    发布于 2026-02-19
-    <!-- 显示文章发布日期 -->
-
-     |
-      分类：
-      
-        <a href="/categories/TOOL/">TOOL</a>
-        
-        <!-- 遍历文章分类 -->
-        <!-- 多个分类用逗号分隔 -->
-      
-    
-
-     |
-      标签：
-      
-        <a href="/tags/hta/">.hta</a>
-        
-        <!-- 遍历文章标签 -->
-        <!-- 多个标签用逗号分隔 -->
-      
-    
-  </p>
-  <!-- 文章元信息结束 -->
-
-  <!-- 文章摘要 -->
-  <p class="post-excerpt">
-    
-    
-
-
-
-ツール
-
-&amp;lt;HTA:APPLICATION  ID&amp;#x3D;”OpsLauncher”  APPLICATIONNAME&amp;#x3D;”OpsLauncher”  BORDER&amp;#x3D...
-  </p>
-
-  <!-- 操作按钮容器 -->
-  <div class="post-actions">
-    <!-- 阅读全文按钮 -->
-    <a href="/2026/02/19/1771489495316/" class="read-more">阅读全文 →</a>
-    <!-- 编辑按钮 -->
-    <button onclick="openEditor('_posts/1771489495316.md')" class="read-more">✏️ 编辑</button>
-  </div>
-  <!-- 链接到文章详情页 -->
-  <!-- CSS class "read-more" 用于样式化按钮 -->
-
-</article>
-<!-- 单篇文章卡片结束 -->
-
-        <!-- 调用局部模板 _partial/post-card.ejs 渲染文章卡片 -->
-        <!-- 将当前文章对象 post 传入模板 -->
-        <!--  输出 HTML，不转义，保证标签正常显示 -->
-
-      
-      <!-- 遍历文章结束 -->
-
-    
-    <!-- 条件判断结束 -->
-
-  </div>
-  <!-- 文章列表容器结束 -->
-
-</section>
-<!-- 页面主容器结束 -->
+<!-- 单篇文章容器结束 -->
 
     <!-- 渲染当前页面内容 -->
     <!--  保证 HTML 正常渲染，不转义 -->
