@@ -783,162 +783,149 @@
     
 
     
-      <pre><code class="language-python">from dataclasses import dataclass, field
+      <div style="background:#000; color:#fff; padding:12px; border-radius:6px; font-family: Consolas, 'Fira Code', 'JetBrains Mono', monospace; font-size:14px;">
+<pre><code class="language-python">
+from dataclasses import dataclass, field
 from abc import ABC, abstractmethod
 from typing import List
 import re
 
 
-class Item(ABC):
-    @abstractmethod
-    def print(self) -&gt; None:
-        pass
+<p>class Item(ABC):<br>    @abstractmethod<br>    def print(self) -&gt; None:<br>        pass</p>
+<p>@dataclass<br>class DataElement(Item):<br>    name: str<br>    value: str</p>
+<pre><code>def print(self) -&gt; None:
+    print(f&quot;名前：{self.name}&quot;)
+    print(f&quot;値：{self.value}&quot;)
 
+def getElement(self):
+    return self.name + &quot;:&quot; + self.value
+</code></pre>
+<p>@dataclass<br>class Data(Item):<br>    name: str<br>    level: int<br>    components: List[Item] &#x3D; field(default_factory&#x3D;list)</p>
+<pre><code>def add(self, component: Item) -&gt; None:
+    self.components.append(component)
 
-@dataclass
-class DataElement(Item):
-    name: str
-    value: str
+def remove(self, component: Item) -&gt; None:
+    self.components.remove(component)
 
-    def print(self) -&gt; None:
-        print(f&quot;名前：{self.name}&quot;)
-        print(f&quot;値：{self.value}&quot;)
+def get(self, name: str):
+    for component in reversed(self.components):
+        if component.name == name:
+            return component
+    return None
 
-    def getElement(self):
-        return self.name + &quot;:&quot; + self.value
+def getbylevel(self, level: int):
+    return_co = None
+    if level == 1:
+        return self
+    for component in self.components:
+        if hasattr(component, &quot;components&quot;):
+            return_co = component.getbylevel(level)
+        if not hasattr(component, &quot;level&quot;):
+            continue
+        if component.level == level:
+            return_co = component
+    return return_co
 
+def print(self) -&gt; None:
+    print(f&quot;名前：{self.name}&quot;)
+    for component in self.components:
+        component.print()
 
-@dataclass
-class Data(Item):
-    name: str
-    level: int
-    components: List[Item] = field(default_factory=list)
+def getElement(self, level: int, hyphen: str):
+    lines = &quot;&quot;
+    title = self.name
+    if (
+        title != &quot;&quot;
+        and len(self.components) == 1
+        and hasattr(self.components[0], &quot;name&quot;)
+        and hasattr(self.components[0], &quot;value&quot;)
+        and getattr(self.components[0], &quot;name&quot;) == title
+        and str(getattr(self.components[0], &quot;value&quot;)).lower() == &quot;null&quot;
+    ):
+        return title + &quot;:null\n&quot;
+    if title != &quot;&quot;:
+        title = title + &quot;:\n&quot;
 
-    def add(self, component: Item) -&gt; None:
-        self.components.append(component)
+    patten = r&quot;\((.*?)\)&quot;
+    index = &quot;&quot;
+    if title is not None and (&quot;[&quot; in title or &quot;]&quot; in title):
+        index = re.findall(patten, title)[0]
+        if index != &quot;&quot;:
+            title = re.sub(patten, &quot;&quot;, title)
+        else:
+            title = &quot;\n&quot;
+            hyphen = &quot;-&quot;
 
-    def remove(self, component: Item) -&gt; None:
-        self.components.remove(component)
+    lines += title
 
-    def get(self, name: str):
-        for component in reversed(self.components):
-            if component.name == name:
-                return component
-        return None
+    child_hyphen = hyphen
+    if self.name is not None and &quot;(リスト)&quot; in str(self.name):
+        child_hyphen = &quot;-&quot;
 
-    def getbylevel(self, level: int):
-        return_co = None
-        if level == 1:
-            return self
-        for component in self.components:
-            if hasattr(component, &quot;components&quot;):
-                return_co = component.getbylevel(level)
-            if not hasattr(component, &quot;level&quot;):
+    first_in_list_item = True
+    is_list_item = self.name == &quot;&quot; and child_hyphen == &quot;-&quot;
+
+    for component in self.components:
+        if component is None:
+            continue
+        if (not hasattr(component, &quot;components&quot;)) or len(component.components) == 0:
+            v = getattr(component, &quot;value&quot;, None)
+            if v is None or v == &quot;&quot; or str(v).lower() == &quot;none&quot;:
                 continue
-            if component.level == level:
-                return_co = component
-        return return_co
 
-    def print(self) -&gt; None:
-        print(f&quot;名前：{self.name}&quot;)
-        for component in self.components:
-            component.print()
+        if hasattr(component, &quot;components&quot;):
+            s = component.getElement(component.level, child_hyphen)
+        else:
+            s = component.name + &quot;:&quot; + component.value + &quot;\n&quot;
 
-    def getElement(self, level: int, hyphen: str):
-        lines = &quot;&quot;
-        title = self.name
-        if (
-            title != &quot;&quot;
-            and len(self.components) == 1
-            and hasattr(self.components[0], &quot;name&quot;)
-            and hasattr(self.components[0], &quot;value&quot;)
-            and getattr(self.components[0], &quot;name&quot;) == title
-            and str(getattr(self.components[0], &quot;value&quot;)).lower() == &quot;null&quot;
-        ):
-            return title + &quot;:null\n&quot;
-        if title != &quot;&quot;:
-            title = title + &quot;:\n&quot;
-
-        patten = r&quot;\((.*?)\)&quot;
-        index = &quot;&quot;
-        if title is not None and (&quot;[&quot; in title or &quot;]&quot; in title):
-            index = re.findall(patten, title)[0]
-            if index != &quot;&quot;:
-                title = re.sub(patten, &quot;&quot;, title)
-            else:
-                title = &quot;\n&quot;
-                hyphen = &quot;-&quot;
-
-        lines += title
-
-        child_hyphen = hyphen
-        if self.name is not None and &quot;(リスト)&quot; in str(self.name):
-            child_hyphen = &quot;-&quot;
-
-        first_in_list_item = True
-        is_list_item = self.name == &quot;&quot; and child_hyphen == &quot;-&quot;
-
-        for component in self.components:
-            if component is None:
+        if s is not None and s.strip() != &quot;&quot;:
+            if (
+                hasattr(component, &quot;components&quot;)
+                and getattr(component, &quot;name&quot;, None) == &quot;&quot;
+                and child_hyphen == &quot;-&quot;
+            ):
+                space = &quot;&quot;
+                prefix = &quot;&quot;
+                lines += space + prefix + s
                 continue
-            if (not hasattr(component, &quot;components&quot;)) or len(component.components) == 0:
-                v = getattr(component, &quot;value&quot;, None)
-                if v is None or v == &quot;&quot; or str(v).lower() == &quot;none&quot;:
-                    continue
 
-            if hasattr(component, &quot;components&quot;):
-                s = component.getElement(component.level, child_hyphen)
+            if hasattr(component, &quot;level&quot;):
+                space = self.getSpace(component.level)
             else:
-                s = component.name + &quot;:&quot; + component.value + &quot;\n&quot;
-
-            if s is not None and s.strip() != &quot;&quot;:
-                if (
-                    hasattr(component, &quot;components&quot;)
-                    and getattr(component, &quot;name&quot;, None) == &quot;&quot;
-                    and child_hyphen == &quot;-&quot;
-                ):
-                    space = &quot;&quot;
-                    prefix = &quot;&quot;
-                    lines += space + prefix + s
-                    continue
-
-                if hasattr(component, &quot;level&quot;):
-                    space = self.getSpace(component.level)
-                else:
-                    if is_list_item:
-                        if first_in_list_item:
-                            space = self.getSpace(level)
-                        else:
-                            space = self.getSpace(level + 1)
-                    else:
-                        space = self.getSpace(level + 1)
-
-                prefix = child_hyphen
                 if is_list_item:
                     if first_in_list_item:
-                        prefix = &quot;-&quot;
+                        space = self.getSpace(level)
                     else:
-                        prefix = &quot;&quot;
-                    first_in_list_item = False
-                lines += space + prefix + s
+                        space = self.getSpace(level + 1)
+                else:
+                    space = self.getSpace(level + 1)
 
-        if lines.strip() == f&quot;{self.name}:&quot; or lines.strip() == f&quot;{self.name}:\n&quot;:
-            return &quot;&quot;
+            prefix = child_hyphen
+            if is_list_item:
+                if first_in_list_item:
+                    prefix = &quot;-&quot;
+                else:
+                    prefix = &quot;&quot;
+                first_in_list_item = False
+            lines += space + prefix + s
 
-        return lines
-
-    def getSpace(self, level: int):
-        if level == 1:
-            return &quot;   &quot;
-        if level == 2:
-            return &quot;     &quot;
-        if level == 3:
-            return &quot;       &quot;
-        if level == 4:
-            return &quot;        &quot;
-        if level == 5:
-            return &quot;         &quot;
+    if lines.strip() == f&quot;{self.name}:&quot; or lines.strip() == f&quot;{self.name}:\n&quot;:
         return &quot;&quot;
+
+    return lines
+
+def getSpace(self, level: int):
+    if level == 1:
+        return &quot;   &quot;
+    if level == 2:
+        return &quot;     &quot;
+    if level == 3:
+        return &quot;       &quot;
+    if level == 4:
+        return &quot;        &quot;
+    if level == 5:
+        return &quot;         &quot;
+    return &quot;&quot;
 </code></pre>
 
       <!-- 渲染文章正文 HTML -->

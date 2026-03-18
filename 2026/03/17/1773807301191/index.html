@@ -783,104 +783,96 @@
     
 
     
-      <pre><code class="language-python">import os
+      <div style="background:#000; color:#fff; padding:12px; border-radius:6px; font-family: Consolas, 'Fira Code', 'JetBrains Mono', monospace; font-size:14px;">
+<pre><code class="language-python">
+import os
 import logging
 
-from constants import *
-from CommonUtils import CommonUtils
-from ai_create_junit import *
-import toYaml
+<p>from constants import *<br>from CommonUtils import CommonUtils<br>from ai_create_junit import *<br>import toYaml</p>
+<p>def main():<br>    cur_path &#x3D; os.getcwd()</p>
+<pre><code>default_level = logging.INFO
+match LOG_LEVEL.lower():
+    case &quot;debug&quot;:
+        default_level = logging.DEBUG
+    case &quot;warning&quot;:
+        default_level = logging.WARNING
+    case &quot;error&quot;:
+        default_level = logging.ERROR
 
+CommonUtils.setupLogger(os.path.join(cur_path, LOG_DIRECTORY), default_level)
+CommonUtils.writeLog(logging.INFO, &quot;------------------------------&quot;)
+CommonUtils.writeLog(logging.INFO, &quot;Junit生成処理を開始します。&quot;)
+CommonUtils.writeLog(logging.DEBUG, f&quot;【ENDPOINT】 - {CHAT_DEPLOYMENT} に接続します。&quot;)
 
-def main():
-    cur_path = os.getcwd()
+try:
+    in_path = os.path.join(cur_path, INPUT_DIRECTORY)
+    pcl_files = CommonUtils.get_files_by_extension(in_path, &quot;.xlsx&quot;)
+    if not pcl_files:
+        CommonUtils.writeLog(
+            logging.ERROR,
+            f&quot;【{in_path}】に処理対象PCLがありません。処理を終了します。&quot;,
+        )
+        exit()
 
-    default_level = logging.INFO
-    match LOG_LEVEL.lower():
-        case &quot;debug&quot;:
-            default_level = logging.DEBUG
-        case &quot;warning&quot;:
-            default_level = logging.WARNING
-        case &quot;error&quot;:
-            default_level = logging.ERROR
+    total = len(pcl_files)
+    count = 0
+    for pcl_file in pcl_files:
+        count += 1
+        CommonUtils.writeLog(logging.INFO, f&quot;PCL処理件数 {count}/{total} 処理中&quot;)
 
-    CommonUtils.setupLogger(os.path.join(cur_path, LOG_DIRECTORY), default_level)
-    CommonUtils.writeLog(logging.INFO, &quot;------------------------------&quot;)
-    CommonUtils.writeLog(logging.INFO, &quot;Junit生成処理を開始します。&quot;)
-    CommonUtils.writeLog(logging.DEBUG, f&quot;【ENDPOINT】 - {CHAT_DEPLOYMENT} に接続します。&quot;)
+        folder_path = os.path.dirname(pcl_file)
 
-    try:
-        in_path = os.path.join(cur_path, INPUT_DIRECTORY)
-        pcl_files = CommonUtils.get_files_by_extension(in_path, &quot;.xlsx&quot;)
-        if not pcl_files:
+        CommonUtils.writeLog(
+            logging.DEBUG,
+            f&quot;フォルダ【{folder_path}】からソースファイルを読み込み、マージします。&quot;,
+        )
+        try:
+            merged_sources = CommonUtils.merge_files(
+                folder_path, SRC_FILE_PATTERN, ENCODING_JAVA_SOURCE
+            )
             CommonUtils.writeLog(
-                logging.ERROR,
-                f&quot;【{in_path}】に処理対象PCLがありません。処理を終了します。&quot;,
+                logging.DEBUG, f&quot;merged_sources length: {len(merged_sources)}&quot;
             )
-            exit()
-
-        total = len(pcl_files)
-        count = 0
-        for pcl_file in pcl_files:
-            count += 1
-            CommonUtils.writeLog(logging.INFO, f&quot;PCL処理件数 {count}/{total} 処理中&quot;)
-
-            folder_path = os.path.dirname(pcl_file)
-
+        except Exception as e:
             CommonUtils.writeLog(
-                logging.DEBUG,
-                f&quot;フォルダ【{folder_path}】からソースファイルを読み込み、マージします。&quot;,
+                logging.WARNING,
+                f&quot;ソースファイルのマージ処理中にエラーが発生しました：{e}&quot;,
             )
-            try:
-                merged_sources = CommonUtils.merge_files(
-                    folder_path, SRC_FILE_PATTERN, ENCODING_JAVA_SOURCE
-                )
-                CommonUtils.writeLog(
-                    logging.DEBUG, f&quot;merged_sources length: {len(merged_sources)}&quot;
-                )
-            except Exception as e:
-                CommonUtils.writeLog(
-                    logging.WARNING,
-                    f&quot;ソースファイルのマージ処理中にエラーが発生しました：{e}&quot;,
-                )
-                continue
+            continue
 
-            if not merged_sources:
-                CommonUtils.writeLog(
-                    logging.WARNING, f&quot;【{folder_path}】にソースファイルがありません。&quot;
-                )
-                continue
-
+        if not merged_sources:
             CommonUtils.writeLog(
-                logging.DEBUG, f&quot;【{pcl_file}】をYAML形式に変換します。&quot;
+                logging.WARNING, f&quot;【{folder_path}】にソースファイルがありません。&quot;
             )
-            pcl_yaml, class_name, method_name = toYaml.create_yaml(pcl_file)
-            CommonUtils.writeLog(logging.DEBUG, f&#39;pcl_file:\n{pcl_yaml}&#39;)
+            continue
 
-            method_name = f&quot;{method_name[0].upper()}{method_name[1:]}&quot;
+        CommonUtils.writeLog(
+            logging.DEBUG, f&quot;【{pcl_file}】をYAML形式に変換します。&quot;
+        )
+        pcl_yaml, class_name, method_name = toYaml.create_yaml(pcl_file)
+        CommonUtils.writeLog(logging.DEBUG, f&#39;pcl_file:\n{pcl_yaml}&#39;)
 
-            junit_file_name = f&quot;{class_name}{method_name}Test.java&quot;
-            out_path = os.path.join(cur_path, OUTPUT_DIRECTORY)
-            junit_file_path = os.path.join(out_path, junit_file_name)
+        method_name = f&quot;{method_name[0].upper()}{method_name[1:]}&quot;
 
-            ai_create_junit(
-                class_name, method_name, pcl_yaml, merged_sources, junit_file_path
-            )
+        junit_file_name = f&quot;{class_name}{method_name}Test.java&quot;
+        out_path = os.path.join(cur_path, OUTPUT_DIRECTORY)
+        junit_file_path = os.path.join(out_path, junit_file_name)
 
-        CommonUtils.writeLog(logging.INFO, &quot;Junit生成処理が終了しました。&quot;)
+        ai_create_junit(
+            class_name, method_name, pcl_yaml, merged_sources, junit_file_path
+        )
 
-    except Exception as e:
-        import traceback
+    CommonUtils.writeLog(logging.INFO, &quot;Junit生成処理が終了しました。&quot;)
 
-        CommonUtils.writeLog(logging.ERROR, f&quot;Junit生成処理中にエラーが発生しました：{e}&quot;)
-        CommonUtils.writeLog(logging.ERROR, str(e))
-        traceback.print_exc()
+except Exception as e:
+    import traceback
 
-
-if __name__ == &quot;__main__&quot;:
-    main()
+    CommonUtils.writeLog(logging.ERROR, f&quot;Junit生成処理中にエラーが発生しました：{e}&quot;)
+    CommonUtils.writeLog(logging.ERROR, str(e))
+    traceback.print_exc()
 </code></pre>
-
+<p>if <strong>name</strong> &#x3D;&#x3D; “<strong>main</strong>“:<br>    main()<br></code></pre></p>
+</div>
       <!-- 渲染文章正文 HTML -->
       <!-- 使用  不转义 HTML，保证内容中的标签生效 -->
     
