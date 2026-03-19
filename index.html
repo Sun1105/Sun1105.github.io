@@ -770,6 +770,76 @@
 
   <!-- 文章标题 -->
   <h3 class="post-title">
+    <a href="/2026/03/18/1773807301191/">AI Agent指定任务</a>
+    <!-- 链接到文章详情页 -->
+    <!-- url_for(post.path) → 生成文章路径 -->
+    <!-- post.title → 当前文章标题 -->
+  </h3>
+
+  <!-- 文章元信息：发布日期 + 分类 + 标签 -->
+  <p class="post-meta">
+    发布于 2026-03-19
+    <!-- 显示文章发布日期 -->
+
+     |
+      分类：
+      
+        <a href="/categories/%E3%83%A1%E3%83%A2/">メモ</a>
+        
+        <!-- 遍历文章分类 -->
+        <!-- 多个分类用逗号分隔 -->
+      
+    
+
+     |
+      标签：
+      
+        <a href="/tags/%E3%83%A1%E3%83%A2/">メモ</a>
+        
+        <!-- 遍历文章标签 -->
+        <!-- 多个标签用逗号分隔 -->
+      
+    
+  </p>
+  <!-- 文章元信息结束 -->
+
+  <!-- 文章摘要 -->
+  <p class="post-excerpt">
+    
+    比如我自己做个AI Agent来完成我布置的指定任务，1，在每天的指定时间，开始自动执行2，会根据我提前写好的文件内容，去完成相应文章做成，做成后会再次检查修正三遍完善内容3，然后打开我的个人博客，将...
+  </p>
+
+  <!-- 操作按钮容器 -->
+  <div class="post-actions">
+    <!-- 阅读全文按钮 -->
+    <a href="/2026/03/18/1773807301191/" class="read-more">阅读全文 →</a>
+    <!-- 编辑按钮 -->
+    <button onclick="openEditor('_posts/1773807301191.md')" class="read-more">✏️ 编辑</button>
+  </div>
+  <!-- 链接到文章详情页 -->
+  <!-- CSS class "read-more" 用于样式化按钮 -->
+
+</article>
+<!-- 单篇文章卡片结束 -->
+
+      <!-- 调用局部模板 _partial/post-card.ejs 渲染文章卡片 -->
+
+    
+    <!-- 遍历当前页面的所有文章对象（post） -->
+
+      <!--
+  _partial/post-card.ejs
+  功能：
+    - 渲染单篇文章的卡片
+    - 包含标题、发布日期、分类、标签、摘要、阅读全文按钮
+    - 可在分类页、标签页、归档页复用
+-->
+
+<article class="post-card">
+  <!-- 单篇文章卡片容器，用于布局和样式 -->
+
+  <!-- 文章标题 -->
+  <h3 class="post-title">
     <a href="/2026/03/18/1764896425057--/">メモ</a>
     <!-- 链接到文章详情页 -->
     <!-- url_for(post.path) → 生成文章路径 -->
@@ -963,81 +1033,6 @@ from testcas...
     <a href="/2026/03/17/1773807739834/" class="read-more">阅读全文 →</a>
     <!-- 编辑按钮 -->
     <button onclick="openEditor('_posts/1773807739834.md')" class="read-more">✏️ 编辑</button>
-  </div>
-  <!-- 链接到文章详情页 -->
-  <!-- CSS class "read-more" 用于样式化按钮 -->
-
-</article>
-<!-- 单篇文章卡片结束 -->
-
-      <!-- 调用局部模板 _partial/post-card.ejs 渲染文章卡片 -->
-
-    
-    <!-- 遍历当前页面的所有文章对象（post） -->
-
-      <!--
-  _partial/post-card.ejs
-  功能：
-    - 渲染单篇文章的卡片
-    - 包含标题、发布日期、分类、标签、摘要、阅读全文按钮
-    - 可在分类页、标签页、归档页复用
--->
-
-<article class="post-card">
-  <!-- 单篇文章卡片容器，用于布局和样式 -->
-
-  <!-- 文章标题 -->
-  <h3 class="post-title">
-    <a href="/2026/03/17/1773807301191/">main</a>
-    <!-- 链接到文章详情页 -->
-    <!-- url_for(post.path) → 生成文章路径 -->
-    <!-- post.title → 当前文章标题 -->
-  </h3>
-
-  <!-- 文章元信息：发布日期 + 分类 + 标签 -->
-  <p class="post-meta">
-    发布于 2026-03-18
-    <!-- 显示文章发布日期 -->
-
-     |
-      分类：
-      
-        <a href="/categories/%E3%83%A1%E3%83%A2/">メモ</a>
-        
-        <!-- 遍历文章分类 -->
-        <!-- 多个分类用逗号分隔 -->
-      
-    
-
-     |
-      标签：
-      
-        <a href="/tags/%E3%83%A1%E3%83%A2/">メモ</a>
-        
-        <!-- 遍历文章标签 -->
-        <!-- 多个标签用逗号分隔 -->
-      
-    
-  </p>
-  <!-- 文章元信息结束 -->
-
-  <!-- 文章摘要 -->
-  <p class="post-excerpt">
-    
-    import os
-import logging
-
-from constants import *
-from CommonUtils import CommonUtils
-from ai_create...
-  </p>
-
-  <!-- 操作按钮容器 -->
-  <div class="post-actions">
-    <!-- 阅读全文按钮 -->
-    <a href="/2026/03/17/1773807301191/" class="read-more">阅读全文 →</a>
-    <!-- 编辑按钮 -->
-    <button onclick="openEditor('_posts/1773807301191.md')" class="read-more">✏️ 编辑</button>
   </div>
   <!-- 链接到文章详情页 -->
   <!-- CSS class "read-more" 用于样式化按钮 -->

@@ -11,7 +11,7 @@
   <!-- 如果当前页面有标题，则显示 "页面标题 | 网站标题" -->
   <!-- 否则只显示网站标题 config.title -->
   <title>
-    main | Sun Blog
+    AI Agent指定任务 | Sun Blog
   </title>
 
   <!-- 页面描述，用于 SEO -->
@@ -753,12 +753,12 @@
   <!-- 单篇文章容器，用于文章详情页布局和样式 -->
 
   <!-- 文章标题 -->
-  <h1 class="post-title">main</h1>
+  <h1 class="post-title">AI Agent指定任务</h1>
   <!-- page.title → 当前文章标题 -->
 
   <!-- 文章元信息：发布日期 + 标签 -->
   <div class="post-meta">
-    <span>发表于 2026-03-18</span>
+    <span>发表于 2026-03-19</span>
     <!-- 显示文章发布日期 -->
 
     
@@ -783,103 +783,29 @@
     
 
     
-      <pre><code class="language-python">import os
-import logging
-
-from constants import *
-from CommonUtils import CommonUtils
-from ai_create_junit import *
-import toYaml
-
-
-def main():
-    cur_path = os.getcwd()
-
-    default_level = logging.INFO
-    match LOG_LEVEL.lower():
-        case &quot;debug&quot;:
-            default_level = logging.DEBUG
-        case &quot;warning&quot;:
-            default_level = logging.WARNING
-        case &quot;error&quot;:
-            default_level = logging.ERROR
-
-    CommonUtils.setupLogger(os.path.join(cur_path, LOG_DIRECTORY), default_level)
-    CommonUtils.writeLog(logging.INFO, &quot;------------------------------&quot;)
-    CommonUtils.writeLog(logging.INFO, &quot;Junit生成処理を開始します。&quot;)
-    CommonUtils.writeLog(logging.DEBUG, f&quot;【ENDPOINT】 - {CHAT_DEPLOYMENT} に接続します。&quot;)
-
-    try:
-        in_path = os.path.join(cur_path, INPUT_DIRECTORY)
-        pcl_files = CommonUtils.get_files_by_extension(in_path, &quot;.xlsx&quot;)
-        if not pcl_files:
-            CommonUtils.writeLog(
-                logging.ERROR,
-                f&quot;【{in_path}】に処理対象PCLがありません。処理を終了します。&quot;,
-            )
-            exit()
-
-        total = len(pcl_files)
-        count = 0
-        for pcl_file in pcl_files:
-            count += 1
-            CommonUtils.writeLog(logging.INFO, f&quot;PCL処理件数 {count}/{total} 処理中&quot;)
-
-            folder_path = os.path.dirname(pcl_file)
-
-            CommonUtils.writeLog(
-                logging.DEBUG,
-                f&quot;フォルダ【{folder_path}】からソースファイルを読み込み、マージします。&quot;,
-            )
-            try:
-                merged_sources = CommonUtils.merge_files(
-                    folder_path, SRC_FILE_PATTERN, ENCODING_JAVA_SOURCE
-                )
-                CommonUtils.writeLog(
-                    logging.DEBUG, f&quot;merged_sources length: {len(merged_sources)}&quot;
-                )
-            except Exception as e:
-                CommonUtils.writeLog(
-                    logging.WARNING,
-                    f&quot;ソースファイルのマージ処理中にエラーが発生しました：{e}&quot;,
-                )
-                continue
-
-            if not merged_sources:
-                CommonUtils.writeLog(
-                    logging.WARNING, f&quot;【{folder_path}】にソースファイルがありません。&quot;
-                )
-                continue
-
-            CommonUtils.writeLog(
-                logging.DEBUG, f&quot;【{pcl_file}】をYAML形式に変換します。&quot;
-            )
-            pcl_yaml, class_name, method_name = toYaml.create_yaml(pcl_file)
-            CommonUtils.writeLog(logging.DEBUG, f&#39;pcl_file:\n{pcl_yaml}&#39;)
-
-            method_name = f&quot;{method_name[0].upper()}{method_name[1:]}&quot;
-
-            junit_file_name = f&quot;{class_name}{method_name}Test.java&quot;
-            out_path = os.path.join(cur_path, OUTPUT_DIRECTORY)
-            junit_file_path = os.path.join(out_path, junit_file_name)
-
-            ai_create_junit(
-                class_name, method_name, pcl_yaml, merged_sources, junit_file_path
-            )
-
-        CommonUtils.writeLog(logging.INFO, &quot;Junit生成処理が終了しました。&quot;)
-
-    except Exception as e:
-        import traceback
-
-        CommonUtils.writeLog(logging.ERROR, f&quot;Junit生成処理中にエラーが発生しました：{e}&quot;)
-        CommonUtils.writeLog(logging.ERROR, str(e))
-        traceback.print_exc()
-
-
-if __name__ == &quot;__main__&quot;:
-    main()
-</code></pre>
+      <p>比如我自己做个AI Agent来完成我布置的指定任务，<br>1，在每天的指定时间，开始自动执行<br>2，会根据我提前写好的文件内容，去完成相应文章做成，做成后会再次检查修正三遍完善内容<br>3，然后打开我的个人博客，将完成的文章自动输入和发布到我的个人博客中<br>4，然后获取博客中的用户浏览量，评论等来自用户的数据做成相应的总结报告进行保存</p>
+<h1 id="AI-Agent-架构说明"><a href="#AI-Agent-架构说明" class="headerlink" title="AI Agent 架构说明"></a>AI Agent 架构说明</h1><h2 id="前端界面"><a href="#前端界面" class="headerlink" title="前端界面"></a>前端界面</h2><ul>
+<li>可监控任务状态</li>
+<li>能手动触发Agent执行任务</li>
+</ul>
+<h2 id="后端服务（Spring-Boot）"><a href="#后端服务（Spring-Boot）" class="headerlink" title="后端服务（Spring Boot）"></a>后端服务（Spring Boot）</h2><ul>
+<li><strong>Controller</strong> → 接收前端请求</li>
+<li><strong>Scheduler</strong> → 每天定时触发任务</li>
+</ul>
+<h2 id="Agent核心模块"><a href="#Agent核心模块" class="headerlink" title="Agent核心模块"></a>Agent核心模块</h2><ul>
+<li><strong>TaskPlanner</strong> → 拆解任务目标（生成文章 → 修正 → 发布 → 数据分析）</li>
+<li><strong>TaskExecutor</strong> → 循环执行每个步骤，调用工具和AI模型</li>
+</ul>
+<h2 id="工具-外部接口"><a href="#工具-外部接口" class="headerlink" title="工具&#x2F;外部接口"></a>工具&#x2F;外部接口</h2><ul>
+<li><strong>GPT&#x2F;LLM</strong> → 生成文章和报告</li>
+<li><strong>博客API&#x2F;WebDriver</strong> → 自动发布</li>
+<li><strong>数据API&#x2F;数据库</strong> → 获取浏览量、评论等</li>
+</ul>
+<h2 id="存储-日志"><a href="#存储-日志" class="headerlink" title="存储 &amp; 日志"></a>存储 &amp; 日志</h2><ul>
+<li>保存草稿、最终文章、总结报告</li>
+<li>记录任务执行日志，方便调试和追踪</li>
+</ul>
+<p>AI Agent 工程化结构图<br>┌───────────────────────────────┐<br>│         前端界面              │  ← 可选（监控、日志查看）<br>│  - 查看任务状态               │<br>│  - 手动触发任务（调试用）     │<br>└──────────────┬────────────────┘<br>               │<br>               ▼<br>┌───────────────────────────────┐<br>│       后端服务 (Spring Boot)   │<br>│  - Controller 层              │ ← 接收前端请求 &#x2F; 定时触发<br>│  - Scheduler &#x2F; TaskRunner      │ ← 定时触发每天任务<br>└──────────────┬────────────────┘<br>               │<br>               ▼<br>┌───────────────────────────────┐<br>│          Agent 核心模块        │  ← 核心逻辑<br>│ ┌───────────────────────────┐ │<br>│ │ 1️⃣ Task Planner           │ │ ← 拆解任务（生成文章 → 修正 → 发布 → 数据收集）<br>│ └──────────────┬────────────┘ │<br>│                │<br>│ ┌──────────────▼────────────┐ │<br>│ │ 2️⃣ Task Executor           │ │ ← 循环执行每个步骤<br>│ │  - Article Generator        │ │    • 调用模型生成文章<br>│ │  - Revision &#x2F; Proofreader   │ │    • 修正三遍<br>│ │  - Blog Publisher           │ │    • 自动登录博客、发布文章<br>│ │  - Data Collector           │ │    • 抓取浏览量、评论、点赞<br>│ │  - Report Generator         │ │    • AI生成总结报告并保存<br>│ └──────────────┬────────────┘ │<br>└───────────────▼───────────────┘<br>                │<br>                ▼<br>┌───────────────────────────────┐<br>│        AI模型&#x2F;工具接口         │<br>│  - GPT &#x2F; LLM API              │ ← 文章生成、修正、报告总结<br>│  - 博客API &#x2F; WebDriver        │ ← 自动发布文章<br>│  - 数据API &#x2F; DB               │ ← 获取浏览量、评论<br>└───────────────────────────────┘<br>                │<br>                ▼<br>┌───────────────────────────────┐<br>│        存储 &amp; 日志系统        │<br>│  - 保存文章草稿、最终稿       │<br>│  - 保存用户数据总结报告       │<br>│  - 记录任务执行日志           │<br>└───────────────────────────────┘</p>
 
       <!-- 渲染文章正文 HTML -->
       <!-- 使用  不转义 HTML，保证内容中的标签生效 -->
