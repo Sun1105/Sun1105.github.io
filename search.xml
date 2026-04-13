@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>💻 新电脑文件管理初始化手册</title>
+      <link href="/2026/04/12/1776068026753/"/>
+      <url>/2026/04/12/1776068026753/</url>
+      
+        <content type="html"><![CDATA[<h1 id="💻-新电脑文件管理初始化手册"><a href="#💻-新电脑文件管理初始化手册" class="headerlink" title="💻 新电脑文件管理初始化手册"></a>💻 新电脑文件管理初始化手册</h1><hr><h2 id="分类：-电脑技巧标签：-标准化-初始化-文件管理-效率"><a href="#分类：-电脑技巧标签：-标准化-初始化-文件管理-效率" class="headerlink" title="分类： 电脑技巧标签： #标准化 #初始化 #文件管理 #效率"></a><strong>分类：</strong> 电脑技巧<br><strong>标签：</strong> #标准化 #初始化 #文件管理 #效率</h2><h2 id="🧭-核心逻辑：线性流转"><a href="#🧭-核心逻辑：线性流转" class="headerlink" title="🧭 核心逻辑：线性流转"></a>🧭 核心逻辑：线性流转</h2><blockquote><p><strong>原则：</strong> 文件夹深度不超过 3 层；下载不放桌面；命名必带日期。</p></blockquote><hr><h2 id="一、-目录架构-根目录建议设在-D-盘"><a href="#一、-目录架构-根目录建议设在-D-盘" class="headerlink" title="一、 目录架构 (根目录建议设在 D 盘)"></a>一、 目录架构 (根目录建议设在 D 盘)</h2><table><thead><tr><th align="left">文件夹名称</th><th align="left">对应功能</th><th align="left">管理策略</th></tr></thead><tbody><tr><td align="left"><strong>01_Inbox</strong></td><td align="left"><strong>收件箱</strong></td><td align="left">所有浏览器下载、临时接收的文件。<strong>每周清空</strong>。</td></tr><tr><td align="left"><strong>02_Doing</strong></td><td align="left"><strong>进行中</strong></td><td align="left">当前正在处理的项目、学习中的课程。<strong>完结即移走</strong>。</td></tr><tr><td align="left"><strong>03_Local</strong></td><td align="left"><strong>资料库</strong></td><td align="left">个人作品、软件配置、素材、长期参考文档。</td></tr><tr><td align="left"><strong>04_Arch</strong></td><td align="left"><strong>归档库</strong></td><td align="left">按年份（如 2025、2026）存放已结束的旧项目。</td></tr></tbody></table><hr><h2 id="二、-命名规范-必执行"><a href="#二、-命名规范-必执行" class="headerlink" title="二、 命名规范 (必执行)"></a>二、 命名规范 (必执行)</h2><p>使用 <strong>[日期]<em>[关键词]</em>[版本]</strong> 格式，确保文件自动按时间完美排序。</p><ul><li><strong>格式：</strong> <code>YYYYMMDD_文件名_版本号</code></li><li><strong>示例：</strong> <code>20260413_项目策划案_V1.docx</code></li><li><strong>注意：</strong> 严禁使用“最终版”、“最最后版”，统一使用 <code>V1/V2/Final</code>。</li></ul><hr><h2 id="三、-新电脑配置清单-Checklist"><a href="#三、-新电脑配置清单-Checklist" class="headerlink" title="三、 新电脑配置清单 (Checklist)"></a>三、 新电脑配置清单 (Checklist)</h2><h3 id="1-系统设置优化"><a href="#1-系统设置优化" class="headerlink" title="1. 系统设置优化"></a>1. 系统设置优化</h3><ul><li><input disabled="" type="checkbox"> <strong>修改下载路径：</strong> 将浏览器默认下载位置更改为 <code>D:\01_Inbox</code>。</li><li><input disabled="" type="checkbox"> <strong>桌面清零：</strong> 桌面仅存放“当天待办”的快捷方式，不存放实际文件。</li><li><input disabled="" type="checkbox"> <strong>任务栏加固：</strong> 使用“伪装法”将常用的 <code>.bat</code> 或 <code>.hta</code> 工具固定到任务栏。</li></ul><h3 id="2-必备神器安装"><a href="#2-必备神器安装" class="headerlink" title="2. 必备神器安装"></a>2. 必备神器安装</h3><ul><li><input disabled="" type="checkbox"> <strong>Everything：</strong> 实现全盘秒级搜索（解决“文件在哪”）。</li><li><input disabled="" type="checkbox"> <strong>QuickLook：</strong> 按空格键预览文件内容（解决“文件是啥”）。</li></ul><hr><h2 id="四、-定期维护计划"><a href="#四、-定期维护计划" class="headerlink" title="四、 定期维护计划"></a>四、 定期维护计划</h2><ul><li><strong>日清：</strong> 下班&#x2F;关机前，清空桌面临时文件，分类至 <code>01</code> 或 <code>02</code>。</li><li><strong>周清：</strong> 每周五处理 <code>01_Inbox</code> 中的堆积物，该删的删，该存的存。</li><li><strong>季归：</strong> 每季度将 <code>02_Doing</code> 中已完成的项目移入 <code>04_Arch</code>。</li></ul><hr><blockquote><p><strong>💡 笔记心法：</strong> &gt; 好的系统不是为了“藏”文件，而是为了在 3 秒钟内“找”到文件。</p></blockquote><hr><h1 id="💻-IT-环境标准化：文件架构管理"><a href="#💻-IT-环境标准化：文件架构管理" class="headerlink" title="💻 IT 环境标准化：文件架构管理"></a>💻 IT 环境标准化：文件架构管理</h1><hr><h2 id="分类：环境搭建标签：-SOP-文件规范-效率提升-Windows"><a href="#分类：环境搭建标签：-SOP-文件规范-效率提升-Windows" class="headerlink" title="分类：环境搭建标签：#SOP #文件规范 #效率提升 #Windows"></a><strong>分类：环境搭建</strong><br><strong>标签：#SOP #文件规范 #效率提升 #Windows</strong></h2><h2 id="🛠️-核心逻辑：模块化存储"><a href="#🛠️-核心逻辑：模块化存储" class="headerlink" title="🛠️ 核心逻辑：模块化存储"></a>🛠️ 核心逻辑：模块化存储</h2><blockquote><p><strong>原则：</strong> 路径固定、版本受控、检索秒级。</p></blockquote><hr><h2 id="一、-标准目录结构-建议根目录：D-Workspace"><a href="#一、-标准目录结构-建议根目录：D-Workspace" class="headerlink" title="一、 标准目录结构 (建议根目录：D:\Workspace)"></a>一、 标准目录结构 (建议根目录：<code>D:\Workspace</code>)</h2><table><thead><tr><th align="left">文件夹名</th><th align="left">IT 定义</th><th align="left">说明</th></tr></thead><tbody><tr><td align="left"><strong>01_Temp</strong></td><td align="left"><strong>缓冲区</strong></td><td align="left">存放 <code>Git Clone</code> 测试、下载包、临时 Log。<strong>定期清理</strong>。</td></tr><tr><td align="left"><strong>02_Dev</strong></td><td align="left"><strong>开发中</strong></td><td align="left">活跃的项目代码、正在编辑的文档、容器挂载目录。</td></tr><tr><td align="left"><strong>03_Repo</strong></td><td align="left"><strong>资源库</strong></td><td align="left">稳定的软件安装包 (Softs)、脚本工具 (Tools)、技术文档 (Docs)。</td></tr><tr><td align="left"><strong>04_Safe</strong></td><td align="left"><strong>备份区</strong></td><td align="left">密钥备份、旧版本镜像、冷数据归档。</td></tr></tbody></table><hr><h2 id="二、-命名与版本管理"><a href="#二、-命名与版本管理" class="headerlink" title="二、 命名与版本管理"></a>二、 命名与版本管理</h2><p>遵循 <strong>ISO 8601</strong> 扩展日期格式，确保全局字符排序一致性：</p><ul><li><strong>格式：</strong> <code>YYYYMMDD_[项目名]_[描述]_[版本]</code></li><li><strong>示例：</strong> <code>20260413_NginxConf_Prod_V1.2.zip</code></li><li><strong>规范：</strong> 路径避免空格和中文（尤其是脚本调用的目录），统一用下划线 <code>_</code>。</li></ul><hr><h2 id="三、-IT-环境初始化-SOP"><a href="#三、-IT-环境初始化-SOP" class="headerlink" title="三、 IT 环境初始化 SOP"></a>三、 IT 环境初始化 SOP</h2><h3 id="1-路径重定向"><a href="#1-路径重定向" class="headerlink" title="1. 路径重定向"></a>1. 路径重定向</h3><ul><li><input disabled="" type="checkbox"> <strong>Browser：</strong> 修改 <code>Downloads</code> 默认路径至 <code>D:\01_Temp</code>。</li><li><input disabled="" type="checkbox"> <strong>Env Var：</strong> 将 <code>D:\03_Repo\Tools</code> 加入系统 <strong>Path</strong> 环境变量（方便 Cmd 直接调用自定义脚本）。</li></ul><h3 id="2-高效工具链"><a href="#2-高效工具链" class="headerlink" title="2. 高效工具链"></a>2. 高效工具链</h3><ul><li><input disabled="" type="checkbox"> <strong>Everything：</strong> 索引全盘，替代 Windows 自带搜索。</li><li><input disabled="" type="checkbox"> <strong>QuickLook：</strong> 实现类似 macOS 的空格预览功能。</li><li><input disabled="" type="checkbox"> <strong>Terminal：</strong> 配置 Windows Terminal 默认起始目录为 <code>D:\02_Dev</code>。</li></ul><hr><h2 id="四、-自动化维护"><a href="#四、-自动化维护" class="headerlink" title="四、 自动化维护"></a>四、 自动化维护</h2><ul><li><strong>日清理：</strong> 清空 <code>01_Temp</code> 中的临时测试文件。</li><li><strong>周备份：</strong> 将 <code>02_Dev</code> 中的核心配置同步至云端或 Git 私库。</li><li><strong>月归档：</strong> 将已关闭的 Project 移动至 <code>04_Safe</code>。</li></ul><hr><blockquote><p><strong>💡 笔记心法：</strong><br>程序员的时间应花在解决 Bug 上，而不是找文件上。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 电脑技巧 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 标准化 </tag>
+            
+            <tag> 初始化 </tag>
+            
+            <tag> 文件管理 </tag>
+            
+            <tag> 效率 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Windows 任务栏强制固定 .bat/.hta 脚本</title>
       <link href="/2026/04/12/1776043779935/"/>
       <url>/2026/04/12/1776043779935/</url>
@@ -20,9 +51,9 @@
       
         <tags>
             
-            <tag> 快捷方式 </tag>
-            
             <tag> 效率 </tag>
+            
+            <tag> 快捷方式 </tag>
             
             <tag> 固定任务栏 </tag>
             
