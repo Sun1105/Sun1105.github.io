@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>Windows 任务栏强制固定 .bat/.hta 脚本</title>
+      <link href="/2026/04/12/1776043779935/"/>
+      <url>/2026/04/12/1776043779935/</url>
+      
+        <content type="html"><![CDATA[<h1 id="💻-电脑小技巧：如何将脚本固定到任务栏？"><a href="#💻-电脑小技巧：如何将脚本固定到任务栏？" class="headerlink" title="💻 电脑小技巧：如何将脚本固定到任务栏？"></a>💻 电脑小技巧：如何将脚本固定到任务栏？</h1><blockquote><p><strong>背景：</strong> Windows 任务栏默认只允许固定 <code>.exe</code> 程序。如果你想把常用的 <code>.bat</code> 批处理或 <code>.hta</code> 应用固定到任务栏，直接拖拽是不行的。</p><p><strong>原理：</strong> 通过修改快捷方式，让系统认为你在运行一个 <code>.exe</code>（如 cmd 或 mshta），从而实现“伪装固定”。</p></blockquote><hr><h2 id="✅-核心方案：用快捷方式“伪装”程序（推荐）"><a href="#✅-核心方案：用快捷方式“伪装”程序（推荐）" class="headerlink" title="✅ 核心方案：用快捷方式“伪装”程序（推荐）"></a>✅ 核心方案：用快捷方式“伪装”程序（推荐）</h2><h3 id="📌-适用类型"><a href="#📌-适用类型" class="headerlink" title="📌 适用类型"></a>📌 适用类型</h3><ul><li><strong><code>.bat</code></strong> (批处理文件)</li><li><strong><code>.hta</code></strong> (HTML 应用程序)</li></ul><hr><h2 id="🧭-操作步骤详解"><a href="#🧭-操作步骤详解" class="headerlink" title="🧭 操作步骤详解"></a>🧭 操作步骤详解</h2><h3 id="第一步：创建初始快捷方式"><a href="#第一步：创建初始快捷方式" class="headerlink" title="第一步：创建初始快捷方式"></a>第一步：创建初始快捷方式</h3><ol><li>找到你的原始 <code>.bat</code> 或 <code>.hta</code> 文件。</li><li><strong>右键</strong>点击该文件 -&gt; 选择 <strong>发送到</strong> -&gt; <strong>桌面快捷方式</strong>。</li></ol><hr><h3 id="第二步：修改目标路径（关键）"><a href="#第二步：修改目标路径（关键）" class="headerlink" title="第二步：修改目标路径（关键）"></a>第二步：修改目标路径（关键）</h3><p>右键点击桌面上刚生成的快捷方式，选择 <strong>属性</strong>，在“目标”栏中根据文件类型进行修改：</p><h4 id="▶-情况-A：针对-bat-文件"><a href="#▶-情况-A：针对-bat-文件" class="headerlink" title="▶ 情况 A：针对 .bat 文件"></a>▶ 情况 A：针对 <code>.bat</code> 文件</h4><p>在原路径前添加 <code>cmd.exe /c</code>：</p><ul><li><strong>修改模板：</strong> <code>C:\Windows\System32\cmd.exe /c &quot;你的文件完整路径&quot;</code></li><li><strong>示例：</strong>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\System32\cmd.exe /c <span class="string">&quot;D:\Tools\backup_script.bat&quot;</span></span><br></pre></td></tr></table></figure></li></ul><h4 id="▶-情况-B：针对-hta-文件"><a href="#▶-情况-B：针对-hta-文件" class="headerlink" title="▶ 情况 B：针对 .hta 文件"></a>▶ 情况 B：针对 <code>.hta</code> 文件</h4><p>在原路径前添加 <code>mshta.exe</code>：</p><ul><li><strong>修改模板：</strong> <code>C:\Windows\System32\mshta.exe &quot;你的文件完整路径&quot;</code></li><li><strong>示例：</strong>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\System32\mshta.exe <span class="string">&quot;D:\MyApps\dashboard.hta&quot;</span></span><br></pre></td></tr></table></figure></li></ul><hr><h3 id="第三步：美化图标（可选但推荐）"><a href="#第三步：美化图标（可选但推荐）" class="headerlink" title="第三步：美化图标（可选但推荐）"></a>第三步：美化图标（可选但推荐）</h3><p>由于修改后图标会变成 CMD 的黑框，建议：</p><ol><li>在“属性”窗口点击 <strong>更改图标</strong>。</li><li>选择一个你喜欢的图标（通常在 <code>shell32.dll</code> 或 <code>imageres.dll</code> 中有很多选择）。</li></ol><hr><h3 id="第四步：固定到任务栏"><a href="#第四步：固定到任务栏" class="headerlink" title="第四步：固定到任务栏"></a>第四步：固定到任务栏</h3><ul><li>最后，直接将这个修改好的桌面快捷方式 <strong>拖拽到任务栏</strong>，或者 <strong>右键 -&gt; 固定到任务栏</strong> 即可成功！</li></ul><hr><h2 id="🧩-技术小贴士-Tips"><a href="#🧩-技术小贴士-Tips" class="headerlink" title="🧩 技术小贴士 (Tips)"></a>🧩 技术小贴士 (Tips)</h2><table><thead><tr><th align="left">文件类型</th><th align="left">执行核心</th><th align="left">伪装逻辑</th></tr></thead><tbody><tr><td align="left"><strong>.bat</strong></td><td align="left"><code>cmd.exe</code></td><td align="left">显式调用命令提示符来运行脚本</td></tr><tr><td align="left"><strong>.hta</strong></td><td align="left"><code>mshta.exe</code></td><td align="left">显式调用微软 HTML 宿主程序运行</td></tr></tbody></table><blockquote><p>[!IMPORTANT]<br><strong>为什么要这么做？</strong><br>因为 Windows 任务栏只识别 <code>.exe</code> 可执行文件。通过上述方法，我们本质上是在运行系统自带的 <code>.exe</code> 程序，只是顺便让它带上我们的脚本路径作为参数。</p></blockquote><hr><p>#电脑技巧 #Windows #生产力提升</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 电脑技巧 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 快捷方式 </tag>
+            
+            <tag> 效率 </tag>
+            
+            <tag> 固定任务栏 </tag>
+            
+            <tag> Windows </tag>
+            
+            <tag> bat </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>メモ</title>
       <link href="/2026/03/29/1764896425057--/"/>
       <url>/2026/03/29/1764896425057--/</url>
