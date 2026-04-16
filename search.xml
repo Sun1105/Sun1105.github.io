@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>✅ A5M2 Oracle 数据库登录设置指南</title>
+      <link href="/2026/04/16/1764300787048-A5M2-Oracle-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%99%BB%E5%BD%95%E8%AE%BE%E7%BD%AE%E6%8C%87%E5%8D%97/"/>
+      <url>/2026/04/16/1764300787048-A5M2-Oracle-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%99%BB%E5%BD%95%E8%AE%BE%E7%BD%AE%E6%8C%87%E5%8D%97/</url>
+      
+        <content type="html"><![CDATA[<!DOCTYPE html><html lang="zh"><head>  <meta charset="UTF-8">  <title>A5:SQL Mk-2 Oracle 直接接続设置指南</title>  <meta name="viewport" content="width=device-width, initial-scale=1">  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>  <script>    mermaid.initialize({       startOnLoad: true,       theme: 'neutral',      flowchart: { useMaxWidth: true, htmlLabels: true }    });  </script>  <style>    :root {      --primary-blue: #2366d1;      --hover-blue: #1a4da3;      --bg-light: #f5f8fa;      --card-bg: #ffffff;      --border-gray: #dadada;      --code-bg: #21272c;      --highlight-yellow: #fcf5c7;    }<pre><code>body {   font-family: &#39;Segoe UI&#39;, &#39;Microsoft YaHei&#39;, &#39;Meiryo&#39;, Arial, sans-serif;   background: var(--bg-light);   color: #222;   margin: 0;   padding: 32px;  line-height: 1.6;}h1, h2, h3 { color: var(--primary-blue); border-bottom: 2px solid #edf3fb; padding-bottom: 8px; }.section {   background: var(--card-bg);   border-radius: 10px;   box-shadow: 0 4px 12px rgba(0,0,0,0.05);   padding: 24px 28px;   margin-bottom: 32px;  border: 1px solid #eee;}.highlight { background: var(--highlight-yellow); padding: 2px 6px; border-radius: 3px; font-weight: bold; }.input-table { border-collapse: collapse; width: 100%; margin: 15px 0; border: 1px solid #b6b6b6; }.input-table th, .input-table td { border: 1px solid #b6b6b6; padding: 12px;}.input-table th { background: #edf3fb; text-align: left; width: 30%; color: var(--primary-blue); }.code-box {   background: var(--code-bg);   color: #f1f1f1;   font-family: &quot;Fira Mono&quot;, &quot;Consolas&quot;, monospace;   padding: 16px;   border-radius: 6px;   font-size: 0.95em;   margin: 12px 0;  overflow-x: auto;  border-left: 5px solid var(--primary-blue);}.note { color: #b80000; font-weight: bold;}.step {   margin-bottom: 16px;   padding: 12px;   border-left: 4px solid var(--primary-blue);   background: #fafafa;}.step b { color: var(--primary-blue); font-size: 1.1em; }/* Mermaid 图表容器修复 */.mermaid-container {  background: #fdfdfd;  border: 1px solid #eee;  border-radius: 6px;  padding: 20px;  display: flex;  justify-content: center;  margin: 15px 0;}.small { font-size: 0.85em; color:#666; font-style: italic;}ul li { margin-bottom: 8px; }</code></pre><p>  </style></p></head><body><div class="section">  <h1>📌 目标</h1>  <p>使用 <b>A5:SQL Mk-2</b> 通过 <span class="highlight">直接接続（Easy Connect）</span> 方式连接 Oracle 数据库。</p></div><div class="section">  <h2>🔍 登录信息示例</h2>  <table class="input-table">    <tr><th>项</th><th>示例值</th></tr>    <tr><td>用户ID</td><td><span class="highlight">KH000</span></td></tr>    <tr><td>密码</td><td><span class="highlight">123456789</span></td></tr>    <tr><td>连接字符串</td><td><code>//10.123.456.001:1521/KH00_PDB.dkcsub.tbinas.oraclevcn.com</code></td></tr>    <tr><td>端口</td><td><code>1521</code></td></tr>    <tr><td>服务名</td><td><code>KH00_PDB.dkcsub.tbinas.oraclevcn.com</code></td></tr>  </table></div><div class="section">  <h2>🛠 操作流程（Visual Flow）</h2>  <div class="mermaid-container">    <div class="mermaid">      flowchart TD        A[Step 1: 选择接続方法] --> B[Step 2: 输入接続文字列]        B --> C[Step 3: 输入ユーザーID]        C --> D[Step 4: 输入パスワード]        D --> E[Step 5: 设置DBタイプ]        E --> F[Step 6: 设置色]        F --> G[Step 7: 点击「テスト接続」]        G --> H[Step 8: 点击「OK」保存]<pre><code>    style A fill:#e3f2fd,stroke:#2196f3    style G fill:#fffde7,stroke:#fbc02d    style H fill:#e8f5e9,stroke:#4caf50&lt;/div&gt;</code></pre>  </div></div><div class="section">  <h2>✅ 详细步骤与输入值</h2>  <div class="step">    <b>Step 1：选择接続方法</b><br>    <span class="highlight">直接接続（Oracle Client不要）</span>  </div>  <div class="step">    <b>Step 2：输入接続文字列</b><br>    <code>//10.123.456.001:1521/KH00_PDB.dkcsub.tbinas.oraclevcn.com</code>    <div class="small">格式说明：//IP地址:端口/服务名</div>  </div>  <div class="step">    <b>Step 3：输入ユーザーID</b><br>    <span>KH000</span>  </div>  <div class="step">    <b>Step 4：输入パスワード</b><br>    <span>123456789</span><br>    <span class="small">※ 建议勾选「パスワードを保存する」以便下次快速登录</span>  </div>  <div class="step">    <b>Step 5：DBタイプ（可选）</b><br>    本番环境建议勾选：<span class="highlight">本番環境</span> 以开启警示提醒。  </div>  <div class="step">    <b>Step 6：色（可选）</b><br>    默认：<span class="highlight">(None)</span><br>    通过背景色区分 <i>开发/验证/生产</i> 环境，防止误操作。  </div>  <div class="step">    <b>Step 7：测试连接</b><br>    点击：<span class="highlight">テスト接続</span><br>    弹出成功消息框则表示配置正确。  </div>  <div class="step">    <b>Step 8：保存设置</b><br>    点击底部：<span class="highlight">OK</span> 按钮。  </div></div><div class="section">  <h2>🔗 tnsnames.ora 配置范例</h2>  <table class="input-table">    <tr><th>路径</th><td><code>\oracle\product\12.1.0\client_1\network\admin</code></td></tr>    <tr><th>文件名</th><td><code>tnsnames.ora</code></td></tr>  </table>  <p>如需使用传统的 TNS 方式，可追加以下内容：</p>  <pre class="code-box">KH00_ABC=  (DESCRIPTION=    (LOAD_BALANCE = ON)    (ADDRESS = (PROTOCOL=TCP)(HOST=10.123.456.101)(PORT=1521))    (ADDRESS = (PROTOCOL=TCP)(HOST=10.123.456.102)(PORT=1521))    (ADDRESS = (PROTOCOL=TCP)(HOST=10.123.456.103)(PORT=1521))    (CONNECT_DATA=      (SERVER=DEDICATED)      (SERVICE_NAME=KH00_ABC.dkcsub.tbinas.oraclevcn.com)      (FAILOVER_MODE=        (TYPE=select)        (METHOD=basic))))  </pre></div><div class="section">  <h2>⚠ 注意事项</h2>  <ul>    <li><span class="note">模式选择：</span> 必须确认选择了 <span class="highlight">直接接続</span> 模式。</li>    <li><span class="note">语法符号：</span> 接続文字列的首部必须包含双斜杠 <code>//</code>。</li>    <li><span class="note">防火墙：</span> 确保本地 PC 到数据库服务器的 <b>1521</b> 端口已放行。</li>    <li><span class="note">排错检查：</span>       <ul>        <li>确认服务名（Service Name）是否包含完整域名后缀。</li>        <li>检查密码是否因复制粘贴带入了不可见的空格。</li>      </ul>    </li>  </ul></div><div style="text-align: center; color: #999; font-size: 0.8em; margin-bottom: 20px;">  &copy; 2026 Database Configuration Guide</div></body></html>]]></content>
+      
+      
+      <categories>
+          
+          <category> 💻 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Oracle </tag>
+            
+            <tag> 数据库 </tag>
+            
+            <tag> A5M2 </tag>
+            
+            <tag> 数据库连接 </tag>
+            
+            <tag> 登录配置 </tag>
+            
+            <tag> 环境配置 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>メモ</title>
       <link href="/2026/04/15/1764896425057--/"/>
       <url>/2026/04/15/1764896425057--/</url>
@@ -21,6 +56,35 @@
         <tags>
             
             <tag> メモ </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>✍ 自动写发分析系统（自動執筆・投稿・分析システム）</title>
+      <link href="/2026/04/15/1776313946087/"/>
+      <url>/2026/04/15/1776313946087/</url>
+      
+        <content type="html"><![CDATA[<p>“个人自动化系统 + AI实践 + 内容产出闭环”</p><p>比如我自己做个AI Agent来完成我布置的指定任务，<br>1，在每天的指定时间，开始自动执行<br>2，会根据我提前写好的文件内容，去完成相应文章做成，做成后会再次检查修正三遍完善内容<br>3，然后打开我的个人博客，将完成的文章自动输入和发布到我的个人博客中<br>4，然后获取博客中的用户浏览量，评论等来自用户的数据做成相应的总结报告进行保存</p><h1 id="AI-Agent-架构说明"><a href="#AI-Agent-架构说明" class="headerlink" title="AI Agent 架构说明"></a>AI Agent 架构说明</h1><h2 id="前端界面"><a href="#前端界面" class="headerlink" title="前端界面"></a>前端界面</h2><ul><li>可监控任务状态</li><li>能手动触发Agent执行任务</li></ul><h2 id="后端服务（Spring-Boot）"><a href="#后端服务（Spring-Boot）" class="headerlink" title="后端服务（Spring Boot）"></a>后端服务（Spring Boot）</h2><ul><li><strong>Controller</strong> → 接收前端请求</li><li><strong>Scheduler</strong> → 每天定时触发任务</li></ul><h2 id="Agent核心模块"><a href="#Agent核心模块" class="headerlink" title="Agent核心模块"></a>Agent核心模块</h2><ul><li><strong>TaskPlanner</strong> → 拆解任务目标（生成文章 → 修正 → 发布 → 数据分析）</li><li><strong>TaskExecutor</strong> → 循环执行每个步骤，调用工具和AI模型</li></ul><h2 id="工具-外部接口"><a href="#工具-外部接口" class="headerlink" title="工具&#x2F;外部接口"></a>工具&#x2F;外部接口</h2><ul><li><strong>GPT&#x2F;LLM</strong> → 生成文章和报告</li><li><strong>博客API&#x2F;WebDriver</strong> → 自动发布</li><li><strong>数据API&#x2F;数据库</strong> → 获取浏览量、评论等</li></ul><h2 id="存储-日志"><a href="#存储-日志" class="headerlink" title="存储 &amp; 日志"></a>存储 &amp; 日志</h2><ul><li>保存草稿、最终文章、总结报告</li><li>记录任务执行日志，方便调试和追踪</li></ul><h1 id="🚀-个人自动化系统：AI-Agent-实践与内容产出闭环"><a href="#🚀-个人自动化系统：AI-Agent-实践与内容产出闭环" class="headerlink" title="🚀 个人自动化系统：AI Agent 实践与内容产出闭环"></a>🚀 个人自动化系统：AI Agent 实践与内容产出闭环</h1><p>该系统旨在构建一个全自动化的内容生产、发布与数据反馈闭环。通过集成大语言模型（LLM）与自动化工具，实现从“想法”到“数据报告”的端到端无人值守操作。</p><hr><h2 id="🛠️-核心业务流程"><a href="#🛠️-核心业务流程" class="headerlink" title="🛠️ 核心业务流程"></a>🛠️ 核心业务流程</h2><ol><li><strong>定时触发</strong>：每天在预设的指定时间自动唤醒 Agent。</li><li><strong>内容创作</strong>：根据本地预设的素材文件，利用 AI 生成初稿。</li><li><strong>深度优化</strong>：Agent 自动进行三轮“自检与修正”，模拟编辑审稿，确保质量。</li><li><strong>自动发布</strong>：通过 API 或 WebDriver 登录博客，完成排版、输入并发布。</li><li><strong>反馈分析</strong>：采集阅读量、评论等用户数据，由 AI 提炼总结报告，实现数据驱动创作。</li></ol><hr><h2 id="🏗️-AI-Agent-架构说明"><a href="#🏗️-AI-Agent-架构说明" class="headerlink" title="🏗️ AI Agent 架构说明"></a>🏗️ AI Agent 架构说明</h2><h3 id="1-前端监控界面"><a href="#1-前端监控界面" class="headerlink" title="1. 前端监控界面"></a>1. 前端监控界面</h3><ul><li><strong>任务看板</strong>：实时可视化监控 Agent 的当前执行状态（如：正在生成、正在修正）。</li><li><strong>交互控制</strong>：支持手动触发任务（用于调试）或终止异常任务。</li></ul><h3 id="2-后端服务-Spring-Boot"><a href="#2-后端服务-Spring-Boot" class="headerlink" title="2. 后端服务 (Spring Boot)"></a>2. 后端服务 (Spring Boot)</h3><ul><li><strong>Controller 层</strong>：提供 RESTful 接口，接收前端指令。</li><li><strong>Scheduler 调度器</strong>：基于 Cron 表达式实现高精度的定时触发任务。</li></ul><h3 id="3-Agent-核心模块"><a href="#3-Agent-核心模块" class="headerlink" title="3. Agent 核心模块"></a>3. Agent 核心模块</h3><ul><li><strong>Task Planner (任务规划)</strong>：将大目标拆解为：<code>生成</code> → <code>自审修正</code> → <code>博客发布</code> → <code>反馈收集</code>。</li><li><strong>Task Executor (任务执行器)</strong>：<ul><li><strong>Article Generator</strong>：调用 LLM 生产高质量文章。</li><li><strong>Revision &#x2F; Proofreader</strong>：循环执行 3 遍修正逻辑，完善逻辑与措辞。</li><li><strong>Blog Publisher</strong>：自动化发布工具，处理登录与表单提交。</li><li><strong>Data Collector</strong>：抓取或通过 API 获取博客运营指标。</li><li><strong>Report Generator</strong>：AI 综合分析数据，产出日报&#x2F;周报。</li></ul></li></ul><h3 id="4-工具与外部接口"><a href="#4-工具与外部接口" class="headerlink" title="4. 工具与外部接口"></a>4. 工具与外部接口</h3><ul><li><strong>智能引擎</strong>：GPT-4o &#x2F; Claude 3.5 等大模型。</li><li><strong>自动化工具</strong>：REST API、Selenium&#x2F;Playwright (WebDriver)。</li><li><strong>数据源</strong>：博客后台 API 或数据库。</li></ul><h3 id="5-存储与日志"><a href="#5-存储与日志" class="headerlink" title="5. 存储与日志"></a>5. 存储与日志</h3><ul><li><strong>多版本存储</strong>：记录文章的草稿、修正稿及最终发布稿。</li><li><strong>日志系统</strong>：详细记录每一步的 Prompt 交互和执行状态，便于复盘调试。</li></ul><hr><h2 id="📊-AI-Agent-工程化结构图"><a href="#📊-AI-Agent-工程化结构图" class="headerlink" title="📊 AI Agent 工程化结构图"></a>📊 AI Agent 工程化结构图</h2><pre><code class="language-mermaid">graph TD    subgraph &quot;Presentation Layer&quot;        UI[&quot;前端界面&lt;br/&gt;(监控状态、手动触发)&quot;]    end    subgraph &quot;Backend Service (Spring Boot)&quot;        Ctrl[&quot;Controller 层&lt;br/&gt;(请求处理)&quot;]        Schd[&quot;Scheduler / TaskRunner&lt;br/&gt;(定时/循环触发)&quot;]    end    subgraph &quot;Agent Core Engine&quot;        Planner[&quot;1️⃣ Task Planner&lt;br/&gt;(任务目标拆解)&quot;]                subgraph &quot;2️⃣ Task Executor (执行单元)&quot;            AG[&quot;Article Generator&lt;br/&gt;(内容生成)&quot;]            RP[&quot;Revision / Proofreader&lt;br/&gt;(三遍修正完善)&quot;]            BP[&quot;Blog Publisher&lt;br/&gt;(自动登录与发布)&quot;]            DC[&quot;Data Collector&lt;br/&gt;(采集浏览、评论)&quot;]            RG[&quot;Report Generator&lt;br/&gt;(AI 总结报告)&quot;]        end    end    subgraph &quot;External Integration&quot;        LLM[&quot;GPT / LLM API&lt;br/&gt;(创作与分析)&quot;]        WebTool[&quot;博客 API / WebDriver&lt;br/&gt;(自动操作工具)&quot;]        DB_API[&quot;数据 API / DB&lt;br/&gt;(数据持久化)&quot;]    end    %% 流程连接    UI --&gt; Ctrl    Ctrl --&gt; Schd    Schd --&gt; Planner    Planner --&gt; AG    AG --&gt; RP    RP --&gt; BP    BP --&gt; DC    DC --&gt; RG    %% 工具连接    AG -.-&gt; LLM    RP -.-&gt; LLM    RG -.-&gt; LLM    BP -.-&gt; WebTool    DC -.-&gt; DB_API    %% 样式美化    style UI fill:#f9f,stroke:#333,stroke-width:2px    style Planner fill:#bbf,stroke:#333,stroke-width:2px    style AG fill:#dfd,stroke:#333    style RP fill:#dfd,stroke:#333    style BP fill:#dfd,stroke:#333    style DC fill:#dfd,stroke:#333    style RG fill:#dfd,stroke:#333    style LLM fill:#fff4dd,stroke:#d4a017</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> AIAgent </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> AIAgent </tag>
+            
+            <tag> 自动化 </tag>
+            
+            <tag> 内容创作 </tag>
             
         </tags>
       
