@@ -1,0 +1,2721 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <!-- 设置字符集为 UTF-8 -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 响应式布局，适配移动设备 -->
+
+  <!-- 页面标题 -->
+  <!-- 如果当前页面有标题，则显示 "页面标题 | 网站标题" -->
+  <!-- 否则只显示网站标题 config.title -->
+  <title>
+    dump比較 | Sun Blog
+  </title>
+
+  <!-- 页面描述，用于 SEO -->
+  <meta name="description" content="一个记录开发、学习与生活点滴的博客">
+
+  <!-- ===== 全局样式引入 ===== -->
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <link rel="stylesheet" href="/css/post-list.css">
+  <link rel="stylesheet" href="/css/page.css">
+  <link rel="stylesheet" href="/css/category.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <!-- 各模块样式，便于维护 -->
+
+  <!-- ===== 字体与图标 ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <!-- 网站 favicon 和 Google 字体 -->
+
+  <!-- ===== 登录状态检查 ===== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const onLoginPage = window.location.pathname.startsWith("/login");
+      if (!onLoginPage && !localStorage.getItem("isLoggedIn")) {
+        window.location.href = "/login/";
+      }
+      // 如果未登录且不在登录页，自动跳转到登录页
+    });
+  </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  
+    <!-- ===== 顶部导航栏 ===== -->
+    <header class="top-nav">
+  <!-- ============================
+       顶部导航栏模块
+       功能：
+         - 显示网站 logo
+         - 提供主菜单导航
+         - 技术分类下拉菜单
+         - 新建笔记 / 关于我 / 我的项目 / 技能树
+         - 小屏幕汉堡菜单切换
+         - 退出登录按钮
+  ============================ -->
+
+  <!-- 网站 Logo -->
+  <div class="logo">
+    <a href="/">首页</a>
+    <!-- 点击跳转到网站首页 -->
+  </div>
+
+  <!-- 搜索栏（左侧显示） -->
+  <div class="search-bar" style="margin-right: auto; margin-left: 20px; position: relative;">
+    <input type="text" id="local-search-input" placeholder="搜索标题 / 内容 / 关键词..." autocomplete="off" />
+    <button id="search-btn">搜索</button>
+  </div>
+
+  <!-- 搜索结果抽屉（右侧滑出） -->
+  <div id="search-drawer" class="search-drawer">
+    <div class="drawer-header">
+      <h3>搜索结果 <span id="search-count" style="font-size:0.8rem; color:#666; font-weight:normal;"></span></h3>
+      <button id="close-drawer" aria-label="关闭">×</button>
+    </div>
+    <div id="drawer-content" class="drawer-content">
+      <div class="empty-state">请输入关键词进行搜索</div>
+    </div>
+  </div>
+
+  <!-- 汉堡按钮（小屏幕时显示） -->
+  <button class="menu-toggle" onclick="toggleMenu()" aria-label="切换菜单">☰</button>
+  <!-- onclick 调用 toggleMenu() 切换移动端菜单显示状态 -->
+
+  <!-- 主菜单容器 -->
+  <nav class="menu">
+
+    <!-- 普通菜单项 -->
+    <a href="/new-note/">新建笔记</a>
+    <a href="/notes/">笔记列表</a>
+    <a href="/archives/">时间轴</a>
+    <a href="/about/">关于我</a>
+    <a href="/projects/">项目集</a>
+    <a href="/skills/">技能树</a>
+    <button type="button" id="study-main-btn" class="menu-btn">学习资料</button>
+    <!-- 点击跳转到对应页面 -->
+
+    <!-- 技术分类下拉菜单 -->
+    <div class="dropdown">
+      <button class="menu-btn" type="button">技术分类</button>
+      <!-- 下拉按钮，点击显示分类列表 -->
+
+      <div class="dropdown-content">
+        
+          
+            <a href="/categories/01%EF%BD%9C%E6%8A%80%E6%9C%AF/">01｜技术</a>
+          
+            <a href="/categories/02%EF%BD%9C%E6%97%A5%E8%AF%AD/">02｜日语</a>
+          
+            <a href="/categories/03%EF%BD%9C%E6%96%B9%E6%B3%95%E8%AE%BA/">03｜方法论</a>
+          
+        
+      </div>
+    </div>
+    <!-- 技术分类下拉菜单结束 -->
+
+    <!-- 退出登录按钮 -->
+    <button class="logout" onclick="logout()">退出</button>
+    <!-- 点击调用 logout() 清除登录状态并跳转登录页 -->
+
+  </nav>
+  <!-- 主菜单容器结束 -->
+
+</header>
+<!-- 顶部导航栏结束 -->
+
+<script>
+  // 全站搜索功能
+  const searchInput = document.getElementById('local-search-input');
+  const searchBtn = document.getElementById('search-btn');
+  const searchDrawer = document.getElementById('search-drawer');
+  const drawerContent = document.getElementById('drawer-content');
+  const closeDrawerBtn = document.getElementById('close-drawer');
+  const searchCount = document.getElementById('search-count');
+
+  let searchData = [];
+
+  // 加载搜索数据
+  async function loadSearchData() {
+    if (searchData.length > 0) return;
+    try {
+      const response = await fetch('/search.xml');
+      const str = await response.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(str, "text/xml");
+      const entries = xml.querySelectorAll('entry');
+      
+      searchData = Array.from(entries).map(entry => {
+        return {
+          title: entry.querySelector('title')?.textContent || '',
+          content: entry.querySelector('content')?.textContent || '',
+          url: entry.querySelector('url')?.textContent || '',
+          categories: Array.from(entry.querySelectorAll('category')).map(c => c.textContent.trim()),
+          tags: Array.from(entry.querySelectorAll('tag')).map(t => t.textContent.trim())
+        };
+      });
+    } catch (e) {
+      console.error('Search data load failed:', e);
+      drawerContent.innerHTML = '<div class="error-state">搜索数据加载失败，请刷新重试</div>';
+    }
+  }
+
+  // 打开抽屉
+  function openDrawer() {
+    searchDrawer.classList.add('open');
+  }
+
+  // 关闭抽屉
+  function closeDrawer() {
+    searchDrawer.classList.remove('open');
+  }
+
+  // 执行搜索
+  async function performSearch() {
+    const term = searchInput.value.trim().toLowerCase();
+    
+    // 即使为空也打开抽屉，显示提示
+    openDrawer();
+
+    if (!term) {
+      drawerContent.innerHTML = '<div class="empty-state">请输入关键词开始搜索...</div>';
+      searchCount.textContent = '';
+      return;
+    }
+    
+    drawerContent.innerHTML = '<div class="loading-state">正在搜索...</div>';
+
+    // 确保数据已加载
+    if (searchData.length === 0) {
+      await loadSearchData();
+    }
+    
+    const keywords = term.split(/[\s\-]+/);
+    
+    const matched = searchData.filter(item => {
+      const title = item.title.toLowerCase();
+      const content = item.content.toLowerCase();
+      const meta = (item.categories.join(' ') + ' ' + item.tags.join(' ')).toLowerCase();
+      
+      return keywords.some(k => title.includes(k) || content.includes(k) || meta.includes(k));
+    });
+    
+    searchCount.textContent = `(共 ${matched.length} 条)`;
+
+    if (matched.length > 0) {
+      const html = matched.map(item => {
+        // 高亮关键词逻辑
+        let displayTitle = item.title;
+        let displayContent = item.content.replace(/<[^>]+>/g, "");
+        
+        // 简单截取预览
+        const snippetLength = 100;
+        // 尝试找到第一个关键词的位置
+        let firstIndex = -1;
+        for (const k of keywords) {
+          const idx = displayContent.toLowerCase().indexOf(k);
+          if (idx !== -1) {
+            firstIndex = idx;
+            break;
+          }
+        }
+        
+        let start = 0;
+        if (firstIndex > 20) {
+          start = firstIndex - 20;
+        }
+        
+        let snippet = displayContent.substring(start, start + snippetLength);
+        if (start > 0) snippet = '...' + snippet;
+        if (start + snippetLength < displayContent.length) snippet = snippet + '...';
+
+        // 简单的关键词高亮（不区分大小写替换）
+        keywords.forEach(k => {
+          if(!k) return;
+          const reg = new RegExp(`(${k})`, 'gi');
+          displayTitle = displayTitle.replace(reg, '<mark>$1</mark>');
+          snippet = snippet.replace(reg, '<mark>$1</mark>');
+        });
+
+        return `
+          <a href="${item.url}" class="search-item">
+            <div class="search-item-title">${displayTitle}</div>
+            <div class="search-item-content">${snippet}</div>
+            <div class="search-item-meta">
+              ${item.categories.length ? `<span class="tag category">${item.categories[0]}</span>` : ''}
+              ${item.tags.map(t => `<span class="tag">#${t}</span>`).join(' ')}
+            </div>
+          </a>
+        `;
+      }).join('');
+      drawerContent.innerHTML = html;
+    } else {
+      drawerContent.innerHTML = '<div class="empty-state">没有找到相关内容</div>';
+    }
+  }
+
+  // 按钮点击触发搜索
+  if (searchBtn) {
+    searchBtn.addEventListener('click', function() {
+      performSearch();
+    });
+  }
+
+  // 回车触发搜索
+  searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      performSearch();
+    }
+  });
+
+  // 关闭按钮事件
+  if (closeDrawerBtn) {
+    closeDrawerBtn.addEventListener('click', closeDrawer);
+  }
+
+  // 点击遮罩层关闭（如果在抽屉外点击）
+  // 这里我们做一个简单的处理：如果点击了主内容区域，也可以关闭
+  document.addEventListener('click', function(e) {
+    // 如果抽屉打开，且点击的不是抽屉本身，也不是搜索框/按钮
+    if (searchDrawer.classList.contains('open') && 
+        !searchDrawer.contains(e.target) && 
+        !searchInput.contains(e.target) && 
+        e.target !== searchBtn) {
+      closeDrawer();
+    }
+  });
+</script>
+
+    <!-- 导入 header 部分模板 -->
+
+    <!-- ===== 侧边栏 ===== -->
+    <aside class="sidebar" id="sidebar">
+  <!-- ============================
+       侧边栏模块
+       功能：
+         - 自动读取 Hexo 分类数据
+         - 自动读取 Hexo 标签数据
+         - 渲染为分类导航和标签云
+  ============================ -->
+
+  <!-- 分类导航 -->
+  <details class="sidebar-widget">
+    <summary class="sidebar-title">📘 分类导航</summary>
+    <ul class="category-list">
+      
+        
+          <li>
+            <a href="/categories/01%EF%BD%9C%E6%8A%80%E6%9C%AF/">
+              <span class="sidebar-name">01｜技术</span>
+              <span class="sidebar-count">38</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/02%EF%BD%9C%E6%97%A5%E8%AF%AD/">
+              <span class="sidebar-name">02｜日语</span>
+              <span class="sidebar-count">68</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/03%EF%BD%9C%E6%96%B9%E6%B3%95%E8%AE%BA/">
+              <span class="sidebar-name">03｜方法论</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </details>
+
+  <!-- 分割线 -->
+  <div class="sidebar-divider"></div>
+
+  <!-- 标签云 -->
+  <details class="sidebar-widget">
+    <summary class="sidebar-title">🏷️ 标签云</summary>
+    <ul class="tag-list">
+      
+        
+          <li>
+            <a href="/tags/hta/">
+              <span class="sidebar-name">.hta</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/A5M2/">
+              <span class="sidebar-name">A5M2</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/AI/">
+              <span class="sidebar-name">AI</span>
+              <span class="sidebar-count">3</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/AI%E7%BB%84%E5%90%88/">
+              <span class="sidebar-name">AI组合</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/API/">
+              <span class="sidebar-name">API</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/AWS/">
+              <span class="sidebar-name">AWS</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/CMS/">
+              <span class="sidebar-name">CMS</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Excel/">
+              <span class="sidebar-name">Excel</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Git/">
+              <span class="sidebar-name">Git</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/HTA/">
+              <span class="sidebar-name">HTA</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Hexo/">
+              <span class="sidebar-name">Hexo</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/IF%E9%A0%85%E7%9B%AE/">
+              <span class="sidebar-name">IF項目</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/IT/">
+              <span class="sidebar-name">IT</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/ITA/">
+              <span class="sidebar-name">ITA</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/ITA%E6%B5%8B%E8%AF%95/">
+              <span class="sidebar-name">ITA测试</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/JSON/">
+              <span class="sidebar-name">JSON</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/JUnit/">
+              <span class="sidebar-name">JUnit</span>
+              <span class="sidebar-count">3</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Java/">
+              <span class="sidebar-name">Java</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Key/">
+              <span class="sidebar-name">Key</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Kick/">
+              <span class="sidebar-name">Kick</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/PC%E9%85%8D%E7%BD%AE/">
+              <span class="sidebar-name">PC配置</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/VBA/">
+              <span class="sidebar-name">VBA</span>
+              <span class="sidebar-count">5</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/VBA%E5%B7%A5%E5%85%B7/">
+              <span class="sidebar-name">VBA工具</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Web/">
+              <span class="sidebar-name">Web</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/bat/">
+              <span class="sidebar-name">bat</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/dto/">
+              <span class="sidebar-name">dto</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/dump%E6%AF%94%E8%BC%83/">
+              <span class="sidebar-name">dump比較</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/hta/">
+              <span class="sidebar-name">hta</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/log/">
+              <span class="sidebar-name">log</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/off/">
+              <span class="sidebar-name">off</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/spot/">
+              <span class="sidebar-name">spot</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/toYaml/">
+              <span class="sidebar-name">toYaml</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E3%83%A1%E3%83%A2/">
+              <span class="sidebar-name">メモ</span>
+              <span class="sidebar-count">3</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%B8%80%E6%96%B9/">
+              <span class="sidebar-name">一方</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%B8%80%E8%A6%A7/">
+              <span class="sidebar-name">一覧</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%B8%8D%E5%82%99/">
+              <span class="sidebar-name">不備</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%B8%AD%E6%97%A5%E5%8F%8C%E8%AF%AD/">
+              <span class="sidebar-name">中日双语</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%BB%95%E4%B8%8A/">
+              <span class="sidebar-name">仕上</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%BB%A5%E6%9D%A5/">
+              <span class="sidebar-name">以来</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%BB%BB%E5%8A%A1%E7%A1%AE%E8%AE%A4/">
+              <span class="sidebar-name">任务确认</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%85%A8%E6%A0%88%E6%8A%80%E6%9C%AF%E6%B8%85%E5%8D%95/">
+              <span class="sidebar-name">全栈技术清单</span>
+              <span class="sidebar-count">5</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%85%A8%E8%83%BD%E6%96%B9%E6%A1%88%E8%AF%B4%E6%98%8E/">
+              <span class="sidebar-name">全能方案说明</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C/">
+              <span class="sidebar-name">内容创作</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%88%86%E5%B1%8F%E6%98%BE%E7%A4%BA/">
+              <span class="sidebar-name">分屏显示</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/">
+              <span class="sidebar-name">初始化</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%88%BA%E6%BF%80/">
+              <span class="sidebar-name">刺激</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%89%AF%E8%AF%8D/">
+              <span class="sidebar-name">副词</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%8D%95%E4%BD%93%E6%B5%8B%E8%AF%95/">
+              <span class="sidebar-name">单体测试</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%8F%98%E9%87%8F%E8%AF%8D%E5%85%B8/">
+              <span class="sidebar-name">变量词典</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%90%84%E7%A7%8D/">
+              <span class="sidebar-name">各种</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%9B%BA%E5%AE%9A%E4%BB%BB%E5%8A%A1%E6%A0%8F/">
+              <span class="sidebar-name">固定任务栏</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%9F%BA%E4%BA%8E/">
+              <span class="sidebar-name">基于</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+              <span class="sidebar-name">学习笔记</span>
+              <span class="sidebar-count">55</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/">
+              <span class="sidebar-name">学习计划</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">
+              <span class="sidebar-name">学习路线</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%AE%9E%E7%94%A8%E6%B8%85%E5%8D%95/">
+              <span class="sidebar-name">实用清单</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95/">
+              <span class="sidebar-name">实践记录</span>
+              <span class="sidebar-count">4</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%B7%A5%E4%BD%9C%E7%BB%8F%E9%AA%8C/">
+              <span class="sidebar-name">工作经验</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%B7%A5%E5%85%B7/">
+              <span class="sidebar-name">工具</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F/">
+              <span class="sidebar-name">快捷方式</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">
+              <span class="sidebar-name">思维导图</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%89%A7%E8%A1%8C%E6%A8%A1%E6%9D%BF/">
+              <span class="sidebar-name">执行模板</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%89%A9%E5%B1%95%E7%89%88/">
+              <span class="sidebar-name">扩展版</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%8A%80%E6%9C%AF%E5%85%B3%E7%B3%BB%E8%AF%B4%E6%98%8E/">
+              <span class="sidebar-name">技术关系说明</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%8A%80%E6%9C%AF%E7%82%B9%E8%AF%B4%E6%98%8E/">
+              <span class="sidebar-name">技术点说明</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/">
+              <span class="sidebar-name">文件管理</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E6%9C%AC%E5%A4%A7%E6%89%8B%E4%BC%81%E4%B8%9A/">
+              <span class="sidebar-name">日本大手企业</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E8%AF%AD%E5%8D%95%E8%AF%8D/">
+              <span class="sidebar-name">日语单词</span>
+              <span class="sidebar-count">45</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E8%AF%AD%E5%AD%A6%E4%B9%A0/">
+              <span class="sidebar-name">日语学习</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E8%AF%AD%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/">
+              <span class="sidebar-name">日语学习计划</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E8%AF%AD%E8%AE%A1%E5%88%92/">
+              <span class="sidebar-name">日语计划</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E8%AF%AD%E8%AF%AD%E6%B3%95/">
+              <span class="sidebar-name">日语语法</span>
+              <span class="sidebar-count">15</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%9C%80%E4%B8%AD/">
+              <span class="sidebar-name">最中</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%A0%87%E5%87%86%E5%8C%96/">
+              <span class="sidebar-name">标准化</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%AC%A0%E9%99%A5/">
+              <span class="sidebar-name">欠陥</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%AC%A1%E7%AC%AC/">
+              <span class="sidebar-name">次第</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%AF%8F%E5%91%A8/">
+              <span class="sidebar-name">每周</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/">
+              <span class="sidebar-name">测试框架</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+              <span class="sidebar-name">环境配置</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%94%B5%E8%84%91%E6%8A%80%E5%B7%A7/">
+              <span class="sidebar-name">电脑技巧</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%99%BA%E4%BD%9C/">
+              <span class="sidebar-name">発作</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%99%BB%E5%BD%95%E9%85%8D%E7%BD%AE/">
+              <span class="sidebar-name">登录配置</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%BB%84%E5%90%88%E6%8E%A8%E8%8D%90/">
+              <span class="sidebar-name">组合推荐</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/">
+              <span class="sidebar-name">经验总结</span>
+              <span class="sidebar-count">84</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%BB%8F%E9%AA%8C%E7%AC%94%E8%AE%B0/">
+              <span class="sidebar-name">经验笔记</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%BD%91%E9%A1%B5%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/">
+              <span class="sidebar-name">网页在线工具</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%84%B3%E5%91%B3%E5%99%8C/">
+              <span class="sidebar-name">脳味噌</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%87%AA%E5%88%9B%E9%A1%B9%E7%9B%AE/">
+              <span class="sidebar-name">自创项目</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">
+              <span class="sidebar-name">自动化</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%93%8D%E4%BD%9C/">
+              <span class="sidebar-name">自动化操作</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%87%AA%E5%8B%95%E5%9F%B7%E7%AD%86/">
+              <span class="sidebar-name">自動執筆</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%A6%8B%E6%B8%A1/">
+              <span class="sidebar-name">見渡</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%A9%B3%E7%B4%B0%E8%A8%AD%E8%A8%88/">
+              <span class="sidebar-name">詳細設計</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%BD%BB%E9%87%8F%E7%89%88/">
+              <span class="sidebar-name">轻量版</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E9%85%8D%E7%BD%AE%E6%A8%A1%E6%9D%BF/">
+              <span class="sidebar-name">配置模板</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E9%95%BF%E6%9C%9F%E8%AE%A1%E5%88%92/">
+              <span class="sidebar-name">长期计划</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/">
+              <span class="sidebar-name">项目管理</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </details>
+
+  <div class="sidebar-divider"></div>
+
+  <details class="sidebar-widget">
+    <summary class="sidebar-title" id="sidebar-study-title">📚 学习资料</summary>
+    <ul class="study-list">
+      <li>
+        <select id="file-type-select" style="width: 100%; padding: 6px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.85rem;">
+          <option value="pdf">PDF 文件</option>
+          <option value="image">图片文件</option>
+        </select>
+      </li>
+      <li>
+        <select id="category-select" style="width: 100%; margin-top: 6px; padding: 6px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.85rem;">
+          <option value="bcs">标初上</option>
+          <option value="bcx">标初下</option>
+          <option value="bzs">标中上</option>
+          <option value="bzx">标中下</option>
+          <option value="bgs">标高上</option>
+          <option value="bgx">标高下</option>
+        </select>
+      </li>
+      <li>
+        <button type="button" id="pdf-upload-btn" style="width: 100%; padding: 8px 12px; border-radius: 6px; border: none; background: #0f766e; color: #fff; cursor: pointer; font-size: 0.9rem;">上传文件</button>
+      </li>
+      <li>
+        <input type="file" id="pdf-upload-input" accept="application/pdf" multiple style="width: 100%; margin-top: 8px; font-size: 0.85rem;">
+      </li>
+    </ul>
+    <div class="study-groups">
+      <div class="study-group collapsed">
+        <div class="study-group-title">标初上</div>
+        <ul id="study-bcs">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标初下</div>
+        <ul id="study-bcx">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标中上</div>
+        <ul id="study-bzs">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标中下</div>
+        <ul id="study-bzx">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标高上</div>
+        <ul id="study-bgs">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标高下</div>
+        <ul id="study-bgx">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</aside>
+
+    <!-- 导入 sidebar 部分模板 -->
+  
+
+  <!-- ===== 主体内容区 ===== -->
+  <main id="main-content">
+    <!--
+  post.ejs
+  文章详情页模板
+  功能：
+    - 显示文章标题
+    - 显示文章发布日期和标签
+    - 渲染文章正文内容
+-->
+
+<article class="post">
+  <!-- 单篇文章容器，用于文章详情页布局和样式 -->
+
+  <!-- 文章标题 -->
+  <h1 class="post-title">dump比較</h1>
+  <!-- page.title → 当前文章标题 -->
+
+  <!-- 文章元信息：发布日期 + 标签 -->
+  <div class="post-meta">
+    <span>发表于 2026-03-09</span>
+    <!-- 显示文章发布日期 -->
+
+    
+      <!-- 判断文章是否有标签 -->
+
+      <span>标签：
+        
+          <a href="/tags/%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/">经验总结</a>
+          , 
+          <!-- 遍历文章标签，生成标签链接 -->
+          <!-- 多个标签用逗号分隔 -->
+        
+          <a href="/tags/VBA/">VBA</a>
+          , 
+          <!-- 遍历文章标签，生成标签链接 -->
+          <!-- 多个标签用逗号分隔 -->
+        
+          <a href="/tags/dump%E6%AF%94%E8%BC%83/">dump比較</a>
+          
+          <!-- 遍历文章标签，生成标签链接 -->
+          <!-- 多个标签用逗号分隔 -->
+        
+      </span>
+
+    
+    <!-- 标签判断结束 -->
+  </div>
+  <!-- 文章元信息结束 -->
+
+  <!-- 文章正文内容 -->
+  <div class="post-content">
+    
+
+    
+      <p>Option Explicit                                 ‘ 强制变量声明，避免隐式变量导致的错误<br>Private RESULT_FALSE_COLOR As Long              ‘ 用于着色 FALSE 判定的颜色（变量，运行时赋值）</p>
+<p>‘ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; ユーザー調整オプション &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;<br>Const MATCH_BY_KEY As Boolean &#x3D; False           ‘ 是否按“键列”突合：False&#x3D;按行号突合（默认），True&#x3D;按键值突合<br>Const KEY_COL_NAME As String &#x3D; “”               ‘ 键列标题名（仅在 MATCH_BY_KEY&#x3D;True 时生效；空则用首字段列作为键）<br>Const DATETIME_TOL_SEC As Double &#x3D; 1            ‘ 日期时间比较的容差（单位：秒）<br>‘ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<p>Public Sub RunBat()                             ‘ 主过程：抽取两表块、输出到Sheet3并比较生成判定<br>    Dim ws1 As Worksheet, ws2 As Worksheet, ws3 As Worksheet   ‘ 工作表对象引用<br>    Dim lastRow1 As Long, lastRow2 As Long, outRow As Long     ‘ 两表的最后行号、Sheet3当前输出行<br>    Dim tableDict1 As Object, tableDict2 As Object, tblKey As Variant  ‘ 存放块信息的字典、遍历键变量<br>    Dim tblHeaders1 As Object, tblHeaders2 As Object           ‘ 存放各块的表头（Variant 数组）<br>    Dim i As Long, key As String, sqlText As String, headerRow As Long  ‘ 临时变量：循环计数、键、SQL、表头行<br>    Dim tableName As String, colCount As Long, dataStart1 As Long, dataEnd1 As Long ‘ 表名、列数、块数据起止<br>    Dim cyanColor As Long, grayColor As Long, yellowColor As Long       ‘ 配色变量</p>
+<pre><code>cyanColor = RGB(135, 231, 173)                       &#39; 青绿色（用于表头行底色）
+grayColor = RGB(221, 235, 247)                       &#39; 灰蓝色（用于每个块的标题行）
+yellowColor = RGB(255, 255, 0)                       &#39; 黄色（示例：导航行或你也可用于 FALSE）
+                                                     &#39; 如需 FALSE 为红色，可把 RESULT_FALSE_COLOR 赋值为 RGB(255,0,0)
+RESULT_FALSE_COLOR = yellowColor                      &#39; 设置“FALSE 着色”为黄色；若要红色改为 RGB(255,0,0)
+
+Const firstColOffset As Long = 2                      &#39; 输出起始列偏移：结果从列B（=2）开始写
+
+Set ws1 = ThisWorkbook.Sheets(&quot;1&quot;)                    &#39; 绑定 Sheet &quot;1&quot;
+Set ws2 = ThisWorkbook.Sheets(&quot;2&quot;)                    &#39; 绑定 Sheet &quot;2&quot;
+Set ws3 = ThisWorkbook.Sheets(&quot;3&quot;)                    &#39; 绑定 Sheet &quot;3&quot;
+ws3.Cells.Clear                                       &#39; 清空 Sheet3（含数据、格式、颜色）
+
+Set tableDict1 = CreateObject(&quot;Scripting.Dictionary&quot;) &#39; 创建字典：保存Sheet1每个SQL块的元信息
+Set tblHeaders1 = CreateObject(&quot;Scripting.Dictionary&quot;)&#39; 创建字典：保存Sheet1各块的表头行数组
+Set tableDict2 = CreateObject(&quot;Scripting.Dictionary&quot;) &#39; 创建字典：保存Sheet2每个SQL块的元信息
+Set tblHeaders2 = CreateObject(&quot;Scripting.Dictionary&quot;)&#39; 创建字典：保存Sheet2各块的表头行数组
+
+lastRow1 = ws1.Cells(ws1.Rows.Count, 1).End(xlUp).Row  &#39; 求 Sheet1 的“最后有数据的行号”（按列A上探）
+lastRow2 = ws2.Cells(ws2.Rows.Count, 1).End(xlUp).Row  &#39; 求 Sheet2 的“最后有数据的行号”（按列A上探）
+outRow = 1                                             &#39; Sheet3 输出行初始为第 1 行
+
+&#39; ===== Sheet1 ブロック抽出 =================================================
+For i = 1 To lastRow1                                  &#39; 遍历 Sheet1 的每一行
+    If Left$(CStr(ws1.Cells(i, 1).Value), 7) = &quot;SELECT &quot; Then  &#39; 若该行以 &quot;SELECT &quot; 开头，则视为一个块的开始
+        sqlText = CStr(ws1.Cells(i, 1).Value)          &#39; 记录当前块的 SQL 语句（作为键）
+        tableName = &quot;&quot;                                 &#39; 初始化块的表名
+
+        &#39; FROM～WHERE の簡易抽出
+        Dim sqlParts() As String                       &#39; 用于临时切分 SQL 的数组
+        If InStr(1, sqlText, &quot;FROM&quot;, vbTextCompare) &gt; 0 Then  &#39; 若包含 &quot;FROM&quot;
+            sqlParts = Split(sqlText, &quot;FROM&quot;)          &#39; 以 &quot;FROM&quot; 切分
+            If UBound(sqlParts) &gt;= 1 Then              &#39; 确保存在 FROM 右侧部分
+                If InStr(1, sqlParts(1), &quot;WHERE&quot;, vbTextCompare) &gt; 0 Then &#39; 若右侧含 WHERE
+                    tableName = Trim$(Split(sqlParts(1), &quot;WHERE&quot;)(0))     &#39; 取 FROM 与 WHERE 间文本作为表名
+                Else
+                    tableName = Trim$(sqlParts(1))     &#39; 否则取 FROM 右侧全部作为表名（粗略）
+                End If
+            End If
+        End If
+
+        headerRow = i + 1                              &#39; 表头行：SQL 下方一行
+        colCount = ws1.Cells(headerRow, ws1.Columns.Count).End(xlToLeft).Column &#39; 统计表头的最右非空列
+
+        dataStart1 = i + 2                             &#39; 数据区起始：SQL 下两行
+        dataEnd1 = dataStart1                          &#39; 数据区终止先设为起始
+
+        &#39; ——以下循环：按“整行是否有值且未遇到下一个SELECT”来延伸数据区终止行——
+        Do While (dataEnd1 + 1 &lt;= lastRow1) _          &#39; 续行1：未超出Sheet1最后行
+                 And (Left$(CStr(ws1.Cells(dataEnd1 + 1, 1).Value), 7) &lt;&gt; &quot;SELECT &quot;) _ &#39; 续行2：下一行不是新块的SQL
+                 And (WorksheetFunction.CountA(ws1.Range(ws1.Cells(dataEnd1 + 1, 1), ws1.Cells(dataEnd1 + 1, colCount))) &gt; 0)  &#39; 续行3：该行1~表头末列至少有一个值
+            dataEnd1 = dataEnd1 + 1                    &#39; 若符合条件则把数据终止行下移一行
+        Loop                                           &#39; 直到不满足条件为止
+
+        key = sqlText                                  &#39; 以 SQL 本身作为块的唯一键
+        If Not tableDict1.Exists(key) Then             &#39; 若字典中还没有该键
+            tableDict1.Add key, Array(tableName, sqlText, headerRow, dataStart1, dataEnd1, colCount) &#39; 存入元信息
+            tblHeaders1(key) = ws1.Cells(headerRow, 1).Resize(1, colCount).Value                     &#39; 取表头行的整行值（1×N 数组）
+        End If
+    End If
+Next i                                                 &#39; 下一行
+
+&#39; ===== Sheet2 ブロック抽出 =================================================
+For i = 1 To lastRow2                                  &#39; 遍历 Sheet2 的每一行
+    If Left$(CStr(ws2.Cells(i, 1).Value), 7) = &quot;SELECT &quot; Then  &#39; 识别块开始
+        sqlText = CStr(ws2.Cells(i, 1).Value)          &#39; 记录 SQL
+        headerRow = i + 1                              &#39; 表头行为 SQL 下方一行
+        colCount = ws2.Cells(headerRow, ws2.Columns.Count).End(xlToLeft).Column &#39; 表头最后列
+
+        dataStart1 = i + 2                             &#39; 数据起始
+        dataEnd1 = dataStart1                          &#39; 数据终止初始化
+
+        &#39; ——同理：用“整行是否有值” + “未遇到新SELECT”来判定块的结束——
+        Do While (dataEnd1 + 1 &lt;= lastRow2) _          &#39; 续行1：未超出Sheet2最后行
+                 And (Left$(CStr(ws2.Cells(dataEnd1 + 1, 1).Value), 7) &lt;&gt; &quot;SELECT &quot;) _ &#39; 续行2：下一行不是新块
+                 And (WorksheetFunction.CountA(ws2.Range(ws2.Cells(dataEnd1 + 1, 1), ws2.Cells(dataEnd1 + 1, colCount))) &gt; 0)  &#39; 续行3：该行1~末列至少有值
+            dataEnd1 = dataEnd1 + 1                    &#39; 延伸数据终止行
+        Loop
+
+        key = sqlText                                  &#39; 以 SQL 作为块键
+        If Not tableDict2.Exists(key) Then             &#39; 若字典中无该键
+            tableDict2.Add key, Array(sqlText, headerRow, dataStart1, dataEnd1, colCount) &#39; 存元信息（Sheet2）
+            tblHeaders2(key) = ws2.Cells(headerRow, 1).Resize(1, colCount).Value         &#39; 存表头行数组（Sheet2）
+        End If
+    End If
+Next i
+
+&#39; ===== 出力＆比較 ==========================================================
+Dim tblKeyVar As Variant                              &#39; 遍历块键的变量
+For Each tblKeyVar In tableDict1.Keys                 &#39; 遍历所有 Sheet1 的块键
+    Dim arr1, arr2, header1, header2                  &#39; 临时：存放块信息数组、表头数组
+    Dim startFieldCol1 As Long, startFieldCol2 As Long &#39; 每块的实际字段起始列（表头首列可能为空）
+    Dim actualFieldCount As Long, actualFieldCount2 As Long &#39; 实际字段数（总列数-起始偏移+1）
+    Dim iCol As Long                                   &#39; 列循环计数
+
+    arr1 = tableDict1(tblKeyVar)                       &#39; 取 Sheet1 当前块元信息
+    tableName = arr1(0)                                &#39; 表名（粗略提取）
+    sqlText = arr1(1)                                  &#39; SQL 文本
+    Dim headerRow1 As Long: headerRow1 = arr1(2)       &#39; 表头行（Sheet1）
+    Dim dataStartA As Long: dataStartA = arr1(3)       &#39; 数据起始行（Sheet1）
+    Dim dataEndA As Long:   dataEndA = arr1(4)         &#39; 数据终止行（Sheet1）
+    Dim colCount1 As Long:  colCount1 = arr1(5)        &#39; 列数（Sheet1）
+    header1 = tblHeaders1(tblKeyVar)                   &#39; 表头行数组（Sheet1）
+
+    Dim hasTable2 As Boolean: hasTable2 = tableDict2.Exists(tblKeyVar) &#39; Sheet2 是否存在对应块
+
+    &#39; 見出しラベル
+    ws3.Cells(outRow, 1).Value = tableName             &#39; 输出块标题：表名
+    ws3.Rows(outRow).Interior.Color = grayColor        &#39; 标题行底色（灰蓝）
+    outRow = outRow + 1                                &#39; 下一行
+    ws3.Cells(outRow, 1).Value = sqlText               &#39; 输出 SQL 文本
+    outRow = outRow + 1                                &#39; 下一行
+
+    &#39; ナビ行（如需保留，可取消注释）
+    &#39; ws3.Cells(outRow, 1).Value = &quot;Ctrl+→&quot;           &#39; 导航提示（可选）
+    &#39; ws3.Cells(outRow, firstColOffset).Value = &quot;★&quot;    &#39; 导航标记（可选）
+    &#39; ws3.Range(ws3.Cells(outRow, 1), ws3.Cells(outRow, colCount1 + 1)).Interior.Color = yellowColor &#39; 导航行底色
+    &#39; outRow = outRow + 1                              &#39; 导航行结束，移到下一行
+
+    &#39; ==== Sheet1 のヘッダー ====
+    startFieldCol1 = 1                                 &#39; 假设字段从表头第1列开始
+    If Trim$(CStr(header1(1, 1) &amp; &quot;&quot;)) = &quot;&quot; Then startFieldCol1 = 2  &#39; 若表头第1列为空，则从第2列开始
+
+    actualFieldCount = colCount1 - startFieldCol1 + 1  &#39; 实际字段数（去掉可能的前导空列）
+    For iCol = 0 To actualFieldCount - 1               &#39; 遍历所有字段列
+        With ws3.Cells(outRow, iCol + firstColOffset)  &#39; 定位到 Sheet3 的输出单元格
+            .Value = ws1.Cells(headerRow1, startFieldCol1 + iCol).Value  &#39; 写入表头文字
+            .NumberFormat = &quot;@&quot;                        &#39; 表头强制为文本
+        End With
+    Next iCol
+    ws3.Range(ws3.Cells(outRow, firstColOffset), ws3.Cells(outRow, firstColOffset + actualFieldCount - 1)).Interior.Color = cyanColor &#39; 表头行底色（青绿）
+    Dim headerVal1 As Long: headerVal1 = outRow        &#39; 记录 Sheet1 表头所在的行号
+    outRow = outRow + 1                                 &#39; 移到数据区第一行
+
+    &#39; ==== Sheet1 のデータ ====
+    Dim dataCount1 As Long                             &#39; Sheet1 数据行数
+    dataCount1 = dataEndA - dataStartA + 1             &#39; 计算数据行数
+
+    Dim dRow As Long, lastDataRow1 As Long             &#39; 数据区循环行号、最后一行记录
+    For dRow = 0 To dataCount1 - 1                     &#39; 遍历每一条记录
+        For iCol = 0 To actualFieldCount - 1           &#39; 遍历每一个字段
+            Dim src1 As Range, dst1 As Range           &#39; 源单元格、目标单元格
+            Set src1 = ws1.Cells(dataStartA + dRow, startFieldCol1 + iCol) &#39; 源：Sheet1 对应单元格
+            Set dst1 = ws3.Cells(outRow, iCol + firstColOffset)            &#39; 目标：Sheet3 输出位置
+            dst1.Value = src1.Value                    &#39; 复制“值”（保持类型）
+            On Error Resume Next                       &#39; 尝试复制显示格式，出错则忽略
+            dst1.NumberFormatLocal = src1.NumberFormatLocal  &#39; 同步源的本地化格式（日期等保持显示）
+            On Error GoTo 0                            &#39; 恢复错误处理
+        Next iCol
+        outRow = outRow + 1                            &#39; 填完一行后下移
+    Next dRow
+    lastDataRow1 = outRow - 1                          &#39; 记录 Sheet1 数据块在 Sheet3 的最后行
+
+    &#39; 罫線（为表头+数据区画边框）
+    With ws3.Range(ws3.Cells(headerVal1, firstColOffset), ws3.Cells(lastDataRow1, firstColOffset + actualFieldCount - 1)).Borders
+        .LineStyle = xlContinuous                      &#39; 连续线
+        .Weight = xlThin                               &#39; 细线
+    End With
+
+    outRow = outRow + 1                                &#39; Sheet1 块与下方内容之间空一行
+
+    &#39; ==== Sheet2 がある場合 ====
+    Dim headerRow2 As Long, dataStartB As Long, dataEndB As Long, colCount2 As Long &#39; Sheet2 对应块的元信息
+    If hasTable2 Then                                  &#39; 若 Sheet2 存在对应块
+        arr2 = tableDict2(tblKeyVar)                   &#39; 取该块元信息数组
+        headerRow2 = arr2(1)                           &#39; 表头行（Sheet2）
+        dataStartB = arr2(2)                           &#39; 数据起始行（Sheet2）
+        dataEndB = arr2(3)                             &#39; 数据终止行（Sheet2）
+        colCount2 = arr2(4)                            &#39; 列数（Sheet2）
+        header2 = tblHeaders2(tblKeyVar)               &#39; 表头数组（Sheet2）
+
+        startFieldCol2 = 1                             &#39; 默认从第1列表头开始
+        If Trim$(CStr(header2(1, 1) &amp; &quot;&quot;)) = &quot;&quot; Then startFieldCol2 = 2  &#39; 若第1列表头为空，从第2列起
+        actualFieldCount2 = colCount2 - startFieldCol2 + 1               &#39; 实际字段数（Sheet2）
+
+        ws3.Cells(outRow, 1).Value = sqlText           &#39; 再输出一次 SQL（用于区分上下两表）
+        outRow = outRow + 1                            &#39; 下一行
+
+        &#39; Sheet2 ヘッダー
+        For iCol = 0 To actualFieldCount2 - 1          &#39; 遍历字段列
+            With ws3.Cells(outRow, iCol + firstColOffset)    &#39; 定位输出单元格
+                .Value = ws2.Cells(headerRow2, startFieldCol2 + iCol).Value &#39; 写入表头文字
+                .NumberFormat = &quot;@&quot;                    &#39; 表头设为文本
+            End With
+        Next iCol
+        ws3.Range(ws3.Cells(outRow, firstColOffset), ws3.Cells(outRow, firstColOffset + actualFieldCount2 - 1)).Interior.Color = cyanColor &#39; 表头底色
+        Dim headerVal2 As Long: headerVal2 = outRow    &#39; 记录 Sheet2 表头所在行
+        outRow = outRow + 1                            &#39; 移到数据区起始行
+
+        &#39; Sheet2 データ
+        Dim dataCount2 As Long                         &#39; Sheet2 数据行数
+        dataCount2 = dataEndB - dataStartB + 1         &#39; 计算数据行数
+        Dim curDataRow2Start As Long: curDataRow2Start = outRow  &#39; 记录数据区开始行（备用）
+
+        For dRow = 0 To dataCount2 - 1                 &#39; 遍历每一条记录
+            For iCol = 0 To actualFieldCount2 - 1      &#39; 遍历每一列
+                Dim src2 As Range, dst2 As Range       &#39; 源/目标单元格
+                Set src2 = ws2.Cells(dataStartB + dRow, startFieldCol2 + iCol) &#39; 源：Sheet2
+                Set dst2 = ws3.Cells(outRow, iCol + firstColOffset)            &#39; 目标：Sheet3
+                dst2.Value = src2.Value                &#39; 复制值（保持类型）
+                On Error Resume Next                   &#39; 尝试复制显示格式
+                dst2.NumberFormatLocal = src2.NumberFormatLocal &#39; 同步源格式
+                On Error GoTo 0                        &#39; 恢复错误处理
+            Next iCol
+            outRow = outRow + 1                        &#39; 数据行下移
+        Next dRow
+
+        Dim lastDataRow2 As Long: lastDataRow2 = outRow - 1 &#39; 记录 Sheet2 数据块在 Sheet3 的最后行
+        With ws3.Range(ws3.Cells(headerVal2, firstColOffset), ws3.Cells(lastDataRow2, firstColOffset + actualFieldCount2 - 1)).Borders
+            .LineStyle = xlContinuous                  &#39; 连续线
+            .Weight = xlThin                           &#39; 细线
+        End With
+
+        &#39; ===== 判定 =====
+        Dim maxRow As Long                             &#39; 计算两表数据行数的最大值
+        maxRow = WorksheetFunction.Max(dataCount1, dataCount2) &#39; 取较大者，逐行对齐比较
+        outRow = outRow + 1                            &#39; 判定区上方空一行
+
+        If MATCH_BY_KEY Then                           &#39; 如果启用“按键值突合”
+            &#39; ---------- キー突合せモード ----------
+            Dim keyColIndex1 As Long, keyColIndex2 As Long                       &#39; 键列的绝对列号（两表）
+            keyColIndex1 = ResolveKeyColumnIndex(ws1, headerRow1, startFieldCol1, actualFieldCount, KEY_COL_NAME) &#39; 解析Sheet1键列
+            keyColIndex2 = ResolveKeyColumnIndex(ws2, headerRow2, startFieldCol2, actualFieldCount2, KEY_COL_NAME) &#39; 解析Sheet2键列
+
+            Dim map1 As Object, map2 As Object                                   &#39; 键 → 行号 的映射字典
+            Set map1 = BuildKeyToRowMap(ws1, dataStartA, dataEndA, keyColIndex1) &#39; 由Sheet1构建映射（重复键取最后）
+            Set map2 = BuildKeyToRowMap(ws2, dataStartB, dataEndB, keyColIndex2) &#39; 由Sheet2构建映射
+
+            Dim uni As Object: Set uni = UnionKeys(map1, map2)                   &#39; 两表键的并集
+
+            Dim k As Variant, r1 As Long, r2 As Long                             &#39; 遍历每个键并取对应行
+            For Each k In uni.Keys
+                If ws3.Cells(outRow, 1).Value = &quot;&quot; Then ws3.Cells(outRow, 1).Value = &quot;判定 (Key=&quot; &amp; k &amp; &quot;)&quot; &#39; 首行写“判定”标题（含键）
+                r1 = NzLng(map1(k))                                              &#39; Sheet1 该键所在行（0 表示无）
+                r2 = NzLng(map2(k))                                              &#39; Sheet2 该键所在行（0 表示无）
+                WriteCompareRow ws3, ws1, ws2, outRow, firstColOffset, _         &#39; 写出一行判定（逐列 TRUE/FALSE）
+                                headerRow1, startFieldCol1, actualFieldCount, r1, _
+                                headerRow2, startFieldCol2, actualFieldCount2, r2
+                outRow = outRow + 1                                              &#39; 判定行下移
+            Next k
+
+        Else                                           &#39; 否则按行号一一对应比较
+            For dRow = 0 To maxRow - 1                 &#39; 从第 0 条到 maxRow-1 条记录
+                If dRow = 0 Then ws3.Cells(outRow, 1).Value = &quot;判定&quot; &#39; 首行在A列输出“判定”
+                WriteCompareRow ws3, ws1, ws2, outRow, firstColOffset, _         &#39; 写出一行判定（逐列）
+                                headerRow1, startFieldCol1, actualFieldCount, dataStartA + dRow, _
+                                headerRow2, startFieldCol2, actualFieldCount2, dataStartB + dRow
+                outRow = outRow + 1                                              &#39; 判定行下移
+            Next dRow
+        End If
+
+        outRow = outRow + 1                              &#39; 判定区与下一个块之间空一行
+
+    Else                                                 &#39; 若 Sheet2 未找到对应块
+        ws3.Cells(outRow, 1).Value = &quot;Sheet2見つかりません&quot; &#39; 在A列提示“Sheet2未找到”
+        outRow = outRow + 2                               &#39; 空两行
+    End If
+
+    outRow = outRow + 1                                    &#39; 每个块之间再空一行
+Next tblKeyVar                                            &#39; 遍历下一个块键
+
+ws3.Cells.Font.Name = &quot;Meiryo UI&quot;                          &#39; 设置 Sheet3 使用 Meiryo UI 字体
+
+MsgBox &quot;Sheet3導出完了&quot;                                     &#39; 弹窗提示：导出完成
+</code></pre>
+<p>End Sub</p>
+<p>Private Sub WriteCompareRow(ByVal wsOut As Worksheet, _        ‘ 子过程：写出一行“判定”结果（逐列 TRUE&#x2F;FALSE）<br>                            ByVal ws1 As Worksheet, ByVal ws2 As Worksheet, _<br>                            ByVal outRow As Long, ByVal firstColOffset As Long, _<br>                            ByVal headerRow1 As Long, ByVal startFieldCol1 As Long, ByVal fieldCount1 As Long, ByVal row1 As Long, _<br>                            ByVal headerRow2 As Long, ByVal startFieldCol2 As Long, ByVal fieldCount2 As Long, ByVal row2 As Long)</p>
+<pre><code>Dim iCol As Long                                            &#39; 列循环计数
+For iCol = 0 To fieldCount1 - 1                             &#39; 遍历 Sheet1 的每一个字段列（作为基准列数）
+    Dim v1 As Variant, v2 As Variant                        &#39; 两侧待比较的值
+
+    If row1 &gt;= headerRow1 + 1 Then v1 = ws1.Cells(row1, startFieldCol1 + iCol).Value Else v1 = Empty &#39; 若行存在则取 Sheet1 值，否则 Empty
+    If row2 &gt;= headerRow2 + 1 Then                           &#39; 若 Sheet2 该行存在
+        If iCol &lt;= fieldCount2 - 1 Then                      &#39; 且该列在 Sheet2 的字段范围内
+            v2 = ws2.Cells(row2, startFieldCol2 + iCol).Value &#39; 取 Sheet2 值
+        Else
+            v2 = Empty                                        &#39; 否则视为空
+        End If
+    Else
+        v2 = Empty                                            &#39; 若 Sheet2 行不存在则为空
+    End If
+
+    Dim isEq As Boolean                                      &#39; 该列是否相等
+    isEq = AreEqualValue(v1, v2)                              &#39; 调用比较函数判断（日期容差、0与空、数值/字符串等规则）
+
+    With wsOut.Cells(outRow, iCol + firstColOffset)           &#39; 定位到判定单元格
+        .Value = IIf(isEq, &quot;TRUE&quot;, &quot;FALSE&quot;)                   &#39; 写入字符串 &quot;TRUE&quot;/&quot;FALSE&quot;
+        .NumberFormat = &quot;@&quot;                                   &#39; 判定结果作为文本处理
+        If Not isEq Then
+            .Interior.Color = RESULT_FALSE_COLOR              &#39; 若不相等则按预设颜色着色（如黄色或红色）
+        Else
+            .Interior.Pattern = xlNone                        &#39; 相等则清除填充（可按需改成绿色等）
+        End If
+    End With
+Next iCol                                                     &#39; 下一列
+</code></pre>
+<p>End Sub</p>
+<p>Private Function AreEqualValue(ByVal v1 As Variant, ByVal v2 As Variant) As Boolean  ‘ 值比较函数（含多种规则）<br>    ‘ — 规则0：0 与 空必定不相等 —<br>    If (IsZeroLike(v1) And IsEmptyLike(v2)) Or (IsZeroLike(v2) And IsEmptyLike(v1)) Then<br>        AreEqualValue &#x3D; False                                     ‘ 一边为0，一边为空 &#x3D;&gt; 直接 False<br>        Exit Function<br>    End If</p>
+<pre><code>&#39; --- 规则1：双方都为空 =&gt; 相等 ---
+If IsEmptyLike(v1) And IsEmptyLike(v2) Then
+    AreEqualValue = True                                      &#39; 两边都空 =&gt; True
+    Exit Function
+End If
+
+&#39; --- 规则2：日期/时间比较（按序列值，支持秒级容差） ---
+If IsDateLike(v1) Or IsDateLike(v2) Then
+    On Error GoTo Fallback                                    &#39; 尝试转为 Double（序列值），失败转入后备
+    Dim d1 As Double, d2 As Double
+    d1 = CDbl(v1): d2 = CDbl(v2)                              &#39; 转为序列值
+    AreEqualValue = (Abs(d1 - d2) &lt;= (DATETIME_TOL_SEC / 86400#)) &#39; 容差：秒÷一天（86400）
+    Exit Function
+</code></pre>
+<p>Fallback:<br>        ‘ 若无法转为数值（例如字符串日期格式异常），则落回到后面的字符串比较<br>    End If</p>
+<pre><code>&#39; --- 规则3：双方皆为数值 =&gt; 数值比较 ---
+If IsNumeric(v1) And IsNumeric(v2) Then
+    AreEqualValue = (CDbl(v1) = CDbl(v2))                     &#39; 转为双精度再比较
+    Exit Function
+End If
+
+&#39; --- 规则4：字符串比较（去空格、&quot;NULL&quot; 视为空、大小写不敏感） ---
+Dim s1 As String, s2 As String
+s1 = NormalizeString(v1)                                      &#39; 归一化字符串1
+s2 = NormalizeString(v2)                                      &#39; 归一化字符串2
+AreEqualValue = (StrComp(s1, s2, vbTextCompare) = 0)          &#39; 忽略大小写比较
+</code></pre>
+<p>End Function</p>
+<p>Private Function NormalizeString(ByVal v As Variant) As String    ‘ 字符串归一化（空&#x2F;NULL→空串）<br>    If IsEmptyLike(v) Then<br>        NormalizeString &#x3D; “”                                      ‘ 空值统一为空串<br>    Else<br>        NormalizeString &#x3D; Trim$(CStr(v))                          ‘ 转字符串并修剪空格<br>        If UCase$(NormalizeString) &#x3D; “NULL” Then NormalizeString &#x3D; “”  ‘ 字面 “NULL” 也当空<br>    End If<br>End Function</p>
+<p>Private Function IsEmptyLike(ByVal v As Variant) As Boolean       ‘ 判断“空值”集合<br>    IsEmptyLike &#x3D; (IsEmpty(v) Or IsNull(v) Or (CStr(v) &#x3D; “”) Or (UCase$(Trim$(CStr(v))) &#x3D; “NULL”)) ‘ 空&#x2F;Null&#x2F;空串&#x2F;“NULL”<br>End Function</p>
+<p>Private Function IsDateLike(ByVal v As Variant) As Boolean        ‘ 宽松判断是否可当作日期<br>    On Error Resume Next                                          ‘ 先尝试转为数值（Excel 日期序列）<br>    Dim tmp As Double: tmp &#x3D; CDbl(v)<br>    IsDateLike &#x3D; (Err.Number &#x3D; 0 And tmp &gt; 0)                     ‘ 能转且&gt;0 视为可能是日期序列<br>    Err.Clear<br>    On Error GoTo 0<br>    If Not IsDateLike Then IsDateLike &#x3D; IsDate(v)                 ‘ 否则再用 VBA 的 IsDate 兜底判断<br>End Function</p>
+<p>Private Function ResolveKeyColumnIndex(ByVal ws As Worksheet, ByVal headerRow As Long, ByVal startFieldCol As Long, ByVal fieldCount As Long, ByVal keyHeader As String) As Long<br>                                                                 ‘ 解析“键列”的绝对列号：优先匹配标题名，否则回退到首字段列<br>    Dim idx As Long<br>    If LenB(keyHeader) &#x3D; 0 Then<br>        ResolveKeyColumnIndex &#x3D; startFieldCol                     ‘ 未给标题名则直接用首字段列<br>        Exit Function<br>    End If<br>    For idx &#x3D; 0 To fieldCount - 1                                 ‘ 遍历字段列，寻找与标题名一致的列<br>        If StrComp(CStr(ws.Cells(headerRow, startFieldCol + idx).Value), keyHeader, vbTextCompare) &#x3D; 0 Then<br>            ResolveKeyColumnIndex &#x3D; startFieldCol + idx           ‘ 找到匹配列，返回绝对列号<br>            Exit Function<br>        End If<br>    Next idx<br>    ResolveKeyColumnIndex &#x3D; startFieldCol                         ‘ 未找到则回退到首字段列<br>End Function</p>
+<p>Private Function BuildKeyToRowMap(ByVal ws As Worksheet, ByVal dataStart As Long, ByVal dataEnd As Long, ByVal keyCol As Long) As Object<br>                                                                 ‘ 构建“键 → 行号”的映射（若有重复键，采用最后一次出现的行）<br>    Dim d As Object: Set d &#x3D; CreateObject(“Scripting.Dictionary”)<br>    Dim r As Long, k As Variant<br>    For r &#x3D; dataStart To dataEnd                                  ‘ 遍历数据区每一行<br>        k &#x3D; ws.Cells(r, keyCol).Value                             ‘ 取该行键值<br>        If Not IsEmptyLike(k) Then d(CStr(k)) &#x3D; r                 ‘ 非空则记录（字符串化键）<br>    Next r<br>    Set BuildKeyToRowMap &#x3D; d                                      ‘ 返回字典<br>End Function</p>
+<p>Private Function UnionKeys(ByVal d1 As Object, ByVal d2 As Object) As Object<br>                                                                 ‘ 取两个键字典的并集（只关心键名）<br>    Dim u As Object: Set u &#x3D; CreateObject(“Scripting.Dictionary”)<br>    Dim k As Variant<br>    For Each k In d1.Keys: u(k) &#x3D; True: Next k                   ‘ 先放入字典1的键<br>    For Each k In d2.Keys: u(k) &#x3D; True: Next k                   ‘ 再放入字典2的键（重复自动覆盖为同一键）<br>    Set UnionKeys &#x3D; u                                             ‘ 返回并集字典<br>End Function</p>
+<p>Private Function NzLng(ByVal v As Variant) As Long               ‘ 将可空变体转为 Long（Empty→0，否则转 Long）<br>    If IsEmpty(v) Then NzLng &#x3D; 0 Else NzLng &#x3D; CLng(v)<br>End Function</p>
+<p>Private Function IsZeroLike(ByVal v As Variant) As Boolean       ‘ 判断是否为“0”（数值0或字符串”0”）<br>    If IsEmpty(v) Or IsNull(v) Then<br>        IsZeroLike &#x3D; False                                       ‘ 空&#x2F;Null 不是 0<br>    ElseIf IsNumeric(v) Then<br>        IsZeroLike &#x3D; (CDbl(v) &#x3D; 0)                               ‘ 数值型且等于 0<br>    Else<br>        IsZeroLike &#x3D; (Trim$(CStr(v)) &#x3D; “0”)                      ‘ 字符串内容正好是 “0”<br>    End If<br>End Function</p>
+<p>Option Explicit</p>
+<p>Const MATCH_BY_KEY As Boolean &#x3D; False<br>Const KEY_COL_NAME As String &#x3D; “”<br>Const DATETIME_TOL_SEC As Double &#x3D; 1</p>
+<p>Public Sub RunBat()<br>    Dim ws1 As Worksheet, ws2 As Worksheet, ws3 As Worksheet<br>    Dim lastRow1 As Long, lastRow2 As Long, outRow As Long<br>    Dim tableDict1 As Object, tableDict2 As Object, tblKey As Variant<br>    Dim tblHeaders1 As Object, tblHeaders2 As Object<br>    Dim i As Long, key As String, sqlText As String, headerRow As Long<br>    Dim tableName As String, colCount As Long, dataStart1 As Long, dataEnd1 As Long<br>    Dim cyanColor As Long, grayColor As Long, yellowColor As Long<br>    cyanColor &#x3D; RGB(135, 231, 173)<br>    grayColor &#x3D; RGB(221, 235, 247)<br>    yellowColor &#x3D; RGB(255, 255, 0)<br>    Const firstColOffset As Long &#x3D; 2</p>
+<pre><code>Set ws1 = ThisWorkbook.Sheets(&quot;1&quot;)
+Set ws2 = ThisWorkbook.Sheets(&quot;2&quot;)
+Set ws3 = ThisWorkbook.Sheets(&quot;3&quot;)
+ws3.Cells.Clear
+
+Set tableDict1 = CreateObject(&quot;Scripting.Dictionary&quot;)
+Set tblHeaders1 = CreateObject(&quot;Scripting.Dictionary&quot;)
+Set tableDict2 = CreateObject(&quot;Scripting.Dictionary&quot;)
+Set tblHeaders2 = CreateObject(&quot;Scripting.Dictionary&quot;)
+
+lastRow1 = ws1.Cells(ws1.Rows.Count, 1).End(xlUp).Row
+lastRow2 = ws2.Cells(ws2.Rows.Count, 1).End(xlUp).Row
+outRow = 1
+
+For i = 1 To lastRow1
+    If Left$(CStr(ws1.Cells(i, 1).Value), 7) = &quot;SELECT &quot; Then
+        sqlText = CStr(ws1.Cells(i, 1).Value)
+        tableName = &quot;&quot;
+
+        Dim sqlParts() As String
+        If InStr(1, sqlText, &quot;FROM&quot;, vbTextCompare) &gt; 0 Then
+            sqlParts = Split(sqlText, &quot;FROM&quot;)
+            If UBound(sqlParts) &gt;= 1 Then
+                If InStr(1, sqlParts(1), &quot;WHERE&quot;, vbTextCompare) &gt; 0 Then
+                    tableName = Trim$(Split(sqlParts(1), &quot;WHERE&quot;)(0))
+                Else
+                    tableName = Trim$(sqlParts(1))
+                End If
+            End If
+        End If
+
+        headerRow = i + 1
+        colCount = ws1.Cells(headerRow, ws1.Columns.Count).End(xlToLeft).Column
+
+        dataStart1 = i + 2
+        dataEnd1 = dataStart1
+
+        Do While (dataEnd1 + 1 &lt;= lastRow1) _
+                 And (Left$(CStr(ws1.Cells(dataEnd1 + 1, 1).Value), 7) &lt;&gt; &quot;SELECT &quot;) _
+                 And (WorksheetFunction.CountA(ws1.Range(ws1.Cells(dataEnd1 + 1, 1), ws1.Cells(dataEnd1 + 1, colCount))) &gt; 0)
+            dataEnd1 = dataEnd1 + 1
+        Loop
+
+        key = sqlText
+        If Not tableDict1.Exists(key) Then
+            tableDict1.Add key, Array(tableName, sqlText, headerRow, dataStart1, dataEnd1, colCount)
+            tblHeaders1(key) = ws1.Cells(headerRow, 1).Resize(1, colCount).Value
+        End If
+    End If
+Next i
+
+For i = 1 To lastRow2
+    If Left$(CStr(ws2.Cells(i, 1).Value), 7) = &quot;SELECT &quot; Then
+        sqlText = CStr(ws2.Cells(i, 1).Value)
+        headerRow = i + 1
+        colCount = ws2.Cells(headerRow, ws2.Columns.Count).End(xlToLeft).Column
+
+        dataStart1 = i + 2
+        dataEnd1 = dataStart1
+
+        Do While (dataEnd1 + 1 &lt;= lastRow2) _
+                 And (Left$(CStr(ws2.Cells(dataEnd1 + 1, 1).Value), 7) &lt;&gt; &quot;SELECT &quot;) _
+                 And (WorksheetFunction.CountA(ws2.Range(ws2.Cells(dataEnd1 + 1, 1), ws2.Cells(dataEnd1 + 1, colCount))) &gt; 0)
+            dataEnd1 = dataEnd1 + 1
+        Loop
+
+        key = sqlText
+        If Not tableDict2.Exists(key) Then
+            tableDict2.Add key, Array(sqlText, headerRow, dataStart1, dataEnd1, colCount)
+            tblHeaders2(key) = ws2.Cells(headerRow, 1).Resize(1, colCount).Value
+        End If
+    End If
+Next i
+
+Dim tblKeyVar As Variant
+For Each tblKeyVar In tableDict1.Keys
+    Dim arr1, arr2, header1, header2
+    Dim startFieldCol1 As Long, startFieldCol2 As Long
+    Dim actualFieldCount As Long, actualFieldCount2 As Long
+    Dim iCol As Long
+
+    arr1 = tableDict1(tblKeyVar)
+    tableName = arr1(0)
+    sqlText = arr1(1)
+    Dim headerRow1 As Long: headerRow1 = arr1(2)
+    Dim dataStartA As Long: dataStartA = arr1(3)
+    Dim dataEndA As Long:   dataEndA = arr1(4)
+    Dim colCount1 As Long:  colCount1 = arr1(5)
+    header1 = tblHeaders1(tblKeyVar)
+
+    Dim hasTable2 As Boolean: hasTable2 = tableDict2.Exists(tblKeyVar)
+
+    ws3.Cells(outRow, 1).Value = tableName
+    ws3.Rows(outRow).Interior.Color = grayColor
+    outRow = outRow + 1
+    ws3.Cells(outRow, 1).Value = sqlText
+    outRow = outRow + 1
+
+    ws3.Cells(outRow, 1).Value = &quot;Ctrl+→&quot;
+    ws3.Cells(outRow, firstColOffset).Value = &quot;★&quot;
+    ws3.Range(ws3.Cells(outRow, 1), ws3.Cells(outRow, colCount1 + 1)).Interior.Color = yellowColor
+    outRow = outRow + 1
+
+    startFieldCol1 = 1
+    If Trim$(CStr(header1(1, 1) &amp; &quot;&quot;)) = &quot;&quot; Then startFieldCol1 = 2
+
+    actualFieldCount = colCount1 - startFieldCol1 + 1
+    For iCol = 0 To actualFieldCount - 1
+        With ws3.Cells(outRow, iCol + firstColOffset)
+            .Value = ws1.Cells(headerRow1, startFieldCol1 + iCol).Value
+            .NumberFormat = &quot;@&quot;
+        End With
+    Next iCol
+    ws3.Range(ws3.Cells(outRow, firstColOffset), ws3.Cells(outRow, firstColOffset + actualFieldCount - 1)).Interior.Color = cyanColor
+    Dim headerVal1 As Long: headerVal1 = outRow
+    outRow = outRow + 1
+
+    Dim dataCount1 As Long
+    dataCount1 = dataEndA - dataStartA + 1
+
+    Dim dRow As Long, lastDataRow1 As Long
+    For dRow = 0 To dataCount1 - 1
+        For iCol = 0 To actualFieldCount - 1
+            Dim src1 As Range, dst1 As Range
+            Set src1 = ws1.Cells(dataStartA + dRow, startFieldCol1 + iCol)
+            Set dst1 = ws3.Cells(outRow, iCol + firstColOffset)
+            dst1.Value = src1.Value
+            On Error Resume Next
+            dst1.NumberFormatLocal = src1.NumberFormatLocal
+            On Error GoTo 0
+        Next iCol
+        outRow = outRow + 1
+    Next dRow
+    lastDataRow1 = outRow - 1
+
+    With ws3.Range(ws3.Cells(headerVal1, firstColOffset), ws3.Cells(lastDataRow1, firstColOffset + actualFieldCount - 1)).Borders
+        .LineStyle = xlContinuous
+        .Weight = xlThin
+    End With
+
+    outRow = outRow + 1
+
+    Dim headerRow2 As Long, dataStartB As Long, dataEndB As Long, colCount2 As Long
+    If hasTable2 Then
+        arr2 = tableDict2(tblKeyVar)
+        headerRow2 = arr2(1)
+        dataStartB = arr2(2)
+        dataEndB = arr2(3)
+        colCount2 = arr2(4)
+        header2 = tblHeaders2(tblKeyVar)
+
+        startFieldCol2 = 1
+        If Trim$(CStr(header2(1, 1) &amp; &quot;&quot;)) = &quot;&quot; Then startFieldCol2 = 2
+        actualFieldCount2 = colCount2 - startFieldCol2 + 1
+
+        ws3.Cells(outRow, 1).Value = sqlText
+        outRow = outRow + 1
+
+        For iCol = 0 To actualFieldCount2 - 1
+            With ws3.Cells(outRow, iCol + firstColOffset)
+                .Value = ws2.Cells(headerRow2, startFieldCol2 + iCol).Value
+                .NumberFormat = &quot;@&quot;
+            End With
+        Next iCol
+        ws3.Range(ws3.Cells(outRow, firstColOffset), ws3.Cells(outRow, firstColOffset + actualFieldCount2 - 1)).Interior.Color = cyanColor
+        Dim headerVal2 As Long: headerVal2 = outRow
+        outRow = outRow + 1
+
+        Dim dataCount2 As Long
+        dataCount2 = dataEndB - dataStartB + 1
+        Dim curDataRow2Start As Long: curDataRow2Start = outRow
+
+        For dRow = 0 To dataCount2 - 1
+            For iCol = 0 To actualFieldCount2 - 1
+                Dim src2 As Range, dst2 As Range
+                Set src2 = ws2.Cells(dataStartB + dRow, startFieldCol2 + iCol)
+                Set dst2 = ws3.Cells(outRow, iCol + firstColOffset)
+                dst2.Value = src2.Value
+                On Error Resume Next
+                dst2.NumberFormatLocal = src2.NumberFormatLocal
+                On Error GoTo 0
+            Next iCol
+            outRow = outRow + 1
+        Next dRow
+
+        Dim lastDataRow2 As Long: lastDataRow2 = outRow - 1
+        With ws3.Range(ws3.Cells(headerVal2, firstColOffset), ws3.Cells(lastDataRow2, firstColOffset + actualFieldCount2 - 1)).Borders
+            .LineStyle = xlContinuous
+            .Weight = xlThin
+        End With
+
+        Dim maxRow As Long
+        maxRow = WorksheetFunction.Max(dataCount1, dataCount2)
+        outRow = outRow + 1
+
+        If MATCH_BY_KEY Then
+            Dim keyColIndex1 As Long, keyColIndex2 As Long
+            keyColIndex1 = ResolveKeyColumnIndex(ws1, headerRow1, startFieldCol1, actualFieldCount, KEY_COL_NAME)
+            keyColIndex2 = ResolveKeyColumnIndex(ws2, headerRow2, startFieldCol2, actualFieldCount2, KEY_COL_NAME)
+
+            Dim map1 As Object, map2 As Object
+            Set map1 = BuildKeyToRowMap(ws1, dataStartA, dataEndA, keyColIndex1)
+            Set map2 = BuildKeyToRowMap(ws2, dataStartB, dataEndB, keyColIndex2)
+
+            Dim uni As Object: Set uni = UnionKeys(map1, map2)
+
+            Dim k As Variant, r1 As Long, r2 As Long
+            For Each k In uni.Keys
+                If ws3.Cells(outRow, 1).Value = &quot;&quot; Then ws3.Cells(outRow, 1).Value = &quot;判定 (Key=&quot; &amp; k &amp; &quot;)&quot;
+                r1 = NzLng(map1(k))
+                r2 = NzLng(map2(k))
+                WriteCompareRow ws3, ws1, ws2, outRow, firstColOffset, _
+                                headerRow1, startFieldCol1, actualFieldCount, r1, _
+                                headerRow2, startFieldCol2, actualFieldCount2, r2
+                outRow = outRow + 1
+            Next k
+
+        Else
+            For dRow = 0 To maxRow - 1
+                If dRow = 0 Then ws3.Cells(outRow, 1).Value = &quot;判定&quot;
+                WriteCompareRow ws3, ws1, ws2, outRow, firstColOffset, _
+                                headerRow1, startFieldCol1, actualFieldCount, dataStartA + dRow, _
+                                headerRow2, startFieldCol2, actualFieldCount2, dataStartB + dRow
+                outRow = outRow + 1
+            Next dRow
+        End If
+
+        outRow = outRow + 1
+
+    Else
+        ws3.Cells(outRow, 1).Value = &quot;Sheet2見つかりません&quot;
+        outRow = outRow + 2
+    End If
+
+    outRow = outRow + 1
+Next tblKeyVar
+
+ws3.Cells.Font.Name = &quot;Meiryo UI&quot;
+
+MsgBox &quot;Sheet3導出完了&quot;
+</code></pre>
+<p>End Sub</p>
+<p>Private Sub WriteCompareRow(ByVal wsOut As Worksheet, _<br>                            ByVal ws1 As Worksheet, ByVal ws2 As Worksheet, _<br>                            ByVal outRow As Long, ByVal firstColOffset As Long, _<br>                            ByVal headerRow1 As Long, ByVal startFieldCol1 As Long, ByVal fieldCount1 As Long, ByVal row1 As Long, _<br>                            ByVal headerRow2 As Long, ByVal startFieldCol2 As Long, ByVal fieldCount2 As Long, ByVal row2 As Long)<br>    Dim iCol As Long<br>    For iCol &#x3D; 0 To fieldCount1 - 1<br>        Dim v1 As Variant, v2 As Variant</p>
+<pre><code>    If row1 &gt;= headerRow1 + 1 Then v1 = ws1.Cells(row1, startFieldCol1 + iCol).Value Else v1 = Empty
+    If row2 &gt;= headerRow2 + 1 Then
+        If iCol &lt;= fieldCount2 - 1 Then
+            v2 = ws2.Cells(row2, startFieldCol2 + iCol).Value
+        Else
+            v2 = Empty
+        End If
+    Else
+        v2 = Empty
+    End If
+
+    wsOut.Cells(outRow, iCol + firstColOffset).Value = IIf(AreEqualValue(v1, v2), &quot;TRUE&quot;, &quot;FALSE&quot;)
+    wsOut.Cells(outRow, iCol + firstColOffset).NumberFormat = &quot;@&quot;
+Next iCol
+</code></pre>
+<p>End Sub</p>
+<p>Private Function AreEqualValue(ByVal v1 As Variant, ByVal v2 As Variant) As Boolean<br>    If IsEmptyLike(v1) And IsEmptyLike(v2) Then<br>        AreEqualValue &#x3D; True<br>        Exit Function<br>    End If</p>
+<pre><code>If IsDateLike(v1) Or IsDateLike(v2) Then
+    On Error GoTo Fallback
+    Dim d1 As Double, d2 As Double
+    d1 = CDbl(v1): d2 = CDbl(v2)
+    AreEqualValue = (Abs(d1 - d2) &lt;= (DATETIME_TOL_SEC / 86400#))
+    Exit Function
+</code></pre>
+<p>Fallback:<br>    End If</p>
+<pre><code>If IsNumeric(v1) And IsNumeric(v2) Then
+    AreEqualValue = (CDbl(v1) = CDbl(v2))
+    Exit Function
+End If
+
+Dim s1 As String, s2 As String
+s1 = NormalizeString(v1)
+s2 = NormalizeString(v2)
+AreEqualValue = (StrComp(s1, s2, vbTextCompare) = 0)
+</code></pre>
+<p>End Function</p>
+<p>Private Function NormalizeString(ByVal v As Variant) As String<br>    If IsEmptyLike(v) Then<br>        NormalizeString &#x3D; “”<br>    Else<br>        NormalizeString &#x3D; Trim$(CStr(v))<br>        If UCase$(NormalizeString) &#x3D; “NULL” Then NormalizeString &#x3D; “”<br>    End If<br>End Function</p>
+<p>Private Function IsEmptyLike(ByVal v As Variant) As Boolean<br>    IsEmptyLike &#x3D; (IsEmpty(v) Or IsNull(v) Or (CStr(v) &#x3D; “”) Or (UCase$(Trim$(CStr(v))) &#x3D; “NULL”))<br>End Function</p>
+<p>Private Function IsDateLike(ByVal v As Variant) As Boolean<br>    On Error Resume Next<br>    Dim tmp As Double: tmp &#x3D; CDbl(v)<br>    IsDateLike &#x3D; (Err.Number &#x3D; 0 And tmp &gt; 0)<br>    Err.Clear<br>    On Error GoTo 0<br>    If Not IsDateLike Then IsDateLike &#x3D; IsDate(v)<br>End Function</p>
+<p>Private Function ResolveKeyColumnIndex(ByVal ws As Worksheet, ByVal headerRow As Long, ByVal startFieldCol As Long, ByVal fieldCount As Long, ByVal keyHeader As String) As Long<br>    Dim idx As Long<br>    If LenB(keyHeader) &#x3D; 0 Then<br>        ResolveKeyColumnIndex &#x3D; startFieldCol<br>        Exit Function<br>    End If<br>    For idx &#x3D; 0 To fieldCount - 1<br>        If StrComp(CStr(ws.Cells(headerRow, startFieldCol + idx).Value), keyHeader, vbTextCompare) &#x3D; 0 Then<br>            ResolveKeyColumnIndex &#x3D; startFieldCol + idx<br>            Exit Function<br>        End If<br>    Next idx<br>    ResolveKeyColumnIndex &#x3D; startFieldCol<br>End Function</p>
+<p>Private Function BuildKeyToRowMap(ByVal ws As Worksheet, ByVal dataStart As Long, ByVal dataEnd As Long, ByVal keyCol As Long) As Object<br>    Dim d As Object: Set d &#x3D; CreateObject(“Scripting.Dictionary”)<br>    Dim r As Long, k As Variant<br>    For r &#x3D; dataStart To dataEnd<br>        k &#x3D; ws.Cells(r, keyCol).Value<br>        If Not IsEmptyLike(k) Then d(CStr(k)) &#x3D; r<br>    Next r<br>    Set BuildKeyToRowMap &#x3D; d<br>End Function</p>
+<p>Private Function UnionKeys(ByVal d1 As Object, ByVal d2 As Object) As Object<br>    Dim u As Object: Set u &#x3D; CreateObject(“Scripting.Dictionary”)<br>    Dim k As Variant<br>    For Each k In d1.Keys: u(k) &#x3D; True: Next k<br>    For Each k In d2.Keys: u(k) &#x3D; True: Next k<br>    Set UnionKeys &#x3D; u<br>End Function</p>
+<p>Private Function NzLng(ByVal v As Variant) As Long<br>    If IsEmpty(v) Then NzLng &#x3D; 0 Else NzLng &#x3D; CLng(v)<br>End Function</p>
+
+      <!-- 渲染文章正文 HTML -->
+      <!-- 使用  不转义 HTML，保证内容中的标签生效 -->
+    
+  </div>
+  <!-- 文章正文结束 -->
+
+</article>
+<!-- 单篇文章容器结束 -->
+
+    <!-- 渲染当前页面内容 -->
+    <!--  保证 HTML 正常渲染，不转义 -->
+
+    <section id="study-main-panel" style="display:none; margin-top:24px;">
+      <h2 style="font-size:1.2rem; margin-bottom:12px;">📚 学习资料列表</h2>
+      <div id="study-main-groups">
+        <div class="study-group collapsed">
+          <div class="study-group-title">标初上</div>
+          <ul id="study-main-bcs">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标初下</div>
+          <ul id="study-main-bcx">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标中上</div>
+          <ul id="study-main-bzs">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标中下</div>
+          <ul id="study-main-bzx">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标高上</div>
+          <ul id="study-main-bgs">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标高下</div>
+          <ul id="study-main-bgx">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="study-viewer" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.9);z-index:2000;align-items:center;justify-content:center;">
+    <div style="position:relative;width:96vw;max-width:1200px;max-height:96vh;background:#020617;padding:10px 16px 14px;border-radius:10px;box-shadow:0 22px 70px rgba(0,0,0,0.7);display:flex;flex-direction:column;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;color:#e5e7eb;font-size:0.95rem;">
+        <span id="study-viewer-title" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:75vw;"></span>
+        <button id="study-viewer-close" style="border:none;background:transparent;color:#e5e7eb;font-size:1.3rem;cursor:pointer;line-height:1;">×</button>
+      </div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;margin:4px 0 6px;">
+        <img id="study-viewer-img" src="" alt="" style="max-width:100%;max-height:84vh;border-radius:4px;background:#020617;" />
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:10px;">
+        <button id="study-viewer-prev" style="min-width:80px;padding:6px 12px;border-radius:6px;border:none;background:#1e293b;color:#e5e7eb;cursor:pointer;font-size:0.9rem;">上一张</button>
+        <button id="study-viewer-next" style="min-width:80px;padding:6px 12px;border-radius:6px;border:none;background:#1e293b;color:#e5e7eb;cursor:pointer;font-size:0.9rem;">下一张</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 全局脚本区域 ===== -->
+  <script>
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "/login/";
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function toggleMenu() {
+      const menu = document.querySelector('header.top-nav .menu');
+      if (menu) {
+        menu.classList.toggle('show');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const uploadInput = document.getElementById('pdf-upload-input');
+      const uploadBtn = document.getElementById('pdf-upload-btn');
+      const typeSelect = document.getElementById('file-type-select');
+      const categorySelect = document.getElementById('category-select');
+      const studyPanel = document.getElementById('study-main-panel');
+      const studyMainBtn = document.getElementById('study-main-btn');
+      const sidebarStudyTitle = document.getElementById('sidebar-study-title');
+      const viewer = document.getElementById('study-viewer');
+      const viewerImg = document.getElementById('study-viewer-img');
+      const viewerTitle = document.getElementById('study-viewer-title');
+      const viewerPrev = document.getElementById('study-viewer-prev');
+      const viewerNext = document.getElementById('study-viewer-next');
+      const viewerClose = document.getElementById('study-viewer-close');
+
+      const studyFilesMap = {};
+      let currentCategory = null;
+      let currentIndex = 0;
+
+      const CATEGORY_CONFIG = [
+        { key: 'bcs', label: '标初上' },
+        { key: 'bcx', label: '标初下' },
+        { key: 'bzs', label: '标中上' },
+        { key: 'bzx', label: '标中下' },
+        { key: 'bgs', label: '标高上' },
+        { key: 'bgx', label: '标高下' }
+      ];
+
+      function getListEl(key) {
+        return document.getElementById('study-' + key);
+      }
+
+      function getMainListEl(key) {
+        return document.getElementById('study-main-' + key);
+      }
+
+      function updateAccept() {
+        if (!uploadInput || !typeSelect) return;
+        if (typeSelect.value === 'image') {
+          uploadInput.accept = 'image/*';
+        } else {
+          uploadInput.accept = 'application/pdf';
+        }
+      }
+
+      function isLocalhost() {
+        return (
+          location.hostname === 'localhost' ||
+          location.hostname === '127.0.0.1' ||
+          location.hostname === ''
+        );
+      }
+
+      async function fetchStudyList(catKey) {
+        if (!isLocalhost()) {
+          try {
+            const apiRes = await fetch('/api/study-list?category=' + encodeURIComponent(catKey));
+            if (apiRes.ok) {
+              const apiData = await apiRes.json();
+              if (Array.isArray(apiData.files)) {
+                return apiData.files;
+              }
+            }
+          } catch (e) {
+          }
+        }
+
+        try {
+          const ghRes = await fetch(
+            'https://api.github.com/repos/Sun1105/hexo-source/contents/source/study/' + catKey
+          );
+          if (!ghRes.ok) {
+            return [];
+          }
+          const ghData = await ghRes.json();
+          return Array.isArray(ghData) ? ghData : [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      async function loadResources() {
+        for (const cat of CATEGORY_CONFIG) {
+          const sideList = getListEl(cat.key);
+          const mainList = getMainListEl(cat.key);
+
+          if (sideList) {
+            sideList.innerHTML = '<li>加载中...</li>';
+          }
+          if (mainList) {
+            mainList.innerHTML = '<li>加载中...</li>';
+          }
+
+          const list = await fetchStudyList(cat.key);
+          const files = Array.isArray(list)
+            ? list.filter(file => file.name && /\.(pdf|png|jpe?g|gif|webp|svg)$/i.test(file.name))
+            : [];
+
+          studyFilesMap[cat.key] = files;
+
+          if (!files.length) {
+            if (sideList) sideList.innerHTML = '<li>暂无文件</li>';
+            if (mainList) mainList.innerHTML = '<li>暂无文件</li>';
+            continue;
+          }
+
+          const parts = files.map((file, index) => {
+            const href =
+              file.download_url ||
+              file.html_url ||
+              (file.path ? '/' + file.path.replace(/^source\//, '') : '#');
+            return (
+              '<li>' +
+                '<a href="' + href + '" target="_blank" class="study-file-link" data-category="' +
+                cat.key + '" data-index="' + index + '">' +
+                  '<span class="sidebar-name">' + file.name + '</span>' +
+                '</a>' +
+              '</li>'
+            );
+          });
+
+          if (sideList) {
+            sideList.innerHTML = parts.join('');
+            bindStudyLinks(sideList);
+          }
+          if (mainList) {
+            mainList.innerHTML = parts.join('');
+            bindStudyLinks(mainList);
+          }
+        }
+      }
+
+      loadResources();
+
+      if (typeSelect) {
+        typeSelect.addEventListener('change', updateAccept);
+        updateAccept();
+      }
+
+      function openViewer(category, index) {
+        const list = studyFilesMap[category] || [];
+        if (!list.length) return;
+
+        if (index < 0) index = 0;
+        if (index >= list.length) index = list.length - 1;
+
+        const file = list[index];
+        const href =
+          file.download_url ||
+          file.html_url ||
+          (file.path ? '/' + file.path.replace(/^source\//, '') : '#');
+
+        currentCategory = category;
+        currentIndex = index;
+
+        if (viewerImg) {
+          viewerImg.src = href;
+        }
+        if (viewerTitle) {
+          viewerTitle.textContent = file.name || '';
+        }
+        if (viewer) {
+          viewer.style.display = 'flex';
+        }
+
+        if (viewerPrev) {
+          viewerPrev.disabled = index <= 0;
+        }
+        if (viewerNext) {
+          viewerNext.disabled = index >= list.length - 1;
+        }
+      }
+
+      function closeViewer() {
+        if (viewer) {
+          viewer.style.display = 'none';
+        }
+      }
+
+      function showOffset(delta) {
+        if (!currentCategory) return;
+        openViewer(currentCategory, currentIndex + delta);
+      }
+
+      function onStudyLinkClick(event) {
+        if (!viewer || !viewerImg) return;
+        event.preventDefault();
+        const category = this.getAttribute('data-category');
+        const index = parseInt(this.getAttribute('data-index'), 10) || 0;
+        openViewer(category, index);
+      }
+
+      function bindStudyLinks(container) {
+        const links = container.querySelectorAll('a.study-file-link');
+        links.forEach(link => {
+          link.addEventListener('click', onStudyLinkClick);
+        });
+      }
+
+      function showStudyPanel() {
+        if (!studyPanel) return;
+        const main = document.getElementById('main-content');
+        if (main) {
+          const children = Array.from(main.children);
+          children.forEach(child => {
+            if (child.id === 'study-main-panel') {
+              child.style.display = 'block';
+            } else {
+              child.style.display = 'none';
+            }
+          });
+          main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      if (studyMainBtn) {
+        studyMainBtn.addEventListener('click', () => {
+          showStudyPanel();
+          loadResources();
+        });
+      }
+
+      // 左侧“学习资料”标题只负责展开侧边栏，不再强制切换主内容
+
+      const groupTitles = document.querySelectorAll('.study-group-title');
+      groupTitles.forEach(title => {
+        const group = title.parentElement;
+        const list = group.querySelector('ul');
+        if (!list) return;
+        title.addEventListener('click', () => {
+          group.classList.toggle('collapsed');
+        });
+      });
+
+      if (uploadBtn && uploadInput) {
+        uploadBtn.addEventListener('click', () => {
+          if (!uploadInput.files || !uploadInput.files.length) {
+            alert('请选择要上传的文件');
+            return;
+          }
+
+          const files = Array.from(uploadInput.files);
+          const type = typeSelect ? typeSelect.value : 'pdf';
+          const category = categorySelect ? categorySelect.value : 'bcs';
+
+          const invalid = files.some(file => {
+            const name = file.name.toLowerCase();
+            if (type === 'pdf') {
+              return !name.endsWith('.pdf');
+            }
+            if (type === 'image') {
+              return !/\.(png|jpe?g|gif|webp|svg)$/.test(name);
+            }
+            return true;
+          });
+
+          if (invalid) {
+            if (type === 'pdf') {
+              alert('仅支持扩展名为 .pdf 的文件');
+            } else if (type === 'image') {
+              alert('仅支持图片文件');
+            } else {
+              alert('文件类型不支持');
+            }
+            return;
+          }
+
+          uploadBtn.disabled = true;
+          uploadBtn.textContent = '上传中...';
+
+          let successCount = 0;
+          let failCount = 0;
+
+          /**
+           * 图片压缩函数
+           * @param {File} file 原始文件
+           * @param {number} maxWidth 最大宽度
+           * @param {number} quality 压缩质量 (0-1)
+           */
+          function compressImage(file, maxWidth = 1920, quality = 0.8) {
+            return new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.readAsDataURL(file);
+              reader.onload = e => {
+                const img = new Image();
+                img.src = e.target.result;
+                img.onload = () => {
+                  const canvas = document.createElement('canvas');
+                  let width = img.width;
+                  let height = img.height;
+
+                  if (width > maxWidth) {
+                    height = (maxWidth / width) * height;
+                    width = maxWidth;
+                  }
+
+                  canvas.width = width;
+                  canvas.height = height;
+                  const ctx = canvas.getContext('2d');
+                  ctx.drawImage(img, 0, 0, width, height);
+
+                  // 导出为 jpeg 以实现最佳压缩
+                  const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+                  resolve(compressedDataUrl);
+                };
+                img.onerror = reject;
+              };
+              reader.onerror = reject;
+            });
+          }
+
+          async function uploadAt(index) {
+            if (index >= files.length) {
+              const message = '上传完成：成功 ' + successCount + ' 个，失败 ' + failCount + ' 个';
+              alert(message);
+              uploadInput.value = '';
+              loadResources();
+              uploadBtn.disabled = false;
+              uploadBtn.textContent = '上传文件';
+              return;
+            }
+
+            const file = files[index];
+
+            // Vercel 4.5MB 限制处理
+            if (type === 'pdf' && file.size > 4.4 * 1024 * 1024) {
+              alert('PDF 文件 "' + file.name + '" 超过 Vercel 平台的 4.5MB 限制，请压缩后重试。');
+              failCount += 1;
+              uploadAt(index + 1);
+              return;
+            }
+
+            try {
+              let base64 = '';
+              if (type === 'image') {
+                // 图片自动压缩
+                const compressedDataUrl = await compressImage(file);
+                base64 = compressedDataUrl.split(',')[1];
+              } else {
+                // PDF 直接读取
+                const dataUrl = await new Promise((resolve, reject) => {
+                  const reader = new FileReader();
+                  reader.onload = e => resolve(e.target.result);
+                  reader.onerror = reject;
+                  reader.readAsDataURL(file);
+                });
+                base64 = dataUrl.split(',')[1];
+              }
+
+              const res = await fetch('/api/upload-pdf', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  filename: file.name,
+                  content: base64,
+                  type,
+                  category
+                })
+              });
+
+              if (res.ok) {
+                successCount += 1;
+              } else {
+                failCount += 1;
+                const status = res.status;
+                let errorMsg = '未知错误';
+                try {
+                  const errData = await res.json();
+                  errorMsg = errData.error || JSON.stringify(errData);
+                } catch (e2) {
+                  if (status === 413) {
+                    errorMsg = '文件太大 (Payload Too Large)。Vercel 平台限制请求大小为 4.5MB。';
+                  } else {
+                    errorMsg = '服务器错误 (' + status + ')';
+                  }
+                }
+                console.error('上传失败:', file.name, errorMsg);
+                alert('文件 "' + file.name + '" 上传失败: ' + errorMsg);
+              }
+            } catch (e) {
+              console.error('上传出错:', e);
+              failCount += 1;
+            } finally {
+              uploadAt(index + 1);
+            }
+          }
+
+          uploadAt(0);
+        });
+      }
+
+      if (viewerClose) {
+        viewerClose.addEventListener('click', () => {
+          closeViewer();
+        });
+      }
+
+      if (viewerPrev) {
+        viewerPrev.addEventListener('click', () => {
+          showOffset(-1);
+        });
+      }
+
+      if (viewerNext) {
+        viewerNext.addEventListener('click', () => {
+          showOffset(1);
+        });
+      }
+
+      if (viewer) {
+        viewer.addEventListener('click', event => {
+          if (event.target === viewer) {
+            closeViewer();
+          }
+        });
+      }
+
+      document.addEventListener('keydown', event => {
+        if (!viewer || viewer.style.display === 'none') return;
+        if (event.key === 'Escape') {
+          closeViewer();
+        } else if (event.key === 'ArrowLeft') {
+          showOffset(-1);
+        } else if (event.key === 'ArrowRight') {
+          showOffset(1);
+        }
+      });
+    });
+  </script>
+
+  <!-- ===== 可选的“返回顶部”按钮 ===== -->
+  <button id="backToTop" title="回到顶部">↑</button>
+
+  <script>
+    // ===== 返回顶部按钮逻辑 =====
+    const topBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      // 当页面向下滚动超过 300px 显示按钮，否则隐藏
+      topBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    topBtn.addEventListener('click', scrollToTop);
+    // 点击按钮触发平滑滚动到顶部
+  </script>
+
+  <!-- ===== Mermaid 流程图支持 ===== -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    
+    document.addEventListener("DOMContentLoaded", async () => {
+      mermaid.initialize({ startOnLoad: false, theme: 'default' });
+
+      // 查找并转换 mermaid 代码块
+      const mermaidBlocks = document.querySelectorAll('pre > code.language-mermaid');
+      if (mermaidBlocks.length > 0) {
+        mermaidBlocks.forEach(block => {
+          const content = block.textContent;
+          const pre = block.parentElement;
+          const div = document.createElement('div');
+          div.className = 'mermaid';
+          div.textContent = content;
+          pre.parentNode.replaceChild(div, pre);
+        });
+
+        // 渲染
+        await mermaid.run({
+          querySelector: '.mermaid'
+        });
+      }
+    });
+  </script>
+  <!-- ===== 引入编辑器弹窗组件 ===== -->
+  <div id="editorModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index: 1000;">
+  <div style="background:#fff; width:90%; max-width:800px; margin:50px auto; padding:20px; border-radius:8px; position:relative; max-height: 90vh; overflow-y: auto;">
+    <h2 id="editorTitle">编辑文章</h2>
+
+    <!-- 标题输入框 -->
+    <input type="text" id="noteTitle" placeholder="标题" style="width:100%; padding:8px; margin-bottom:10px;">
+
+    <!-- 文件名输入框 (新增) -->
+    <div style="margin-bottom: 10px; font-size: 0.85rem; color: #666; display: flex; align-items: center; gap: 10px;">
+        <label for="noteFilename" style="white-space: nowrap;">文件路径:</label>
+        <input type="text" id="noteFilename" placeholder="source/_posts/filename.md" style="flex: 1; padding: 5px; font-family: monospace; color: #555;">
+    </div>
+
+    <!-- 分类输入框 -->
+    <input type="text" id="noteCategory" placeholder="分类" style="width:100%; padding:8px; margin-bottom:10px;">
+
+    <!-- 标签输入框 -->
+    <input type="text" id="noteTags" placeholder="标签，用逗号分隔" style="width:100%; padding:8px; margin-bottom:10px;">
+
+    <!-- 内容输入框 -->
+    <textarea id="noteContent" rows="15" style="width:100%; padding:8px; font-family: monospace;"></textarea>
+
+    <!-- 保存/取消按钮 -->
+    <div style="margin-top:10px; display:flex; gap:10px;">
+      <button id="saveNoteBtn" style="flex:1; padding:10px; background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer;">💾 保存</button>
+      <button id="cancelEditBtn" style="flex:1; padding:10px; background:#dc3545; color:#fff; border:none; border-radius:5px; cursor:pointer;">❌ 取消</button>
+    </div>
+
+    <!-- Markdown 实时预览 -->
+    <div id="preview" style="margin-top:20px; padding:10px; border:1px solid #ddd; border-radius:5px; background: #f9f9f9;"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  window.mermaid = mermaid;
+  mermaid.initialize({ startOnLoad: false });
+</script>
+<script>
+(function() {
+  const owner = "Sun1105";              // GitHub 用户名
+  const repo = "hexo-source";           // 仓库名
+  const postsDir = "source/_posts";     // 文章目录
+  let editingNote = null;               // 当前正在编辑的文章对象
+
+  const editorModal = document.getElementById('editorModal');
+  const noteTitle = document.getElementById('noteTitle');
+  const noteFilename = document.getElementById('noteFilename');
+  const noteCategory = document.getElementById('noteCategory');
+  const noteTags = document.getElementById('noteTags');
+  const noteContent = document.getElementById('noteContent');
+  const saveNoteBtn = document.getElementById('saveNoteBtn');
+  const cancelEditBtn = document.getElementById('cancelEditBtn');
+  const previewDiv = document.getElementById('preview');
+
+  // 渲染预览（含 Mermaid 支持）
+  const renderPreview = async (content) => {
+    const trimmed = content.trim();
+    // 检测是否为完整 HTML 文档
+    const isFullHtml = trimmed.match(/^\s*<!DOCTYPE/i) || trimmed.match(/^\s*<html/i);
+
+    if (isFullHtml) {
+        // 使用 iframe 渲染完整 HTML
+        previewDiv.innerHTML = '<iframe id="previewFrame" style="width:100%; height:500px; border:1px solid #eee;"></iframe>';
+        const frame = document.getElementById('previewFrame');
+        if (frame) {
+            const doc = frame.contentDocument || frame.contentWindow.document;
+            doc.open();
+            doc.write(content);
+            doc.close();
+        }
+        return;
+    }
+
+    // Markdown 渲染
+    previewDiv.innerHTML = marked.parse(content);
+
+    if (window.mermaid) {
+      const mermaidBlocks = previewDiv.querySelectorAll('code.language-mermaid');
+      if (mermaidBlocks.length > 0) {
+        mermaidBlocks.forEach(block => {
+          const content = block.textContent;
+          const pre = block.parentElement;
+          const div = document.createElement('div');
+          div.className = 'mermaid';
+          div.textContent = content;
+          if (pre && pre.parentNode) {
+            pre.parentNode.replaceChild(div, pre);
+          }
+        });
+        try {
+          await window.mermaid.run({ querySelector: '#preview .mermaid' });
+        } catch (e) {
+          console.error("Mermaid render error:", e);
+        }
+      }
+    }
+  };
+
+  // 暴露给全局的函数
+  window.openEditor = async function(pathOrFile) {
+    let file;
+    
+    if (!pathOrFile) {
+        // 新建文章
+        file = null;
+    } else if (typeof pathOrFile === 'string') {
+        // 如果传入的是字符串（路径），则获取文件信息
+        let cleanPath = pathOrFile.replace(/\\/g, '/'); // 确保是正斜杠
+        if (!cleanPath.startsWith('source/')) {
+            cleanPath = 'source/' + cleanPath;
+        }
+        
+        // 处理中文路径
+        const encodedPath = cleanPath.split('/').map(encodeURIComponent).join('/');
+
+        try {
+            console.log(`正在获取文件信息: ${encodedPath}`);
+            const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${encodedPath}`);
+            if (!res.ok) {
+                const errText = await res.text();
+                throw new Error(`无法获取文件信息 (Status: ${res.status}): ${errText}`);
+            }
+            file = await res.json();
+        } catch (e) {
+            console.error(e);
+            alert('获取文件失败: ' + e.message + '\n请检查控制台 (F12) 获取更多信息。');
+            return;
+        }
+    } else {
+        file = pathOrFile;
+    }
+
+    editingNote = file;
+    editorModal.style.display = "block";
+
+    if (!file) {
+        // 新建模式
+        noteTitle.value = "";
+        noteFilename.value = "source/_posts/" + Date.now() + ".md"; // 默认文件名
+        noteCategory.value = "";
+        noteTags.value = "";
+        noteContent.value = "";
+        previewDiv.innerHTML = "";
+        document.getElementById('editorTitle').innerText = "新建文章";
+        return;
+    }
+
+    // 编辑模式
+    document.getElementById('editorTitle').innerText = "编辑文章";
+    noteTitle.value = "加载中...";
+    noteFilename.value = file.path || ""; // 填充文件路径
+    noteContent.value = "加载中...";
+
+    try {
+      // 获取文件内容
+      let content = "";
+      if (file.content && file.encoding === 'base64') {
+          // 使用 TextDecoder 处理 UTF-8 字符，比 escape/decodeURIComponent 更现代且稳健
+          try {
+              const binaryString = window.atob(file.content.replace(/\n/g, ""));
+              const bytes = new Uint8Array(binaryString.length);
+              for (let i = 0; i < binaryString.length; i++) {
+                  bytes[i] = binaryString.charCodeAt(i);
+              }
+              content = new TextDecoder('utf-8').decode(bytes);
+          } catch (e) {
+              console.warn("TextDecoder failed, falling back to legacy decode:", e);
+              content = decodeURIComponent(escape(window.atob(file.content.replace(/\n/g, ""))));
+          }
+      } else if (file.download_url) {
+          // 文件较大时（>1MB），API 不返回 content，需从 download_url 获取
+          console.log("File content too large, fetching from download_url...");
+          const rawRes = await fetch(file.download_url);
+          if (!rawRes.ok) {
+              throw new Error(`无法从 download_url 获取内容: ${rawRes.status}`);
+          }
+          content = await rawRes.text();
+      } else {
+          // 兜底：如果 API 返回结构不符合预期
+          if (file.content) {
+             // 非 base64 编码？直接使用
+             content = file.content;
+          } else {
+             throw new Error("未找到文件内容 (No content field and no download_url)");
+          }
+      }
+
+      // 解析Front Matter
+      // 使用 js-yaml 解析
+      const parts = content.split(/^---$/m);
+      if (parts.length >= 3) {
+        const frontMatterRaw = parts[1];
+        const body = parts.slice(2).join('---').trim();
+        
+        try {
+            const frontMatter = jsyaml.load(frontMatterRaw);
+            
+            // 标题
+            noteTitle.value = frontMatter.title || "";
+            
+            // 分类
+            if (frontMatter.categories) {
+                if (Array.isArray(frontMatter.categories)) {
+                    // 如果是数组，展平并用逗号分隔
+                    noteCategory.value = frontMatter.categories.flat().join(", ");
+                } else {
+                    noteCategory.value = frontMatter.categories;
+                }
+            } else if (frontMatter.category) {
+                 // 兼容 category 字段
+                 if (Array.isArray(frontMatter.category)) {
+                    noteCategory.value = frontMatter.category.flat().join(", ");
+                } else {
+                    noteCategory.value = frontMatter.category;
+                }
+            } else {
+                noteCategory.value = "";
+            }
+
+            // 标签
+            if (frontMatter.tags) {
+                if (Array.isArray(frontMatter.tags)) {
+                    noteTags.value = frontMatter.tags.flat().join(", ");
+                } else {
+                    noteTags.value = frontMatter.tags;
+                }
+            } else {
+                noteTags.value = "";
+            }
+
+        } catch (e) {
+            console.error("YAML parsing error:", e);
+            alert("YAML 解析失败，请手动检查 Front Matter 格式");
+        }
+
+        noteContent.value = body;
+        renderPreview(body);
+
+      } else {
+        // 没有Front Matter
+        noteTitle.value = file.name.replace(/\.md$/, '');
+        noteContent.value = content;
+        renderPreview(content);
+      }
+
+    } catch (e) {
+      console.error(e);
+      noteContent.value = "读取内容失败: " + e.message;
+    }
+  };
+
+  // 监听输入，实时预览
+  noteContent.addEventListener('input', () => {
+    renderPreview(noteContent.value);
+  });
+
+  // 关闭
+  cancelEditBtn.onclick = () => {
+    editorModal.style.display = "none";
+    editingNote = null;
+  };
+
+  // 点击外部关闭
+  window.onclick = (event) => {
+    if (event.target == editorModal) {
+      editorModal.style.display = "none";
+      editingNote = null;
+    }
+  };
+
+  // 保存
+  saveNoteBtn.onclick = async () => {
+    const title = noteTitle.value.trim();
+    const content = noteContent.value;
+    const categories = noteCategory.value.trim();
+    const tags = noteTags.value.trim();
+    let filepath = noteFilename.value.trim();
+
+    if (!title) {
+      alert("请输入标题");
+      return;
+    }
+    
+    if (!filepath) {
+        alert("请输入文件路径");
+        return;
+    }
+    
+    // 确保路径以 source/ 开头 (可选，视需求而定，Hexo通常在source下)
+    if (!filepath.startsWith('source/')) {
+        filepath = 'source/' + filepath;
+    }
+    // 确保以 .md 结尾
+    if (!filepath.endsWith('.md')) {
+        filepath += '.md';
+    }
+
+    // 构造新的文件内容（含 Front Matter）
+    let newFileContent = "---\n";
+    newFileContent += `title: ${title}\n`;
+    newFileContent += `date: ${new Date().toISOString()}\n`;
+    if (categories) newFileContent += `categories: [${categories}]\n`;
+    if (tags) newFileContent += `tags: [${tags}]\n`;
+    newFileContent += "---\n\n";
+    newFileContent += content;
+
+    // Base64 编码
+    // const contentBase64 = window.btoa(unescape(encodeURIComponent(newFileContent)));
+    // API 期望直接的字符串，它会在后端进行 Base64 编码
+    
+    const sha = editingNote ? editingNote.sha : null;
+    // const path = editingNote ? editingNote.path : `source/_posts/${Date.now()}-${title}.md`;
+    
+    // 使用用户指定的文件路径
+    // 注意：如果是重命名（修改了路径），sha 应该为 null（视为新文件），或者后端支持移动操作
+    // 这里简化处理：如果路径变了，就视为创建新文件。旧文件依然存在（除非后端有处理逻辑）。
+    // 真正的重命名需要 delete old + create new
+    
+    const isRename = editingNote && (editingNote.path !== filepath);
+    const finalSha = isRename ? null : sha; 
+    
+    const payload = {
+        path: filepath,
+        message: sha ? `Update ${title}` : `Create ${title}`,
+        content: newFileContent, // 直接发送内容，后端处理 Base64
+        sha: finalSha
+    };
+
+    // 决定调用哪个后端 API (本地代理)
+    // 注意：这里我们调用本地的 Serverless Function 或者 Next.js API 路由
+    // 如果是纯 Hexo 静态站，通常没有后端。
+    // 但用户之前的 new-note.js 暗示了有 Vercel API 支持。
+    // 我们需要确认 API 路径。根据之前的分析，API 在 api/ 目录下。
+    // Vercel 会将 api/ 目录下的文件部署为 Serverless Functions。
+    // 假设路径是 /api/new-note 和 /api/edit-note
+
+    // 修复：如果是重命名（isRename=true）或者新建文件（!editingNote），finalSha 为 null
+    // 此时应该调用 /api/new-note，而不是 /api/edit-note
+    const apiUrl = finalSha ? '/api/edit-note' : '/api/new-note';
+
+    saveNoteBtn.disabled = true;
+    saveNoteBtn.innerText = "保存中...";
+
+    try {
+        const res = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        
+        if (res.ok) {
+            alert("保存成功！即将刷新...");
+            location.reload();
+        } else {
+            alert("保存失败: " + (data.error || JSON.stringify(data)));
+        }
+    } catch (e) {
+        console.error(e);
+        alert("请求失败: " + e.message);
+    } finally {
+        saveNoteBtn.disabled = false;
+        saveNoteBtn.innerText = "💾 保存";
+    }
+  };
+})();
+</script>
+</body>
+</html>
