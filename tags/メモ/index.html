@@ -110,6 +110,8 @@
       <div class="dropdown-content">
         
           
+            <a href="/categories/00%EF%BD%9C%E3%83%A1%E3%83%A2/">00｜メモ</a>
+          
             <a href="/categories/01%EF%BD%9C%E6%8A%80%E6%9C%AF/">01｜技术</a>
           
             <a href="/categories/02%EF%BD%9C%E6%97%A5%E8%AF%AD/">02｜日语</a>
@@ -310,6 +312,13 @@
     <summary class="sidebar-title">📘 分类导航</summary>
     <ul class="category-list">
       
+        
+          <li>
+            <a href="/categories/00%EF%BD%9C%E3%83%A1%E3%83%A2/">
+              <span class="sidebar-name">00｜メモ</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
         
           <li>
             <a href="/categories/01%EF%BD%9C%E6%8A%80%E6%9C%AF/">
@@ -572,7 +581,7 @@
           <li>
             <a href="/tags/%E3%83%A1%E3%83%A2/">
               <span class="sidebar-name">メモ</span>
-              <span class="sidebar-count">3</span>
+              <span class="sidebar-count">4</span>
             </a>
           </li>
         
@@ -1127,6 +1136,75 @@
     <!-- 判断当前标签下是否有文章 -->
     <!-- page.posts → 当前页面文章数组 -->
     <!-- page.posts.length → 文章数量，大于 0 则进入循环 -->
+
+      
+      <!-- 遍历每篇文章 post -->
+      
+        <!--
+  _partial/post-card.ejs
+  功能：
+    - 渲染单篇文章的卡片
+    - 包含标题、发布日期、分类、标签、摘要、阅读全文按钮
+    - 可在分类页、标签页、归档页复用
+-->
+
+<article class="post-card">
+  <!-- 单篇文章卡片容器，用于布局和样式 -->
+
+  <!-- 文章标题 -->
+  <h3 class="post-title">
+    <a href="/2026/04/20/1776757263182/">メモ</a>
+    <!-- 链接到文章详情页 -->
+    <!-- url_for(post.path) → 生成文章路径 -->
+    <!-- post.title → 当前文章标题 -->
+  </h3>
+
+  <!-- 文章元信息：发布日期 + 分类 + 标签 -->
+  <p class="post-meta">
+    发布于 2026-04-21
+    <!-- 显示文章发布日期 -->
+
+     |
+      分类：
+      
+        <a href="/categories/00%EF%BD%9C%E3%83%A1%E3%83%A2/">00｜メモ</a>
+        
+        <!-- 遍历文章分类 -->
+        <!-- 多个分类用逗号分隔 -->
+      
+    
+
+     |
+      标签：
+      
+        <a href="/tags/%E3%83%A1%E3%83%A2/">メモ</a>
+        
+        <!-- 遍历文章标签 -->
+        <!-- 多个标签用逗号分隔 -->
+      
+    
+  </p>
+  <!-- 文章元信息结束 -->
+
+  <!-- 文章摘要 -->
+  <p class="post-excerpt">
+    
+    1，检索内容：预算15万以内，超薄随身携带便携，可以编辑文本，写小说随笔，可丝滑浏览网站，编程无压力，可剪辑视频和编辑照片，可听歌看视频等等，帮我推荐2026最适合性价比最好的笔记本电脑2，要求提示词...
+  </p>
+
+  <!-- 操作按钮容器 -->
+  <div class="post-actions">
+    <!-- 阅读全文按钮 -->
+    <a href="/2026/04/20/1776757263182/" class="read-more">阅读全文 →</a>
+    <!-- 编辑按钮 -->
+    <button onclick="openEditor('_posts/1776757263182.md')" class="read-more">✏️ 编辑</button>
+  </div>
+  <!-- 链接到文章详情页 -->
+  <!-- CSS class "read-more" 用于样式化按钮 -->
+
+</article>
+<!-- 单篇文章卡片结束 -->
+
 
       
       <!-- 遍历每篇文章 post -->
