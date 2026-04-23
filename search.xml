@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>📓 技能树（Skill Tree）</title>
+      <link href="/2026/04/22/1776926565050/"/>
+      <url>/2026/04/22/1776926565050/</url>
+      
+        <content type="html"><![CDATA[<h1 id="📓-技能树（Skill-Tree）"><a href="#📓-技能树（Skill-Tree）" class="headerlink" title="📓 技能树（Skill Tree）"></a>📓 技能树（Skill Tree）</h1><blockquote><p>发布于：2025-01-15<br>面向：日本大型IT项目 &#x2F; 企业级系统开发</p></blockquote><hr><h1 id="🧑‍💻-编程语言（Programming-Languages）"><a href="#🧑‍💻-编程语言（Programming-Languages）" class="headerlink" title="🧑‍💻 编程语言（Programming Languages）"></a>🧑‍💻 编程语言（Programming Languages）</h1><h2 id="☕-Java（核心语言-主力🔥）"><a href="#☕-Java（核心语言-主力🔥）" class="headerlink" title="☕ Java（核心语言 &#x2F; 主力🔥）"></a>☕ Java（核心语言 &#x2F; 主力🔥）</h2><ul><li>精通 Java 21</li><li>熟悉企业级开发规范（面向对象 &#x2F; 分层设计）</li><li>深入使用：<ul><li>Spring Boot（应用框架）</li><li>MyBatis（ORM &#x2F; SQL控制）</li></ul></li><li>具备：<ul><li>后端业务开发能力</li><li>批处理开发经验</li><li>外部系统联携（API &#x2F; SFTP）</li></ul></li></ul><hr><h2 id="🐍-Python"><a href="#🐍-Python" class="headerlink" title="🐍 Python"></a>🐍 Python</h2><ul><li>掌握数据处理能力</li><li>熟悉 OpenCV 图像处理</li><li>可用于：<ul><li>自动化脚本</li><li>数据分析辅助</li></ul></li></ul><hr><h2 id="🌐-JavaScript"><a href="#🌐-JavaScript" class="headerlink" title="🌐 JavaScript"></a>🌐 JavaScript</h2><ul><li>能进行前端调试</li><li>熟悉基础交互逻辑</li><li>可进行模板优化与简单页面处理</li></ul><hr><h2 id="🖥️-Shell-VBA"><a href="#🖥️-Shell-VBA" class="headerlink" title="🖥️ Shell &#x2F; VBA"></a>🖥️ Shell &#x2F; VBA</h2><ul><li>擅长自动化工具开发</li><li>应用于：<ul><li>批处理脚本（Linux Shell）</li><li>Excel自动化（VBA）</li><li>运维辅助工具</li></ul></li></ul><hr><h1 id="🏗️-系统架构与后端（Architecture-Backend）"><a href="#🏗️-系统架构与后端（Architecture-Backend）" class="headerlink" title="🏗️ 系统架构与后端（Architecture &amp; Backend）"></a>🏗️ 系统架构与后端（Architecture &amp; Backend）</h1><h2 id="📐-架构设计"><a href="#📐-架构设计" class="headerlink" title="📐 架构设计"></a>📐 架构设计</h2><ul><li>熟悉日本企业级系统开发流程（ウォーターフォール）</li><li>掌握分层架构（Layered Architecture）：<ul><li>Controller（API层）</li><li>Service（业务层）</li><li>Mapper（数据访问层）</li></ul></li></ul><hr><h2 id="⚙️-后端技术体系"><a href="#⚙️-后端技术体系" class="headerlink" title="⚙️ 后端技术体系"></a>⚙️ 后端技术体系</h2><ul><li>Spring Boot + MyBatis + Logback 技术栈</li><li>RESTful API 设计与实现</li><li>外部系统联携：<ul><li>HTTP API调用</li><li>SFTP文件传输</li></ul></li></ul><hr><h2 id="🔄-DevOps-CI-CD"><a href="#🔄-DevOps-CI-CD" class="headerlink" title="🔄 DevOps &#x2F; CI-CD"></a>🔄 DevOps &#x2F; CI-CD</h2><ul><li>熟悉 CI&#x2F;CD 流程设计与实践</li><li>使用 Azure DevOps 实现：<ul><li>自动构建</li><li>自动部署</li><li>Pipeline管理</li></ul></li></ul><hr><h2 id="🐳-容器化-部署"><a href="#🐳-容器化-部署" class="headerlink" title="🐳 容器化 &#x2F; 部署"></a>🐳 容器化 &#x2F; 部署</h2><ul><li>Docker（容器化部署）</li><li>Kubernetes（容器编排）</li><li>Linux 环境下应用运行与维护</li></ul><hr><h1 id="🗄️-数据库与数据处理（Database）"><a href="#🗄️-数据库与数据处理（Database）" class="headerlink" title="🗄️ 数据库与数据处理（Database）"></a>🗄️ 数据库与数据处理（Database）</h1><h2 id="🏦-Oracle-Database（核心🔥）"><a href="#🏦-Oracle-Database（核心🔥）" class="headerlink" title="🏦 Oracle Database（核心🔥）"></a>🏦 Oracle Database（核心🔥）</h2><ul><li>熟练编写复杂 SQL</li><li>性能优化（索引 &#x2F; 执行计划）</li><li>事务控制与数据一致性处理</li></ul><hr><h2 id="🧱-其他数据库"><a href="#🧱-其他数据库" class="headerlink" title="🧱 其他数据库"></a>🧱 其他数据库</h2><ul><li>MySQL &#x2F; PostgreSQL</li><li>常规开发与数据维护</li></ul><hr><h2 id="📊-数据处理能力"><a href="#📊-数据处理能力" class="headerlink" title="📊 数据处理能力"></a>📊 数据处理能力</h2><ul><li>数据建模</li><li>结构化分析</li><li>批量数据处理（Batch）</li></ul><hr><h1 id="🧪-测试与质量保障（Testing-Quality）"><a href="#🧪-测试与质量保障（Testing-Quality）" class="headerlink" title="🧪 测试与质量保障（Testing &amp; Quality）"></a>🧪 测试与质量保障（Testing &amp; Quality）</h1><h2 id="✅-单体测试"><a href="#✅-单体测试" class="headerlink" title="✅ 单体测试"></a>✅ 单体测试</h2><ul><li>JUnit5（核心测试框架）</li><li>Mockito（Mock对象）</li><li>WireMock（外部API模拟）</li></ul><hr><h2 id="🔍-代码质量"><a href="#🔍-代码质量" class="headerlink" title="🔍 代码质量"></a>🔍 代码质量</h2><ul><li>SonarQube（代码质量分析）</li><li>Checkstyle（编码规范检查）</li></ul><hr><h2 id="📡-接口测试"><a href="#📡-接口测试" class="headerlink" title="📡 接口测试"></a>📡 接口测试</h2><ul><li>Postman（API调试 &#x2F; 测试）</li></ul><hr><h1 id="🛠️-工具链与开发环境（Toolchain）"><a href="#🛠️-工具链与开发环境（Toolchain）" class="headerlink" title="🛠️ 工具链与开发环境（Toolchain）"></a>🛠️ 工具链与开发环境（Toolchain）</h1><h2 id="💻-开发工具"><a href="#💻-开发工具" class="headerlink" title="💻 开发工具"></a>💻 开发工具</h2><ul><li>Eclipse &#x2F; STS4（Spring开发环境）</li><li>Maven（构建管理）</li></ul><hr><h2 id="🔧-版本管理"><a href="#🔧-版本管理" class="headerlink" title="🔧 版本管理"></a>🔧 版本管理</h2><ul><li>Git（主流）</li><li>SVN（维护项目）</li></ul><hr><h2 id="⚙️-自动化与脚本"><a href="#⚙️-自动化与脚本" class="headerlink" title="⚙️ 自动化与脚本"></a>⚙️ 自动化与脚本</h2><ul><li>Shell（Linux脚本）</li><li>VBA（Excel自动化）</li></ul><hr><h2 id="📂-文件传输"><a href="#📂-文件传输" class="headerlink" title="📂 文件传输"></a>📂 文件传输</h2><ul><li>SFTP（系统间文件联携）</li></ul><hr><h1 id="🧱-基础设施（Infrastructure）"><a href="#🧱-基础设施（Infrastructure）" class="headerlink" title="🧱 基础设施（Infrastructure）"></a>🧱 基础设施（Infrastructure）</h1><h2 id="🖥️-操作系统"><a href="#🖥️-操作系统" class="headerlink" title="🖥️ 操作系统"></a>🖥️ 操作系统</h2><ul><li>Linux（服务器运行环境）</li></ul><hr><h2 id="🐳-容器技术"><a href="#🐳-容器技术" class="headerlink" title="🐳 容器技术"></a>🐳 容器技术</h2><ul><li>Docker</li><li>Kubernetes</li></ul><hr><h2 id="🪵-日志系统"><a href="#🪵-日志系统" class="headerlink" title="🪵 日志系统"></a>🪵 日志系统</h2><ul><li>Logback（统一日志管理）</li><li>日志规范：<ul><li>方法开始 &#x2F; 结束日志</li><li>异常日志分类</li></ul></li></ul><hr><h1 id="💬-日常协作工具（Collaboration）"><a href="#💬-日常协作工具（Collaboration）" class="headerlink" title="💬 日常协作工具（Collaboration）"></a>💬 日常协作工具（Collaboration）</h1><ul><li>Microsoft Teams：团队沟通 &#x2F; 会议 &#x2F; 文件共享  </li><li>Microsoft Outlook：邮件沟通 &#x2F; 项目通知</li></ul><hr><h1 id="🎨-其他能力（Other-Skills）"><a href="#🎨-其他能力（Other-Skills）" class="headerlink" title="🎨 其他能力（Other Skills）"></a>🎨 其他能力（Other Skills）</h1><h2 id="📝-技术能力"><a href="#📝-技术能力" class="headerlink" title="📝 技术能力"></a>📝 技术能力</h2><ul><li>技术博客搭建（Markdown &#x2F; Hexo）</li><li>SEO优化</li><li>Mermaid流程图设计</li></ul><hr><h2 id="🌏-语言能力"><a href="#🌏-语言能力" class="headerlink" title="🌏 语言能力"></a>🌏 语言能力</h2><ul><li>中日双语技术沟通</li><li>日本项目文档理解与编写（設計書）</li></ul><hr><h2 id="📚-工作习惯"><a href="#📚-工作习惯" class="headerlink" title="📚 工作习惯"></a>📚 工作习惯</h2><ul><li>强文档意识（设计书 &#x2F; 流程图）</li><li>知识结构化整理能力</li><li>模块化设计与代码规范意识</li></ul><hr><h1 id="🚀-技术特点总结（Highlight）"><a href="#🚀-技术特点总结（Highlight）" class="headerlink" title="🚀 技术特点总结（Highlight）"></a>🚀 技术特点总结（Highlight）</h1><pre><code class="language-text">1. 具备日本大型IT项目完整开发经验（设计～开发～测试～运维）2. 熟练掌握Spring Boot + MyBatis企业级开发体系3. 精通Oracle数据库及SQL性能优化4. 拥有完整测试体系（JUnit + Mockito + WireMock）5. 熟悉CI/CD及容器化部署（Azure DevOps + Docker + K8s）6. 强调日志规范、异常处理及系统稳定性设计7. 具备良好的文档能力（日本設計書风格）</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 00｜メモ </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> メモ </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>技术栈总结（中日双语）</title>
       <link href="/2026/04/22/1776923009221/"/>
       <url>/2026/04/22/1776923009221/</url>
@@ -710,11 +735,11 @@
       
         <tags>
             
+            <tag> API </tag>
+            
             <tag> 轻量版 </tag>
             
             <tag> Web </tag>
-            
-            <tag> API </tag>
             
         </tags>
       
@@ -1002,9 +1027,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> API </tag>
-            
             <tag> Java </tag>
+            
+            <tag> API </tag>
             
         </tags>
       
@@ -1176,9 +1201,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1234,9 +1259,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1350,9 +1375,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1379,9 +1404,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1408,9 +1433,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1466,9 +1491,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1524,9 +1549,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1553,9 +1578,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1582,9 +1607,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1814,9 +1839,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1843,9 +1868,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1872,9 +1897,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1901,9 +1926,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1930,9 +1955,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1959,9 +1984,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1988,9 +2013,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2017,9 +2042,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2046,9 +2071,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2075,9 +2100,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2104,9 +2129,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2133,9 +2158,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2162,9 +2187,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2191,9 +2216,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2220,9 +2245,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2307,9 +2332,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2336,9 +2361,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2365,9 +2390,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2394,9 +2419,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2423,9 +2448,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2452,9 +2477,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2481,9 +2506,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2626,9 +2651,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2800,9 +2825,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2829,9 +2854,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2858,9 +2883,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
