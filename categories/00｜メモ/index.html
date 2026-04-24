@@ -316,7 +316,7 @@
           <li>
             <a href="/categories/00%EF%BD%9C%E3%83%A1%E3%83%A2/">
               <span class="sidebar-name">00｜メモ</span>
-              <span class="sidebar-count">3</span>
+              <span class="sidebar-count">4</span>
             </a>
           </li>
         
@@ -602,6 +602,13 @@
           <li>
             <a href="/tags/%E4%B8%8D%E5%82%99/">
               <span class="sidebar-name">不備</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91/">
+              <span class="sidebar-name">业务逻辑</span>
               <span class="sidebar-count">1</span>
             </a>
           </li>
@@ -1144,6 +1151,85 @@
     <!-- 判断当前分类下是否有文章 -->
     <!-- page.posts → 当前页面文章数组 -->
     <!-- page.posts.length → 文章数量，大于 0 则进入循环 -->
+
+      
+      <!-- 遍历当前分类下每篇文章 post -->
+      <!-- post 对象包含文章标题、路径、日期、分类、标签、摘要等信息 -->
+
+        <!--
+  _partial/post-card.ejs
+  功能：
+    - 渲染单篇文章的卡片
+    - 包含标题、发布日期、分类、标签、摘要、阅读全文按钮
+    - 可在分类页、标签页、归档页复用
+-->
+
+<article class="post-card">
+  <!-- 单篇文章卡片容器，用于布局和样式 -->
+
+  <!-- 文章标题 -->
+  <h3 class="post-title">
+    <a href="/2026/04/24/1777022334085/">业务逻辑本质认知（规则视角 · 工程级对齐版）</a>
+    <!-- 链接到文章详情页 -->
+    <!-- url_for(post.path) → 生成文章路径 -->
+    <!-- post.title → 当前文章标题 -->
+  </h3>
+
+  <!-- 文章元信息：发布日期 + 分类 + 标签 -->
+  <p class="post-meta">
+    发布于 2026-04-24
+    <!-- 显示文章发布日期 -->
+
+     |
+      分类：
+      
+        <a href="/categories/00%EF%BD%9C%E3%83%A1%E3%83%A2/">00｜メモ</a>
+        
+        <!-- 遍历文章分类 -->
+        <!-- 多个分类用逗号分隔 -->
+      
+    
+
+     |
+      标签：
+      
+        <a href="/tags/%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91/">业务逻辑</a>
+        
+        <!-- 遍历文章标签 -->
+        <!-- 多个标签用逗号分隔 -->
+      
+    
+  </p>
+  <!-- 文章元信息结束 -->
+
+  <!-- 文章摘要 -->
+  <p class="post-excerpt">
+    
+    🎯 核心观点👉 你把“业务逻辑”拆成了外部流程 vs 内部实现，但其实业务逻辑本身不是这两者之一，而是：
+
+👉 贯穿两者的规则本体
+
+
+🧠 一、纠正一个核心误区❌ 常见理解（不完整）
+外部设计...
+  </p>
+
+  <!-- 操作按钮容器 -->
+  <div class="post-actions">
+    <!-- 阅读全文按钮 -->
+    <a href="/2026/04/24/1777022334085/" class="read-more">阅读全文 →</a>
+    <!-- 编辑按钮 -->
+    <button onclick="openEditor('_posts/1777022334085.md')" class="read-more">✏️ 编辑</button>
+  </div>
+  <!-- 链接到文章详情页 -->
+  <!-- CSS class "read-more" 用于样式化按钮 -->
+
+</article>
+<!-- 单篇文章卡片结束 -->
+
+        <!-- 调用局部模板 _partial/post-card.ejs 渲染文章卡片 -->
+        <!-- 将当前文章对象 post 传入模板 -->
+        <!--  输出 HTML，不转义，保证标签正常显示 -->
 
       
       <!-- 遍历当前分类下每篇文章 post -->

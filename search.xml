@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>业务逻辑本质认知（规则视角 · 工程级对齐版）</title>
+      <link href="/2026/04/24/1777022334085/"/>
+      <url>/2026/04/24/1777022334085/</url>
+      
+        <content type="html"><![CDATA[<h1 id="🎯-核心观点"><a href="#🎯-核心观点" class="headerlink" title="🎯 核心观点"></a>🎯 核心观点</h1><p>👉 你把“业务逻辑”拆成了外部流程 vs 内部实现，<br>但其实业务逻辑本身不是这两者之一，而是：</p><blockquote><p>👉 <strong>贯穿两者的规则本体</strong></p></blockquote><hr><h1 id="🧠-一、纠正一个核心误区"><a href="#🧠-一、纠正一个核心误区" class="headerlink" title="🧠 一、纠正一个核心误区"></a>🧠 一、纠正一个核心误区</h1><h2 id="❌-常见理解（不完整）"><a href="#❌-常见理解（不完整）" class="headerlink" title="❌ 常见理解（不完整）"></a>❌ 常见理解（不完整）</h2><ul><li>外部设计书 &#x3D; 业务流程  </li><li>内部设计书 &#x3D; 代码逻辑</li></ul><p>✔ 分类没错<br>❗但问题是：</p><blockquote><p>❌ 把“业务逻辑”当成了“文档类型”</p></blockquote><hr><h2 id="✅-正确认知"><a href="#✅-正确认知" class="headerlink" title="✅ 正确认知"></a>✅ 正确认知</h2><blockquote><p>👉 <strong>业务逻辑 &#x3D; 业务规则 + 处理规则 + 判断规则</strong></p></blockquote><p>👉 它是：</p><blockquote><p>👉 <strong>规则本身，而不是表现形式</strong></p></blockquote><hr><h1 id="🧩-二、用真实案例讲清楚"><a href="#🧩-二、用真实案例讲清楚" class="headerlink" title="🧩 二、用真实案例讲清楚"></a>🧩 二、用真实案例讲清楚</h1><h2 id="🏦-场景：信用申请审批"><a href="#🏦-场景：信用申请审批" class="headerlink" title="🏦 场景：信用申请审批"></a>🏦 场景：信用申请审批</h2><hr><h2 id="🧾-①-外部设计书（業務フロー）"><a href="#🧾-①-外部设计书（業務フロー）" class="headerlink" title="🧾 ① 外部设计书（業務フロー）"></a>🧾 ① 外部设计书（業務フロー）</h2><p>业务员操作流程：</p><ol><li>输入客户信息  </li><li>系统检查信用评分  </li><li>判断是否通过  </li><li>输出结果</li></ol><p>👉 ✔ 这是业务流程</p><hr><h2 id="⚙️-②-内部设计书（処理仕様）"><a href="#⚙️-②-内部设计书（処理仕様）" class="headerlink" title="⚙️ ② 内部设计书（処理仕様）"></a>⚙️ ② 内部设计书（処理仕様）</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (信用分 &gt; <span class="number">700</span>) &#123;</span><br><span class="line">    批准</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    拒绝</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>👉 ✔ 这是代码实现</p><hr><h2 id="🎯-③-那“业务逻辑”到底是什么？"><a href="#🎯-③-那“业务逻辑”到底是什么？" class="headerlink" title="🎯 ③ 那“业务逻辑”到底是什么？"></a>🎯 ③ 那“业务逻辑”到底是什么？</h2><blockquote><p>👉 <strong>信用分 &gt; 700 才能通过</strong></p></blockquote><hr><h2 id="🔥-关键对比"><a href="#🔥-关键对比" class="headerlink" title="🔥 关键对比"></a>🔥 关键对比</h2><table><thead><tr><th>层级</th><th>内容</th><th>是否业务逻辑</th></tr></thead><tbody><tr><td>外部流程</td><td>输入 → 判断 → 输出</td><td>❌</td></tr><tr><td>内部代码</td><td>if &#x2F; else</td><td>❌</td></tr><tr><td>⭐规则本身</td><td>信用分 &gt; 700</td><td>✅</td></tr></tbody></table><hr><h1 id="🧠-三、业务逻辑的本质定义（可用于面试）"><a href="#🧠-三、业务逻辑的本质定义（可用于面试）" class="headerlink" title="🧠 三、业务逻辑的本质定义（可用于面试）"></a>🧠 三、业务逻辑的本质定义（可用于面试）</h1><blockquote><p>👉 业务逻辑（Business Logic）是系统中用于实现业务规则、决策条件和数据处理方式的核心规则集合，用于决定“在什么条件下，做什么处理，产生什么结果”。</p></blockquote><hr><h1 id="🧩-四、结合你项目理解（KKBAZA0200）"><a href="#🧩-四、结合你项目理解（KKBAZA0200）" class="headerlink" title="🧩 四、结合你项目理解（KKBAZA0200）"></a>🧩 四、结合你项目理解（KKBAZA0200）</h1><h2 id="📌-场景：图片上传处理"><a href="#📌-场景：图片上传处理" class="headerlink" title="📌 场景：图片上传处理"></a>📌 场景：图片上传处理</h2><hr><h2 id="🧾-①-外部流程"><a href="#🧾-①-外部流程" class="headerlink" title="🧾 ① 外部流程"></a>🧾 ① 外部流程</h2><ol><li>上传文件  </li><li>判断文件类型  </li><li>转换格式  </li><li>输出文件</li></ol><hr><h2 id="⚙️-②-内部代码"><a href="#⚙️-②-内部代码" class="headerlink" title="⚙️ ② 内部代码"></a>⚙️ ② 内部代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (contentType.equals(<span class="string">&quot;image/jpeg&quot;</span>)) &#123;</span><br><span class="line">    imageChangeJpeg();</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (contentType.equals(<span class="string">&quot;application/pdf&quot;</span>)) &#123;</span><br><span class="line">    imageChangePdf();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h2 id="🎯-③-真正的业务逻辑"><a href="#🎯-③-真正的业务逻辑" class="headerlink" title="🎯 ③ 真正的业务逻辑"></a>🎯 ③ 真正的业务逻辑</h2><blockquote><p>👉 <strong>只有 JPEG 和 PDF 可以处理，其它格式报错</strong></p></blockquote><hr><h1 id="🧠-五、业务逻辑的三大类型"><a href="#🧠-五、业务逻辑的三大类型" class="headerlink" title="🧠 五、业务逻辑的三大类型"></a>🧠 五、业务逻辑的三大类型</h1><h2 id="①-判断逻辑"><a href="#①-判断逻辑" class="headerlink" title="① 判断逻辑"></a>① 判断逻辑</h2><ul><li>金额 &gt; 100万 → 审批  </li><li>文件不是 PDF → 报错</li></ul><hr><h2 id="②-流转逻辑"><a href="#②-流转逻辑" class="headerlink" title="② 流转逻辑"></a>② 流转逻辑</h2><ul><li>校验 → 处理 → 保存</li></ul><hr><h2 id="③-数据处理逻辑"><a href="#③-数据处理逻辑" class="headerlink" title="③ 数据处理逻辑"></a>③ 数据处理逻辑</h2><ul><li>图片压缩  </li><li>PDF 转 JPG</li></ul><hr><h1 id="🧩-六、为什么会感觉模糊"><a href="#🧩-六、为什么会感觉模糊" class="headerlink" title="🧩 六、为什么会感觉模糊"></a>🧩 六、为什么会感觉模糊</h1><h2 id="🚨-原因1：被代码包裹"><a href="#🚨-原因1：被代码包裹" class="headerlink" title="🚨 原因1：被代码包裹"></a>🚨 原因1：被代码包裹</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (...) &#123; ... &#125;</span><br></pre></td></tr></table></figure><p>👉 实际是业务规则</p><hr><h2 id="🚨-原因2：设计书缺规则层"><a href="#🚨-原因2：设计书缺规则层" class="headerlink" title="🚨 原因2：设计书缺规则层"></a>🚨 原因2：设计书缺规则层</h2><ul><li>✔ 写流程  </li><li>✔ 写SQL  </li><li>❌ 不总结规则</li></ul><hr><h2 id="🚨-原因3：实现视角"><a href="#🚨-原因3：实现视角" class="headerlink" title="🚨 原因3：实现视角"></a>🚨 原因3：实现视角</h2><p>👉 关注“怎么写”<br>而不是“为什么”</p><hr><h1 id="🔥-七、识别业务逻辑方法"><a href="#🔥-七、识别业务逻辑方法" class="headerlink" title="🔥 七、识别业务逻辑方法"></a>🔥 七、识别业务逻辑方法</h1><h2 id="🧠-三连问"><a href="#🧠-三连问" class="headerlink" title="🧠 三连问"></a>🧠 三连问</h2><ol><li>业务含义是什么？  </li><li>谁定义的？  </li><li>改了影响什么？</li></ol><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (fileSize &gt; 5MB) <span class="keyword">throw</span> error;</span><br></pre></td></tr></table></figure><p>👉 转换为：</p><blockquote><p>👉 文件不能超过 5MB</p></blockquote><hr><h1 id="🧭-八、一句话认知"><a href="#🧭-八、一句话认知" class="headerlink" title="🧭 八、一句话认知"></a>🧭 八、一句话认知</h1><blockquote><p>❗ 业务逻辑 ≠ 流程 ≠ 代码<br>✅ 业务逻辑 &#x3D; 规则  </p></blockquote><hr><h1 id="🎯-九、进阶建议"><a href="#🎯-九、进阶建议" class="headerlink" title="🎯 九、进阶建议"></a>🎯 九、进阶建议</h1><p>👉 从代码抽象规则</p><hr><h2 id="示例（你的项目）"><a href="#示例（你的项目）" class="headerlink" title="示例（你的项目）"></a>示例（你的项目）</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 仅支持 JPEG / PDF</span><br><span class="line">2. PDF 需要转图片</span><br><span class="line">3. 图片需要灰度化</span><br><span class="line">4. 输出统一格式</span><br></pre></td></tr></table></figure><hr><h1 id="🚀-最终能力跃迁"><a href="#🚀-最终能力跃迁" class="headerlink" title="🚀 最终能力跃迁"></a>🚀 最终能力跃迁</h1><blockquote><p>❌ 写代码<br>→ ✅ 理解业务逻辑<br>→ 💥 设计系统</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 00｜メモ </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 业务逻辑 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>メモ</title>
       <link href="/2026/04/24/1776757263182/"/>
       <url>/2026/04/24/1776757263182/</url>
@@ -648,11 +673,11 @@
       
         <tags>
             
+            <tag> IF項目 </tag>
+            
             <tag> JSON </tag>
             
             <tag> VBA </tag>
-            
-            <tag> IF項目 </tag>
             
         </tags>
       
@@ -1315,9 +1340,9 @@
       
         <tags>
             
-            <tag> 实用清单 </tag>
-            
             <tag> 工具 </tag>
+            
+            <tag> 实用清单 </tag>
             
             <tag> 各种 </tag>
             
