@@ -11,7 +11,7 @@
   <!-- 如果当前页面有标题，则显示 "页面标题 | 网站标题" -->
   <!-- 否则只显示网站标题 config.title -->
   <title>
-    Sun Blog
+    业务逻辑 vs 技术实现 对照图 | Sun Blog
   </title>
 
   <!-- 页面描述，用于 SEO -->
@@ -1126,124 +1126,78 @@
   <!-- ===== 主体内容区 ===== -->
   <main id="main-content">
     <!--
-  tag.ejs
-  标签页面模板
+  post.ejs
+  文章详情页模板
   功能：
-    - 显示当前标签名称
-    - 遍历该标签下的所有文章
-    - 渲染为文章卡片列表
+    - 显示文章标题
+    - 显示文章发布日期和标签
+    - 渲染文章正文内容
 -->
 
-<section class="main-section">
-  <!-- 页面主容器，用于布局和样式控制 -->
-
-  <!-- 标签标题 -->
-  <h2 class="section-title">🏷️ 仕上 标签</h2>
-  <!-- emoji 🏷️ 用于视觉增强 -->
-  <!-- 仕上 动态输出当前页面所属标签名称 -->
-  <!-- 最终显示效果示例：🏷️ Java 标签 -->
-
-  <div class="post-list">
-    <!-- 文章列表容器，用于存放该标签下的所有文章卡片 -->
-
-    
-    <!-- 判断当前标签下是否有文章 -->
-    <!-- page.posts → 当前页面文章数组 -->
-    <!-- page.posts.length → 文章数量，大于 0 则进入循环 -->
-
-      
-      <!-- 遍历每篇文章 post -->
-      
-        <!--
-  _partial/post-card.ejs
-  功能：
-    - 渲染单篇文章的卡片
-    - 包含标题、发布日期、分类、标签、摘要、阅读全文按钮
-    - 可在分类页、标签页、归档页复用
--->
-
-<article class="post-card">
-  <!-- 单篇文章卡片容器，用于布局和样式 -->
+<article class="post">
+  <!-- 单篇文章容器，用于文章详情页布局和样式 -->
 
   <!-- 文章标题 -->
-  <h3 class="post-title">
-    <a href="/2026/01/07/1767787254856/">仕上げて（仕上げる）</a>
-    <!-- 链接到文章详情页 -->
-    <!-- url_for(post.path) → 生成文章路径 -->
-    <!-- post.title → 当前文章标题 -->
-  </h3>
+  <h1 class="post-title">业务逻辑 vs 技术实现 对照图</h1>
+  <!-- page.title → 当前文章标题 -->
 
-  <!-- 文章元信息：发布日期 + 分类 + 标签 -->
-  <p class="post-meta">
-    发布于 2026-01-07
+  <!-- 文章元信息：发布日期 + 标签 -->
+  <div class="post-meta">
+    <span>发表于 2026-04-24</span>
     <!-- 显示文章发布日期 -->
 
-     |
-      分类：
-      
-        <a href="/categories/02%EF%BD%9C%E6%97%A5%E8%AF%AD/">02｜日语</a>
-        
-        <!-- 遍历文章分类 -->
-        <!-- 多个分类用逗号分隔 -->
-      
     
+      <!-- 判断文章是否有标签 -->
 
-     |
-      标签：
-      
-        <a href="/tags/%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/">经验总结</a>
-        ,
-        <!-- 遍历文章标签 -->
-        <!-- 多个标签用逗号分隔 -->
-      
-        <a href="/tags/%E6%97%A5%E8%AF%AD%E5%8D%95%E8%AF%8D/">日语单词</a>
-        ,
-        <!-- 遍历文章标签 -->
-        <!-- 多个标签用逗号分隔 -->
-      
-        <a href="/tags/%E4%BB%95%E4%B8%8A/">仕上</a>
+      <span>标签：
         
-        <!-- 遍历文章标签 -->
-        <!-- 多个标签用逗号分隔 -->
-      
+          <a href="/tags/%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91/">业务逻辑</a>
+          
+          <!-- 遍历文章标签，生成标签链接 -->
+          <!-- 多个标签用逗号分隔 -->
+        
+      </span>
+
     
-  </p>
+    <!-- 标签判断结束 -->
+  </div>
   <!-- 文章元信息结束 -->
 
-  <!-- 文章摘要 -->
-  <p class="post-excerpt">
+  <!-- 文章正文内容 -->
+  <div class="post-content">
     
-    一、中文核心意思「仕上げて」是动词 仕上げる（しあげる） 的て形，意思是“完成、做完、收尾、做到最后的精致状态”。
-二、一句话语感本质不仅是做完，而是把东西做到“最终完成度”。
-三、结构公式（可背）
-...
-  </p>
 
-  <!-- 操作按钮容器 -->
-  <div class="post-actions">
-    <!-- 阅读全文按钮 -->
-    <a href="/2026/01/07/1767787254856/" class="read-more">阅读全文 →</a>
-    <!-- 编辑按钮 -->
-    <button onclick="openEditor('_posts/1767787254856.md')" class="read-more">✏️ 编辑</button>
+    
+      <!-- Full HTML content rendered in iframe -->
+      <iframe id="post-content-iframe" style="width:100%; height:800px; border:1px solid #eee; background: #fff;"></iframe>
+      <script>
+        (function() {
+          const frame = document.getElementById('post-content-iframe');
+          // Use rawBody to preserve full HTML structure including DOCTYPE/HEAD
+          const rawContent = decodeURIComponent("%0A%0A%3C!DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22zh-CN%22%3E%0A%3Chead%3E%0A%3Cmeta%20charset%3D%22UTF-8%22%3E%0A%3Ctitle%3E%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%20vs%20%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0%EF%BC%88%E8%AE%A2%E5%8D%95%E4%B8%8B%E5%8D%95%E6%B5%81%E7%A8%8B%EF%BC%89%3C%2Ftitle%3E%0A%0A%3Cstyle%3E%0Abody%20%7B%0A%20%20%20%20font-family%3A%20%22Microsoft%20YaHei%22%2C%20Arial%3B%0A%20%20%20%20background%3A%20%23f4f5f7%3B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20padding%3A%2020px%3B%0A%7D%0A%0A.title%20%7B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20font-size%3A%2028px%3B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%7D%0A%0A.sub%20%7B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20color%3A%20%23666%3B%0A%20%20%20%20margin-bottom%3A%2020px%3B%0A%7D%0A%0A.table%20%7B%0A%20%20%20%20display%3A%20grid%3B%0A%20%20%20%20grid-template-columns%3A%2090px%201fr%20200px%201fr%3B%0A%20%20%20%20gap%3A%2012px%3B%0A%7D%0A%0A.header%20%7B%0A%20%20%20%20padding%3A%2012px%3B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20border-radius%3A%208px%3B%0A%7D%0A%0A.h-left%20%7B%20background%3A%20%23dff0e2%3B%20%7D%0A.h-mid%20%20%7B%20background%3A%20%23f6e7c7%3B%20%7D%0A.h-right%7B%20background%3A%20%23dde7fb%3B%20%7D%0A%0A.cell%20%7B%0A%20%20%20%20background%3A%20white%3B%0A%20%20%20%20border-radius%3A%2010px%3B%0A%20%20%20%20padding%3A%2012px%3B%0A%20%20%20%20font-size%3A%2013px%3B%0A%20%20%20%20line-height%3A%201.6%3B%0A%7D%0A%0A.step%20%7B%0A%20%20%20%20background%3A%20%23eeeeee%3B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%7D%0A%0A.biz%20%7B%0A%20%20%20%20background%3A%20%23eef8f0%3B%0A%7D%0A%0A.rel%20%7B%0A%20%20%20%20background%3A%20%23fff6df%3B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20display%3Aflex%3B%0A%20%20%20%20align-items%3Acenter%3B%0A%20%20%20%20justify-content%3Acenter%3B%0A%7D%0A%0A.tech%20%7B%0A%20%20%20%20background%3A%20%23eef3ff%3B%0A%7D%0A%0A.section-title%20%7B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20margin-bottom%3A%206px%3B%0A%7D%0A%0A.footer%20%7B%0A%20%20%20%20margin-top%3A%2020px%3B%0A%20%20%20%20background%3A%20%23ffffff%3B%0A%20%20%20%20padding%3A%2015px%3B%0A%20%20%20%20border-radius%3A%2010px%3B%0A%7D%0A%3C%2Fstyle%3E%0A%3C%2Fhead%3E%0A%0A%3Cbody%3E%0A%0A%3Cdiv%20class%3D%22title%22%3E%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%20vs%20%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0%20%E5%AF%B9%E7%85%A7%E5%9B%BE%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22sub%22%3E%E4%BB%A5%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E3%80%8C%E8%AE%A2%E5%8D%95%E4%B8%8B%E5%8D%95%E6%B5%81%E7%A8%8B%E3%80%8D%E4%B8%BA%E4%BE%8B%3C%2Fdiv%3E%0A%0A%3Cdiv%20class%3D%22table%22%3E%0A%0A%3Cdiv%3E%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22header%20h-left%22%3E%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%EF%BC%88%E5%81%9A%E4%BB%80%E4%B9%88%20%2F%20%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%89%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22header%20h-mid%22%3E%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22header%20h-right%22%3E%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0%EF%BC%88%E6%80%8E%E4%B9%88%E5%81%9A%EF%BC%89%3C%2Fdiv%3E%0A%0A%3C!--%20Step%201%20--%3E%0A%3Cdiv%20class%3D%22cell%20step%22%3E1%3Cbr%3E%E5%88%9B%E5%BB%BA%E8%AF%B7%E6%B1%82%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20biz%22%3E%0A%3Cdiv%20class%3D%22section-title%22%3E%E4%B8%9A%E5%8A%A1%E8%A7%84%E5%88%99%3C%2Fdiv%3E%0A%E7%94%A8%E6%88%B7%E5%BF%85%E9%A1%BB%E6%8F%90%E4%BA%A4%E8%AE%A2%E5%8D%95%E4%BF%A1%E6%81%AF%EF%BC%88%E5%95%86%E5%93%81%E3%80%81%E6%95%B0%E9%87%8F%E3%80%81%E5%9C%B0%E5%9D%80%EF%BC%89%0A%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20rel%22%3EHTTP%E8%AF%B7%E6%B1%82%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20tech%22%3E%0APOST%20%2Forder%2Fcreate%3Cbr%3E%0AController%E6%8E%A5%E6%94%B6%E5%8F%82%E6%95%B0%20DTO%0A%3C%2Fdiv%3E%0A%0A%3C!--%20Step%202%20--%3E%0A%3Cdiv%20class%3D%22cell%20step%22%3E2%3Cbr%3E%E6%A0%A1%E9%AA%8C%E6%95%B0%E6%8D%AE%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20biz%22%3E%0A%3Cdiv%20class%3D%22section-title%22%3E%E4%B8%9A%E5%8A%A1%E8%A7%84%E5%88%99%3C%2Fdiv%3E%0A%E2%80%A2%20%E5%95%86%E5%93%81%E5%BF%85%E9%A1%BB%E5%AD%98%E5%9C%A8%3Cbr%3E%0A%E2%80%A2%20%E6%95%B0%E9%87%8F%20%3E%200%3Cbr%3E%0A%E2%80%A2%20%E5%9C%B0%E5%9D%80%E4%B8%8D%E8%83%BD%E4%B8%BA%E7%A9%BA%0A%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20rel%22%3E%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20tech%22%3E%0Aif(product%20%3D%3D%20null)%3Cbr%3E%0Aif(count%20%3C%3D%200)%3Cbr%3E%0Aif(address%20%3D%3D%20null)%0A%3C%2Fdiv%3E%0A%0A%3C!--%20Step%203%20--%3E%0A%3Cdiv%20class%3D%22cell%20step%22%3E3%3Cbr%3E%E5%BA%93%E5%AD%98%E6%A0%A1%E9%AA%8C%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20biz%22%3E%0A%3Cdiv%20class%3D%22section-title%22%3E%E4%B8%9A%E5%8A%A1%E8%A7%84%E5%88%99%3C%2Fdiv%3E%0A%E5%BA%93%E5%AD%98%E5%BF%85%E9%A1%BB%E5%85%85%E8%B6%B3%EF%BC%8C%E5%90%A6%E5%88%99%E4%B8%8D%E8%83%BD%E4%B8%8B%E5%8D%95%0A%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20rel%22%3E%E4%B8%9A%E5%8A%A1%E5%88%A4%E6%96%AD%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20tech%22%3E%0Aselect%20stock%20from%20db%3Cbr%3E%0Aif(stock%20%3C%20count)%20throw%20error%0A%3C%2Fdiv%3E%0A%0A%3C!--%20Step%204%20--%3E%0A%3Cdiv%20class%3D%22cell%20step%22%3E4%3Cbr%3E%E9%87%91%E9%A2%9D%E8%AE%A1%E7%AE%97%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20biz%22%3E%0A%3Cdiv%20class%3D%22section-title%22%3E%E4%B8%9A%E5%8A%A1%E8%A7%84%E5%88%99%3C%2Fdiv%3E%0A%E6%80%BB%E9%87%91%E9%A2%9D%20%3D%20%E5%95%86%E5%93%81%E9%87%91%E9%A2%9D%20%2B%20%E8%BF%90%E8%B4%B9%20-%20%E4%BC%98%E6%83%A0%0A%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20rel%22%3E%E8%AE%A1%E7%AE%97%E9%80%BB%E8%BE%91%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20tech%22%3E%0Atotal%20%3D%20price%20*%20count%3Cbr%3E%0A%2B%20shippingFee%3Cbr%3E%0A-%20discount%0A%3C%2Fdiv%3E%0A%0A%3C!--%20Step%205%20--%3E%0A%3Cdiv%20class%3D%22cell%20step%22%3E5%3Cbr%3E%E7%94%9F%E6%88%90%E8%AE%A2%E5%8D%95%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20biz%22%3E%0A%3Cdiv%20class%3D%22section-title%22%3E%E4%B8%9A%E5%8A%A1%E8%A7%84%E5%88%99%3C%2Fdiv%3E%0A%E5%BF%85%E9%A1%BB%E7%94%9F%E6%88%90%E5%94%AF%E4%B8%80%E8%AE%A2%E5%8D%95%E5%8F%B7%E5%B9%B6%E4%BF%9D%E5%AD%98%0A%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20rel%22%3E%E6%8C%81%E4%B9%85%E5%8C%96%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20tech%22%3E%0Ainsert%20into%20order%3Cbr%3E%0Agenerate%20orderId%0A%3C%2Fdiv%3E%0A%0A%3C!--%20Step%206%20--%3E%0A%3Cdiv%20class%3D%22cell%20step%22%3E6%3Cbr%3E%E6%89%A3%E5%87%8F%E5%BA%93%E5%AD%98%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20biz%22%3E%0A%3Cdiv%20class%3D%22section-title%22%3E%E4%B8%9A%E5%8A%A1%E8%A7%84%E5%88%99%3C%2Fdiv%3E%0A%E4%B8%8B%E5%8D%95%E6%88%90%E5%8A%9F%E5%BF%85%E9%A1%BB%E6%89%A3%E5%87%8F%E5%BA%93%E5%AD%98%0A%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20rel%22%3E%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20tech%22%3E%0Aupdate%20stock%20set%20stock%20%3D%20stock%20-%20count%0A%3C%2Fdiv%3E%0A%0A%3C!--%20Step%207%20--%3E%0A%3Cdiv%20class%3D%22cell%20step%22%3E7%3Cbr%3E%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20biz%22%3E%0A%3Cdiv%20class%3D%22section-title%22%3E%E4%B8%9A%E5%8A%A1%E8%A7%84%E5%88%99%3C%2Fdiv%3E%0A%E8%BF%94%E5%9B%9E%E8%AE%A2%E5%8D%95%E4%BF%A1%E6%81%AF%E5%92%8C%E7%8A%B6%E6%80%81%0A%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20rel%22%3E%E5%93%8D%E5%BA%94%E5%B0%81%E8%A3%85%3C%2Fdiv%3E%0A%3Cdiv%20class%3D%22cell%20tech%22%3E%0Areturn%20ResponseEntity(orderId%2C%20success)%0A%3C%2Fdiv%3E%0A%0A%3C%2Fdiv%3E%0A%0A%3Cdiv%20class%3D%22footer%22%3E%0A%3Cb%3E%E6%80%BB%E7%BB%93%EF%BC%9A%3C%2Fb%3E%3Cbr%3E%3Cbr%3E%0A%E2%9C%94%20%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%EF%BC%9A%E5%86%B3%E5%AE%9A%E2%80%9C%E7%B3%BB%E7%BB%9F%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E8%BF%90%E4%BD%9C%E2%80%9D%EF%BC%88%E8%A7%84%E5%88%99%EF%BC%89%3Cbr%3E%0A%E2%9C%94%20%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0%EF%BC%9A%E5%86%B3%E5%AE%9A%E2%80%9C%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%BF%99%E4%BA%9B%E8%A7%84%E5%88%99%E2%80%9D%EF%BC%88%E4%BB%A3%E7%A0%81%EF%BC%89%3Cbr%3E%3Cbr%3E%0A%0A%3Cb%3E%E5%85%B3%E9%94%AE%E7%90%86%E8%A7%A3%EF%BC%9A%3C%2Fb%3E%3Cbr%3E%0A%F0%9F%91%89%20%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%E5%8F%AF%E4%BB%A5%E8%84%B1%E7%A6%BB%E4%BB%A3%E7%A0%81%E5%AD%98%E5%9C%A8%EF%BC%88%E5%86%99%E5%9C%A8%E8%AE%BE%E8%AE%A1%E4%B9%A6%E9%87%8C%EF%BC%89%3Cbr%3E%0A%F0%9F%91%89%20%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0%E5%8F%AA%E6%98%AF%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%E7%9A%84%E4%B8%80%E7%A7%8D%E8%A1%A8%E8%BE%BE%E6%96%B9%E5%BC%8F%0A%3C%2Fdiv%3E%0A%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E");
+          
+          const doc = frame.contentDocument || frame.contentWindow.document;
+          doc.open();
+          doc.write(rawContent);
+          doc.close();
+
+          // Auto resize height
+          frame.onload = function() {
+            try {
+              const height = frame.contentWindow.document.body.scrollHeight;
+              if (height > 0) {
+                 frame.style.height = (height + 50) + 'px';
+              }
+            } catch(e) { console.error("Auto resize failed", e); }
+          };
+        })();
+      </script>
+    
   </div>
-  <!-- 链接到文章详情页 -->
-  <!-- CSS class "read-more" 用于样式化按钮 -->
+  <!-- 文章正文结束 -->
 
 </article>
-<!-- 单篇文章卡片结束 -->
-
-
-      
-      <!-- 遍历文章结束 -->
-
-    
-    <!-- 条件判断结束 -->
-
-  </div>
-  <!-- 文章列表容器结束 -->
-
-</section>
-<!-- 页面主容器结束 -->
+<!-- 单篇文章容器结束 -->
 
     <!-- 渲染当前页面内容 -->
     <!--  保证 HTML 正常渲染，不转义 -->
