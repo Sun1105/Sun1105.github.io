@@ -1150,7 +1150,7 @@
 
   <!-- 文章元信息：发布日期 + 标签 -->
   <div class="post-meta">
-    <span>发表于 2026-04-25</span>
+    <span>发表于 2026-05-07</span>
     <!-- 显示文章发布日期 -->
 
     
@@ -1309,6 +1309,703 @@
 この建物は静かですか？
 
 よろしくお願いします。
+
+
+
+
+
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+
+&lt;title&gt;賃貸物件 希望条件シート&lt;/title&gt;
+
+&lt;style&gt;
+
+@page {
+    size: A4;
+    margin: 18mm;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    -webkit-text-size-adjust:100%;
+}
+
+body{
+    margin:0;
+    padding:0;
+    background:#f3f5f8;
+    font-family:
+    &quot;Hiragino Sans&quot;,
+    &quot;Yu Gothic&quot;,
+    sans-serif;
+    color:#222;
+    line-height:1.7;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    overflow-x:hidden;
+}
+
+.page{
+    width:210mm;
+    min-height:297mm;
+    margin:20px auto;
+    background:#fff;
+    box-shadow:0 0 20px rgba(0,0,0,0.08);
+    padding:20mm;
+    box-sizing:border-box;
+}
+
+.header{
+    text-align:center;
+    border-bottom:2px solid #2f5d9f;
+    padding-bottom:18px;
+    margin-bottom:28px;
+}
+
+.header h1{
+    margin:0;
+    font-size:28px;
+    color:#1d3557;
+    letter-spacing:1px;
+    line-height:1.4;
+}
+
+.header p{
+    margin-top:10px;
+    color:#666;
+    font-size:13px;
+}
+
+.section{
+    margin-top:26px;
+}
+
+.section-title{
+    font-size:18px;
+    color:#1d3557;
+    padding-left:10px;
+    border-left:5px solid #4a90e2;
+    margin-bottom:12px;
+    font-weight:bold;
+    line-height:1.5;
+}
+
+.box{
+    border:1px solid #dbe5f1;
+    border-radius:10px;
+    padding:16px 18px;
+    background:#fafcff;
+}
+
+.profile-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+}
+
+.profile-table td{
+    border-bottom:1px solid #e5edf7;
+    padding:10px 6px;
+    vertical-align:top;
+    word-break:break-word;
+}
+
+.profile-table td:first-child{
+    width:140px;
+    font-weight:bold;
+    color:#2f5d9f;
+}
+
+ul{
+    margin:8px 0;
+    padding-left:20px;
+}
+
+li{
+    margin-bottom:6px;
+    word-break:break-word;
+}
+
+.tag{
+    display:inline-block;
+    padding:5px 12px;
+    border-radius:999px;
+    background:#e8f1ff;
+    color:#2f5d9f;
+    margin:4px;
+    font-size:12px;
+}
+
+.two-column{
+    display:flex;
+    gap:16px;
+}
+
+.column{
+    flex:1;
+    min-width:0;
+}
+
+.priority{
+    background:#fff9eb;
+    border-left:5px solid #f4b400;
+}
+
+.warning{
+    background:#fff3f3;
+    border-left:5px solid #e74c3c;
+}
+
+.good{
+    background:#eefaf2;
+    border-left:5px solid #27ae60;
+}
+
+.phrase{
+    border:1px solid #e4e4e4;
+    border-radius:8px;
+    padding:10px 12px;
+    margin-bottom:10px;
+    background:#fafafa;
+}
+
+.phrase .cn{
+    font-size:11px;
+    color:#888;
+    margin-bottom:4px;
+}
+
+.phrase .jp{
+    font-size:14px;
+    font-weight:bold;
+    line-height:1.7;
+}
+
+.final-message{
+    margin-top:30px;
+    border:1px solid #d8e5f7;
+    background:#eef5ff;
+    border-radius:10px;
+    padding:18px;
+    font-size:14px;
+    line-height:2;
+}
+
+.footer{
+    margin-top:24px;
+    text-align:right;
+    color:#888;
+    font-size:11px;
+}
+
+/* ========================= */
+/* 手机优化 */
+/* ========================= */
+
+@media (max-width: 768px){
+
+    body{
+        background:#f3f5f8;
+    }
+
+    .page{
+        width:100%;
+        min-height:auto;
+        margin:0;
+        padding:18px;
+        box-shadow:none;
+        border-radius:0;
+    }
+
+    .header{
+        margin-bottom:22px;
+        padding-bottom:14px;
+    }
+
+    .header h1{
+        font-size:24px;
+    }
+
+    .header p{
+        font-size:12px;
+        line-height:1.7;
+    }
+
+    .section{
+        margin-top:22px;
+    }
+
+    .section-title{
+        font-size:17px;
+        margin-bottom:10px;
+    }
+
+    .box{
+        padding:14px;
+        border-radius:10px;
+    }
+
+    .two-column{
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .profile-table{
+        font-size:13px;
+    }
+
+    .profile-table td{
+        display:block;
+        width:100%;
+        padding:8px 2px;
+        border-bottom:none;
+    }
+
+    .profile-table tr{
+        display:block;
+        padding-bottom:10px;
+        margin-bottom:10px;
+        border-bottom:1px solid #e8eef8;
+    }
+
+    .profile-table td:first-child{
+        width:100%;
+        margin-bottom:4px;
+        font-size:13px;
+    }
+
+    ul{
+        padding-left:18px;
+    }
+
+    li{
+        font-size:13px;
+        line-height:1.7;
+    }
+
+    .tag{
+        font-size:11px;
+        padding:5px 10px;
+    }
+
+    .phrase{
+        padding:12px;
+    }
+
+    .phrase .jp{
+        font-size:13px;
+    }
+
+    .final-message{
+        font-size:13px;
+        line-height:1.9;
+        padding:16px;
+    }
+
+    .footer{
+        text-align:center;
+        margin-top:20px;
+    }
+
+}
+
+/* ========================= */
+/* 打印优化 */
+/* ========================= */
+
+@media print {
+
+    body{
+        background:white;
+    }
+
+    .page{
+        margin:0;
+        box-shadow:none;
+    }
+
+}
+
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;div class=&quot;page&quot;&gt;
+
+&lt;!-- Header --&gt;
+
+&lt;div class=&quot;header&quot;&gt;
+    &lt;h1&gt;賃貸物件 希望条件シート&lt;/h1&gt;
+
+    &lt;p&gt;
+        川崎・鶴見・横浜エリア中心 ｜ 2人入居予定 ｜ 長く住める物件希望
+    &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- 個人状況 --&gt;
+
+&lt;div class=&quot;section&quot;&gt;
+
+    &lt;div class=&quot;section-title&quot;&gt;
+        個人状況
+    &lt;/div&gt;
+
+    &lt;div class=&quot;box&quot;&gt;
+
+        &lt;table class=&quot;profile-table&quot;&gt;
+
+            &lt;tr&gt;
+                &lt;td&gt;職業&lt;/td&gt;
+                &lt;td&gt;IT関連職&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;td&gt;勤務地&lt;/td&gt;
+                &lt;td&gt;護国寺&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;td&gt;月収&lt;/td&gt;
+                &lt;td&gt;約48万円&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;td&gt;現住所&lt;/td&gt;
+                &lt;td&gt;亀戸付近&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;td&gt;現在の家賃&lt;/td&gt;
+                &lt;td&gt;約10万円&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;td&gt;引っ越し理由&lt;/td&gt;
+                &lt;td&gt;
+                    ・横浜エリアの景色や雰囲気が好きなため&lt;br&gt;
+                    ・友人が川崎・横浜周辺に住んでいるため&lt;br&gt;
+                    ・生活環境を改善したいため
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;td&gt;重視している点&lt;/td&gt;
+                &lt;td&gt;
+                    ・通勤しやすさ&lt;br&gt;
+                    ・静かな環境&lt;br&gt;
+                    ・防音性&lt;br&gt;
+                    ・生活利便性&lt;br&gt;
+                    ・長く住みやすい環境
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+        &lt;/table&gt;
+
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;!-- 希望エリア --&gt;
+
+&lt;div class=&quot;section&quot;&gt;
+
+    &lt;div class=&quot;section-title&quot;&gt;
+        希望エリア
+    &lt;/div&gt;
+
+    &lt;div class=&quot;box&quot;&gt;
+
+        &lt;span class=&quot;tag&quot;&gt;川崎駅 周辺&lt;/span&gt;
+        &lt;span class=&quot;tag&quot;&gt;鶴見駅 周辺&lt;/span&gt;
+        &lt;span class=&quot;tag&quot;&gt;横浜駅 周辺&lt;/span&gt;
+
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;!-- 条件 --&gt;
+
+&lt;div class=&quot;section&quot;&gt;
+
+    &lt;div class=&quot;section-title&quot;&gt;
+        希望条件
+    &lt;/div&gt;
+
+    &lt;div class=&quot;two-column&quot;&gt;
+
+        &lt;!-- Left --&gt;
+
+        &lt;div class=&quot;column&quot;&gt;
+
+            &lt;div class=&quot;box&quot;&gt;
+
+                &lt;strong&gt;立地&lt;/strong&gt;
+
+                &lt;ul&gt;
+                    &lt;li&gt;駅徒歩10分以内&lt;/li&gt;
+                    &lt;li&gt;通勤しやすいエリア希望&lt;/li&gt;
+                    &lt;li&gt;比較的治安が良いエリア希望&lt;/li&gt;
+                    &lt;li&gt;夜が静かな環境希望&lt;/li&gt;
+                    &lt;li&gt;スーパー・コンビニが近いと嬉しいです&lt;/li&gt;
+                &lt;/ul&gt;
+
+            &lt;/div&gt;
+
+            &lt;br&gt;
+
+            &lt;div class=&quot;box&quot;&gt;
+
+                &lt;strong&gt;間取り・広さ&lt;/strong&gt;
+
+                &lt;ul&gt;
+                    &lt;li&gt;40㎡以上&lt;/li&gt;
+                    &lt;li&gt;1DK以上&lt;/li&gt;
+                    &lt;li&gt;2人入居予定&lt;/li&gt;
+                &lt;/ul&gt;
+
+            &lt;/div&gt;
+
+            &lt;br&gt;
+
+            &lt;div class=&quot;box&quot;&gt;
+
+                &lt;strong&gt;建物条件&lt;/strong&gt;
+
+                &lt;ul&gt;
+                    &lt;li&gt;RC造希望&lt;/li&gt;
+                    &lt;li&gt;木造はできれば避けたいです&lt;/li&gt;
+                    &lt;li&gt;築10〜15年以内希望&lt;/li&gt;
+                    &lt;li&gt;防音性重視&lt;/li&gt;
+                    &lt;li&gt;角部屋希望&lt;/li&gt;
+                    &lt;li&gt;2階以上希望&lt;/li&gt;
+                    &lt;li&gt;最上階だと嬉しいです&lt;/li&gt;
+                    &lt;li&gt;オートロック希望&lt;/li&gt;
+                    &lt;li&gt;独立洗面台希望&lt;/li&gt;
+                    &lt;li&gt;バス・トイレ別必須&lt;/li&gt;
+                    &lt;li&gt;室内洗濯機置場必須&lt;/li&gt;
+                    &lt;li&gt;エアコン付き希望&lt;/li&gt;
+                    &lt;li&gt;収納が多めだと嬉しいです&lt;/li&gt;
+                &lt;/ul&gt;
+
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;!-- Right --&gt;
+
+        &lt;div class=&quot;column&quot;&gt;
+
+            &lt;div class=&quot;box priority&quot;&gt;
+
+                &lt;strong&gt;費用条件&lt;/strong&gt;
+
+                &lt;ul&gt;
+                    &lt;li&gt;管理費込み13万円以内&lt;/li&gt;
+                    &lt;li&gt;初期費用30万円前後希望&lt;/li&gt;
+                    &lt;li&gt;礼金なし必須&lt;/li&gt;
+                    &lt;li&gt;敷金低め希望&lt;/li&gt;
+                    &lt;li&gt;フリーレント歓迎&lt;/li&gt;
+                    &lt;li&gt;仲介手数料が安い物件歓迎&lt;/li&gt;
+                    &lt;li&gt;保証会社費用が低い物件歓迎&lt;/li&gt;
+                &lt;/ul&gt;
+
+            &lt;/div&gt;
+
+            &lt;br&gt;
+
+            &lt;div class=&quot;box good&quot;&gt;
+
+                &lt;strong&gt;入居条件&lt;/strong&gt;
+
+                &lt;ul&gt;
+                    &lt;li&gt;外国人入居可能&lt;/li&gt;
+                    &lt;li&gt;2人入居可能&lt;/li&gt;
+                    &lt;li&gt;比較的審査が柔軟な物件希望&lt;/li&gt;
+                    &lt;li&gt;本日内見可能物件優先&lt;/li&gt;
+                    &lt;li&gt;即入居可能歓迎&lt;/li&gt;
+                    &lt;li&gt;オンライン内見可能&lt;/li&gt;
+                &lt;/ul&gt;
+
+            &lt;/div&gt;
+
+            &lt;br&gt;
+
+            &lt;div class=&quot;box warning&quot;&gt;
+
+                &lt;strong&gt;できれば避けたい条件&lt;/strong&gt;
+
+                &lt;ul&gt;
+                    &lt;li&gt;木造アパート&lt;/li&gt;
+                    &lt;li&gt;大通り沿い&lt;/li&gt;
+                    &lt;li&gt;線路沿い&lt;/li&gt;
+                    &lt;li&gt;1階&lt;/li&gt;
+                    &lt;li&gt;プロパンガス&lt;/li&gt;
+                    &lt;li&gt;ユニットバス&lt;/li&gt;
+                    &lt;li&gt;事故物件&lt;/li&gt;
+                    &lt;li&gt;騒音トラブルが多い物件&lt;/li&gt;
+                    &lt;li&gt;外国人不可物件&lt;/li&gt;
+                &lt;/ul&gt;
+
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;!-- 確認事項 --&gt;
+
+&lt;div class=&quot;section&quot;&gt;
+
+    &lt;div class=&quot;section-title&quot;&gt;
+        追加で確認したい内容
+    &lt;/div&gt;
+
+    &lt;div class=&quot;box&quot;&gt;
+
+        &lt;ul&gt;
+            &lt;li&gt;初期費用総額&lt;/li&gt;
+            &lt;li&gt;更新料の有無&lt;/li&gt;
+            &lt;li&gt;ネット無料有無&lt;/li&gt;
+            &lt;li&gt;防音性&lt;/li&gt;
+            &lt;li&gt;隣人トラブル履歴&lt;/li&gt;
+            &lt;li&gt;ゴミ出しルール&lt;/li&gt;
+            &lt;li&gt;駐輪場有無&lt;/li&gt;
+            &lt;li&gt;日当たり&lt;/li&gt;
+            &lt;li&gt;管理会社対応評判&lt;/li&gt;
+        &lt;/ul&gt;
+
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;!-- 内見 --&gt;
+
+&lt;div class=&quot;section&quot;&gt;
+
+    &lt;div class=&quot;section-title&quot;&gt;
+        内見時に確認したいポイント
+    &lt;/div&gt;
+
+    &lt;div class=&quot;box&quot;&gt;
+
+        &lt;ul&gt;
+            &lt;li&gt;壁の厚さ・音漏れ&lt;/li&gt;
+            &lt;li&gt;共用部の清潔感&lt;/li&gt;
+            &lt;li&gt;ゴミ置き場状態&lt;/li&gt;
+            &lt;li&gt;周辺の騒音&lt;/li&gt;
+            &lt;li&gt;夜道の明るさ&lt;/li&gt;
+            &lt;li&gt;携帯電波状況&lt;/li&gt;
+            &lt;li&gt;水圧&lt;/li&gt;
+            &lt;li&gt;カビ臭・下水臭&lt;/li&gt;
+            &lt;li&gt;窓の防音性能&lt;/li&gt;
+            &lt;li&gt;結露しやすいか&lt;/li&gt;
+            &lt;li&gt;エアコンの年式&lt;/li&gt;
+            &lt;li&gt;コンセント位置・数&lt;/li&gt;
+            &lt;li&gt;ネット回線タイプ（光回線など）&lt;/li&gt;
+        &lt;/ul&gt;
+
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;!-- 常用日语 --&gt;
+
+&lt;div class=&quot;section&quot;&gt;
+
+    &lt;div class=&quot;section-title&quot;&gt;
+        よく使う確認フレーズ
+    &lt;/div&gt;
+
+    &lt;div class=&quot;phrase&quot;&gt;
+        &lt;div class=&quot;cn&quot;&gt;今天还能看房吗&lt;/div&gt;
+        &lt;div class=&quot;jp&quot;&gt;
+            今日内見できる物件はありますか？
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;phrase&quot;&gt;
+        &lt;div class=&quot;cn&quot;&gt;确认总初期费用&lt;/div&gt;
+        &lt;div class=&quot;jp&quot;&gt;
+            初期費用の総額はいくらになりますか？
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;phrase&quot;&gt;
+        &lt;div class=&quot;cn&quot;&gt;确认隔音&lt;/div&gt;
+        &lt;div class=&quot;jp&quot;&gt;
+            防音性はどうですか？&lt;br&gt;
+            隣の音は聞こえやすいですか？
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;phrase&quot;&gt;
+        &lt;div class=&quot;cn&quot;&gt;确认外国人是否可入住&lt;/div&gt;
+        &lt;div class=&quot;jp&quot;&gt;
+            外国人でも入居可能でしょうか？
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;phrase&quot;&gt;
+        &lt;div class=&quot;cn&quot;&gt;确认是否能两人入住&lt;/div&gt;
+        &lt;div class=&quot;jp&quot;&gt;
+            2人入居は可能でしょうか？
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;phrase&quot;&gt;
+        &lt;div class=&quot;cn&quot;&gt;确认是否可压低初期费用&lt;/div&gt;
+        &lt;div class=&quot;jp&quot;&gt;
+            初期費用をもう少し抑えられる物件はありますか？
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;phrase&quot;&gt;
+        &lt;div class=&quot;cn&quot;&gt;确认是否有隐藏费用&lt;/div&gt;
+        &lt;div class=&quot;jp&quot;&gt;
+            他にかかる費用はありますか？
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;phrase&quot;&gt;
+        &lt;div class=&quot;cn&quot;&gt;确认是否可以申请&lt;/div&gt;
+        &lt;div class=&quot;jp&quot;&gt;
+            こちらの物件、申し込み可能でしょうか？
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;!-- Final --&gt;
+
+&lt;div class=&quot;final-message&quot;&gt;
+
+    条件完全一致でなくても大丈夫ですので、&lt;br&gt;
+    「総合的にコスパが良い物件」を優先してご紹介いただけますと幸いです。&lt;br&gt;&lt;br&gt;
+
+    長く住める物件を探しております。&lt;br&gt;
+    よろしくお願いいたします。
+
+&lt;/div&gt;
+
+&lt;div class=&quot;footer&quot;&gt;
+    Rental Requirement Sheet
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 
       <!-- 渲染文章正文 HTML -->
