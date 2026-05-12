@@ -1,0 +1,2145 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <!-- 设置字符集为 UTF-8 -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 响应式布局，适配移动设备 -->
+
+  <!-- 页面标题 -->
+  <!-- 如果当前页面有标题，则显示 "页面标题 | 网站标题" -->
+  <!-- 否则只显示网站标题 config.title -->
+  <title>
+    2026_日本永住申请资料准备指南_网站单位增强版 | Sun Blog
+  </title>
+
+  <!-- 页面描述，用于 SEO -->
+  <meta name="description" content="一个记录开发、学习与生活点滴的博客">
+
+  <!-- ===== 全局样式引入 ===== -->
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <link rel="stylesheet" href="/css/post-list.css">
+  <link rel="stylesheet" href="/css/page.css">
+  <link rel="stylesheet" href="/css/category.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <!-- 各模块样式，便于维护 -->
+
+  <!-- ===== 字体与图标 ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <!-- 网站 favicon 和 Google 字体 -->
+
+  <!-- ===== 登录状态检查 ===== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const onLoginPage = window.location.pathname.startsWith("/login");
+      if (!onLoginPage && !localStorage.getItem("isLoggedIn")) {
+        window.location.href = "/login/";
+      }
+      // 如果未登录且不在登录页，自动跳转到登录页
+    });
+  </script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  
+    <!-- ===== 顶部导航栏 ===== -->
+    <header class="top-nav">
+  <!-- ============================
+       顶部导航栏模块
+       功能：
+         - 显示网站 logo
+         - 提供主菜单导航
+         - 技术分类下拉菜单
+         - 新建笔记 / 关于我 / 我的项目 / 技能树
+         - 小屏幕汉堡菜单切换
+         - 退出登录按钮
+  ============================ -->
+
+  <!-- 网站 Logo -->
+  <div class="logo">
+    <a href="/">首页</a>
+    <!-- 点击跳转到网站首页 -->
+  </div>
+
+  <!-- 搜索栏（左侧显示） -->
+  <div class="search-bar" style="margin-right: auto; margin-left: 20px; position: relative;">
+    <input type="text" id="local-search-input" placeholder="搜索标题 / 内容 / 关键词..." autocomplete="off" />
+    <button id="search-btn">搜索</button>
+  </div>
+
+  <!-- 搜索结果抽屉（右侧滑出） -->
+  <div id="search-drawer" class="search-drawer">
+    <div class="drawer-header">
+      <h3>搜索结果 <span id="search-count" style="font-size:0.8rem; color:#666; font-weight:normal;"></span></h3>
+      <button id="close-drawer" aria-label="关闭">×</button>
+    </div>
+    <div id="drawer-content" class="drawer-content">
+      <div class="empty-state">请输入关键词进行搜索</div>
+    </div>
+  </div>
+
+  <!-- 汉堡按钮（小屏幕时显示） -->
+  <button class="menu-toggle" onclick="toggleMenu()" aria-label="切换菜单">☰</button>
+  <!-- onclick 调用 toggleMenu() 切换移动端菜单显示状态 -->
+
+  <!-- 主菜单容器 -->
+  <nav class="menu">
+
+    <!-- 普通菜单项 -->
+    <a href="/new-note/">新建笔记</a>
+    <a href="/notes/">笔记列表</a>
+    <a href="/archives/">时间轴</a>
+    <a href="/about/">关于我</a>
+    <a href="/projects/">项目集</a>
+    <a href="/skills/">技能树</a>
+    <button type="button" id="study-main-btn" class="menu-btn">学习资料</button>
+    <!-- 点击跳转到对应页面 -->
+
+    <!-- 技术分类下拉菜单 -->
+    <div class="dropdown">
+      <button class="menu-btn" type="button">技术分类</button>
+      <!-- 下拉按钮，点击显示分类列表 -->
+
+      <div class="dropdown-content">
+        
+          
+            <a href="/categories/00%EF%BD%9C%E3%83%A1%E3%83%A2/">00｜メモ</a>
+          
+            <a href="/categories/01%EF%BD%9C%E6%8A%80%E6%9C%AF/">01｜技术</a>
+          
+            <a href="/categories/02%EF%BD%9C%E6%97%A5%E8%AF%AD/">02｜日语</a>
+          
+            <a href="/categories/03%EF%BD%9C%E6%96%B9%E6%B3%95%E8%AE%BA/">03｜方法论</a>
+          
+            <a href="/categories/%E3%83%A1%E3%83%A2/">メモ</a>
+          
+        
+      </div>
+    </div>
+    <!-- 技术分类下拉菜单结束 -->
+
+    <!-- 退出登录按钮 -->
+    <button class="logout" onclick="logout()">退出</button>
+    <!-- 点击调用 logout() 清除登录状态并跳转登录页 -->
+
+  </nav>
+  <!-- 主菜单容器结束 -->
+
+</header>
+<!-- 顶部导航栏结束 -->
+
+<script>
+  // 全站搜索功能
+  const searchInput = document.getElementById('local-search-input');
+  const searchBtn = document.getElementById('search-btn');
+  const searchDrawer = document.getElementById('search-drawer');
+  const drawerContent = document.getElementById('drawer-content');
+  const closeDrawerBtn = document.getElementById('close-drawer');
+  const searchCount = document.getElementById('search-count');
+
+  let searchData = [];
+
+  // 加载搜索数据
+  async function loadSearchData() {
+    if (searchData.length > 0) return;
+    try {
+      const response = await fetch('/search.xml');
+      const str = await response.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(str, "text/xml");
+      const entries = xml.querySelectorAll('entry');
+      
+      searchData = Array.from(entries).map(entry => {
+        return {
+          title: entry.querySelector('title')?.textContent || '',
+          content: entry.querySelector('content')?.textContent || '',
+          url: entry.querySelector('url')?.textContent || '',
+          categories: Array.from(entry.querySelectorAll('category')).map(c => c.textContent.trim()),
+          tags: Array.from(entry.querySelectorAll('tag')).map(t => t.textContent.trim())
+        };
+      });
+    } catch (e) {
+      console.error('Search data load failed:', e);
+      drawerContent.innerHTML = '<div class="error-state">搜索数据加载失败，请刷新重试</div>';
+    }
+  }
+
+  // 打开抽屉
+  function openDrawer() {
+    searchDrawer.classList.add('open');
+  }
+
+  // 关闭抽屉
+  function closeDrawer() {
+    searchDrawer.classList.remove('open');
+  }
+
+  // 执行搜索
+  async function performSearch() {
+    const term = searchInput.value.trim().toLowerCase();
+    
+    // 即使为空也打开抽屉，显示提示
+    openDrawer();
+
+    if (!term) {
+      drawerContent.innerHTML = '<div class="empty-state">请输入关键词开始搜索...</div>';
+      searchCount.textContent = '';
+      return;
+    }
+    
+    drawerContent.innerHTML = '<div class="loading-state">正在搜索...</div>';
+
+    // 确保数据已加载
+    if (searchData.length === 0) {
+      await loadSearchData();
+    }
+    
+    const keywords = term.split(/[\s\-]+/);
+    
+    const matched = searchData.filter(item => {
+      const title = item.title.toLowerCase();
+      const content = item.content.toLowerCase();
+      const meta = (item.categories.join(' ') + ' ' + item.tags.join(' ')).toLowerCase();
+      
+      return keywords.some(k => title.includes(k) || content.includes(k) || meta.includes(k));
+    });
+    
+    searchCount.textContent = `(共 ${matched.length} 条)`;
+
+    if (matched.length > 0) {
+      const html = matched.map(item => {
+        // 高亮关键词逻辑
+        let displayTitle = item.title;
+        let displayContent = item.content.replace(/<[^>]+>/g, "");
+        
+        // 简单截取预览
+        const snippetLength = 100;
+        // 尝试找到第一个关键词的位置
+        let firstIndex = -1;
+        for (const k of keywords) {
+          const idx = displayContent.toLowerCase().indexOf(k);
+          if (idx !== -1) {
+            firstIndex = idx;
+            break;
+          }
+        }
+        
+        let start = 0;
+        if (firstIndex > 20) {
+          start = firstIndex - 20;
+        }
+        
+        let snippet = displayContent.substring(start, start + snippetLength);
+        if (start > 0) snippet = '...' + snippet;
+        if (start + snippetLength < displayContent.length) snippet = snippet + '...';
+
+        // 简单的关键词高亮（不区分大小写替换）
+        keywords.forEach(k => {
+          if(!k) return;
+          const reg = new RegExp(`(${k})`, 'gi');
+          displayTitle = displayTitle.replace(reg, '<mark>$1</mark>');
+          snippet = snippet.replace(reg, '<mark>$1</mark>');
+        });
+
+        return `
+          <a href="${item.url}" class="search-item">
+            <div class="search-item-title">${displayTitle}</div>
+            <div class="search-item-content">${snippet}</div>
+            <div class="search-item-meta">
+              ${item.categories.length ? `<span class="tag category">${item.categories[0]}</span>` : ''}
+              ${item.tags.map(t => `<span class="tag">#${t}</span>`).join(' ')}
+            </div>
+          </a>
+        `;
+      }).join('');
+      drawerContent.innerHTML = html;
+    } else {
+      drawerContent.innerHTML = '<div class="empty-state">没有找到相关内容</div>';
+    }
+  }
+
+  // 按钮点击触发搜索
+  if (searchBtn) {
+    searchBtn.addEventListener('click', function() {
+      performSearch();
+    });
+  }
+
+  // 回车触发搜索
+  searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      performSearch();
+    }
+  });
+
+  // 关闭按钮事件
+  if (closeDrawerBtn) {
+    closeDrawerBtn.addEventListener('click', closeDrawer);
+  }
+
+  // 点击遮罩层关闭（如果在抽屉外点击）
+  // 这里我们做一个简单的处理：如果点击了主内容区域，也可以关闭
+  document.addEventListener('click', function(e) {
+    // 如果抽屉打开，且点击的不是抽屉本身，也不是搜索框/按钮
+    if (searchDrawer.classList.contains('open') && 
+        !searchDrawer.contains(e.target) && 
+        !searchInput.contains(e.target) && 
+        e.target !== searchBtn) {
+      closeDrawer();
+    }
+  });
+</script>
+
+    <!-- 导入 header 部分模板 -->
+
+    <!-- ===== 侧边栏 ===== -->
+    <aside class="sidebar" id="sidebar">
+  <!-- ============================
+       侧边栏模块
+       功能：
+         - 自动读取 Hexo 分类数据
+         - 自动读取 Hexo 标签数据
+         - 渲染为分类导航和标签云
+  ============================ -->
+
+  <!-- 分类导航 -->
+  <details class="sidebar-widget">
+    <summary class="sidebar-title">📘 分类导航</summary>
+    <ul class="category-list">
+      
+        
+          <li>
+            <a href="/categories/00%EF%BD%9C%E3%83%A1%E3%83%A2/">
+              <span class="sidebar-name">00｜メモ</span>
+              <span class="sidebar-count">6</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/01%EF%BD%9C%E6%8A%80%E6%9C%AF/">
+              <span class="sidebar-name">01｜技术</span>
+              <span class="sidebar-count">38</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/02%EF%BD%9C%E6%97%A5%E8%AF%AD/">
+              <span class="sidebar-name">02｜日语</span>
+              <span class="sidebar-count">68</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/03%EF%BD%9C%E6%96%B9%E6%B3%95%E8%AE%BA/">
+              <span class="sidebar-name">03｜方法论</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/categories/%E3%83%A1%E3%83%A2/">
+              <span class="sidebar-name">メモ</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </details>
+
+  <!-- 分割线 -->
+  <div class="sidebar-divider"></div>
+
+  <!-- 标签云 -->
+  <details class="sidebar-widget">
+    <summary class="sidebar-title">🏷️ 标签云</summary>
+    <ul class="tag-list">
+      
+        
+          <li>
+            <a href="/tags/hta/">
+              <span class="sidebar-name">.hta</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/A5M2/">
+              <span class="sidebar-name">A5M2</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/AI/">
+              <span class="sidebar-name">AI</span>
+              <span class="sidebar-count">3</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/AI%E7%BB%84%E5%90%88/">
+              <span class="sidebar-name">AI组合</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/API/">
+              <span class="sidebar-name">API</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/AWS/">
+              <span class="sidebar-name">AWS</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/CMS/">
+              <span class="sidebar-name">CMS</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Excel/">
+              <span class="sidebar-name">Excel</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Git/">
+              <span class="sidebar-name">Git</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/HTA/">
+              <span class="sidebar-name">HTA</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Hexo/">
+              <span class="sidebar-name">Hexo</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/IF%E9%A0%85%E7%9B%AE/">
+              <span class="sidebar-name">IF項目</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/IT/">
+              <span class="sidebar-name">IT</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/ITA/">
+              <span class="sidebar-name">ITA</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/ITA%E6%B5%8B%E8%AF%95/">
+              <span class="sidebar-name">ITA测试</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/JSON/">
+              <span class="sidebar-name">JSON</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/JUnit/">
+              <span class="sidebar-name">JUnit</span>
+              <span class="sidebar-count">3</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Java/">
+              <span class="sidebar-name">Java</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Key/">
+              <span class="sidebar-name">Key</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Kick/">
+              <span class="sidebar-name">Kick</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/PC%E9%85%8D%E7%BD%AE/">
+              <span class="sidebar-name">PC配置</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/VBA/">
+              <span class="sidebar-name">VBA</span>
+              <span class="sidebar-count">5</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/VBA%E5%B7%A5%E5%85%B7/">
+              <span class="sidebar-name">VBA工具</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/Web/">
+              <span class="sidebar-name">Web</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/bat/">
+              <span class="sidebar-name">bat</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/dto/">
+              <span class="sidebar-name">dto</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/dump%E6%AF%94%E8%BC%83/">
+              <span class="sidebar-name">dump比較</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/hta/">
+              <span class="sidebar-name">hta</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/log/">
+              <span class="sidebar-name">log</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/off/">
+              <span class="sidebar-name">off</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/spot/">
+              <span class="sidebar-name">spot</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/toYaml/">
+              <span class="sidebar-name">toYaml</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E3%83%A1%E3%83%A2/">
+              <span class="sidebar-name">メモ</span>
+              <span class="sidebar-count">7</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%B8%80%E6%96%B9/">
+              <span class="sidebar-name">一方</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%B8%80%E8%A6%A7/">
+              <span class="sidebar-name">一覧</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%B8%8D%E5%82%99/">
+              <span class="sidebar-name">不備</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91/">
+              <span class="sidebar-name">业务逻辑</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%B8%AD%E6%97%A5%E5%8F%8C%E8%AF%AD/">
+              <span class="sidebar-name">中日双语</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%BB%95%E4%B8%8A/">
+              <span class="sidebar-name">仕上</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%BB%A5%E6%9D%A5/">
+              <span class="sidebar-name">以来</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E4%BB%BB%E5%8A%A1%E7%A1%AE%E8%AE%A4/">
+              <span class="sidebar-name">任务确认</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%85%A8%E6%A0%88%E6%8A%80%E6%9C%AF%E6%B8%85%E5%8D%95/">
+              <span class="sidebar-name">全栈技术清单</span>
+              <span class="sidebar-count">5</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%85%A8%E8%83%BD%E6%96%B9%E6%A1%88%E8%AF%B4%E6%98%8E/">
+              <span class="sidebar-name">全能方案说明</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C/">
+              <span class="sidebar-name">内容创作</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%88%86%E5%B1%8F%E6%98%BE%E7%A4%BA/">
+              <span class="sidebar-name">分屏显示</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%88%9D%E5%A7%8B%E5%8C%96/">
+              <span class="sidebar-name">初始化</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%88%BA%E6%BF%80/">
+              <span class="sidebar-name">刺激</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%89%AF%E8%AF%8D/">
+              <span class="sidebar-name">副词</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%8D%95%E4%BD%93%E6%B5%8B%E8%AF%95/">
+              <span class="sidebar-name">单体测试</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%8F%98%E9%87%8F%E8%AF%8D%E5%85%B8/">
+              <span class="sidebar-name">变量词典</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%90%84%E7%A7%8D/">
+              <span class="sidebar-name">各种</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%9B%BA%E5%AE%9A%E4%BB%BB%E5%8A%A1%E6%A0%8F/">
+              <span class="sidebar-name">固定任务栏</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%9F%BA%E4%BA%8E/">
+              <span class="sidebar-name">基于</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+              <span class="sidebar-name">学习笔记</span>
+              <span class="sidebar-count">55</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/">
+              <span class="sidebar-name">学习计划</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">
+              <span class="sidebar-name">学习路线</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%AE%9E%E7%94%A8%E6%B8%85%E5%8D%95/">
+              <span class="sidebar-name">实用清单</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%AE%9E%E8%B7%B5%E8%AE%B0%E5%BD%95/">
+              <span class="sidebar-name">实践记录</span>
+              <span class="sidebar-count">4</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%B7%A5%E4%BD%9C%E7%BB%8F%E9%AA%8C/">
+              <span class="sidebar-name">工作经验</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%B7%A5%E5%85%B7/">
+              <span class="sidebar-name">工具</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F/">
+              <span class="sidebar-name">快捷方式</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">
+              <span class="sidebar-name">思维导图</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%89%A7%E8%A1%8C%E6%A8%A1%E6%9D%BF/">
+              <span class="sidebar-name">执行模板</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%89%A9%E5%B1%95%E7%89%88/">
+              <span class="sidebar-name">扩展版</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%8A%80%E6%9C%AF%E5%85%B3%E7%B3%BB%E8%AF%B4%E6%98%8E/">
+              <span class="sidebar-name">技术关系说明</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%8A%80%E6%9C%AF%E6%A0%88/">
+              <span class="sidebar-name">技术栈</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%8A%80%E6%9C%AF%E7%82%B9%E8%AF%B4%E6%98%8E/">
+              <span class="sidebar-name">技术点说明</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/">
+              <span class="sidebar-name">文件管理</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E6%9C%AC%E5%A4%A7%E6%89%8B%E4%BC%81%E4%B8%9A/">
+              <span class="sidebar-name">日本大手企业</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E6%9C%AC%E7%A7%9F%E6%88%BF%E6%B8%85%E5%8D%95/">
+              <span class="sidebar-name">日本租房清单</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E8%AF%AD%E5%8D%95%E8%AF%8D/">
+              <span class="sidebar-name">日语单词</span>
+              <span class="sidebar-count">45</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E8%AF%AD%E5%AD%A6%E4%B9%A0/">
+              <span class="sidebar-name">日语学习</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E8%AF%AD%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/">
+              <span class="sidebar-name">日语学习计划</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E8%AF%AD%E8%AE%A1%E5%88%92/">
+              <span class="sidebar-name">日语计划</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%97%A5%E8%AF%AD%E8%AF%AD%E6%B3%95/">
+              <span class="sidebar-name">日语语法</span>
+              <span class="sidebar-count">15</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%9C%80%E4%B8%AD/">
+              <span class="sidebar-name">最中</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%A0%87%E5%87%86%E5%8C%96/">
+              <span class="sidebar-name">标准化</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%AC%A0%E9%99%A5/">
+              <span class="sidebar-name">欠陥</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%AC%A1%E7%AC%AC/">
+              <span class="sidebar-name">次第</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%AF%8F%E5%91%A8/">
+              <span class="sidebar-name">每周</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/">
+              <span class="sidebar-name">测试框架</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+              <span class="sidebar-name">环境配置</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%94%B5%E8%84%91%E6%8A%80%E5%B7%A7/">
+              <span class="sidebar-name">电脑技巧</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%99%BA%E4%BD%9C/">
+              <span class="sidebar-name">発作</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%99%BB%E5%BD%95%E9%85%8D%E7%BD%AE/">
+              <span class="sidebar-name">登录配置</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%BB%84%E5%90%88%E6%8E%A8%E8%8D%90/">
+              <span class="sidebar-name">组合推荐</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/">
+              <span class="sidebar-name">经验总结</span>
+              <span class="sidebar-count">84</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%BB%8F%E9%AA%8C%E7%AC%94%E8%AE%B0/">
+              <span class="sidebar-name">经验笔记</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E7%BD%91%E9%A1%B5%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7/">
+              <span class="sidebar-name">网页在线工具</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%84%B3%E5%91%B3%E5%99%8C/">
+              <span class="sidebar-name">脳味噌</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%87%AA%E5%88%9B%E9%A1%B9%E7%9B%AE/">
+              <span class="sidebar-name">自创项目</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">
+              <span class="sidebar-name">自动化</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%93%8D%E4%BD%9C/">
+              <span class="sidebar-name">自动化操作</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%87%AA%E5%8B%95%E5%9F%B7%E7%AD%86/">
+              <span class="sidebar-name">自動執筆</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%A6%8B%E6%B8%A1/">
+              <span class="sidebar-name">見渡</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%A9%B3%E7%B4%B0%E8%A8%AD%E8%A8%88/">
+              <span class="sidebar-name">詳細設計</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E8%BD%BB%E9%87%8F%E7%89%88/">
+              <span class="sidebar-name">轻量版</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E9%85%8D%E7%BD%AE%E6%A8%A1%E6%9D%BF/">
+              <span class="sidebar-name">配置模板</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E9%95%BF%E6%9C%9F%E8%AE%A1%E5%88%92/">
+              <span class="sidebar-name">长期计划</span>
+              <span class="sidebar-count">1</span>
+            </a>
+          </li>
+        
+          <li>
+            <a href="/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/">
+              <span class="sidebar-name">项目管理</span>
+              <span class="sidebar-count">2</span>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </details>
+
+  <div class="sidebar-divider"></div>
+
+  <details class="sidebar-widget">
+    <summary class="sidebar-title" id="sidebar-study-title">📚 学习资料</summary>
+    <ul class="study-list">
+      <li>
+        <select id="file-type-select" style="width: 100%; padding: 6px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.85rem;">
+          <option value="pdf">PDF 文件</option>
+          <option value="image">图片文件</option>
+        </select>
+      </li>
+      <li>
+        <select id="category-select" style="width: 100%; margin-top: 6px; padding: 6px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.85rem;">
+          <option value="bcs">标初上</option>
+          <option value="bcx">标初下</option>
+          <option value="bzs">标中上</option>
+          <option value="bzx">标中下</option>
+          <option value="bgs">标高上</option>
+          <option value="bgx">标高下</option>
+        </select>
+      </li>
+      <li>
+        <button type="button" id="pdf-upload-btn" style="width: 100%; padding: 8px 12px; border-radius: 6px; border: none; background: #0f766e; color: #fff; cursor: pointer; font-size: 0.9rem;">上传文件</button>
+      </li>
+      <li>
+        <input type="file" id="pdf-upload-input" accept="application/pdf" multiple style="width: 100%; margin-top: 8px; font-size: 0.85rem;">
+      </li>
+    </ul>
+    <div class="study-groups">
+      <div class="study-group collapsed">
+        <div class="study-group-title">标初上</div>
+        <ul id="study-bcs">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标初下</div>
+        <ul id="study-bcx">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标中上</div>
+        <ul id="study-bzs">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标中下</div>
+        <ul id="study-bzx">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标高上</div>
+        <ul id="study-bgs">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+      <div class="study-group collapsed">
+        <div class="study-group-title">标高下</div>
+        <ul id="study-bgx">
+          <li>暂无文件</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</aside>
+
+    <!-- 导入 sidebar 部分模板 -->
+  
+
+  <!-- ===== 主体内容区 ===== -->
+  <main id="main-content">
+    <!--
+  post.ejs
+  文章详情页模板
+  功能：
+    - 显示文章标题
+    - 显示文章发布日期和标签
+    - 渲染文章正文内容
+-->
+
+<article class="post">
+  <!-- 单篇文章容器，用于文章详情页布局和样式 -->
+
+  <!-- 文章标题 -->
+  <h1 class="post-title">2026_日本永住申请资料准备指南_网站单位增强版</h1>
+  <!-- page.title → 当前文章标题 -->
+
+  <!-- 文章元信息：发布日期 + 标签 -->
+  <div class="post-meta">
+    <span>发表于 2026-05-12</span>
+    <!-- 显示文章发布日期 -->
+
+    
+      <!-- 判断文章是否有标签 -->
+
+      <span>标签：
+        
+          <a href="/tags/%E3%83%A1%E3%83%A2/">メモ</a>
+          
+          <!-- 遍历文章标签，生成标签链接 -->
+          <!-- 多个标签用逗号分隔 -->
+        
+      </span>
+
+    
+    <!-- 标签判断结束 -->
+  </div>
+  <!-- 文章元信息结束 -->
+
+  <!-- 文章正文内容 -->
+  <div class="post-content">
+    
+
+    
+      <!-- Full HTML content rendered in iframe -->
+      <iframe id="post-content-iframe" style="width:100%; height:800px; border:1px solid #eee; background: #fff;"></iframe>
+      <script>
+        (function() {
+          const frame = document.getElementById('post-content-iframe');
+          // Use rawBody to preserve full HTML structure including DOCTYPE/HEAD
+          const rawContent = decodeURIComponent("%0A%0A%3C!doctype%20html%3E%0A%3Chtml%20lang%3D%22zh-CN%22%3E%0A%3Chead%3E%0A%20%20%3Cmeta%20charset%3D%22utf-8%22%20%2F%3E%0A%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%20initial-scale%3D1%22%20%2F%3E%0A%20%20%3Ctitle%3E2026%E5%B9%B4%E6%97%A5%E6%9C%AC%E6%B0%B8%E4%BD%8F%E7%94%B3%E8%AF%B7%E8%B5%84%E6%96%99%E5%87%86%E5%A4%87%E6%8C%87%E5%8D%97%3C%2Ftitle%3E%0A%20%20%3Cstyle%3E%0A%20%20%20%20%3Aroot%7B%0A%20%20%20%20%20%20--bg%3A%23f7fafc%3B%0A%20%20%20%20%20%20--card%3A%23ffffff%3B%0A%20%20%20%20%20%20--ink%3A%23111827%3B%0A%20%20%20%20%20%20--muted%3A%2364748b%3B%0A%20%20%20%20%20%20--line%3A%23e5e7eb%3B%0A%20%20%20%20%20%20--dark%3A%230f172a%3B%0A%20%20%20%20%20%20--dark2%3A%231e293b%3B%0A%20%20%20%20%20%20--blue%3A%232563eb%3B%0A%20%20%20%20%20%20--green%3A%23059669%3B%0A%20%20%20%20%20%20--amber%3A%23d97706%3B%0A%20%20%20%20%20%20--red%3A%23dc2626%3B%0A%20%20%20%20%20%20--soft-blue%3A%23eff6ff%3B%0A%20%20%20%20%20%20--soft-green%3A%23ecfdf5%3B%0A%20%20%20%20%20%20--soft-amber%3A%23fffbeb%3B%0A%20%20%20%20%20%20--shadow%3A0%2012px%2030px%20rgba(15%2C23%2C42%2C.08)%3B%0A%20%20%20%20%20%20--radius%3A24px%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20*%7Bbox-sizing%3Aborder-box%7D%0A%20%20%20%20html%7Bscroll-behavior%3Asmooth%7D%0A%20%20%20%20body%7B%0A%20%20%20%20%20%20margin%3A0%3B%0A%20%20%20%20%20%20font-family%3A-apple-system%2CBlinkMacSystemFont%2C%22Segoe%20UI%22%2C%22Noto%20Sans%20SC%22%2C%22Noto%20Sans%20JP%22%2C%22Microsoft%20YaHei%22%2CArial%2Csans-serif%3B%0A%20%20%20%20%20%20color%3Avar(--ink)%3B%0A%20%20%20%20%20%20background%3A%0A%20%20%20%20%20%20%20%20radial-gradient(circle%20at%20top%20left%2C%20rgba(37%2C99%2C235%2C.12)%2C%20transparent%2034%25)%2C%0A%20%20%20%20%20%20%20%20radial-gradient(circle%20at%20top%20right%2C%20rgba(5%2C150%2C105%2C.10)%2C%20transparent%2030%25)%2C%0A%20%20%20%20%20%20%20%20var(--bg)%3B%0A%20%20%20%20%20%20line-height%3A1.72%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20a%7Bcolor%3Ainherit%3Btext-decoration%3Anone%7D%0A%20%20%20%20.site-link%7Bcolor%3A%232563eb%3Bfont-weight%3A900%3Btext-decoration%3Aunderline%3Btext-underline-offset%3A3px%7D%0A%20%20%20%20.unit%7Bfont-weight%3A900%3Bcolor%3A%230f172a%7D%0A%20%20%20%20.subnote%7Bdisplay%3Ablock%3Bcolor%3A%2364748b%3Bfont-size%3A12px%3Bmargin-top%3A4px%7D%0A%20%20%20%20.wrap%7Bmax-width%3A1180px%3Bmargin%3A0%20auto%3Bpadding%3A0%2020px%7D%0A%20%20%20%20.topbar%7B%0A%20%20%20%20%20%20position%3Asticky%3Btop%3A0%3Bz-index%3A20%3B%0A%20%20%20%20%20%20background%3Argba(255%2C255%2C255%2C.88)%3B%0A%20%20%20%20%20%20backdrop-filter%3Ablur(16px)%3B%0A%20%20%20%20%20%20border-bottom%3A1px%20solid%20var(--line)%3B%0A%20%20%20%20%7D%0A%20%20%20%20.topbar-inner%7B%0A%20%20%20%20%20%20max-width%3A1180px%3Bmargin%3A0%20auto%3Bpadding%3A12px%2020px%3B%0A%20%20%20%20%20%20display%3Aflex%3Bgap%3A18px%3Balign-items%3Acenter%3Bjustify-content%3Aspace-between%3B%0A%20%20%20%20%7D%0A%20%20%20%20.brand%7Bdisplay%3Aflex%3Balign-items%3Acenter%3Bgap%3A10px%3Bfont-weight%3A900%7D%0A%20%20%20%20.logo%7B%0A%20%20%20%20%20%20width%3A40px%3Bheight%3A40px%3Bborder-radius%3A16px%3B%0A%20%20%20%20%20%20display%3Agrid%3Bplace-items%3Acenter%3B%0A%20%20%20%20%20%20background%3Avar(--dark)%3Bcolor%3A%23fff%3Bfont-size%3A20px%3B%0A%20%20%20%20%20%20box-shadow%3Avar(--shadow)%3B%0A%20%20%20%20%7D%0A%20%20%20%20.brand%20small%7Bdisplay%3Ablock%3Bcolor%3Avar(--muted)%3Bfont-weight%3A600%3Bfont-size%3A12px%3Bmargin-top%3A-3px%7D%0A%20%20%20%20.nav%7Bdisplay%3Aflex%3Bgap%3A6px%3Bflex-wrap%3Awrap%3Bjustify-content%3Acenter%7D%0A%20%20%20%20.nav%20a%7B%0A%20%20%20%20%20%20padding%3A8px%2012px%3Bborder-radius%3A999px%3B%0A%20%20%20%20%20%20color%3A%23475569%3Bfont-size%3A14px%3Bfont-weight%3A700%3B%0A%20%20%20%20%7D%0A%20%20%20%20.nav%20a%3Ahover%7Bbackground%3A%23f1f5f9%3Bcolor%3A%230f172a%7D%0A%20%20%20%20.print-btn%7B%0A%20%20%20%20%20%20border%3A0%3Bbackground%3Avar(--dark)%3Bcolor%3A%23fff%3Bborder-radius%3A999px%3B%0A%20%20%20%20%20%20padding%3A10px%2016px%3Bfont-weight%3A900%3Bcursor%3Apointer%3B%0A%20%20%20%20%20%20box-shadow%3A0%208px%2020px%20rgba(15%2C23%2C42%2C.18)%3B%0A%20%20%20%20%20%20white-space%3Anowrap%3B%0A%20%20%20%20%7D%0A%20%20%20%20.print-btn%3Ahover%7Bbackground%3A%23020617%7D%0A%0A%20%20%20%20.hero%7Bpadding%3A44px%200%2034px%7D%0A%20%20%20%20.hero-grid%7Bdisplay%3Agrid%3Bgrid-template-columns%3A1.35fr%20.65fr%3Bgap%3A22px%3Balign-items%3Astretch%7D%0A%20%20%20%20.hero-main%7B%0A%20%20%20%20%20%20background%3Alinear-gradient(135deg%2C%230f172a%2C%231e293b)%3B%0A%20%20%20%20%20%20color%3A%23fff%3Bborder-radius%3A36px%3Bpadding%3A42px%3B%0A%20%20%20%20%20%20box-shadow%3Avar(--shadow)%3Boverflow%3Ahidden%3Bposition%3Arelative%3B%0A%20%20%20%20%7D%0A%20%20%20%20.hero-main%3Aafter%7B%0A%20%20%20%20%20%20content%3A%22%22%3Bposition%3Aabsolute%3Bright%3A-80px%3Btop%3A-100px%3B%0A%20%20%20%20%20%20width%3A260px%3Bheight%3A260px%3Bborder-radius%3A50%25%3B%0A%20%20%20%20%20%20background%3Argba(255%2C255%2C255%2C.08)%3B%0A%20%20%20%20%7D%0A%20%20%20%20.chips%7Bdisplay%3Aflex%3Bgap%3A8px%3Bflex-wrap%3Awrap%3Bmargin-bottom%3A20px%7D%0A%20%20%20%20.chip%7B%0A%20%20%20%20%20%20display%3Ainline-flex%3Balign-items%3Acenter%3B%0A%20%20%20%20%20%20padding%3A6px%2012px%3Bborder-radius%3A999px%3B%0A%20%20%20%20%20%20background%3Argba(255%2C255%2C255%2C.10)%3B%0A%20%20%20%20%20%20color%3A%23e2e8f0%3Bborder%3A1px%20solid%20rgba(255%2C255%2C255%2C.14)%3B%0A%20%20%20%20%20%20font-size%3A12px%3Bfont-weight%3A800%3B%0A%20%20%20%20%7D%0A%20%20%20%20h1%7Bfont-size%3A48px%3Bline-height%3A1.08%3Bmargin%3A0%200%2018px%3Bletter-spacing%3A-.04em%7D%0A%20%20%20%20.hero-main%20p%7Bfont-size%3A17px%3Bcolor%3A%23cbd5e1%3Bmax-width%3A760px%3Bmargin%3A0%7D%0A%20%20%20%20.stats%7Bdisplay%3Agrid%3Bgrid-template-columns%3Arepeat(3%2C1fr)%3Bgap%3A12px%3Bmargin-top%3A28px%7D%0A%20%20%20%20.stat%7Bbackground%3Argba(255%2C255%2C255%2C.10)%3Bborder-radius%3A20px%3Bpadding%3A16px%7D%0A%20%20%20%20.stat%20b%7Bdisplay%3Ablock%3Bfont-size%3A30px%3Bline-height%3A1.1%7D%0A%20%20%20%20.stat%20span%7Bdisplay%3Ablock%3Bcolor%3A%23cbd5e1%3Bfont-size%3A13px%3Bmargin-top%3A4px%7D%0A%0A%20%20%20%20.card%7B%0A%20%20%20%20%20%20background%3Argba(255%2C255%2C255%2C.92)%3B%0A%20%20%20%20%20%20border%3A1px%20solid%20var(--line)%3B%0A%20%20%20%20%20%20border-radius%3Avar(--radius)%3B%0A%20%20%20%20%20%20padding%3A24px%3B%0A%20%20%20%20%20%20box-shadow%3Avar(--shadow)%3B%0A%20%20%20%20%7D%0A%20%20%20%20.hero-side%20h2%7Bmargin%3A0%200%2012px%3Bfont-size%3A22px%7D%0A%20%20%20%20.hero-side%20ol%7Bpadding-left%3A22px%3Bmargin%3A0%7D%0A%20%20%20%20.hero-side%20li%7Bmargin%3A9px%200%3Bcolor%3A%23334155%3Bfont-size%3A14px%7D%0A%20%20%20%20.note%7B%0A%20%20%20%20%20%20margin-top%3A18px%3Bpadding%3A14px%2016px%3Bborder-radius%3A18px%3B%0A%20%20%20%20%20%20background%3Avar(--soft-amber)%3Bcolor%3A%2392400e%3Bfont-weight%3A700%3Bfont-size%3A14px%3B%0A%20%20%20%20%20%20border%3A1px%20solid%20%23fde68a%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20section%7Bpadding%3A28px%200%3Bscroll-margin-top%3A92px%7D%0A%20%20%20%20.section-title%7Bdisplay%3Aflex%3Balign-items%3Acenter%3Bgap%3A12px%3Bmargin-bottom%3A18px%7D%0A%20%20%20%20.icon%7B%0A%20%20%20%20%20%20width%3A46px%3Bheight%3A46px%3Bborder-radius%3A18px%3B%0A%20%20%20%20%20%20display%3Agrid%3Bplace-items%3Acenter%3B%0A%20%20%20%20%20%20background%3Avar(--dark)%3Bcolor%3A%23fff%3Bfont-size%3A22px%3B%0A%20%20%20%20%20%20box-shadow%3Avar(--shadow)%3B%0A%20%20%20%20%20%20flex%3Anone%3B%0A%20%20%20%20%7D%0A%20%20%20%20.section-title%20h2%7Bfont-size%3A28px%3Bmargin%3A0%3Bletter-spacing%3A-.02em%7D%0A%20%20%20%20.section-title%20p%7Bmargin%3A2px%200%200%3Bcolor%3Avar(--muted)%3Bfont-size%3A14px%7D%0A%0A%20%20%20%20.grid-4%7Bdisplay%3Agrid%3Bgrid-template-columns%3Arepeat(4%2C1fr)%3Bgap%3A16px%7D%0A%20%20%20%20.grid-3%7Bdisplay%3Agrid%3Bgrid-template-columns%3Arepeat(3%2C1fr)%3Bgap%3A16px%7D%0A%20%20%20%20.grid-2%7Bdisplay%3Agrid%3Bgrid-template-columns%3Arepeat(2%2C1fr)%3Bgap%3A16px%7D%0A%20%20%20%20.mini%20h3%2C.doc%20h3%7Bmargin%3A0%200%208px%3Bfont-size%3A18px%7D%0A%20%20%20%20.mini%20p%2C.doc%20p%7Bmargin%3A0%3Bcolor%3A%23475569%3Bfont-size%3A14px%7D%0A%20%20%20%20.mini%7Bbox-shadow%3Anone%7D%0A%0A%20%20%20%20.tabs%7Bdisplay%3Agrid%3Bgrid-template-columns%3A280px%201fr%3Bgap%3A18px%7D%0A%20%20%20%20.tab-buttons%7Bdisplay%3Aflex%3Bflex-direction%3Acolumn%3Bgap%3A8px%7D%0A%20%20%20%20.tab-buttons%20button%7B%0A%20%20%20%20%20%20width%3A100%25%3Btext-align%3Aleft%3Bborder%3A1px%20solid%20var(--line)%3B%0A%20%20%20%20%20%20background%3A%23fff%3Bborder-radius%3A18px%3Bpadding%3A13px%2014px%3B%0A%20%20%20%20%20%20font-weight%3A900%3Bcolor%3A%23334155%3Bcursor%3Apointer%3B%0A%20%20%20%20%7D%0A%20%20%20%20.tab-buttons%20button.active%7Bbackground%3Avar(--dark)%3Bcolor%3A%23fff%3Bborder-color%3Avar(--dark)%7D%0A%20%20%20%20.tab-panel%7Bdisplay%3Anone%7D%0A%20%20%20%20.tab-panel.active%7Bdisplay%3Ablock%7D%0A%20%20%20%20.doc-list%7Bdisplay%3Agrid%3Bgap%3A10px%7D%0A%20%20%20%20.doc-item%7B%0A%20%20%20%20%20%20border%3A1px%20solid%20var(--line)%3Bborder-radius%3A18px%3B%0A%20%20%20%20%20%20padding%3A15px%3Bbackground%3A%23fff%3B%0A%20%20%20%20%7D%0A%20%20%20%20.doc-item%20b%7Bdisplay%3Ablock%3Bmargin-bottom%3A4px%7D%0A%20%20%20%20.doc-item%20span%7Bfont-size%3A14px%3Bcolor%3A%23475569%7D%0A%0A%20%20%20%20.search-box%7Bposition%3Arelative%3Bmargin-bottom%3A14px%7D%0A%20%20%20%20.search-box%20input%7B%0A%20%20%20%20%20%20width%3A100%25%3Bborder%3A1px%20solid%20var(--line)%3Bborder-radius%3A18px%3B%0A%20%20%20%20%20%20padding%3A14px%2016px%2014px%2044px%3Bfont-size%3A15px%3Boutline%3Anone%3Bbackground%3A%23fff%3B%0A%20%20%20%20%7D%0A%20%20%20%20.search-box%20input%3Afocus%7Bbox-shadow%3A0%200%200%204px%20rgba(37%2C99%2C235%2C.12)%3Bborder-color%3A%2393c5fd%7D%0A%20%20%20%20.search-box%20span%7Bposition%3Aabsolute%3Bleft%3A16px%3Btop%3A50%25%3Btransform%3AtranslateY(-50%25)%3Bcolor%3Avar(--muted)%7D%0A%0A%20%20%20%20.table-wrap%7Boverflow%3Aauto%3Bborder-radius%3A18px%3Bborder%3A1px%20solid%20var(--line)%7D%0A%20%20%20%20table%7Bwidth%3A100%25%3Bborder-collapse%3Acollapse%3Bbackground%3A%23fff%3Bmin-width%3A780px%7D%0A%20%20%20%20th%2Ctd%7Bpadding%3A14px%2016px%3Btext-align%3Aleft%3Bborder-bottom%3A1px%20solid%20var(--line)%3Bvertical-align%3Atop%3Bfont-size%3A14px%7D%0A%20%20%20%20th%7Bbackground%3A%23f8fafc%3Bfont-weight%3A900%3Bcolor%3A%230f172a%7D%0A%20%20%20%20td%7Bcolor%3A%23475569%7D%0A%20%20%20%20td%3Afirst-child%7Bcolor%3A%23111827%3Bfont-weight%3A900%7D%0A%0A%20%20%20%20.timeline%7Bdisplay%3Agrid%3Bgap%3A12px%7D%0A%20%20%20%20.step%7Bdisplay%3Aflex%3Bgap%3A14px%3Balign-items%3Aflex-start%7D%0A%20%20%20%20.num%7B%0A%20%20%20%20%20%20width%3A42px%3Bheight%3A42px%3Bborder-radius%3A999px%3Bdisplay%3Agrid%3Bplace-items%3Acenter%3B%0A%20%20%20%20%20%20background%3Avar(--dark)%3Bcolor%3A%23fff%3Bfont-weight%3A900%3Bflex%3Anone%3B%0A%20%20%20%20%7D%0A%20%20%20%20.step%20h3%7Bmargin%3A0%3Bfont-size%3A18px%7D%0A%20%20%20%20.step%20small%7Bdisplay%3Ablock%3Bcolor%3Avar(--muted)%3Bfont-weight%3A800%3Bmargin-bottom%3A2px%7D%0A%20%20%20%20.step%20p%7Bmargin%3A4px%200%200%3Bcolor%3A%23475569%3Bfont-size%3A14px%7D%0A%0A%20%20%20%20.risk%7Bbackground%3Avar(--soft-amber)%3Bborder-color%3A%23fde68a%3Bbox-shadow%3Anone%7D%0A%20%20%20%20.risk%20h3%7Bcolor%3A%2392400e%3Bmargin%3A0%200%208px%7D%0A%20%20%20%20.risk%20p%7Bcolor%3A%2392400e%7D%0A%0A%20%20%20%20.personal%7Bbox-shadow%3Anone%7D%0A%20%20%20%20.personal%20h3%7Bmargin%3A0%200%208px%7D%0A%20%20%20%20.template%7B%0A%20%20%20%20%20%20background%3Alinear-gradient(135deg%2C%230f172a%2C%231e293b)%3B%0A%20%20%20%20%20%20color%3A%23fff%3Bborder-radius%3Avar(--radius)%3Bpadding%3A24px%3Bbox-shadow%3Avar(--shadow)%3B%0A%20%20%20%20%7D%0A%20%20%20%20.template%20pre%7B%0A%20%20%20%20%20%20white-space%3Apre-wrap%3Boverflow%3Aauto%3Bmargin%3A16px%200%200%3B%0A%20%20%20%20%20%20background%3Argba(255%2C255%2C255%2C.10)%3Bborder-radius%3A18px%3B%0A%20%20%20%20%20%20padding%3A18px%3Bcolor%3A%23e2e8f0%3Bfont-family%3A%22Noto%20Sans%20JP%22%2C%22Yu%20Gothic%22%2Cmonospace%3B%0A%20%20%20%20%20%20font-size%3A14px%3Bline-height%3A1.8%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.check-head%7Bdisplay%3Aflex%3Bjustify-content%3Aspace-between%3Bgap%3A18px%3Balign-items%3Acenter%3Bmargin-bottom%3A14px%7D%0A%20%20%20%20.progress%7Bwidth%3A220px%3Bheight%3A12px%3Bborder-radius%3A999px%3Bbackground%3A%23e5e7eb%3Boverflow%3Ahidden%7D%0A%20%20%20%20.progress%20div%7Bheight%3A100%25%3Bwidth%3A0%3Bbackground%3Avar(--dark)%3Btransition%3A.25s%7D%0A%20%20%20%20.check-grid%7Bdisplay%3Agrid%3Bgrid-template-columns%3Arepeat(2%2C1fr)%3Bgap%3A10px%7D%0A%20%20%20%20.check%7B%0A%20%20%20%20%20%20display%3Aflex%3Balign-items%3Aflex-start%3Bgap%3A10px%3B%0A%20%20%20%20%20%20padding%3A14px%3Bborder%3A1px%20solid%20var(--line)%3Bborder-radius%3A18px%3Bbackground%3A%23fff%3Bcursor%3Apointer%3B%0A%20%20%20%20%20%20color%3A%23334155%3B%0A%20%20%20%20%7D%0A%20%20%20%20.check%20input%7Bwidth%3A18px%3Bheight%3A18px%3Bmargin-top%3A4px%7D%0A%20%20%20%20.check%20span%7Bfont-size%3A14px%7D%0A%20%20%20%20.check%20input%3Achecked%20%2B%20span%7Btext-decoration%3Aline-through%3Bcolor%3A%2394a3b8%7D%0A%0A%20%20%20%20.final%7B%0A%20%20%20%20%20%20background%3Alinear-gradient(135deg%2C%230f172a%2C%231e293b)%3B%0A%20%20%20%20%20%20color%3A%23fff%3Bborder-radius%3A30px%3Bpadding%3A28px%3B%0A%20%20%20%20%20%20display%3Aflex%3Bjustify-content%3Aspace-between%3Bgap%3A24px%3Balign-items%3Acenter%3B%0A%20%20%20%20%20%20box-shadow%3Avar(--shadow)%3B%0A%20%20%20%20%20%20margin-bottom%3A36px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.final%20h2%7Bmargin%3A0%3Bfont-size%3A26px%3Bletter-spacing%3A-.02em%7D%0A%20%20%20%20.final%20p%7Bmargin%3A10px%200%200%3Bcolor%3A%23cbd5e1%3Bfont-size%3A14px%3Bmax-width%3A820px%7D%0A%20%20%20%20.final%20.print-btn%7Bbackground%3A%23fff%3Bcolor%3A%230f172a%3Bbox-shadow%3Anone%7D%0A%0A%20%20%20%20.mobile-menu%7Bdisplay%3Anone%7D%0A%0A%20%20%20%20%40media%20(max-width%3A960px)%7B%0A%20%20%20%20%20%20.nav%7Bdisplay%3Anone%7D%0A%20%20%20%20%20%20.hero-grid%2C.tabs%7Bgrid-template-columns%3A1fr%7D%0A%20%20%20%20%20%20.grid-4%7Bgrid-template-columns%3Arepeat(2%2C1fr)%7D%0A%20%20%20%20%20%20.grid-3%7Bgrid-template-columns%3Arepeat(2%2C1fr)%7D%0A%20%20%20%20%20%20h1%7Bfont-size%3A38px%7D%0A%20%20%20%20%20%20.hero-main%7Bpadding%3A30px%7D%0A%20%20%20%20%20%20.tab-buttons%7Bdisplay%3Agrid%3Bgrid-template-columns%3Arepeat(2%2C1fr)%7D%0A%20%20%20%20%20%20.final%7Bdisplay%3Ablock%7D%0A%20%20%20%20%20%20.final%20.print-btn%7Bmargin-top%3A18px%7D%0A%20%20%20%20%7D%0A%20%20%20%20%40media%20(max-width%3A640px)%7B%0A%20%20%20%20%20%20.wrap%2C.topbar-inner%7Bpadding-left%3A14px%3Bpadding-right%3A14px%7D%0A%20%20%20%20%20%20.brand%20small%7Bdisplay%3Anone%7D%0A%20%20%20%20%20%20.hero%7Bpadding-top%3A22px%7D%0A%20%20%20%20%20%20.hero-main%7Bborder-radius%3A28px%3Bpadding%3A24px%7D%0A%20%20%20%20%20%20h1%7Bfont-size%3A31px%7D%0A%20%20%20%20%20%20.stats%2C.grid-4%2C.grid-3%2C.grid-2%2C.check-grid%7Bgrid-template-columns%3A1fr%7D%0A%20%20%20%20%20%20.section-title%20h2%7Bfont-size%3A23px%7D%0A%20%20%20%20%20%20.topbar-inner%7Bgap%3A10px%7D%0A%20%20%20%20%20%20.print-btn%7Bpadding%3A9px%2012px%3Bfont-size%3A13px%7D%0A%20%20%20%20%20%20.tab-buttons%7Bgrid-template-columns%3A1fr%7D%0A%20%20%20%20%20%20.check-head%7Bdisplay%3Ablock%7D%0A%20%20%20%20%20%20.progress%7Bwidth%3A100%25%3Bmargin-top%3A12px%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20%40media%20print%7B%0A%20%20%20%20%20%20body%7Bbackground%3Awhite%3Bcolor%3A%23111%7D%0A%20%20%20%20%20%20.topbar%2C.print-btn%2C.search-box%2C.tab-buttons%7Bdisplay%3Anone!important%7D%0A%20%20%20%20%20%20.wrap%7Bmax-width%3Anone%3Bpadding%3A0%7D%0A%20%20%20%20%20%20.hero%7Bpadding%3A0%200%2012px%7D%0A%20%20%20%20%20%20.hero-grid%2C.tabs%2C.grid-4%2C.grid-3%2C.grid-2%2C.check-grid%7Bdisplay%3Ablock%7D%0A%20%20%20%20%20%20.hero-main%2C.card%2C.template%2C.final%7Bbox-shadow%3Anone%3Bbreak-inside%3Aavoid%3Bmargin-bottom%3A12px%7D%0A%20%20%20%20%20%20.hero-main%2C.template%2C.final%7Bbackground%3A%23fff!important%3Bcolor%3A%23111!important%3Bborder%3A1px%20solid%20%23ddd%7D%0A%20%20%20%20%20%20.hero-main%20p%2C.template%20pre%2C.final%20p%7Bcolor%3A%23333!important%7D%0A%20%20%20%20%20%20.chip%7Bcolor%3A%23111%3Bborder-color%3A%23ddd%3Bbackground%3A%23f5f5f5%7D%0A%20%20%20%20%20%20.stat%7Bbackground%3A%23f5f5f5%3Bcolor%3A%23111%7D%0A%20%20%20%20%20%20.stat%20span%7Bcolor%3A%23333%7D%0A%20%20%20%20%20%20section%7Bpadding%3A10px%200%3Bbreak-inside%3Aavoid%7D%0A%20%20%20%20%20%20.tab-panel%7Bdisplay%3Ablock!important%3Bmargin-bottom%3A12px%7D%0A%20%20%20%20%20%20.table-wrap%7Boverflow%3Avisible%7D%0A%20%20%20%20%20%20table%7Bmin-width%3A0%3Bfont-size%3A12px%7D%0A%20%20%20%20%20%20th%2Ctd%7Bpadding%3A8px%7D%0A%20%20%20%20%7D%0A%20%20%3C%2Fstyle%3E%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%20%20%3Cheader%20class%3D%22topbar%22%3E%0A%20%20%20%20%3Cdiv%20class%3D%22topbar-inner%22%3E%0A%20%20%20%20%20%20%3Ca%20href%3D%22%23summary%22%20class%3D%22brand%22%3E%0A%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22logo%22%3E%F0%9F%8F%A0%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%3Cspan%3E%E6%97%A5%E6%9C%AC%E6%B0%B8%E4%BD%8F%E7%94%B3%E8%AF%B7%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86%3Csmall%3E2026%20%E6%8F%90%E4%BA%A4%E5%89%8D%E5%87%86%E5%A4%87%E7%89%88%3C%2Fsmall%3E%3C%2Fspan%3E%0A%20%20%20%20%20%20%3C%2Fa%3E%0A%20%20%20%20%20%20%3Cnav%20class%3D%22nav%22%3E%0A%20%20%20%20%20%20%20%20%3Ca%20href%3D%22%23summary%22%3E%E6%A6%82%E8%A6%81%3C%2Fa%3E%0A%20%20%20%20%20%20%20%20%3Ca%20href%3D%22%23requirements%22%3E%E7%94%B3%E8%AF%B7%E6%9D%A1%E4%BB%B6%3C%2Fa%3E%0A%20%20%20%20%20%20%20%20%3Ca%20href%3D%22%23documents%22%3E%E8%B5%84%E6%96%99%E6%B8%85%E5%8D%95%3C%2Fa%3E%0A%20%20%20%20%20%20%20%20%3Ca%20href%3D%22%23places%22%3E%E5%BC%80%E5%85%B7%E5%9C%B0%E7%82%B9%3C%2Fa%3E%0A%20%20%20%20%20%20%20%20%3Ca%20href%3D%22%23timeline%22%3E%E6%B5%81%E7%A8%8B%3C%2Fa%3E%0A%20%20%20%20%20%20%20%20%3Ca%20href%3D%22%23risks%22%3E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%3C%2Fa%3E%0A%20%20%20%20%20%20%20%20%3Ca%20href%3D%22%23personal%22%3E%E4%BD%A0%E7%9A%84%E6%83%85%E5%86%B5%3C%2Fa%3E%0A%20%20%20%20%20%20%20%20%3Ca%20href%3D%22%23print%22%3E%E6%A3%80%E6%9F%A5%E5%88%97%E8%A1%A8%3C%2Fa%3E%0A%20%20%20%20%20%20%3C%2Fnav%3E%0A%20%20%20%20%20%20%3Cbutton%20class%3D%22print-btn%22%20onclick%3D%22window.print()%22%3E%F0%9F%96%A8%EF%B8%8F%20%E6%89%93%E5%8D%B0%3C%2Fbutton%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%3C%2Fheader%3E%0A%0A%20%20%3Cmain%20class%3D%22wrap%22%3E%0A%20%20%20%20%3Csection%20id%3D%22summary%22%20class%3D%22hero%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22hero-grid%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22hero-main%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22chips%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22chip%22%3E%E5%B0%B1%E5%8A%B3%E7%AD%BE%E8%AF%81%E8%B7%AF%E7%BA%BF%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22chip%22%3E%E4%B8%8B%E4%B8%AA%E6%9C%88%E6%8F%90%E4%BA%A4%E7%89%88%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22chip%22%3E%E5%8D%95%E8%BA%AB%E3%83%BB%E6%97%A0%E6%89%B6%E5%85%BB%E3%83%BB%E6%97%A0%E8%B4%9F%E5%80%BA%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Ch1%3E%E6%97%A5%E6%9C%AC%E6%B0%B8%E4%BD%8F%E7%94%B3%E8%AF%B7%E8%B5%84%E6%96%99%E5%87%86%E5%A4%87%E7%BD%91%E7%AB%99%3C%2Fh1%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cp%3E%E8%BF%99%E6%98%AF%E4%B8%80%E4%BB%BD%E9%9D%A2%E5%90%912026%E5%B9%B4%E6%97%A5%E6%9C%AC%E6%B0%B8%E4%BD%8F%E7%94%B3%E8%AF%B7%E7%9A%84%E5%8D%95%E9%A1%B5%E8%B5%84%E6%96%99%E7%AB%99%E3%80%82%E9%87%8D%E7%82%B9%E6%95%B4%E7%90%86%E7%94%B3%E8%AF%B7%E6%9D%A1%E4%BB%B6%E3%80%81%E8%B5%84%E6%96%99%E6%B8%85%E5%8D%95%E3%80%81%E5%BC%80%E5%85%B7%E5%9C%B0%E7%82%B9%E3%80%81%E6%8F%90%E4%BA%A4%E5%89%8D%E6%A3%80%E6%9F%A5%E5%88%97%E8%A1%A8%E3%80%81%E8%B5%84%E4%BA%A7%E8%AF%B4%E6%98%8E%E3%80%81%E5%B8%B8%E8%A7%81%E9%A3%8E%E9%99%A9%E5%92%8C%E4%BD%A0%E7%9A%84%E4%B8%AA%E4%BA%BA%E6%83%85%E5%86%B5%E5%AF%B9%E5%BA%94%E7%AD%96%E7%95%A5%E3%80%82%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22stats%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22stat%22%3E%3Cb%3E5%E5%B9%B4%3C%2Fb%3E%3Cspan%3E%E4%BD%8F%E6%B0%91%E7%A8%8E%E8%B5%84%E6%96%99%E9%87%8D%E7%82%B9%3C%2Fspan%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22stat%22%3E%3Cb%3E2%E5%B9%B4%3C%2Fb%3E%3Cspan%3E%E5%B9%B4%E9%87%91%E3%83%BB%E4%BF%9D%E9%99%A9%E9%87%8D%E7%82%B9%3C%2Fspan%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22stat%22%3E%3Cb%3E3%E4%B8%AA%E6%9C%88%3C%2Fb%3E%3Cspan%3E%E8%AF%81%E6%98%8E%E4%B9%A6%E6%9C%89%E6%95%88%E6%9C%9F%E5%8F%82%E8%80%83%3C%2Fspan%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22card%20hero-side%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Ch2%3E%E2%9C%85%20%E4%BD%A0%E7%8E%B0%E5%9C%A8%E6%9C%80%E8%AF%A5%E5%81%9A%E7%9A%84%E4%BA%8B%3C%2Fh2%3E%0A%20%20%20%20%20%20%20%20%20%20%3Col%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cli%3E%3Cb%3E%E5%85%88%E6%A3%80%E6%9F%A5%3C%2Fb%3E%E4%BD%8F%E6%B0%91%E7%A8%8E5%E5%B9%B4%E3%80%81%E5%B9%B4%E9%87%912%E5%B9%B4%E3%80%81%E5%81%A5%E5%BA%B7%E4%BF%9D%E9%99%A92%E5%B9%B4%E6%98%AF%E5%90%A6%E5%AE%8C%E5%85%A8%E5%B9%B2%E5%87%80%EF%BC%8C%E5%B9%B6%E7%A1%AE%E8%AE%A4%E5%90%84%E8%B5%84%E6%96%99%E5%BC%80%E5%85%B7%E5%8D%95%E4%BD%8D%E3%80%82%3C%2Fli%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cli%3E%3Cb%3E%E5%AE%B6%E9%87%8C%E7%8E%B0%E9%87%91%3C%2Fb%3E%E5%BB%BA%E8%AE%AE%E5%AD%98%E5%85%A5%E6%97%A5%E6%9C%AC%E9%93%B6%E8%A1%8C50%E4%B8%87%EF%BD%9E100%E4%B8%87%E6%97%A5%E5%85%83%EF%BC%8C%E5%B9%B6%E5%87%86%E5%A4%87%E6%9D%A5%E6%BA%90%E8%AF%B4%E6%98%8E%E3%80%82%3C%2Fli%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cli%3E%3Cb%3E%E4%B8%AD%E5%9B%BD%E9%93%B6%E8%A1%8C%E5%8D%A1%3C%2Fb%3E%E4%BA%BA%E6%B0%91%E5%B8%81%E5%AD%98%E6%AC%BE%E4%BD%9C%E4%B8%BA%E8%A1%A5%E5%BC%BA%E8%B5%84%E6%96%99%EF%BC%8C%E6%9C%89%E6%97%B6%E9%97%B4%E5%86%8D%E6%8F%90%E4%BA%A4%E3%80%82%3C%2Fli%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cli%3E%3Cb%3E%E7%90%86%E7%94%B1%E4%B9%A6%3C%2Fb%3E%E4%B8%8D%E8%A6%81%E5%86%99%E2%80%9C%E8%8A%B1%E9%92%B1%E5%A4%A7%E6%89%8B%E5%A4%A7%E8%84%9A%E2%80%9D%EF%BC%8C%E8%A6%81%E5%86%99%E7%A8%B3%E5%AE%9A%E6%94%B6%E5%85%A5%E3%80%81%E6%97%A0%E8%B4%9F%E5%80%BA%E3%80%81%E6%97%A0%E6%89%B6%E5%85%BB%E3%80%82%3C%2Fli%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cli%3E%3Cb%3E%E6%8F%90%E4%BA%A4%E5%89%8D%3C%2Fb%3E%E7%A1%AE%E8%AE%A4%E6%89%80%E6%9C%89%E8%AF%81%E6%98%8E%E4%B9%A6%E5%9C%A83%E4%B8%AA%E6%9C%88%E4%BB%A5%E5%86%85%E3%80%82%3C%2Fli%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fol%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22note%22%3E%E4%B8%8B%E4%B8%AA%E6%9C%88%E6%8F%90%E4%BA%A4%E6%97%B6%EF%BC%8C%E4%B8%8D%E5%BB%BA%E8%AE%AE%E5%81%9A%E5%A4%B8%E5%BC%A0%E8%B5%84%E9%87%91%E6%93%8D%E4%BD%9C%E3%80%82%E8%B5%84%E6%96%99%E8%A6%81%E8%87%AA%E7%84%B6%E3%80%81%E5%8F%AF%E8%A7%A3%E9%87%8A%E3%80%81%E4%B8%80%E8%87%B4%E3%80%82%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fsection%3E%0A%0A%20%20%20%20%3Csection%20id%3D%22requirements%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22section-title%22%3E%0A%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22icon%22%3E%F0%9F%9B%A1%EF%B8%8F%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%3E%3Ch2%3E%E4%B8%80%E3%80%81%E7%94%B3%E8%AF%B7%E6%9D%A1%E4%BB%B6%E6%80%BB%E6%95%B4%E7%90%86%3C%2Fh2%3E%3Cp%3E%E6%99%AE%E9%80%9A%E5%B0%B1%E5%8A%B3%E7%AD%BE%E8%AF%81%E8%B7%AF%E7%BA%BF%E4%B8%BA%E4%B8%BB%EF%BC%8C%E9%85%8D%E5%81%B6%E8%80%85%E3%83%BB%E9%AB%98%E5%BA%A6%E4%BA%BA%E6%89%8D%E8%B7%AF%E7%BA%BF%E5%8F%A6%E6%9C%89%E7%BC%A9%E7%9F%AD%E6%9D%A1%E4%BB%B6%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22grid-4%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22card%20mini%22%3E%3Ch3%3E%E5%8E%9F%E5%88%99%E5%B9%B4%E6%95%B0%3C%2Fh3%3E%3Cp%3E%E8%BF%9E%E7%BB%AD%E5%9C%A8%E6%97%A5%E6%9C%AC10%E5%B9%B4%E4%BB%A5%E4%B8%8A%EF%BC%8C%E5%85%B6%E4%B8%AD5%E5%B9%B4%E4%BB%A5%E4%B8%8A%E4%B8%BA%E5%B0%B1%E5%8A%B3%E8%B5%84%E6%A0%BC%E6%88%96%E5%B1%85%E4%BD%8F%E8%B5%84%E6%A0%BC%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22card%20mini%22%3E%3Ch3%3E%E5%BD%93%E5%89%8D%E7%AD%BE%E8%AF%81%3C%2Fh3%3E%3Cp%3E%E5%8E%9F%E5%88%99%E4%B8%8A%E9%9C%80%E8%A6%81%E6%8C%81%E6%9C%89%E5%BD%93%E5%89%8D%E5%9C%A8%E7%95%99%E8%B5%84%E6%A0%BC%E7%9A%84%E6%9C%80%E9%95%BF%E5%9C%A8%E7%95%99%E6%9C%9F%E9%97%B4%E3%80%822026%E5%B9%B4%E6%8F%90%E4%BA%A4%E6%97%B6%EF%BC%8C3%E5%B9%B4%E7%AD%BE%E8%AF%81%E4%BB%8D%E9%9C%80%E9%87%8D%E7%82%B9%E7%A1%AE%E8%AE%A4%E6%98%AF%E5%90%A6%E9%80%82%E7%94%A8%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22card%20mini%22%3E%3Ch3%3E%E7%94%9F%E8%AE%A1%E8%83%BD%E5%8A%9B%3C%2Fh3%3E%3Cp%3E%E6%94%B6%E5%85%A5%E7%A8%B3%E5%AE%9A%E3%80%81%E6%97%A0%E8%B4%9F%E5%80%BA%E3%80%81%E6%97%A0%E6%89%B6%E5%85%BB%E5%8E%8B%E5%8A%9B%E3%80%81%E4%B8%8D%E4%BC%9A%E6%88%90%E4%B8%BA%E5%85%AC%E5%85%B1%E8%B4%9F%E6%8B%85%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22card%20mini%22%3E%3Ch3%3E%E5%85%AC%E7%9A%84%E4%B9%89%E5%8A%A1%3C%2Fh3%3E%3Cp%3E%E7%A8%8E%E9%87%91%E3%80%81%E5%B9%B4%E9%87%91%E3%80%81%E5%81%A5%E5%BA%B7%E4%BF%9D%E9%99%A9%E3%80%81%E5%85%A5%E7%AE%A1%E5%B1%8A%E5%87%BA%E4%B9%89%E5%8A%A1%E9%83%BD%E8%A6%81%E9%80%82%E6%AD%A3%E5%B1%A5%E8%A1%8C%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22card%20mini%22%3E%3Ch3%3E%E5%93%81%E8%A1%8C%E5%96%84%E8%89%AF%3C%2Fh3%3E%3Cp%3E%E6%97%A0%E7%8A%AF%E7%BD%AA%E3%80%81%E7%BD%9A%E9%87%91%E5%88%91%E3%80%81%E4%B8%A5%E9%87%8D%E4%BA%A4%E9%80%9A%E8%BF%9D%E6%B3%95%E3%80%81%E5%A4%9A%E6%AC%A1%E8%BF%9D%E8%A7%84%E7%AD%89%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22card%20mini%22%3E%3Ch3%3E%E7%A8%8E%E9%87%91%E9%87%8D%E7%82%B9%3C%2Fh3%3E%3Cp%3E%E6%9C%80%E8%BF%915%E5%B9%B4%E4%BD%8F%E6%B0%91%E7%A8%8E%E8%AF%BE%E7%A8%8E%2F%E7%BA%B3%E7%A8%8E%E8%AF%81%E6%98%8E%E6%98%AF%E6%A0%B8%E5%BF%83%E8%B5%84%E6%96%99%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22card%20mini%22%3E%3Ch3%3E%E5%B9%B4%E9%87%91%E4%BF%9D%E9%99%A9%3C%2Fh3%3E%3Cp%3E%E6%9C%80%E8%BF%912%E5%B9%B4%E8%AE%B0%E5%BD%95%E9%87%8D%E7%82%B9%E6%A3%80%E6%9F%A5%EF%BC%8C%E6%8D%A2%E5%B7%A5%E4%BD%9C%E6%9C%9F%E9%97%B4%E5%B0%A4%E5%85%B6%E5%AE%B9%E6%98%93%E5%87%BA%E9%97%AE%E9%A2%98%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22card%20mini%22%3E%3Ch3%3E%E7%90%86%E7%94%B1%E4%B9%A6%3C%2Fh3%3E%3Cp%3E%E8%AF%B4%E6%98%8E%E6%97%A5%E6%9C%AC%E7%94%9F%E6%B4%BB%E5%9F%BA%E7%A1%80%E3%80%81%E5%B7%A5%E4%BD%9C%E8%B4%A1%E7%8C%AE%E3%80%81%E6%9C%AA%E6%9D%A5%E8%AE%A1%E5%88%92%E5%92%8C%E7%A8%B3%E5%AE%9A%E7%94%9F%E6%B4%BB%E8%83%BD%E5%8A%9B%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fsection%3E%0A%0A%20%20%20%20%3Csection%20id%3D%22documents%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22section-title%22%3E%0A%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22icon%22%3E%F0%9F%93%84%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%3E%3Ch2%3E%E4%BA%8C%E3%80%81%E8%B5%84%E6%96%99%E6%B8%85%E5%8D%95%3C%2Fh2%3E%3Cp%3E%E6%8C%89%E8%B5%84%E6%96%99%E7%B1%BB%E5%88%AB%E5%B1%95%E5%BC%80%E3%80%82%E5%BB%BA%E8%AE%AE%E6%AF%8F%E4%B8%80%E7%B1%BB%E5%8D%95%E7%8B%AC%E7%94%A8%E9%80%8F%E6%98%8E%E6%96%87%E4%BB%B6%E5%A4%B9%E6%88%96%E6%A0%87%E7%AD%BE%E7%BA%B8%E6%95%B4%E7%90%86%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22tabs%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22tab-buttons%22%20id%3D%22tabButtons%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22tabPanels%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fsection%3E%0A%0A%20%20%20%20%3Csection%20id%3D%22places%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22section-title%22%3E%0A%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22icon%22%3E%F0%9F%93%8D%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%3E%3Ch2%3E%E4%B8%89%E3%80%81%E5%85%B7%E4%BD%93%E8%B5%84%E6%96%99%E5%BC%80%E5%85%B7%E5%8D%95%E4%BD%8D%E3%83%BB%E5%AF%B9%E5%BA%94%E7%BD%91%E7%AB%99%3C%2Fh2%3E%3Cp%3E%E5%8F%AF%E4%BB%A5%E6%90%9C%E7%B4%A2%E8%B5%84%E6%96%99%E5%90%8D%E7%A7%B0%E3%80%81%E5%BC%80%E5%85%B7%E5%8D%95%E4%BD%8D%E3%80%81%E7%BD%91%E7%AB%99%E6%88%96%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22card%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22search-box%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cspan%3E%F0%9F%94%8D%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22searchInput%22%20type%3D%22search%22%20placeholder%3D%22%E6%90%9C%E7%B4%A2%EF%BC%9A%E4%BD%8F%E6%B0%91%E7%A8%8E%E3%80%81%E5%B9%B4%E9%87%91%E3%80%81%E9%93%B6%E8%A1%8C%E3%80%81%E5%85%AC%E5%8F%B8%E2%80%A6%E2%80%A6%22%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22table-wrap%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Ctable%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cthead%3E%3Ctr%3E%3Cth%3E%E8%B5%84%E6%96%99%3C%2Fth%3E%3Cth%3E%E5%85%B7%E4%BD%93%E5%BC%80%E5%85%B7%E5%8D%95%E4%BD%8D%3C%2Fth%3E%3Cth%3E%E5%AF%B9%E5%BA%94%E7%BD%91%E7%AB%99%3C%2Fth%3E%3Cth%3E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%3C%2Fth%3E%3C%2Ftr%3E%3C%2Fthead%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ctbody%20id%3D%22placesBody%22%3E%3C%2Ftbody%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Ftable%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fsection%3E%0A%0A%20%20%20%20%3Csection%20id%3D%22timeline%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22section-title%22%3E%0A%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22icon%22%3E%F0%9F%97%93%EF%B8%8F%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%3E%3Ch2%3E%E5%9B%9B%E3%80%81%E4%B8%8B%E4%B8%AA%E6%9C%88%E6%8F%90%E4%BA%A4%E7%94%A8%E6%B5%81%E7%A8%8B%E6%97%B6%E9%97%B4%E7%BA%BF%3C%2Fh2%3E%3Cp%3E%E7%9F%AD%E6%97%B6%E9%97%B4%E7%AA%97%E5%8F%A3%E4%B8%8B%EF%BC%8C%E4%BC%98%E5%85%88%E5%A4%84%E7%90%86%E9%AB%98%E9%A3%8E%E9%99%A9%E8%B5%84%E6%96%99%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22timeline%22%20id%3D%22timelineBody%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fsection%3E%0A%0A%20%20%20%20%3Csection%20id%3D%22risks%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22section-title%22%3E%0A%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22icon%22%3E%E2%9A%A0%EF%B8%8F%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%3E%3Ch2%3E%E4%BA%94%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%E3%83%BB%E5%B8%B8%E8%A7%81%E9%A3%8E%E9%99%A9%3C%2Fh2%3E%3Cp%3E%E5%BE%88%E5%A4%9A%E4%B8%8D%E8%AE%B8%E5%8F%AF%E4%B8%8D%E6%98%AF%E5%9B%A0%E4%B8%BA%E6%94%B6%E5%85%A5%E4%BD%8E%EF%BC%8C%E8%80%8C%E6%98%AF%E5%9B%A0%E4%B8%BA%E5%85%AC%E7%9A%84%E4%B9%89%E5%8A%A1%E3%80%81%E5%B1%8A%E5%87%BA%E3%80%81%E8%B5%84%E6%96%99%E8%A7%A3%E9%87%8A%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22grid-3%22%20id%3D%22riskBody%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fsection%3E%0A%0A%20%20%20%20%3Csection%20id%3D%22personal%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22section-title%22%3E%0A%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22icon%22%3E%F0%9F%92%B3%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%3E%3Ch2%3E%E5%85%AD%E3%80%81%E4%BD%A0%E7%9A%84%E4%B8%AA%E4%BA%BA%E6%83%85%E5%86%B5%E7%89%88%E5%BB%BA%E8%AE%AE%3C%2Fh2%3E%3Cp%3E%E4%BB%A5%E4%BD%A0%E7%9B%AE%E5%89%8D%E6%8F%90%E4%BE%9B%E7%9A%84%E4%BF%A1%E6%81%AF%E4%B8%BA%E5%89%8D%E6%8F%90%EF%BC%9A%E5%8D%95%E8%BA%AB%E3%80%81%E6%97%A0%E6%89%B6%E5%85%BB%E3%80%81%E6%97%A0%E8%B4%9F%E5%80%BA%E3%80%81%E6%97%A0%E6%8B%96%E6%AC%A0%E3%80%81%E4%B8%8B%E4%B8%AA%E6%9C%88%E6%8F%90%E4%BA%A4%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22grid-2%22%20id%3D%22personalBody%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22template%22%20style%3D%22margin-top%3A16px%22%3E%0A%20%20%20%20%20%20%20%20%3Ch3%3E%E7%8E%B0%E9%87%91%E5%85%A5%E9%87%91%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E%E6%A8%A1%E6%9D%BF%3C%2Fh3%3E%0A%20%20%20%20%20%20%20%20%3Cpre%3E%E9%A0%90%E8%B2%AF%E9%87%91%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E8%A3%9C%E8%B6%B3%E8%AA%AC%E6%98%8E%E6%9B%B8%0A%0A%E7%A7%81%E3%81%AF%E3%80%81%E3%81%93%E3%82%8C%E3%81%BE%E3%81%A7%E7%B5%A6%E4%B8%8E%E5%8F%8E%E5%85%A5%E3%81%AE%E4%B8%80%E9%83%A8%E3%82%92%E7%94%9F%E6%B4%BB%E4%BA%88%E5%82%99%E8%B3%87%E9%87%91%E3%81%A8%E3%81%97%E3%81%A6%E8%87%AA%E5%AE%85%E3%81%A7%E4%BF%9D%E7%AE%A1%E3%81%97%E3%81%A6%E3%81%8A%E3%82%8A%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82%0A%E6%B0%B8%E4%BD%8F%E8%A8%B1%E5%8F%AF%E7%94%B3%E8%AB%8B%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8A%E3%80%81%E8%B3%87%E7%94%A3%E7%8A%B6%E6%B3%81%E3%82%92%E6%98%8E%E7%A2%BA%E3%81%AB%E3%81%99%E3%82%8B%E3%81%9F%E3%82%81%E3%80%81%E5%BD%93%E8%A9%B2%E7%8F%BE%E9%87%91%E3%81%AE%E4%B8%80%E9%83%A8%E3%82%92%E6%9C%AC%E4%BA%BA%E5%90%8D%E7%BE%A9%E3%81%AE%E9%8A%80%E8%A1%8C%E5%8F%A3%E5%BA%A7%E3%81%B8%E5%85%A5%E9%87%91%E3%81%84%E3%81%9F%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82%0A%0A%E5%BD%93%E8%A9%B2%E8%B3%87%E9%87%91%E3%81%AF%E3%80%81%E3%81%93%E3%82%8C%E3%81%BE%E3%81%A7%E3%81%AE%E7%B5%A6%E4%B8%8E%E5%8F%8E%E5%85%A5%E3%81%8A%E3%82%88%E3%81%B3%E9%81%8E%E5%8E%BB%E3%81%AE%E8%B2%AF%E8%93%84%E3%81%AB%E3%82%88%E3%82%8B%E3%82%82%E3%81%AE%E3%81%A7%E3%81%82%E3%82%8A%E3%80%81%E5%80%9F%E5%85%A5%E9%87%91%E3%81%A7%E3%81%AF%E3%81%82%E3%82%8A%E3%81%BE%E3%81%9B%E3%82%93%E3%80%82%0A%E7%8F%BE%E5%9C%A8%E3%80%81%E5%80%9F%E5%85%A5%E9%87%91%E3%82%84%E6%89%B6%E9%A4%8A%E5%AE%B6%E6%97%8F%E3%81%AF%E3%81%AA%E3%81%8F%E3%80%81%E7%A8%8E%E9%87%91%E3%83%BB%E5%B9%B4%E9%87%91%E3%83%BB%E5%81%A5%E5%BA%B7%E4%BF%9D%E9%99%BA%E6%96%99%E7%AD%89%E3%81%AE%E5%85%AC%E7%9A%84%E7%BE%A9%E5%8B%99%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%82%82%E9%81%A9%E5%88%87%E3%81%AB%E5%B1%A5%E8%A1%8C%E3%81%97%E3%81%A6%E3%81%8A%E3%82%8A%E3%81%BE%E3%81%99%E3%80%82%0A%0A%E4%BB%8A%E5%BE%8C%E3%82%82%E5%AE%89%E5%AE%9A%E3%81%97%E3%81%9F%E7%B5%A6%E4%B8%8E%E5%8F%8E%E5%85%A5%E3%82%92%E5%9F%BA%E7%9B%A4%E3%81%A8%E3%81%97%E3%81%A6%E3%80%81%E6%97%A5%E6%9C%AC%E3%81%A7%E7%B6%99%E7%B6%9A%E3%81%97%E3%81%A6%E7%94%9F%E6%B4%BB%E3%81%97%E3%81%A6%E3%81%84%E3%81%8F%E4%BA%88%E5%AE%9A%E3%81%A7%E3%81%99%E3%80%82%3C%2Fpre%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fsection%3E%0A%0A%20%20%20%20%3Csection%20id%3D%22print%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22section-title%22%3E%0A%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22icon%22%3E%E2%9C%85%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%3E%3Ch2%3E%E4%B8%83%E3%80%81%E6%8F%90%E4%BA%A4%E5%89%8D%E6%A3%80%E6%9F%A5%E5%88%97%E8%A1%A8%3C%2Fh2%3E%3Cp%3E%E5%8F%AF%E7%9B%B4%E6%8E%A5%E5%8B%BE%E9%80%89%E3%80%82%E6%89%93%E5%8D%B0%E6%97%B6%E4%B9%9F%E4%BC%9A%E4%BF%9D%E7%95%99%E3%80%82%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22card%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22check-head%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%20style%3D%22margin%3A0%22%3E%E5%AE%8C%E6%88%90%E5%BA%A6%EF%BC%9A%3Cspan%20id%3D%22doneCount%22%3E0%3C%2Fspan%3E%20%2F%20%3Cspan%20id%3D%22totalCount%22%3E0%3C%2Fspan%3E%3C%2Fh3%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%20style%3D%22margin%3A2px%200%200%3Bcolor%3Avar(--muted)%22%3E%E5%BB%BA%E8%AE%AE%E5%85%A8%E9%83%A8%E7%A1%AE%E8%AE%A4%E5%90%8E%E5%86%8D%E6%8F%90%E4%BA%A4%E3%80%82%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22progress%22%3E%3Cdiv%20id%3D%22progressBar%22%3E%3C%2Fdiv%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22check-grid%22%20id%3D%22checkBody%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fsection%3E%0A%0A%20%20%20%20%3Cdiv%20class%3D%22final%22%3E%0A%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%3Ch2%3E%E4%BD%A0%E7%8E%B0%E5%9C%A8%E7%9A%84%E9%87%8D%E7%82%B9%E4%B8%8D%E6%98%AF%E2%80%9C%E6%8F%90%E9%AB%98%E6%94%B6%E5%85%A5%E2%80%9D%EF%BC%8C%E8%80%8C%E6%98%AF%E2%80%9C%E6%8A%8A%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86%E5%BE%97%E8%87%AA%E7%84%B6%E3%80%81%E5%AE%8C%E6%95%B4%E3%80%81%E5%8F%AF%E8%A7%A3%E9%87%8A%E2%80%9D%E3%80%82%3C%2Fh2%3E%0A%20%20%20%20%20%20%20%20%3Cp%3E%E7%A8%8E%E5%89%8D%E7%BA%A650%E4%B8%87%E3%80%81%E5%88%B0%E6%89%8B%E7%BA%A638%E4%B8%87%E3%80%81%E5%8D%95%E8%BA%AB%E3%80%81%E6%97%A0%E6%89%B6%E5%85%BB%E3%80%81%E6%97%A0%E8%B4%9F%E5%80%BA%E3%80%81%E6%97%A0%E6%8B%96%E6%AC%A0%EF%BC%8C%E8%BF%99%E4%B8%AA%E7%94%9F%E8%AE%A1%E5%9F%BA%E7%A1%80%E6%9C%AC%E8%BA%AB%E4%B8%8D%E5%B7%AE%E3%80%82%E4%B8%8B%E4%B8%AA%E6%9C%88%E6%8F%90%E4%BA%A4%E6%97%B6%EF%BC%8C%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E6%98%AF%E7%A1%AE%E8%AE%A4%E5%85%AC%E7%9A%84%E4%B9%89%E5%8A%A1%E8%AE%B0%E5%BD%95%EF%BC%8C%E6%95%B4%E7%90%86%E7%8E%B0%E9%87%91%E5%92%8C%E6%B5%B7%E5%A4%96%E5%AD%98%E6%AC%BE%E8%AF%B4%E6%98%8E%EF%BC%8C%E9%81%BF%E5%85%8D%E4%B8%B4%E6%97%B6%E5%80%9F%E9%92%B1%E6%88%96%E6%8F%90%E4%BA%A4%E6%9D%82%E4%B9%B1%E8%B5%84%E6%96%99%E3%80%82%3C%2Fp%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cbutton%20class%3D%22print-btn%22%20onclick%3D%22window.print()%22%3E%F0%9F%96%A8%EF%B8%8F%20%E6%89%93%E5%8D%B0%2F%E4%BF%9D%E5%AD%98PDF%3C%2Fbutton%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%3C%2Fmain%3E%0A%0A%20%20%3Cscript%3E%0A%20%20%20%20const%20coreDocs%20%3D%20%5B%0A%20%20%20%20%20%20%7Bcategory%3A%22%E5%9F%BA%E6%9C%AC%E7%94%B3%E8%AF%B7%E8%B5%84%E6%96%99%22%2Cicon%3A%22%F0%9F%93%84%22%2Citems%3A%5B%0A%20%20%20%20%20%20%20%20%5B%22%E6%B0%B8%E4%BD%8F%E8%A8%B1%E5%8F%AF%E7%94%B3%E8%AB%8B%E6%9B%B8%22%2C%22%E5%87%BA%E5%85%A5%E5%9B%BD%E5%9C%A8%E7%95%99%E7%AE%A1%E7%90%86%E5%BA%81%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BD%E3%80%82%E5%A1%AB%E5%86%99%E6%9C%AC%E4%BA%BA%E4%BF%A1%E6%81%AF%E3%80%81%E5%9C%A8%E7%95%99%E8%B5%84%E6%A0%BC%E3%80%81%E6%9D%A5%E6%97%A5%E7%BB%8F%E8%BF%87%E3%80%81%E8%81%8C%E4%B8%9A%E7%AD%89%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E7%85%A7%E7%89%87%204cm%C3%973cm%22%2C%22%E7%94%B3%E8%AF%B7%E5%89%8D3%E4%B8%AA%E6%9C%88%E5%86%85%E6%8B%8D%E6%91%84%EF%BC%8C%E6%AD%A3%E9%9D%A2%E3%80%81%E6%97%A0%E5%B8%BD%E3%80%81%E6%97%A0%E8%83%8C%E6%99%AF%EF%BC%8C%E8%83%8C%E9%9D%A2%E5%86%99%E5%A7%93%E5%90%8D%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E7%90%86%E7%94%B1%E6%9B%B8%22%2C%22%E8%87%AA%E7%94%B1%E6%A0%BC%E5%BC%8F%E3%80%82%E8%AF%B4%E6%98%8E%E6%9D%A5%E6%97%A5%E7%BB%8F%E8%BF%87%E3%80%81%E5%B7%A5%E4%BD%9C%E7%A8%B3%E5%AE%9A%E6%80%A7%E3%80%81%E6%97%A5%E6%9C%AC%E7%94%9F%E6%B4%BB%E5%9F%BA%E7%A1%80%E3%80%81%E4%BB%8A%E5%90%8E%E8%AE%A1%E5%88%92%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E4%BA%86%E8%A7%A3%E6%9B%B8%22%2C%22%E5%AE%98%E6%96%B9%E6%8C%87%E5%AE%9A%E6%A0%BC%E5%BC%8F%E3%80%82%E6%B0%B8%E4%BD%8F%E7%94%B3%E8%AF%B7%E9%80%9A%E5%B8%B8%E9%9C%80%E8%A6%81%E6%8F%90%E4%BA%A4%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E6%8A%A4%E7%85%A7%E5%8E%9F%E4%BB%B6%22%2C%22%E6%8F%90%E4%BA%A4%E6%97%B6%E6%8F%90%E7%A4%BA%E3%80%82%E5%A4%8D%E5%8D%B0%E4%BB%B6%E5%8F%AF%E4%B8%80%E5%B9%B6%E5%87%86%E5%A4%87%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E5%9C%A8%E7%95%99%E5%8D%A1%E5%8E%9F%E4%BB%B6%22%2C%22%E6%8F%90%E4%BA%A4%E6%97%B6%E6%8F%90%E7%A4%BA%E3%80%82%E6%AD%A3%E5%8F%8D%E9%9D%A2%E5%A4%8D%E5%8D%B0%E4%BB%B6%E5%BB%BA%E8%AE%AE%E5%87%86%E5%A4%87%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E4%BD%8F%E6%B0%91%E7%A5%A8%22%2C%22%E4%B8%96%E5%B8%A6%E5%85%A8%E5%91%98%EF%BC%8CMy%20Number%E7%9C%81%E7%95%A5%EF%BC%8C%E5%85%B6%E4%BB%96%E4%BA%8B%E9%A1%B9%E5%B0%BD%E9%87%8F%E4%B8%8D%E8%A6%81%E7%9C%81%E7%95%A5%E3%80%82%E5%8F%91%E8%A1%8C3%E4%B8%AA%E6%9C%88%E4%BB%A5%E5%86%85%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5D%7D%2C%0A%20%20%20%20%20%20%7Bcategory%3A%22%E5%B7%A5%E4%BD%9C%E3%83%BB%E6%94%B6%E5%85%A5%E8%AF%81%E6%98%8E%22%2Cicon%3A%22%F0%9F%92%BC%22%2Citems%3A%5B%0A%20%20%20%20%20%20%20%20%5B%22%E5%9C%A8%E8%81%B7%E8%A8%BC%E6%98%8E%E6%9B%B8%22%2C%22%E5%90%91%E5%85%AC%E5%8F%B8%E4%BA%BA%E4%BA%8B%2F%E6%80%BB%E5%8A%A1%E7%94%B3%E8%AF%B7%E3%80%82%E5%86%99%E6%98%8E%E5%85%A5%E7%A4%BE%E6%97%A5%E3%80%81%E8%81%8C%E4%BD%8D%E3%80%81%E9%9B%87%E7%94%A8%E5%BD%A2%E6%80%81%E3%80%81%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9%E7%AD%89%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E6%BA%90%E6%B3%89%E5%BE%B4%E5%8F%8E%E7%A5%A8%22%2C%22%E5%85%AC%E5%8F%B8%E5%8F%91%E8%A1%8C%EF%BC%8C%E5%BB%BA%E8%AE%AE%E5%87%86%E5%A4%87%E6%9C%80%E8%BF%911%EF%BD%9E3%E5%B9%B4%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E5%B7%A5%E8%B5%84%E6%98%8E%E7%BB%86%22%2C%22%E5%BB%BA%E8%AE%AE%E5%87%86%E5%A4%87%E6%9C%80%E8%BF%916%EF%BD%9E12%E4%B8%AA%E6%9C%88%EF%BC%8C%E8%AF%81%E6%98%8E%E5%B7%A5%E8%B5%84%E7%A8%B3%E5%AE%9A%E5%85%A5%E8%B4%A6%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E9%9B%87%E7%94%A8%E5%A5%91%E7%B4%84%E6%9B%B8%20%2F%20%E5%8A%B4%E5%83%8D%E6%9D%A1%E4%BB%B6%E9%80%9A%E7%9F%A5%E6%9B%B8%22%2C%22%E8%AF%81%E6%98%8E%E5%90%88%E5%90%8C%E3%80%81%E5%B7%A5%E8%B5%84%E3%80%81%E5%B7%A5%E4%BD%9C%E6%97%B6%E9%97%B4%E3%80%81%E9%9B%87%E7%94%A8%E6%9C%9F%E9%99%90%E7%AD%89%E3%80%82%E6%B4%BE%E9%81%A3%2F%E5%A5%91%E7%BA%A6%E5%91%98%E5%B7%A5%E5%B0%A4%E5%85%B6%E5%BB%BA%E8%AE%AE%E6%8F%90%E4%BA%A4%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E9%93%B6%E8%A1%8C%E5%B7%A5%E8%B5%84%E5%85%A5%E8%B4%A6%E8%AE%B0%E5%BD%95%22%2C%22%E9%80%9A%E5%B8%B3%E5%A4%8D%E5%8D%B0%E4%BB%B6%E6%88%96%E7%BD%91%E9%93%B6%E6%89%93%E5%8D%B0%E3%80%82%E7%AA%81%E5%87%BA%E6%AF%8F%E6%9C%88%E5%B7%A5%E8%B5%84%E5%85%A5%E9%87%91%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5D%7D%2C%0A%20%20%20%20%20%20%7Bcategory%3A%22%E7%A8%8E%E9%87%91%E8%B5%84%E6%96%99%22%2Cicon%3A%22%F0%9F%8F%9B%EF%B8%8F%22%2Citems%3A%5B%0A%20%20%20%20%20%20%20%20%5B%22%E4%BD%8F%E6%B0%91%E7%A8%8E%20%E8%AA%B2%E7%A8%8E%E8%A8%BC%E6%98%8E%E6%9B%B8%22%2C%22%E6%9C%80%E8%BF%915%E5%B9%B4%E3%80%82%E5%88%B0%E7%8E%B0%E4%BD%8F%E5%9C%B0%2F%E8%BF%87%E5%8E%BB%E4%BD%8F%E8%BF%87%E7%9A%84%E5%B8%82%E5%8C%BA%E7%94%BA%E6%9D%91%E5%BD%B9%E6%89%80%E5%BC%80%E5%85%B7%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E4%BD%8F%E6%B0%91%E7%A8%8E%20%E7%B4%8D%E7%A8%8E%E8%A8%BC%E6%98%8E%E6%9B%B8%22%2C%22%E6%9C%80%E8%BF%915%E5%B9%B4%E3%80%82%E7%A1%AE%E8%AE%A4%E6%97%A0%E6%9C%AA%E7%BA%B3%E3%80%81%E6%97%A0%E8%BF%9F%E5%BB%B6%E3%80%82%E5%B7%A5%E8%B5%84%E5%A4%A9%E5%BC%95%E8%80%85%E9%80%9A%E5%B8%B8%E8%BE%83%E6%9C%89%E5%88%A9%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E5%9B%BD%E7%A8%8E%20%E7%B4%8D%E7%A8%8E%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%9D%E3%81%AE3%22%2C%22%E5%88%B0%E7%A8%8E%E5%8A%A1%E7%BD%B2%E6%88%96e-Tax%E7%94%B3%E8%AF%B7%E3%80%82%E9%80%9A%E5%B8%B8%E9%9C%80%E8%A6%81%E8%AF%81%E6%98%8E%E6%97%A0%E6%9C%AA%E7%BA%B3%E5%9B%BD%E7%A8%8E%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E6%99%AE%E9%80%9A%E5%BE%B4%E5%8F%8E%E6%9C%9F%E9%97%B4%E7%9A%84%E7%BC%B4%E7%BA%B3%E8%AE%B0%E5%BD%95%22%2C%22%E5%A6%82%E6%9E%9C%E4%B8%8D%E6%98%AF%E5%B7%A5%E8%B5%84%E5%A4%A9%E5%BC%95%EF%BC%8C%E5%87%86%E5%A4%87%E9%A2%86%E6%94%B6%E4%B9%A6%E3%80%81%E9%80%9A%E5%B8%B3%E3%80%81%E7%BC%B4%E7%BA%B3%E8%AE%B0%E5%BD%95%EF%BC%8C%E8%AF%81%E6%98%8E%E6%8C%89%E6%9C%9F%E7%BC%B4%E7%BA%B3%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5D%7D%2C%0A%20%20%20%20%20%20%7Bcategory%3A%22%E5%B9%B4%E9%87%91%E3%83%BB%E5%81%A5%E5%BA%B7%E4%BF%9D%E9%99%A9%22%2Cicon%3A%22%F0%9F%9B%A1%EF%B8%8F%22%2Citems%3A%5B%0A%20%20%20%20%20%20%20%20%5B%22%E3%81%AD%E3%82%93%E3%81%8D%E3%82%93%E3%83%8D%E3%83%83%E3%83%88%20%E5%90%84%E6%9C%88%E3%81%AE%E5%B9%B4%E9%87%91%E8%A8%98%E9%8C%B2%22%2C%22%E6%9C%80%E8%BF%912%E5%B9%B4%E9%87%8D%E7%82%B9%E7%A1%AE%E8%AE%A4%E3%80%82%E5%8F%AF%E4%BB%A5%E4%BB%8E%E3%81%AD%E3%82%93%E3%81%8D%E3%82%93%E3%83%8D%E3%83%83%E3%83%88%E6%89%93%E5%8D%B0%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E5%9B%BD%E6%B0%91%E5%B9%B4%E9%87%91%E9%A2%86%E6%94%B6%E4%B9%A6%22%2C%22%E5%A6%82%E6%9E%9C%E6%9C%80%E8%BF%912%E5%B9%B4%E6%9C%89%E5%9B%BD%E6%B0%91%E5%B9%B4%E9%87%91%E6%9C%9F%E9%97%B4%EF%BC%8C%E5%87%86%E5%A4%87%E9%A2%86%E6%94%B6%E4%B9%A6%E6%88%96%E7%BC%B4%E7%BA%B3%E8%AF%81%E6%98%8E%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E5%81%A5%E5%BA%B7%E4%BF%9D%E9%99%A9%E8%B5%84%E6%A0%BC%E8%B5%84%E6%96%99%22%2C%22%E5%85%AC%E5%8F%B8%E7%A4%BE%E4%BF%9D%E5%8F%AF%E5%87%86%E5%A4%87%E8%B5%84%E6%A0%BC%E7%A1%AE%E8%AE%A4%E7%9B%B8%E5%85%B3%E8%B5%84%E6%96%99%EF%BC%9B%E5%9B%BD%E4%BF%9D%E9%9C%80%E8%A6%81%E7%BA%B3%E4%BB%98%E8%AF%81%E6%98%8E%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E3%83%9E%E3%82%A4%E3%83%8A%E4%BF%9D%E9%99%BA%E8%A8%BC%2F%E8%B3%87%E6%A0%BC%E7%A2%BA%E8%AA%8D%E8%A8%BC%E8%B5%84%E6%96%99%22%2C%22%E6%A0%B9%E6%8D%AE%E5%BD%93%E5%89%8D%E5%81%A5%E5%BA%B7%E4%BF%9D%E9%99%A9%E7%8A%B6%E6%80%81%E5%87%86%E5%A4%87%E5%8F%AF%E7%A1%AE%E8%AE%A4%E8%B5%84%E6%A0%BC%E7%9A%84%E8%B5%84%E6%96%99%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5D%7D%2C%0A%20%20%20%20%20%20%7Bcategory%3A%22%E8%B5%84%E4%BA%A7%E8%AF%81%E6%98%8E%22%2Cicon%3A%22%F0%9F%92%B4%22%2Citems%3A%5B%0A%20%20%20%20%20%20%20%20%5B%22%E6%97%A5%E6%9C%AC%E9%93%B6%E8%A1%8C%E9%80%9A%E5%B8%B3%E5%A4%8D%E5%8D%B0%E4%BB%B6%22%2C%22%E5%BB%BA%E8%AE%AE%E6%8F%90%E4%BA%A4%E5%B7%A5%E8%B5%84%E5%85%A5%E8%B4%A6%E9%A1%B5%E3%80%81%E4%BD%99%E9%A2%9D%E9%A1%B5%E3%80%81%E8%BF%91%E6%9C%9F%E6%B5%81%E6%B0%B4%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E7%8E%B0%E9%87%91%E5%85%A5%E9%87%91%E8%AF%B4%E6%98%8E%22%2C%22%E5%A6%82%E6%9E%9C%E6%8A%8A%E5%AE%B6%E9%87%8C%E7%8E%B0%E9%87%91%E5%AD%98%E5%85%A5%E9%93%B6%E8%A1%8C%EF%BC%8C%E5%BB%BA%E8%AE%AE%E9%99%84%E4%B8%80%E4%BB%BD%E7%AE%80%E7%9F%AD%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E%EF%BC%8C%E8%AF%B4%E6%98%8E%E6%98%AF%E8%BF%87%E5%8E%BB%E5%B7%A5%E8%B5%84%E5%82%A8%E8%93%84%E5%B9%B6%E9%9D%9E%E5%80%9F%E6%AC%BE%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E4%B8%AD%E5%9B%BD%E9%93%B6%E8%A1%8C%E5%8D%A1%E4%BD%99%E9%A2%9D%E8%B5%84%E6%96%99%22%2C%22%E5%8F%AF%E4%BD%9C%E4%B8%BA%E6%B5%B7%E5%A4%96%E5%82%A8%E8%93%84%E8%A1%A5%E5%BC%BA%E8%B5%84%E6%96%99%E3%80%82%E5%BB%BA%E8%AE%AE%E9%99%84%E6%97%A5%E6%96%87%E7%BF%BB%E8%AF%91%E5%92%8C%E6%97%A5%E5%85%83%E6%8D%A2%E7%AE%97%E8%AF%B4%E6%98%8E%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E4%B8%8D%E5%8A%A8%E4%BA%A7%2F%E8%AF%81%E5%88%B8%E8%B5%84%E6%96%99%22%2C%22%E5%A6%82%E6%9C%89%E5%8F%AF%E4%BD%9C%E4%B8%BA%E8%A1%A5%E5%BC%BA%EF%BC%9B%E6%B2%A1%E6%9C%89%E4%B9%9F%E4%B8%8D%E6%98%AF%E5%BF%85%E9%A1%BB%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5D%7D%2C%0A%20%20%20%20%20%20%7Bcategory%3A%22%E8%BA%AB%E5%85%83%E4%BF%9D%E8%A8%BC%E4%BA%BA%E8%B5%84%E6%96%99%22%2Cicon%3A%22%F0%9F%A4%9D%22%2Citems%3A%5B%0A%20%20%20%20%20%20%20%20%5B%22%E8%BA%AB%E5%85%83%E4%BF%9D%E8%A8%BC%E6%9B%B8%22%2C%22%E5%AE%98%E6%96%B9%E6%A0%BC%E5%BC%8F%E3%80%82%E4%BF%9D%E8%AF%81%E4%BA%BA%E5%A1%AB%E5%86%99%E7%BD%B2%E5%90%8D%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E4%BF%9D%E8%AF%81%E4%BA%BA%E8%BA%AB%E4%BB%BD%E8%AF%81%E6%98%8E%22%2C%22%E6%97%A5%E6%9C%AC%E4%BA%BA%E3%80%81%E6%B0%B8%E4%BD%8F%E8%80%85%E3%80%81%E7%89%B9%E5%88%AB%E6%B0%B8%E4%BD%8F%E8%80%85%E7%AD%89%E3%80%82%E5%87%86%E5%A4%87%E9%A9%BE%E7%85%A7%E3%80%81%E5%9C%A8%E7%95%99%E5%8D%A1%E7%AD%89%E5%A4%8D%E5%8D%B0%E4%BB%B6%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%20%20%5B%22%E4%BF%9D%E8%AF%81%E4%BA%BA%E8%AF%B4%E6%98%8E%22%2C%22%E8%BA%AB%E5%85%83%E4%BF%9D%E8%AF%81%E4%B8%8D%E6%98%AF%E8%B4%B7%E6%AC%BE%E8%BF%9E%E5%B8%A6%E4%BF%9D%E8%AF%81%EF%BC%8C%E4%B8%BB%E8%A6%81%E6%98%AF%E9%81%93%E4%B9%89%E6%80%A7%E4%BF%9D%E8%AF%81%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5D%7D%2C%0A%20%20%20%20%5D%3B%0A%0A%20%20%20%20const%20placeRows%20%3D%20%5B%0A%20%20%20%20%20%20%5B%22%E6%B0%B8%E4%BD%8F%E8%A8%B1%E5%8F%AF%E7%94%B3%E8%AB%8B%E6%9B%B8%22%2C%22%E5%87%BA%E5%85%A5%E5%9B%BD%E5%9C%A8%E7%95%99%E7%AE%A1%E7%90%86%E5%BA%81%22%2C%22https%3A%2F%2Fwww.moj.go.jp%2Fisa%2Fapplications%2Fprocedures%2F16-4.html%22%2C%22%E6%B0%B8%E4%BD%8F%E8%A8%B1%E5%8F%AF%E7%94%B3%E8%AB%8B%EF%BD%9C%E5%87%BA%E5%85%A5%E5%9B%BD%E5%9C%A8%E7%95%99%E7%AE%A1%E7%90%86%E5%BA%81%22%2C%22%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BD%E5%AE%98%E6%96%B9%E6%A0%BC%E5%BC%8F%E3%80%82%E5%BB%BA%E8%AE%AE%E7%94%B5%E8%84%91%E5%A1%AB%E5%86%99%E5%90%8E%E6%89%93%E5%8D%B0%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E5%B0%B1%E5%8A%B4%E8%B3%87%E6%A0%BC%E8%B7%AF%E7%BA%BF%E6%8F%90%E5%87%BA%E4%B9%A6%E7%B1%BB%22%2C%22%E5%87%BA%E5%85%A5%E5%9B%BD%E5%9C%A8%E7%95%99%E7%AE%A1%E7%90%86%E5%BA%81%22%2C%22https%3A%2F%2Fwww.moj.go.jp%2Fisa%2Fapplications%2Fprocedures%2Fzairyu_eijyu03.html%22%2C%22%E6%B0%B8%E4%BD%8F%E8%A8%B1%E5%8F%AF%E7%94%B3%E8%AB%8B3%EF%BD%9C%E5%B0%B1%E5%8A%B4%E8%B3%87%E6%A0%BC%E8%80%85%E7%94%A8%22%2C%22%E7%A1%AE%E8%AE%A4%E5%B0%B1%E5%8A%B3%E7%AD%BE%E8%AF%81%E8%B7%AF%E7%BA%BF%E7%9A%84%E8%AF%A6%E7%BB%86%E5%BF%85%E8%A6%81%E8%B5%84%E6%96%99%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E7%90%86%E7%94%B1%E6%9B%B8%22%2C%22%E8%87%AA%E5%B7%B1%E5%88%B6%E4%BD%9C%22%2C%22https%3A%2F%2Fwww.moj.go.jp%2Fisa%2Fapplications%2Fprocedures%2F16-4.html%22%2C%22%E6%B0%B8%E4%BD%8F%E8%A8%B1%E5%8F%AF%E7%94%B3%E8%AB%8B%EF%BD%9C%E5%8F%82%E8%80%83%E9%A1%B5%E9%9D%A2%22%2C%22A4%201%EF%BD%9E2%E9%A1%B5%E5%8D%B3%E5%8F%AF%E3%80%82%E4%B8%8D%E8%A6%81%E5%86%99%E6%B6%88%E8%B4%B9%E5%A4%A7%E6%89%8B%E5%A4%A7%E8%84%9A%EF%BC%8C%E8%A6%81%E5%86%99%E7%A8%B3%E5%AE%9A%E6%94%B6%E5%85%A5%E3%80%81%E6%97%A0%E8%B4%9F%E5%80%BA%E3%80%81%E6%97%A0%E6%89%B6%E5%85%BB%E3%80%81%E4%BE%9D%E6%B3%95%E7%BC%B4%E7%BA%B3%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E4%BA%86%E8%A7%A3%E6%9B%B8%22%2C%22%E5%87%BA%E5%85%A5%E5%9B%BD%E5%9C%A8%E7%95%99%E7%AE%A1%E7%90%86%E5%BA%81%22%2C%22https%3A%2F%2Fwww.moj.go.jp%2Fisa%2Fapplications%2Fprocedures%2F16-4.html%22%2C%22%E6%B0%B8%E4%BD%8F%E8%A8%B1%E5%8F%AF%E7%94%B3%E8%AB%8B%EF%BD%9C%E4%BA%86%E8%A7%A3%E6%9B%B8%E7%9B%B8%E5%85%B3%22%2C%22%E5%AE%98%E6%96%B9%E6%8C%87%E5%AE%9A%E6%A0%BC%E5%BC%8F%E3%80%82%E9%80%9A%E5%B8%B8%E4%B8%8E%E7%94%B3%E8%AF%B7%E4%B9%A6%E4%B8%80%E8%B5%B7%E4%B8%8B%E8%BD%BD%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E8%BA%AB%E5%85%83%E4%BF%9D%E8%A8%BC%E6%9B%B8%22%2C%22%E5%87%BA%E5%85%A5%E5%9B%BD%E5%9C%A8%E7%95%99%E7%AE%A1%E7%90%86%E5%BA%81%22%2C%22https%3A%2F%2Fwww.moj.go.jp%2Fisa%2Fapplications%2Fprocedures%2F16-4.html%22%2C%22%E6%B0%B8%E4%BD%8F%E8%A8%B1%E5%8F%AF%E7%94%B3%E8%AB%8B%EF%BD%9C%E8%BA%AB%E5%85%83%E4%BF%9D%E8%A8%BC%E4%BA%BA%E8%B5%84%E6%96%99%22%2C%22%E4%BF%9D%E8%AF%81%E4%BA%BA%E9%80%9A%E5%B8%B8%E4%B8%BA%E4%BD%8F%E5%9C%A8%E6%97%A5%E6%9C%AC%E7%9A%84%E6%97%A5%E6%9C%AC%E4%BA%BA%E3%80%81%E6%B0%B8%E4%BD%8F%E8%80%85%E6%88%96%E7%89%B9%E5%88%AB%E6%B0%B8%E4%BD%8F%E8%80%85%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E4%BD%8F%E6%B0%91%E7%A5%A8%22%2C%22%E5%B8%82%E5%8C%BA%E7%94%BA%E6%9D%91%E5%BD%B9%E6%89%80%20%E6%88%B8%E7%B1%8D%E4%BD%8F%E6%B0%91%E8%AA%B2%20%2F%20%E5%8C%BA%E6%B0%91%E8%AA%B2%20%2F%20%E5%B8%82%E6%B0%91%E8%AA%B2%22%2C%22https%3A%2F%2Fwww.lg-waps.go.jp%2F%22%2C%22%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B%E4%BA%A4%E4%BB%98%EF%BD%9C%E5%9C%B0%E6%96%B9%E5%85%AC%E5%85%B1%E5%9B%A3%E4%BD%93%E6%83%85%E5%A0%B1%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E6%A9%9F%E6%A7%8B%22%2C%22My%20Number%E7%9C%81%E7%95%A5%E3%80%82%E4%B8%96%E5%B8%A6%E5%85%A8%E5%91%98%E3%80%82%E5%8F%91%E8%A1%8C3%E4%B8%AA%E6%9C%88%E4%BB%A5%E5%86%85%E3%80%82%E4%B9%9F%E5%8F%AF%E5%88%B0%E5%BD%B9%E6%89%80%E7%AA%97%E5%8F%A3%E5%BC%80%E5%85%B7%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E4%BD%8F%E6%B0%91%E7%A8%8E%E8%AA%B2%E7%A8%8E%E8%A8%BC%E6%98%8E%E6%9B%B8%22%2C%22%E5%B8%82%E5%8C%BA%E7%94%BA%E6%9D%91%E5%BD%B9%E6%89%80%20%E8%AA%B2%E7%A8%8E%E8%AA%B2%20%2F%20%E7%A8%8E%E5%8B%99%E8%AA%B2%20%2F%20%E5%B8%82%E6%B0%91%E7%A8%8E%E8%AA%B2%22%2C%22https%3A%2F%2Fwww.lg-waps.go.jp%2F%22%2C%22%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B%E4%BA%A4%E4%BB%98%EF%BD%9C%E5%AF%B9%E5%BA%94%E8%87%AA%E6%B2%BB%E4%BD%93%E6%97%B6%E5%8F%AF%E7%94%A8%22%2C%22%E6%9C%80%E8%BF%915%E5%B9%B4%E3%80%82%E6%90%AC%E5%AE%B6%E8%BF%87%E7%9A%84%E8%AF%9D%E5%8F%AF%E8%83%BD%E9%9C%80%E8%A6%81%E5%8E%BB%E4%BB%A5%E5%89%8D%E4%BD%8F%E8%BF%87%E7%9A%84%E5%8C%BA%E5%B8%82%E5%BC%80%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E4%BD%8F%E6%B0%91%E7%A8%8E%E7%B4%8D%E7%A8%8E%E8%A8%BC%E6%98%8E%E6%9B%B8%22%2C%22%E5%B8%82%E5%8C%BA%E7%94%BA%E6%9D%91%E5%BD%B9%E6%89%80%20%E7%B4%8D%E7%A8%8E%E8%AA%B2%20%2F%20%E5%8F%8E%E7%B4%8D%E8%AA%B2%20%2F%20%E7%A8%8E%E5%8B%99%E8%AA%B2%22%2C%22https%3A%2F%2Fwww.lg-waps.go.jp%2F%22%2C%22%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B%E4%BA%A4%E4%BB%98%EF%BD%9C%E5%AF%B9%E5%BA%94%E8%87%AA%E6%B2%BB%E4%BD%93%E6%97%B6%E5%8F%AF%E7%94%A8%22%2C%22%E6%9C%80%E8%BF%915%E5%B9%B4%E3%80%82%E9%87%8D%E7%82%B9%E7%9C%8B%E6%98%AF%E5%90%A6%E6%8C%89%E6%9C%9F%E9%99%90%E7%BC%B4%E7%BA%B3%E3%80%82%E6%99%AE%E9%80%9A%E5%BE%81%E6%94%B6%E6%9C%9F%E9%97%B4%E8%A6%81%E7%89%B9%E5%88%AB%E7%A1%AE%E8%AE%A4%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E5%9B%BD%E7%A8%8E%E7%B4%8D%E7%A8%8E%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%9D%E3%81%AE3%22%2C%22%E7%AE%A1%E8%BE%96%E7%A8%8E%E5%8A%A1%E7%BD%B2%20%2F%20e-Tax%22%2C%22https%3A%2F%2Fwww.e-tax.nta.go.jp%2F%22%2C%22e-Tax%EF%BD%9C%E5%9B%BD%E7%A8%8E%E7%94%B5%E5%AD%90%E7%94%B3%E5%91%8A%E3%83%BB%E7%BA%B3%E7%A8%8E%E7%B3%BB%E7%BB%9F%22%2C%22%E8%AF%81%E6%98%8E%E6%B2%A1%E6%9C%89%E5%9B%BD%E7%A8%8E%E6%9C%AA%E7%BA%B3%E3%80%82%E5%8F%AF%E7%BA%BF%E4%B8%8A%E7%94%B3%E8%AF%B7%E6%88%96%E5%88%B0%E7%A8%8E%E5%8A%A1%E7%BD%B2%E7%AA%97%E5%8F%A3%E7%94%B3%E8%AF%B7%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E7%A8%8E%E5%8A%A1%E7%BD%B2%E6%9F%A5%E8%AF%A2%22%2C%22%E5%9B%BD%E7%A8%8E%E5%BA%81%20%2F%20%E7%AE%A1%E8%BE%96%E7%A8%8E%E5%8A%A1%E7%BD%B2%22%2C%22https%3A%2F%2Fwww.nta.go.jp%2Fabout%2Forganization%2Faccess%2Fmap.htm%22%2C%22%E7%A8%8E%E5%8A%A1%E7%BD%B2%E6%89%80%E5%9C%A8%E5%9C%B0%E6%9F%A5%E8%AF%A2%EF%BD%9C%E5%9B%BD%E7%A8%8E%E5%BA%81%22%2C%22%E4%B8%8D%E7%9F%A5%E9%81%93%E7%AE%A1%E8%BE%96%E7%A8%8E%E5%8A%A1%E7%BD%B2%E6%97%B6%EF%BC%8C%E7%94%A8%E5%9C%B0%E5%9D%80%E6%9F%A5%E8%AF%A2%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E3%81%AD%E3%82%93%E3%81%8D%E3%82%93%E3%83%8D%E3%83%83%E3%83%88%E8%AE%B0%E5%BD%95%22%2C%22%E6%97%A5%E6%9C%AC%E5%B9%B4%E9%87%91%E6%A9%9F%E6%A7%8B%20%2F%20%E3%81%AD%E3%82%93%E3%81%8D%E3%82%93%E3%83%8D%E3%83%83%E3%83%88%22%2C%22https%3A%2F%2Fwww.nenkin.go.jp%2Fdenshibenri_kojin%2Fn_net%2Findex.html%22%2C%22%E3%81%AD%E3%82%93%E3%81%8D%E3%82%93%E3%83%8D%E3%83%83%E3%83%88%EF%BD%9C%E6%97%A5%E6%9C%AC%E5%B9%B4%E9%87%91%E6%A9%9F%E6%A7%8B%22%2C%22%E6%9C%80%E8%BF%912%E5%B9%B4%E6%AF%8F%E6%9C%88%E8%AE%B0%E5%BD%95%E8%A6%81%E5%AE%8C%E6%95%B4%E3%80%82%E6%8D%A2%E5%B7%A5%E4%BD%9C%E6%9C%9F%E9%97%B4%E5%B0%A4%E5%85%B6%E8%A6%81%E7%A1%AE%E8%AE%A4%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E5%90%84%E6%9C%88%E3%81%AE%E5%B9%B4%E9%87%91%E8%A8%98%E9%8C%B2%22%2C%22%E6%97%A5%E6%9C%AC%E5%B9%B4%E9%87%91%E6%A9%9F%E6%A7%8B%20%2F%20%E3%81%AD%E3%82%93%E3%81%8D%E3%82%93%E3%83%8D%E3%83%83%E3%83%88%22%2C%22https%3A%2F%2Fwww.nenkin.go.jp%2Fdenshibenri_kojin%2Fn_net%2Futilization%2Frecord.html%22%2C%22%E5%90%84%E6%9C%88%E3%81%AE%E5%B9%B4%E9%87%91%E8%A8%98%E9%8C%B2%E7%85%A7%E4%BC%9A%EF%BD%9C%E6%97%A5%E6%9C%AC%E5%B9%B4%E9%87%91%E6%A9%9F%E6%A7%8B%22%2C%22%E6%89%93%E5%8D%B0%E2%80%9C%E5%90%84%E6%9C%88%E3%81%AE%E5%B9%B4%E9%87%91%E8%A8%98%E9%8C%B2%E2%80%9D%E3%80%82%E7%A1%AE%E8%AE%A4%E5%9B%BD%E6%B0%91%E5%B9%B4%E9%87%91%E3%80%81%E5%8E%9A%E7%94%9F%E5%B9%B4%E9%87%91%E6%98%AF%E5%90%A6%E6%9C%89%E7%A9%BA%E7%99%BD%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E5%B9%B4%E9%87%91%E4%BA%8B%E5%8A%A1%E6%89%80%E7%AA%97%E5%8F%A3%22%2C%22%E6%97%A5%E6%9C%AC%E5%B9%B4%E9%87%91%E6%A9%9F%E6%A7%8B%20%E5%B9%B4%E9%87%91%E4%BA%8B%E5%8A%A1%E6%89%80%22%2C%22https%3A%2F%2Fwww.nenkin.go.jp%2Fsection%2Fsoudan%2Findex.html%22%2C%22%E5%85%A8%E5%9B%BD%E3%81%AE%E7%9B%B8%E8%AB%87%E3%83%BB%E6%89%8B%E7%B6%9A%E3%81%8D%E7%AA%93%E5%8F%A3%EF%BD%9C%E6%97%A5%E6%9C%AC%E5%B9%B4%E9%87%91%E6%A9%9F%E6%A7%8B%22%2C%22%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E3%81%AD%E3%82%93%E3%81%8D%E3%82%93%E3%83%8D%E3%83%83%E3%83%88%E6%97%B6%EF%BC%8C%E5%8F%AF%E5%88%B0%E5%B9%B4%E9%87%91%E4%BA%8B%E5%8A%A1%E6%89%80%E5%92%A8%E8%AF%A2%2F%E5%BC%80%E5%85%B7%E7%9B%B8%E5%85%B3%E8%AE%B0%E5%BD%95%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E5%81%A5%E5%BA%B7%E4%BF%9D%E9%99%A9%E8%B5%84%E6%A0%BC%E8%B5%84%E6%96%99%22%2C%22%E5%85%AC%E5%8F%B8%E4%BA%BA%E4%BA%8B%20%2F%20%E5%81%A5%E5%BA%B7%E4%BF%9D%E9%99%A9%E7%BB%84%E5%90%88%20%2F%20%E5%8D%8F%E4%BC%9A%E3%81%91%E3%82%93%E3%81%BD%20%2F%20%E5%8C%BA%E5%BD%B9%E6%89%80%E5%9B%BD%E4%BF%9D%E6%8B%85%E5%BD%93%22%2C%22https%3A%2F%2Fmyna.go.jp%2Fcertificates%2Fhealth-insurance-card%22%2C%22%E3%83%9E%E3%82%A4%E3%83%8A%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%AB%EF%BD%9C%E5%81%A5%E5%BA%B7%E4%BF%9D%E9%99%BA%E8%A8%BC%22%2C%22%E5%85%AC%E5%8F%B8%E7%A4%BE%E4%BF%9D%E3%80%81%E5%9B%BD%E4%BF%9D%E5%88%87%E6%8D%A2%E8%BF%87%E7%9A%84%E4%BA%BA%E8%A6%81%E7%89%B9%E5%88%AB%E6%A3%80%E6%9F%A5%E7%A9%BA%E7%99%BD%E5%92%8C%E8%BF%9F%E5%BB%B6%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E3%83%9E%E3%82%A4%E3%83%8A%E4%BF%9D%E9%99%BA%E8%A8%BC%E8%B5%84%E6%A0%BC%E4%BF%A1%E6%81%AF%22%2C%22%E3%83%9E%E3%82%A4%E3%83%8A%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%AB%22%2C%22https%3A%2F%2Fimg.myna.go.jp%2Fmanual%2F03-01%2F0169.html%22%2C%22%E5%81%A5%E5%BA%B7%E4%BF%9D%E9%99%BA%E8%A8%BC%E6%83%85%E5%A0%B1%E3%81%AE%E7%A2%BA%E8%AA%8D%E6%96%B9%E6%B3%95%EF%BD%9C%E3%83%9E%E3%82%A4%E3%83%8A%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%AB%22%2C%22%E5%8F%AF%E7%A1%AE%E8%AE%A4%E6%9C%80%E6%96%B0%E5%81%A5%E5%BA%B7%E4%BF%9D%E9%99%A9%E8%B5%84%E6%A0%BC%E4%BF%A1%E6%81%AF%E3%80%82%E6%88%AA%E5%9B%BE%2F%E6%89%93%E5%8D%B0%E6%97%B6%E6%B3%A8%E6%84%8F%E6%98%BE%E7%A4%BA%E6%9C%AC%E4%BA%BA%E4%BF%A1%E6%81%AF%E5%92%8C%E8%B5%84%E6%A0%BC%E5%8F%96%E5%BE%97%E6%97%A5%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E8%B5%84%E6%A0%BC%E7%A1%AE%E8%AE%A4%E6%96%B9%E6%B3%95%E8%AF%B4%E6%98%8E%22%2C%22%E5%8E%9A%E7%94%9F%E5%8A%B4%E5%83%8D%E7%9C%81%22%2C%22https%3A%2F%2Fwww.mhlw.go.jp%2Fstf%2Fnewpage_50657.html%22%2C%22%E8%B3%87%E6%A0%BC%E7%A2%BA%E8%AA%8D%E6%96%B9%E6%B3%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%EF%BD%9C%E5%8E%9A%E7%94%9F%E5%8A%B4%E5%83%8D%E7%9C%81%22%2C%22%E5%81%A5%E5%BA%B7%E4%BF%9D%E9%99%A9%E8%AF%81%E5%88%B6%E5%BA%A6%E5%8F%98%E5%8C%96%E5%90%8E%EF%BC%8C%E5%8F%AF%E7%A1%AE%E8%AE%A4%E8%B5%84%E6%A0%BC%E7%A1%AE%E8%AE%A4%E4%B9%A6%E3%80%81%E3%83%9E%E3%82%A4%E3%83%8A%E4%BF%9D%E9%99%BA%E8%A8%BC%E7%AD%89%E8%B5%84%E6%96%99%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E5%9C%A8%E8%81%B7%E8%A8%BC%E6%98%8E%E6%9B%B8%22%2C%22%E5%85%AC%E5%8F%B8%E4%BA%BA%E4%BA%8B%E9%83%A8%20%2F%20%E7%B7%8F%E5%8B%99%E9%83%A8%20%2F%20%E6%89%80%E5%B1%9E%E4%BC%9A%E7%A4%BE%22%2C%22%E5%85%AC%E5%8F%B8%E5%86%85%E9%83%A8%E7%B3%BB%E7%BB%9F%E6%88%96%E5%90%91%E4%BA%BA%E4%BA%8B%E7%94%B3%E8%AF%B7%22%2C%22%E5%85%AC%E5%8F%B8%E5%86%85%E9%83%A8%E5%8F%96%E5%BE%97%22%2C%22%E5%BB%BA%E8%AE%AE%E5%86%99%E6%98%8E%E5%85%A5%E7%A4%BE%E6%97%A5%E3%80%81%E8%81%8C%E4%BD%8D%E3%80%81%E9%9B%87%E7%94%A8%E5%BD%A2%E6%80%81%E3%80%81%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9%E3%80%81%E7%8E%B0%E4%BB%8D%E5%9C%A8%E8%81%8C%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E6%BA%90%E6%B3%89%E5%BE%B4%E5%8F%8E%E7%A5%A8%22%2C%22%E5%85%AC%E5%8F%B8%E4%BA%BA%E4%BA%8B%E9%83%A8%20%2F%20%E7%B5%8C%E7%90%86%E9%83%A8%20%2F%20%E7%B5%A6%E4%B8%8E%E6%8B%85%E5%BD%93%22%2C%22%E5%85%AC%E5%8F%B8%E5%86%85%E9%83%A8%E7%B3%BB%E7%BB%9F%E6%88%96%E5%90%91%E4%BA%BA%E4%BA%8B%E7%94%B3%E8%AF%B7%22%2C%22%E5%85%AC%E5%8F%B8%E5%86%85%E9%83%A8%E5%8F%96%E5%BE%97%22%2C%22%E6%9C%80%E8%BF%91%E5%B9%B4%E5%BA%A6%E5%BF%85%E9%A1%BB%E5%87%86%E5%A4%87%EF%BC%8C%E8%83%BD%E5%A4%9A%E5%87%86%E5%A4%87%E6%9B%B4%E5%A5%BD%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E5%B7%A5%E8%B5%84%E6%98%8E%E7%BB%86%22%2C%22%E5%85%AC%E5%8F%B8%E5%B7%A5%E8%B5%84%E7%B3%BB%E7%BB%9F%20%2F%20%E4%BA%BA%E4%BA%8B%E7%B3%BB%E7%BB%9F%20%2F%20%E7%B5%A6%E4%B8%8E%E6%8B%85%E5%BD%93%22%2C%22%E5%85%AC%E5%8F%B8%E5%86%85%E9%83%A8%E7%B3%BB%E7%BB%9F%E6%88%96%E5%90%91%E4%BA%BA%E4%BA%8B%E7%94%B3%E8%AF%B7%22%2C%22%E5%85%AC%E5%8F%B8%E5%86%85%E9%83%A8%E5%8F%96%E5%BE%97%22%2C%22%E6%9C%80%E8%BF%916%EF%BD%9E12%E4%B8%AA%E6%9C%88%EF%BC%8C%E8%AF%81%E6%98%8E%E6%94%B6%E5%85%A5%E6%8C%81%E7%BB%AD%E7%A8%B3%E5%AE%9A%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E9%9B%87%E7%94%A8%E5%A5%91%E7%B4%84%E6%9B%B8%20%2F%20%E5%8A%B4%E5%83%8D%E6%9D%A1%E4%BB%B6%E9%80%9A%E7%9F%A5%E6%9B%B8%22%2C%22%E5%85%AC%E5%8F%B8%E4%BA%BA%E4%BA%8B%E9%83%A8%20%2F%20%E8%87%AA%E5%B7%B1%E4%BF%9D%E7%AE%A1%E8%B5%84%E6%96%99%22%2C%22%E5%85%AC%E5%8F%B8%E5%86%85%E9%83%A8%E7%B3%BB%E7%BB%9F%E6%88%96%E5%90%91%E4%BA%BA%E4%BA%8B%E7%94%B3%E8%AF%B7%22%2C%22%E5%85%AC%E5%8F%B8%E5%86%85%E9%83%A8%E5%8F%96%E5%BE%97%22%2C%22%E6%B4%BE%E9%81%A3%E3%80%81%E5%A5%91%E7%BA%A6%E5%91%98%E5%B7%A5%E5%B0%A4%E5%85%B6%E5%BB%BA%E8%AE%AE%E6%8F%90%E4%BA%A4%EF%BC%8C%E7%94%A8%E6%9D%A5%E8%AF%81%E6%98%8E%E9%9B%87%E7%94%A8%E5%92%8C%E6%94%B6%E5%85%A5%E7%A8%B3%E5%AE%9A%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E9%93%B6%E8%A1%8C%E9%80%9A%E5%B8%B3%20%2F%20%E6%AE%8B%E9%AB%98%E8%B5%84%E6%96%99%22%2C%22%E5%BC%80%E6%88%B7%E9%93%B6%E8%A1%8C%20%2F%20%E7%BD%91%E9%93%B6%20%2F%20%E9%93%B6%E8%A1%8CAPP%22%2C%22%E5%90%84%E9%93%B6%E8%A1%8C%E5%AE%98%E7%BD%91%E6%88%96APP%22%2C%22%E9%93%B6%E8%A1%8C%E5%8F%96%E5%BE%97%22%2C%22%E5%B7%A5%E8%B5%84%E5%85%A5%E8%B4%A6%E3%80%81%E4%BD%99%E9%A2%9D%E3%80%81%E7%8E%B0%E9%87%91%E5%85%A5%E9%87%91%E8%AE%B0%E5%BD%95%E8%A6%81%E6%B8%85%E6%99%B0%E3%80%82%E7%BD%91%E9%93%B6%E6%89%93%E5%8D%B0%E5%BB%BA%E8%AE%AE%E5%B8%A6%E9%93%B6%E8%A1%8C%E5%90%8D%E3%80%81%E8%B4%A6%E6%88%B7%E5%90%8D%E4%B9%89%E3%80%81%E6%97%A5%E6%9C%9F%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E4%B8%AD%E5%9B%BD%E9%93%B6%E8%A1%8C%E5%8D%A1%E8%B5%84%E6%96%99%22%2C%22%E4%B8%AD%E5%9B%BD%E9%93%B6%E8%A1%8CAPP%20%2F%20%E7%BD%91%E4%B8%8A%E9%93%B6%E8%A1%8C%20%2F%20%E6%9F%9C%E5%8F%B0%22%2C%22%E5%90%84%E4%B8%AD%E5%9B%BD%E9%93%B6%E8%A1%8C%E5%AE%98%E7%BD%91%E6%88%96APP%22%2C%22%E6%B5%B7%E5%A4%96%E9%93%B6%E8%A1%8C%E5%8F%96%E5%BE%97%22%2C%22%E5%8F%AF%E9%80%89%E3%80%82%E4%BD%99%E9%A2%9D%E6%88%AA%E5%9B%BE%E6%88%96%E4%BD%99%E9%A2%9D%E8%AF%81%E6%98%8E%E9%9C%80%E7%BF%BB%E8%AF%91%E4%B8%BA%E6%97%A5%E6%96%87%EF%BC%8C%E5%B9%B6%E5%86%99%E4%BA%BA%E6%B0%91%E5%B8%81%E6%8A%98%E5%90%88%E6%97%A5%E5%85%83%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E6%8A%A4%E7%85%A7%22%2C%22%E6%9C%AC%E4%BA%BA%E4%BF%9D%E7%AE%A1%20%2F%20%E4%B8%AD%E5%9B%BD%E9%A9%BB%E6%97%A5%E4%BD%BF%E9%A2%86%E9%A6%86%22%2C%22http%3A%2F%2Fjp.china-embassy.gov.cn%2F%22%2C%22%E4%B8%AD%E5%9B%BD%E9%A9%BB%E6%97%A5%E6%9C%AC%E5%A4%A7%E4%BD%BF%E9%A6%86%22%2C%22%E6%8F%90%E4%BA%A4%E6%97%B6%E6%8F%90%E7%A4%BA%E5%8E%9F%E4%BB%B6%E3%80%82%E6%8A%A4%E7%85%A7%E6%9B%B4%E6%96%B0%E3%80%81%E9%81%97%E5%A4%B1%E7%AD%89%E4%BA%8B%E9%A1%B9%E5%8F%AF%E6%9F%A5%E4%BD%BF%E9%A2%86%E9%A6%86%E7%BD%91%E7%AB%99%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E5%9C%A8%E7%95%99%E5%8D%A1%22%2C%22%E6%9C%AC%E4%BA%BA%E4%BF%9D%E7%AE%A1%20%2F%20%E5%87%BA%E5%85%A5%E5%9B%BD%E5%9C%A8%E7%95%99%E7%AE%A1%E7%90%86%E5%B1%80%22%2C%22https%3A%2F%2Fwww.moj.go.jp%2Fisa%2Findex.html%22%2C%22%E5%87%BA%E5%85%A5%E5%9B%BD%E5%9C%A8%E7%95%99%E7%AE%A1%E7%90%86%E5%BA%81%22%2C%22%E6%8F%90%E4%BA%A4%E6%97%B6%E6%8F%90%E7%A4%BA%E5%8E%9F%E4%BB%B6%E3%80%82%E5%9C%B0%E5%9D%80%E3%80%81%E6%89%80%E5%B1%9E%E6%9C%BA%E5%85%B3%E5%8F%98%E6%9B%B4%E7%AD%89%E5%B1%8A%E5%87%BA%E4%B9%89%E5%8A%A1%E4%B9%9F%E8%A6%81%E7%A1%AE%E8%AE%A4%E3%80%82%22%5D%0A%20%20%20%20%5D%3B%0A%0A%20%20%20%20const%20timeline%20%3D%20%5B%0A%20%20%20%20%20%20%5B%22%E7%8E%B0%E5%9C%A8%EF%BD%9E%E6%8F%90%E4%BA%A4%E5%89%8D4%E5%91%A8%22%2C%22%E7%A1%AE%E8%AE%A4%E8%B5%84%E6%A0%BC%22%2C%22%E7%A1%AE%E8%AE%A4%E5%9C%A8%E7%95%99%E5%B9%B4%E6%95%B0%E3%80%81%E5%B7%A5%E4%BD%9C%E5%B9%B4%E6%95%B0%E3%80%81%E5%BD%93%E5%89%8D%E7%AD%BE%E8%AF%81%E5%B9%B4%E9%99%90%E3%80%81%E7%A6%BB%E5%A2%83%E8%AE%B0%E5%BD%95%E3%80%81%E6%8D%A2%E5%B7%A5%E4%BD%9C%E5%B1%8A%E5%87%BA%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E6%8F%90%E4%BA%A4%E5%89%8D3%E5%91%A8%22%2C%22%E5%BC%80%E5%85%B7%E7%A8%8E%E9%87%91%E8%B5%84%E6%96%99%22%2C%22%E5%8F%96%E5%BE%97%E6%9C%80%E8%BF%915%E5%B9%B4%E4%BD%8F%E6%B0%91%E7%A8%8E%E8%AF%BE%E7%A8%8E%2F%E7%BA%B3%E7%A8%8E%E8%AF%81%E6%98%8E%E3%80%81%E5%9B%BD%E7%A8%8E%E7%BA%B3%E7%A8%8E%E8%AF%81%E6%98%8E%E3%81%9D%E3%81%AE3%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E6%8F%90%E4%BA%A4%E5%89%8D2%E5%91%A8%22%2C%22%E5%B9%B4%E9%87%91%E4%BF%9D%E9%99%A9%E7%A1%AE%E8%AE%A4%22%2C%22%E6%89%93%E5%8D%B0%E3%81%AD%E3%82%93%E3%81%8D%E3%82%93%E3%83%8D%E3%83%83%E3%83%88%E8%AE%B0%E5%BD%95%EF%BC%8C%E7%A1%AE%E8%AE%A4%E5%81%A5%E5%BA%B7%E4%BF%9D%E9%99%A9%E8%B5%84%E6%A0%BC%E5%8F%8A%E7%BC%B4%E7%BA%B3%E8%AE%B0%E5%BD%95%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E6%8F%90%E4%BA%A4%E5%89%8D2%E5%91%A8%22%2C%22%E5%85%AC%E5%8F%B8%E8%B5%84%E6%96%99%22%2C%22%E5%90%91%E5%85%AC%E5%8F%B8%E7%94%B3%E8%AF%B7%E5%9C%A8%E8%81%8C%E8%AF%81%E6%98%8E%EF%BC%8C%E6%95%B4%E7%90%86%E6%BA%90%E6%B3%89%E5%BE%B4%E5%8F%8E%E7%A5%A8%E3%80%81%E5%B7%A5%E8%B5%84%E6%98%8E%E7%BB%86%E3%80%81%E5%8A%B3%E5%8A%A8%E6%9D%A1%E4%BB%B6%E9%80%9A%E7%9F%A5%E4%B9%A6%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E6%8F%90%E4%BA%A4%E5%89%8D1%EF%BD%9E2%E5%91%A8%22%2C%22%E8%B5%84%E4%BA%A7%E8%B5%84%E6%96%99%22%2C%22%E6%89%93%E5%8D%B0%E9%93%B6%E8%A1%8C%E9%80%9A%E5%B8%B3%EF%BC%8C%E6%95%B4%E7%90%86%E7%8E%B0%E9%87%91%E5%85%A5%E9%87%91%E8%AF%B4%E6%98%8E%E5%92%8C%E6%B5%B7%E5%A4%96%E5%AD%98%E6%AC%BE%E8%A1%A5%E5%BC%BA%E8%B5%84%E6%96%99%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E6%8F%90%E4%BA%A4%E5%89%8D1%E5%91%A8%22%2C%22%E7%90%86%E7%94%B1%E4%B9%A6%E3%83%BB%E7%94%B3%E8%AF%B7%E4%B9%A6%22%2C%22%E5%AE%8C%E6%88%90%E7%90%86%E7%94%B1%E4%B9%A6%E3%80%81%E7%94%B3%E8%AF%B7%E4%B9%A6%E3%80%81%E4%BA%86%E8%A7%A3%E4%B9%A6%E3%80%81%E8%BA%AB%E5%85%83%E4%BF%9D%E8%A8%BC%E6%9B%B8%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E6%8F%90%E4%BA%A4%E5%BD%93%E5%A4%A9%22%2C%22%E5%85%A5%E7%AE%A1%E6%8F%90%E4%BA%A4%22%2C%22%E5%B8%A6%E6%8A%A4%E7%85%A7%E3%80%81%E5%9C%A8%E7%95%99%E5%8D%A1%E5%8E%9F%E4%BB%B6%E3%80%82%E6%8F%90%E4%BA%A4%E5%90%8E%E7%AD%89%E5%BE%85%E8%BF%BD%E5%8A%A0%E8%B5%84%E6%96%99%E6%88%96%E7%BB%93%E6%9E%9C%E9%80%9A%E7%9F%A5%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E5%AE%A1%E6%9F%A5%E6%9C%9F%E9%97%B4%22%2C%22%E8%BF%BD%E5%8A%A0%E8%B5%84%E6%96%99%E5%BA%94%E5%AF%B9%22%2C%22%E5%A6%82%E6%9E%9C%E5%85%A5%E7%AE%A1%E8%A6%81%E6%B1%82%E8%BF%BD%E5%8A%A0%EF%BC%8C%E6%8C%89%E6%9C%9F%E9%99%90%E6%8F%90%E4%BA%A4%EF%BC%8C%E8%AF%B4%E6%98%8E%E8%A6%81%E7%AE%80%E6%B4%81%E4%B8%80%E8%87%B4%E3%80%82%22%5D%2C%0A%20%20%20%20%5D%3B%0A%0A%20%20%20%20const%20riskCards%20%3D%20%5B%0A%20%20%20%20%20%20%5B%22%E7%A8%8E%E9%87%91%E8%BF%9F%E5%BB%B6%22%2C%22%E6%9C%80%E9%AB%98%E9%A3%8E%E9%99%A9%E3%80%82%E5%8D%B3%E4%BD%BF%E5%90%8E%E6%9D%A5%E8%A1%A5%E7%BC%B4%EF%BC%8C%E8%BF%9F%E5%BB%B6%E8%AE%B0%E5%BD%95%E4%B9%9F%E5%8F%AF%E8%83%BD%E8%A2%AB%E6%B6%88%E6%9E%81%E8%AF%84%E4%BB%B7%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E5%B9%B4%E9%87%91%2F%E4%BF%9D%E9%99%A9%E7%A9%BA%E7%99%BD%22%2C%22%E6%8D%A2%E5%B7%A5%E4%BD%9C%E3%80%81%E9%80%80%E8%81%8C%E3%80%81%E7%A4%BE%E4%BF%9D%E5%88%87%E6%8D%A2%E6%97%B6%E6%9C%80%E5%AE%B9%E6%98%93%E5%87%BA%E9%97%AE%E9%A2%98%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E6%89%80%E5%B1%9E%E6%9C%BA%E5%85%B3%E5%B1%8A%E5%87%BA%E9%81%97%E6%BC%8F%22%2C%22%E6%8D%A2%E5%B7%A5%E4%BD%9C%E5%90%8E14%E6%97%A5%E5%86%85%E5%B1%8A%E5%87%BA%E6%98%AF%E5%85%A5%E7%AE%A1%E4%B9%89%E5%8A%A1%EF%BC%8C%E9%81%97%E6%BC%8F%E4%BC%9A%E5%BD%B1%E5%93%8D%E8%AF%84%E4%BB%B7%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E7%AA%81%E7%84%B6%E5%A4%A7%E9%A2%9D%E5%85%A5%E9%87%91%22%2C%22%E4%B8%8D%E6%98%AF%E7%BB%9D%E5%AF%B9%E4%B8%8D%E8%A1%8C%EF%BC%8C%E4%BD%86%E5%BF%85%E9%A1%BB%E8%AF%B4%E6%98%8E%E6%9D%A5%E6%BA%90%E3%80%82%E4%B8%8D%E8%A6%81%E5%80%9F%E9%92%B1%E5%88%B7%E6%B5%81%E6%B0%B4%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E7%90%86%E7%94%B1%E4%B9%A6%E8%A1%A8%E8%BE%BE%E4%B8%8D%E5%BD%93%22%2C%22%E4%B8%8D%E8%A6%81%E5%86%99%E2%80%9C%E8%8A%B1%E9%92%B1%E5%A4%A7%E6%89%8B%E5%A4%A7%E8%84%9A%E2%80%9D%E3%80%82%E8%A6%81%E5%86%99%E7%A8%B3%E5%AE%9A%E6%94%B6%E5%85%A5%E3%80%81%E6%97%A0%E8%B4%9F%E5%80%BA%E3%80%81%E8%AE%A1%E5%88%92%E6%80%A7%E7%94%9F%E6%B4%BB%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E8%B5%84%E6%96%99%E5%A4%AA%E6%9D%82%22%2C%22%E8%B5%84%E6%96%99%E4%B8%8D%E6%98%AF%E8%B6%8A%E5%A4%9A%E8%B6%8A%E5%A5%BD%E3%80%82%E8%A6%81%E6%B8%85%E6%A5%9A%E3%80%81%E4%B8%80%E8%87%B4%E3%80%81%E5%8F%AF%E8%A7%A3%E9%87%8A%E3%80%82%22%5D%2C%0A%20%20%20%20%5D%3B%0A%0A%20%20%20%20const%20personalPlan%20%3D%20%5B%0A%20%20%20%20%20%20%5B%22%E6%94%B6%E5%85%A5%22%2C%22%E7%A8%8E%E5%89%8D%E7%BA%A650%E4%B8%87%2F%E6%9C%88%EF%BC%8C%E5%88%B0%E6%89%8B%E7%BA%A638%E4%B8%87%2F%E6%9C%88%E3%80%82%E5%8D%95%E8%BA%AB%E6%97%A0%E6%89%B6%E5%85%BB%EF%BC%8C%E7%94%9F%E8%AE%A1%E8%83%BD%E5%8A%9B%E6%95%B4%E4%BD%93%E8%BE%83%E7%A8%B3%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E8%B5%84%E4%BA%A7%22%2C%22%E5%AE%B6%E9%87%8C%E7%8E%B0%E9%87%91100%E5%A4%9A%E4%B8%87%E6%97%A5%E5%85%83%EF%BC%8C%E4%B8%AD%E5%9B%BD%E4%B8%AA%E4%BA%BA%E5%8D%A15%EF%BD%9E6%E4%B8%87%E5%85%83%E4%BA%BA%E6%B0%91%E5%B8%81%E3%80%82%E5%BB%BA%E8%AE%AE%E6%8A%8A%E6%97%A5%E6%9C%AC%E7%8E%B0%E9%87%91%E8%87%B3%E5%B0%9150%EF%BD%9E100%E4%B8%87%E5%AD%98%E5%85%A5%E6%97%A5%E6%9C%AC%E9%93%B6%E8%A1%8C%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E8%AF%B4%E6%98%8E%22%2C%22%E7%8E%B0%E9%87%91%E5%85%A5%E9%87%91%E5%90%8E%E9%99%84%E2%80%9C%E9%A0%90%E8%B2%AF%E9%87%91%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E8%A3%9C%E8%B6%B3%E8%AA%AC%E6%98%8E%E6%9B%B8%E2%80%9D%EF%BC%8C%E8%AF%B4%E6%98%8E%E6%9D%A5%E6%BA%90%E6%98%AF%E8%BF%87%E5%8E%BB%E5%B7%A5%E8%B5%84%E5%82%A8%E8%93%84%EF%BC%8C%E5%B9%B6%E9%9D%9E%E5%80%9F%E6%AC%BE%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E6%B5%B7%E5%A4%96%E5%AD%98%E6%AC%BE%22%2C%22%E4%B8%AD%E5%9B%BD%E9%93%B6%E8%A1%8C%E5%8D%A1%E8%B5%84%E6%96%99%E5%8F%AF%E4%BD%9C%E4%B8%BA%E8%A1%A5%E5%BC%BA%E3%80%82%E8%8B%A5%E6%8F%90%E4%BA%A4%EF%BC%8C%E8%A6%81%E5%87%86%E5%A4%87%E6%97%A5%E6%96%87%E7%BF%BB%E8%AF%91%E3%80%81%E4%BD%99%E9%A2%9D%E8%AF%B4%E6%98%8E%E3%80%81%E4%BA%BA%E6%B0%91%E5%B8%81%E6%8A%98%E5%90%88%E6%97%A5%E5%85%83%E3%80%82%22%5D%2C%0A%20%20%20%20%20%20%5B%22%E9%87%8D%E7%82%B9%22%2C%22%E4%B8%8B%E4%B8%AA%E6%9C%88%E6%8F%90%E4%BA%A4%EF%BC%8C%E4%B8%8D%E8%A6%81%E4%B8%B4%E6%97%B6%E5%81%9A%E5%A4%B8%E5%BC%A0%E8%B5%84%E9%87%91%E6%93%8D%E4%BD%9C%E3%80%82%E9%87%8D%E7%82%B9%E6%A3%80%E6%9F%A5%E7%A8%8E%E9%87%915%E5%B9%B4%E3%80%81%E5%B9%B4%E9%87%912%E5%B9%B4%E3%80%81%E4%BF%9D%E9%99%A92%E5%B9%B4%E3%80%81%E5%B1%8A%E5%87%BA%E4%B9%89%E5%8A%A1%E3%80%82%22%5D%2C%0A%20%20%20%20%5D%3B%0A%0A%20%20%20%20const%20checklist%20%3D%20%5B%0A%20%20%20%20%20%20%22%E8%BF%9E%E7%BB%AD%E5%9C%A8%E6%97%A5%E6%9C%AC%E5%B1%85%E4%BD%8F%E5%B9%B4%E6%95%B0%E6%98%AF%E5%90%A6%E6%BB%A1%E8%B6%B3%E8%B7%AF%E7%BA%BF%E8%A6%81%E6%B1%82%22%2C%0A%20%20%20%20%20%20%22%E5%B7%A5%E4%BD%9C%E7%AD%BE%E8%AF%81%E8%B7%AF%E7%BA%BF%E6%98%AF%E5%90%A6%E5%B7%B2%E6%BB%A1%E8%B6%B3%E5%8E%9F%E5%88%9910%E5%B9%B4%E5%9C%A8%E7%95%99%E3%80%81%E5%85%B6%E4%B8%AD5%E5%B9%B4%E4%BB%A5%E4%B8%8A%E5%B0%B1%E5%8A%B3%22%2C%0A%20%20%20%20%20%20%22%E5%BD%93%E5%89%8D%E5%9C%A8%E7%95%99%E6%9C%9F%E9%97%B4%E6%98%AF%E5%90%A6%E4%B8%BA3%E5%B9%B4%E6%88%965%E5%B9%B4%22%2C%0A%20%20%20%20%20%20%22%E6%9C%80%E8%BF%915%E5%B9%B4%E4%BD%8F%E6%B0%91%E7%A8%8E%E6%98%AF%E5%90%A6%E6%97%A0%E6%9C%AA%E7%BA%B3%E3%80%81%E6%97%A0%E8%BF%9F%E5%BB%B6%22%2C%0A%20%20%20%20%20%20%22%E6%9C%80%E8%BF%912%E5%B9%B4%E5%B9%B4%E9%87%91%E6%98%AF%E5%90%A6%E6%97%A0%E6%9C%AA%E7%BA%B3%E3%80%81%E6%97%A0%E8%BF%9F%E5%BB%B6%22%2C%0A%20%20%20%20%20%20%22%E6%9C%80%E8%BF%912%E5%B9%B4%E5%81%A5%E5%BA%B7%E4%BF%9D%E9%99%A9%E6%98%AF%E5%90%A6%E6%97%A0%E6%9C%AA%E7%BA%B3%E3%80%81%E6%97%A0%E8%BF%9F%E5%BB%B6%22%2C%0A%20%20%20%20%20%20%22%E6%8D%A2%E5%B7%A5%E4%BD%9C%E6%97%B6%E6%98%AF%E5%90%A6%E6%8F%90%E4%BA%A4%E8%BF%87%E6%89%80%E5%B1%9E%E6%9C%BA%E5%85%B3%E5%8F%98%E6%9B%B4%E5%B1%8A%22%2C%0A%20%20%20%20%20%20%22%E6%90%AC%E5%AE%B6%E6%97%B6%E6%98%AF%E5%90%A6%E6%8C%89%E6%97%B6%E5%AE%8C%E6%88%90%E4%BD%8F%E6%89%80%E5%8F%98%E6%9B%B4%22%2C%0A%20%20%20%20%20%20%22%E6%98%AF%E5%90%A6%E6%B2%A1%E6%9C%89%E7%BD%9A%E9%87%91%E5%88%91%E3%80%81%E4%B8%A5%E9%87%8D%E4%BA%A4%E9%80%9A%E8%BF%9D%E6%B3%95%E3%80%81%E7%8A%AF%E7%BD%AA%E8%AE%B0%E5%BD%95%22%2C%0A%20%20%20%20%20%20%22%E6%98%AF%E5%90%A6%E6%B2%A1%E6%9C%89%E6%89%B6%E5%85%BB%E4%BA%BA%E6%95%B0%E8%BF%87%E5%A4%9A%E6%88%96%E8%99%9A%E5%81%87%E6%89%B6%E5%85%BB%22%2C%0A%20%20%20%20%20%20%22%E6%98%AF%E5%90%A6%E6%97%A0%E6%B6%88%E8%B4%B9%E9%87%91%E8%9E%8D%E3%80%81%E3%83%AA%E3%83%9C%E6%89%95%E3%81%84%E3%80%81%E9%AB%98%E9%A2%9D%E8%B4%9F%E5%80%BA%E6%88%96%E9%80%BE%E6%9C%9F%22%2C%0A%20%20%20%20%20%20%22%E9%93%B6%E8%A1%8C%E8%B4%A6%E6%88%B7%E6%98%AF%E5%90%A6%E8%83%BD%E7%9C%8B%E5%87%BA%E7%A8%B3%E5%AE%9A%E5%B7%A5%E8%B5%84%E5%85%A5%E8%B4%A6%22%2C%0A%20%20%20%20%20%20%22%E7%8E%B0%E9%87%91%E5%AD%98%E5%85%A5%E9%93%B6%E8%A1%8C%E6%98%AF%E5%90%A6%E6%9C%89%E5%90%88%E7%90%86%E8%AF%B4%E6%98%8E%22%2C%0A%20%20%20%20%20%20%22%E6%B5%B7%E5%A4%96%E5%AD%98%E6%AC%BE%E8%B5%84%E6%96%99%E6%98%AF%E5%90%A6%E5%87%86%E5%A4%87%E6%97%A5%E6%96%87%E7%BF%BB%E8%AF%91%E5%92%8C%E6%8D%A2%E7%AE%97%E8%AF%B4%E6%98%8E%22%2C%0A%20%20%20%20%20%20%22%E6%89%80%E6%9C%89%E6%97%A5%E6%9C%AC%E5%9B%BD%E5%86%85%E8%AF%81%E6%98%8E%E4%B9%A6%E6%98%AF%E5%90%A6%E5%9C%A8%E5%8F%91%E8%A1%8C3%E4%B8%AA%E6%9C%88%E4%BB%A5%E5%86%85%22%2C%0A%20%20%20%20%20%20%22%E7%90%86%E7%94%B1%E4%B9%A6%E6%98%AF%E5%90%A6%E9%81%BF%E5%85%8D%E8%B4%9F%E9%9D%A2%E8%A1%A8%E8%BE%BE%EF%BC%8C%E7%AA%81%E5%87%BA%E7%A8%B3%E5%AE%9A%E7%94%9F%E6%B4%BB%E5%9F%BA%E7%A1%80%22%2C%0A%20%20%20%20%5D%3B%0A%0A%20%20%20%20function%20escapeHTML(str)%7B%0A%20%20%20%20%20%20return%20String(str).replace(%2F%5B%26%3C%3E%22'%5D%2Fg%2C%20s%20%3D%3E%20(%7B%0A%20%20%20%20%20%20%20%20%22%26%22%3A%22%26amp%3B%22%2C%22%3C%22%3A%22%26lt%3B%22%2C%22%3E%22%3A%22%26gt%3B%22%2C%22%5C%22%22%3A%22%26quot%3B%22%2C%22'%22%3A%22%26%2339%3B%22%0A%20%20%20%20%20%20%7D%5Bs%5D))%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20function%20renderTabs()%7B%0A%20%20%20%20%20%20const%20btns%20%3D%20document.getElementById(%22tabButtons%22)%3B%0A%20%20%20%20%20%20const%20panels%20%3D%20document.getElementById(%22tabPanels%22)%3B%0A%20%20%20%20%20%20btns.innerHTML%20%3D%20%22%22%3B%0A%20%20%20%20%20%20panels.innerHTML%20%3D%20%22%22%3B%0A%0A%20%20%20%20%20%20coreDocs.forEach((group%2C%20i)%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20const%20btn%20%3D%20document.createElement(%22button%22)%3B%0A%20%20%20%20%20%20%20%20btn.textContent%20%3D%20group.category%3B%0A%20%20%20%20%20%20%20%20if(i%20%3D%3D%3D%200)%20btn.classList.add(%22active%22)%3B%0A%20%20%20%20%20%20%20%20btn.onclick%20%3D%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20document.querySelectorAll(%22.tab-buttons%20button%22).forEach(b%20%3D%3E%20b.classList.remove(%22active%22))%3B%0A%20%20%20%20%20%20%20%20%20%20document.querySelectorAll(%22.tab-panel%22).forEach(p%20%3D%3E%20p.classList.remove(%22active%22))%3B%0A%20%20%20%20%20%20%20%20%20%20btn.classList.add(%22active%22)%3B%0A%20%20%20%20%20%20%20%20%20%20document.getElementById(%22panel-%22%20%2B%20i).classList.add(%22active%22)%3B%0A%20%20%20%20%20%20%20%20%7D%3B%0A%20%20%20%20%20%20%20%20btns.appendChild(btn)%3B%0A%0A%20%20%20%20%20%20%20%20const%20panel%20%3D%20document.createElement(%22div%22)%3B%0A%20%20%20%20%20%20%20%20panel.className%20%3D%20%22tab-panel%22%20%2B%20(i%20%3D%3D%3D%200%20%3F%20%22%20active%22%20%3A%20%22%22)%3B%0A%20%20%20%20%20%20%20%20panel.id%20%3D%20%22panel-%22%20%2B%20i%3B%0A%20%20%20%20%20%20%20%20panel.innerHTML%20%3D%20%60%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22card%20doc%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%3E%24%7Bgroup.icon%7D%20%24%7BescapeHTML(group.category)%7D%3C%2Fh3%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22doc-list%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%24%7Bgroup.items.map((%5Bname%2Cnote%5D)%20%3D%3E%20%60%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22doc-item%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cb%3E%E2%96%A1%20%24%7BescapeHTML(name)%7D%3C%2Fb%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%3E%24%7BescapeHTML(note)%7D%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%60).join(%22%22)%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%60%3B%0A%20%20%20%20%20%20%20%20panels.appendChild(panel)%3B%0A%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20function%20renderPlaces(rows)%7B%0A%20%20%20%20%20%20document.getElementById(%22placesBody%22).innerHTML%20%3D%20rows.map((%5Bdoc%2Cunit%2Curl%2Csite%2Cnote%5D)%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20const%20isHttp%20%3D%20%2F%5Ehttps%3F%3A%5C%2F%5C%2F%2F.test(url)%3B%0A%20%20%20%20%20%20%20%20const%20siteHtml%20%3D%20isHttp%0A%20%20%20%20%20%20%20%20%20%20%3F%20%60%3Ca%20class%3D%22site-link%22%20href%3D%22%24%7BescapeHTML(url)%7D%22%20target%3D%22_blank%22%20rel%3D%22noopener%20noreferrer%22%3E%24%7BescapeHTML(site)%7D%3C%2Fa%3E%3Cspan%20class%3D%22subnote%22%3E%24%7BescapeHTML(url)%7D%3C%2Fspan%3E%60%0A%20%20%20%20%20%20%20%20%20%20%3A%20%60%3Cspan%20class%3D%22unit%22%3E%24%7BescapeHTML(site)%7D%3C%2Fspan%3E%3Cspan%20class%3D%22subnote%22%3E%24%7BescapeHTML(url)%7D%3C%2Fspan%3E%60%3B%0A%20%20%20%20%20%20%20%20return%20%60%3Ctr%3E%0A%20%20%20%20%20%20%20%20%20%20%3Ctd%3E%24%7BescapeHTML(doc)%7D%3C%2Ftd%3E%0A%20%20%20%20%20%20%20%20%20%20%3Ctd%3E%3Cspan%20class%3D%22unit%22%3E%24%7BescapeHTML(unit)%7D%3C%2Fspan%3E%3C%2Ftd%3E%0A%20%20%20%20%20%20%20%20%20%20%3Ctd%3E%24%7BsiteHtml%7D%3C%2Ftd%3E%0A%20%20%20%20%20%20%20%20%20%20%3Ctd%3E%24%7BescapeHTML(note)%7D%3C%2Ftd%3E%0A%20%20%20%20%20%20%20%20%3C%2Ftr%3E%60%3B%0A%20%20%20%20%20%20%7D).join(%22%22)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20function%20renderTimeline()%7B%0A%20%20%20%20%20%20document.getElementById(%22timelineBody%22).innerHTML%20%3D%20timeline.map((%5Btime%2Ctitle%2Ctext%5D%2C%20i)%20%3D%3E%20%60%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22card%20step%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22num%22%3E%24%7Bi%2B1%7D%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%3Csmall%3E%24%7BescapeHTML(time)%7D%3C%2Fsmall%3E%3Ch3%3E%24%7BescapeHTML(title)%7D%3C%2Fh3%3E%3Cp%3E%24%7BescapeHTML(text)%7D%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%60).join(%22%22)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20function%20renderRisks()%7B%0A%20%20%20%20%20%20document.getElementById(%22riskBody%22).innerHTML%20%3D%20riskCards.map((%5Btitle%2Ctext%5D)%20%3D%3E%20%60%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22card%20risk%22%3E%3Ch3%3E%E2%9A%A0%EF%B8%8F%20%24%7BescapeHTML(title)%7D%3C%2Fh3%3E%3Cp%3E%24%7BescapeHTML(text)%7D%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%60).join(%22%22)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20function%20renderPersonal()%7B%0A%20%20%20%20%20%20document.getElementById(%22personalBody%22).innerHTML%20%3D%20personalPlan.map((%5Btitle%2Ctext%5D)%20%3D%3E%20%60%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22card%20personal%22%3E%3Ch3%3E%24%7BescapeHTML(title)%7D%3C%2Fh3%3E%3Cp%3E%24%7BescapeHTML(text)%7D%3C%2Fp%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%60).join(%22%22)%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20function%20renderChecklist()%7B%0A%20%20%20%20%20%20const%20body%20%3D%20document.getElementById(%22checkBody%22)%3B%0A%20%20%20%20%20%20const%20total%20%3D%20checklist.length%3B%0A%20%20%20%20%20%20document.getElementById(%22totalCount%22).textContent%20%3D%20total%3B%0A%20%20%20%20%20%20body.innerHTML%20%3D%20checklist.map((item%2C%20i)%20%3D%3E%20%60%0A%20%20%20%20%20%20%20%20%3Clabel%20class%3D%22check%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22checkbox%22%20data-check%3D%22%24%7Bi%7D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cspan%3E%24%7BescapeHTML(item)%7D%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%3C%2Flabel%3E%0A%20%20%20%20%20%20%60).join(%22%22)%3B%0A%0A%20%20%20%20%20%20function%20update()%7B%0A%20%20%20%20%20%20%20%20const%20done%20%3D%20document.querySelectorAll(%22%5Bdata-check%5D%3Achecked%22).length%3B%0A%20%20%20%20%20%20%20%20document.getElementById(%22doneCount%22).textContent%20%3D%20done%3B%0A%20%20%20%20%20%20%20%20document.getElementById(%22progressBar%22).style.width%20%3D%20(done%20%2F%20total%20*%20100)%20%2B%20%22%25%22%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20document.querySelectorAll(%22%5Bdata-check%5D%22).forEach(cb%20%3D%3E%20cb.addEventListener(%22change%22%2C%20update))%3B%0A%20%20%20%20%20%20update()%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20document.addEventListener(%22DOMContentLoaded%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20renderTabs()%3B%0A%20%20%20%20%20%20renderPlaces(placeRows)%3B%0A%20%20%20%20%20%20renderTimeline()%3B%0A%20%20%20%20%20%20renderRisks()%3B%0A%20%20%20%20%20%20renderPersonal()%3B%0A%20%20%20%20%20%20renderChecklist()%3B%0A%0A%20%20%20%20%20%20const%20search%20%3D%20document.getElementById(%22searchInput%22)%3B%0A%20%20%20%20%20%20search.addEventListener(%22input%22%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20const%20q%20%3D%20search.value.trim().toLowerCase()%3B%0A%20%20%20%20%20%20%20%20const%20rows%20%3D%20!q%20%3F%20placeRows%20%3A%20placeRows.filter(row%20%3D%3E%20row.join(%22%20%22).toLowerCase().includes(q))%3B%0A%20%20%20%20%20%20%20%20renderPlaces(rows)%3B%0A%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%7D)%3B%0A%20%20%3C%2Fscript%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E%0A");
+          
+          const doc = frame.contentDocument || frame.contentWindow.document;
+          doc.open();
+          doc.write(rawContent);
+          doc.close();
+
+          // Auto resize height
+          frame.onload = function() {
+            try {
+              const height = frame.contentWindow.document.body.scrollHeight;
+              if (height > 0) {
+                 frame.style.height = (height + 50) + 'px';
+              }
+            } catch(e) { console.error("Auto resize failed", e); }
+          };
+        })();
+      </script>
+    
+  </div>
+  <!-- 文章正文结束 -->
+
+</article>
+<!-- 单篇文章容器结束 -->
+
+    <!-- 渲染当前页面内容 -->
+    <!--  保证 HTML 正常渲染，不转义 -->
+
+    <section id="study-main-panel" style="display:none; margin-top:24px;">
+      <h2 style="font-size:1.2rem; margin-bottom:12px;">📚 学习资料列表</h2>
+      <div id="study-main-groups">
+        <div class="study-group collapsed">
+          <div class="study-group-title">标初上</div>
+          <ul id="study-main-bcs">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标初下</div>
+          <ul id="study-main-bcx">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标中上</div>
+          <ul id="study-main-bzs">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标中下</div>
+          <ul id="study-main-bzx">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标高上</div>
+          <ul id="study-main-bgs">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+        <div class="study-group collapsed">
+          <div class="study-group-title">标高下</div>
+          <ul id="study-main-bgx">
+            <li>暂无文件</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="study-viewer" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.9);z-index:2000;align-items:center;justify-content:center;">
+    <div style="position:relative;width:96vw;max-width:1200px;max-height:96vh;background:#020617;padding:10px 16px 14px;border-radius:10px;box-shadow:0 22px 70px rgba(0,0,0,0.7);display:flex;flex-direction:column;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;color:#e5e7eb;font-size:0.95rem;">
+        <span id="study-viewer-title" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:75vw;"></span>
+        <button id="study-viewer-close" style="border:none;background:transparent;color:#e5e7eb;font-size:1.3rem;cursor:pointer;line-height:1;">×</button>
+      </div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;margin:4px 0 6px;">
+        <img id="study-viewer-img" src="" alt="" style="max-width:100%;max-height:84vh;border-radius:4px;background:#020617;" />
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:10px;">
+        <button id="study-viewer-prev" style="min-width:80px;padding:6px 12px;border-radius:6px;border:none;background:#1e293b;color:#e5e7eb;cursor:pointer;font-size:0.9rem;">上一张</button>
+        <button id="study-viewer-next" style="min-width:80px;padding:6px 12px;border-radius:6px;border:none;background:#1e293b;color:#e5e7eb;cursor:pointer;font-size:0.9rem;">下一张</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 全局脚本区域 ===== -->
+  <script>
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "/login/";
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function toggleMenu() {
+      const menu = document.querySelector('header.top-nav .menu');
+      if (menu) {
+        menu.classList.toggle('show');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const uploadInput = document.getElementById('pdf-upload-input');
+      const uploadBtn = document.getElementById('pdf-upload-btn');
+      const typeSelect = document.getElementById('file-type-select');
+      const categorySelect = document.getElementById('category-select');
+      const studyPanel = document.getElementById('study-main-panel');
+      const studyMainBtn = document.getElementById('study-main-btn');
+      const sidebarStudyTitle = document.getElementById('sidebar-study-title');
+      const viewer = document.getElementById('study-viewer');
+      const viewerImg = document.getElementById('study-viewer-img');
+      const viewerTitle = document.getElementById('study-viewer-title');
+      const viewerPrev = document.getElementById('study-viewer-prev');
+      const viewerNext = document.getElementById('study-viewer-next');
+      const viewerClose = document.getElementById('study-viewer-close');
+
+      const studyFilesMap = {};
+      let currentCategory = null;
+      let currentIndex = 0;
+
+      const CATEGORY_CONFIG = [
+        { key: 'bcs', label: '标初上' },
+        { key: 'bcx', label: '标初下' },
+        { key: 'bzs', label: '标中上' },
+        { key: 'bzx', label: '标中下' },
+        { key: 'bgs', label: '标高上' },
+        { key: 'bgx', label: '标高下' }
+      ];
+
+      function getListEl(key) {
+        return document.getElementById('study-' + key);
+      }
+
+      function getMainListEl(key) {
+        return document.getElementById('study-main-' + key);
+      }
+
+      function updateAccept() {
+        if (!uploadInput || !typeSelect) return;
+        if (typeSelect.value === 'image') {
+          uploadInput.accept = 'image/*';
+        } else {
+          uploadInput.accept = 'application/pdf';
+        }
+      }
+
+      function isLocalhost() {
+        return (
+          location.hostname === 'localhost' ||
+          location.hostname === '127.0.0.1' ||
+          location.hostname === ''
+        );
+      }
+
+      async function fetchStudyList(catKey) {
+        if (!isLocalhost()) {
+          try {
+            const apiRes = await fetch('/api/study-list?category=' + encodeURIComponent(catKey));
+            if (apiRes.ok) {
+              const apiData = await apiRes.json();
+              if (Array.isArray(apiData.files)) {
+                return apiData.files;
+              }
+            }
+          } catch (e) {
+          }
+        }
+
+        try {
+          const ghRes = await fetch(
+            'https://api.github.com/repos/Sun1105/hexo-source/contents/source/study/' + catKey
+          );
+          if (!ghRes.ok) {
+            return [];
+          }
+          const ghData = await ghRes.json();
+          return Array.isArray(ghData) ? ghData : [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      async function loadResources() {
+        for (const cat of CATEGORY_CONFIG) {
+          const sideList = getListEl(cat.key);
+          const mainList = getMainListEl(cat.key);
+
+          if (sideList) {
+            sideList.innerHTML = '<li>加载中...</li>';
+          }
+          if (mainList) {
+            mainList.innerHTML = '<li>加载中...</li>';
+          }
+
+          const list = await fetchStudyList(cat.key);
+          const files = Array.isArray(list)
+            ? list.filter(file => file.name && /\.(pdf|png|jpe?g|gif|webp|svg)$/i.test(file.name))
+            : [];
+
+          studyFilesMap[cat.key] = files;
+
+          if (!files.length) {
+            if (sideList) sideList.innerHTML = '<li>暂无文件</li>';
+            if (mainList) mainList.innerHTML = '<li>暂无文件</li>';
+            continue;
+          }
+
+          const parts = files.map((file, index) => {
+            const href =
+              file.download_url ||
+              file.html_url ||
+              (file.path ? '/' + file.path.replace(/^source\//, '') : '#');
+            return (
+              '<li>' +
+                '<a href="' + href + '" target="_blank" class="study-file-link" data-category="' +
+                cat.key + '" data-index="' + index + '">' +
+                  '<span class="sidebar-name">' + file.name + '</span>' +
+                '</a>' +
+              '</li>'
+            );
+          });
+
+          if (sideList) {
+            sideList.innerHTML = parts.join('');
+            bindStudyLinks(sideList);
+          }
+          if (mainList) {
+            mainList.innerHTML = parts.join('');
+            bindStudyLinks(mainList);
+          }
+        }
+      }
+
+      loadResources();
+
+      if (typeSelect) {
+        typeSelect.addEventListener('change', updateAccept);
+        updateAccept();
+      }
+
+      function openViewer(category, index) {
+        const list = studyFilesMap[category] || [];
+        if (!list.length) return;
+
+        if (index < 0) index = 0;
+        if (index >= list.length) index = list.length - 1;
+
+        const file = list[index];
+        const href =
+          file.download_url ||
+          file.html_url ||
+          (file.path ? '/' + file.path.replace(/^source\//, '') : '#');
+
+        currentCategory = category;
+        currentIndex = index;
+
+        if (viewerImg) {
+          viewerImg.src = href;
+        }
+        if (viewerTitle) {
+          viewerTitle.textContent = file.name || '';
+        }
+        if (viewer) {
+          viewer.style.display = 'flex';
+        }
+
+        if (viewerPrev) {
+          viewerPrev.disabled = index <= 0;
+        }
+        if (viewerNext) {
+          viewerNext.disabled = index >= list.length - 1;
+        }
+      }
+
+      function closeViewer() {
+        if (viewer) {
+          viewer.style.display = 'none';
+        }
+      }
+
+      function showOffset(delta) {
+        if (!currentCategory) return;
+        openViewer(currentCategory, currentIndex + delta);
+      }
+
+      function onStudyLinkClick(event) {
+        if (!viewer || !viewerImg) return;
+        event.preventDefault();
+        const category = this.getAttribute('data-category');
+        const index = parseInt(this.getAttribute('data-index'), 10) || 0;
+        openViewer(category, index);
+      }
+
+      function bindStudyLinks(container) {
+        const links = container.querySelectorAll('a.study-file-link');
+        links.forEach(link => {
+          link.addEventListener('click', onStudyLinkClick);
+        });
+      }
+
+      function showStudyPanel() {
+        if (!studyPanel) return;
+        const main = document.getElementById('main-content');
+        if (main) {
+          const children = Array.from(main.children);
+          children.forEach(child => {
+            if (child.id === 'study-main-panel') {
+              child.style.display = 'block';
+            } else {
+              child.style.display = 'none';
+            }
+          });
+          main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      if (studyMainBtn) {
+        studyMainBtn.addEventListener('click', () => {
+          showStudyPanel();
+          loadResources();
+        });
+      }
+
+      // 左侧“学习资料”标题只负责展开侧边栏，不再强制切换主内容
+
+      const groupTitles = document.querySelectorAll('.study-group-title');
+      groupTitles.forEach(title => {
+        const group = title.parentElement;
+        const list = group.querySelector('ul');
+        if (!list) return;
+        title.addEventListener('click', () => {
+          group.classList.toggle('collapsed');
+        });
+      });
+
+      if (uploadBtn && uploadInput) {
+        uploadBtn.addEventListener('click', () => {
+          if (!uploadInput.files || !uploadInput.files.length) {
+            alert('请选择要上传的文件');
+            return;
+          }
+
+          const files = Array.from(uploadInput.files);
+          const type = typeSelect ? typeSelect.value : 'pdf';
+          const category = categorySelect ? categorySelect.value : 'bcs';
+
+          const invalid = files.some(file => {
+            const name = file.name.toLowerCase();
+            if (type === 'pdf') {
+              return !name.endsWith('.pdf');
+            }
+            if (type === 'image') {
+              return !/\.(png|jpe?g|gif|webp|svg)$/.test(name);
+            }
+            return true;
+          });
+
+          if (invalid) {
+            if (type === 'pdf') {
+              alert('仅支持扩展名为 .pdf 的文件');
+            } else if (type === 'image') {
+              alert('仅支持图片文件');
+            } else {
+              alert('文件类型不支持');
+            }
+            return;
+          }
+
+          uploadBtn.disabled = true;
+          uploadBtn.textContent = '上传中...';
+
+          let successCount = 0;
+          let failCount = 0;
+
+          /**
+           * 图片压缩函数
+           * @param {File} file 原始文件
+           * @param {number} maxWidth 最大宽度
+           * @param {number} quality 压缩质量 (0-1)
+           */
+          function compressImage(file, maxWidth = 1920, quality = 0.8) {
+            return new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.readAsDataURL(file);
+              reader.onload = e => {
+                const img = new Image();
+                img.src = e.target.result;
+                img.onload = () => {
+                  const canvas = document.createElement('canvas');
+                  let width = img.width;
+                  let height = img.height;
+
+                  if (width > maxWidth) {
+                    height = (maxWidth / width) * height;
+                    width = maxWidth;
+                  }
+
+                  canvas.width = width;
+                  canvas.height = height;
+                  const ctx = canvas.getContext('2d');
+                  ctx.drawImage(img, 0, 0, width, height);
+
+                  // 导出为 jpeg 以实现最佳压缩
+                  const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+                  resolve(compressedDataUrl);
+                };
+                img.onerror = reject;
+              };
+              reader.onerror = reject;
+            });
+          }
+
+          async function uploadAt(index) {
+            if (index >= files.length) {
+              const message = '上传完成：成功 ' + successCount + ' 个，失败 ' + failCount + ' 个';
+              alert(message);
+              uploadInput.value = '';
+              loadResources();
+              uploadBtn.disabled = false;
+              uploadBtn.textContent = '上传文件';
+              return;
+            }
+
+            const file = files[index];
+
+            // Vercel 4.5MB 限制处理
+            if (type === 'pdf' && file.size > 4.4 * 1024 * 1024) {
+              alert('PDF 文件 "' + file.name + '" 超过 Vercel 平台的 4.5MB 限制，请压缩后重试。');
+              failCount += 1;
+              uploadAt(index + 1);
+              return;
+            }
+
+            try {
+              let base64 = '';
+              if (type === 'image') {
+                // 图片自动压缩
+                const compressedDataUrl = await compressImage(file);
+                base64 = compressedDataUrl.split(',')[1];
+              } else {
+                // PDF 直接读取
+                const dataUrl = await new Promise((resolve, reject) => {
+                  const reader = new FileReader();
+                  reader.onload = e => resolve(e.target.result);
+                  reader.onerror = reject;
+                  reader.readAsDataURL(file);
+                });
+                base64 = dataUrl.split(',')[1];
+              }
+
+              const res = await fetch('/api/upload-pdf', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  filename: file.name,
+                  content: base64,
+                  type,
+                  category
+                })
+              });
+
+              if (res.ok) {
+                successCount += 1;
+              } else {
+                failCount += 1;
+                const status = res.status;
+                let errorMsg = '未知错误';
+                try {
+                  const errData = await res.json();
+                  errorMsg = errData.error || JSON.stringify(errData);
+                } catch (e2) {
+                  if (status === 413) {
+                    errorMsg = '文件太大 (Payload Too Large)。Vercel 平台限制请求大小为 4.5MB。';
+                  } else {
+                    errorMsg = '服务器错误 (' + status + ')';
+                  }
+                }
+                console.error('上传失败:', file.name, errorMsg);
+                alert('文件 "' + file.name + '" 上传失败: ' + errorMsg);
+              }
+            } catch (e) {
+              console.error('上传出错:', e);
+              failCount += 1;
+            } finally {
+              uploadAt(index + 1);
+            }
+          }
+
+          uploadAt(0);
+        });
+      }
+
+      if (viewerClose) {
+        viewerClose.addEventListener('click', () => {
+          closeViewer();
+        });
+      }
+
+      if (viewerPrev) {
+        viewerPrev.addEventListener('click', () => {
+          showOffset(-1);
+        });
+      }
+
+      if (viewerNext) {
+        viewerNext.addEventListener('click', () => {
+          showOffset(1);
+        });
+      }
+
+      if (viewer) {
+        viewer.addEventListener('click', event => {
+          if (event.target === viewer) {
+            closeViewer();
+          }
+        });
+      }
+
+      document.addEventListener('keydown', event => {
+        if (!viewer || viewer.style.display === 'none') return;
+        if (event.key === 'Escape') {
+          closeViewer();
+        } else if (event.key === 'ArrowLeft') {
+          showOffset(-1);
+        } else if (event.key === 'ArrowRight') {
+          showOffset(1);
+        }
+      });
+    });
+  </script>
+
+  <!-- ===== 可选的“返回顶部”按钮 ===== -->
+  <button id="backToTop" title="回到顶部">↑</button>
+
+  <script>
+    // ===== 返回顶部按钮逻辑 =====
+    const topBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      // 当页面向下滚动超过 300px 显示按钮，否则隐藏
+      topBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    topBtn.addEventListener('click', scrollToTop);
+    // 点击按钮触发平滑滚动到顶部
+  </script>
+
+  <!-- ===== Mermaid 流程图支持 ===== -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    
+    document.addEventListener("DOMContentLoaded", async () => {
+      mermaid.initialize({ startOnLoad: false, theme: 'default' });
+
+      // 查找并转换 mermaid 代码块
+      const mermaidBlocks = document.querySelectorAll('pre > code.language-mermaid');
+      if (mermaidBlocks.length > 0) {
+        mermaidBlocks.forEach(block => {
+          const content = block.textContent;
+          const pre = block.parentElement;
+          const div = document.createElement('div');
+          div.className = 'mermaid';
+          div.textContent = content;
+          pre.parentNode.replaceChild(div, pre);
+        });
+
+        // 渲染
+        await mermaid.run({
+          querySelector: '.mermaid'
+        });
+      }
+    });
+  </script>
+  <!-- ===== 引入编辑器弹窗组件 ===== -->
+  <div id="editorModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index: 1000;">
+  <div style="background:#fff; width:90%; max-width:800px; margin:50px auto; padding:20px; border-radius:8px; position:relative; max-height: 90vh; overflow-y: auto;">
+    <h2 id="editorTitle">编辑文章</h2>
+
+    <!-- 标题输入框 -->
+    <input type="text" id="noteTitle" placeholder="标题" style="width:100%; padding:8px; margin-bottom:10px;">
+
+    <!-- 文件名输入框 (新增) -->
+    <div style="margin-bottom: 10px; font-size: 0.85rem; color: #666; display: flex; align-items: center; gap: 10px;">
+        <label for="noteFilename" style="white-space: nowrap;">文件路径:</label>
+        <input type="text" id="noteFilename" placeholder="source/_posts/filename.md" style="flex: 1; padding: 5px; font-family: monospace; color: #555;">
+    </div>
+
+    <!-- 分类输入框 -->
+    <input type="text" id="noteCategory" placeholder="分类" style="width:100%; padding:8px; margin-bottom:10px;">
+
+    <!-- 标签输入框 -->
+    <input type="text" id="noteTags" placeholder="标签，用逗号分隔" style="width:100%; padding:8px; margin-bottom:10px;">
+
+    <!-- 内容输入框 -->
+    <textarea id="noteContent" rows="15" style="width:100%; padding:8px; font-family: monospace;"></textarea>
+
+    <!-- 保存/取消按钮 -->
+    <div style="margin-top:10px; display:flex; gap:10px;">
+      <button id="saveNoteBtn" style="flex:1; padding:10px; background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer;">💾 保存</button>
+      <button id="cancelEditBtn" style="flex:1; padding:10px; background:#dc3545; color:#fff; border:none; border-radius:5px; cursor:pointer;">❌ 取消</button>
+    </div>
+
+    <!-- Markdown 实时预览 -->
+    <div id="preview" style="margin-top:20px; padding:10px; border:1px solid #ddd; border-radius:5px; background: #f9f9f9;"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  window.mermaid = mermaid;
+  mermaid.initialize({ startOnLoad: false });
+</script>
+<script>
+(function() {
+  const owner = "Sun1105";              // GitHub 用户名
+  const repo = "hexo-source";           // 仓库名
+  const postsDir = "source/_posts";     // 文章目录
+  let editingNote = null;               // 当前正在编辑的文章对象
+
+  const editorModal = document.getElementById('editorModal');
+  const noteTitle = document.getElementById('noteTitle');
+  const noteFilename = document.getElementById('noteFilename');
+  const noteCategory = document.getElementById('noteCategory');
+  const noteTags = document.getElementById('noteTags');
+  const noteContent = document.getElementById('noteContent');
+  const saveNoteBtn = document.getElementById('saveNoteBtn');
+  const cancelEditBtn = document.getElementById('cancelEditBtn');
+  const previewDiv = document.getElementById('preview');
+
+  // 渲染预览（含 Mermaid 支持）
+  const renderPreview = async (content) => {
+    const trimmed = content.trim();
+    // 检测是否为完整 HTML 文档
+    const isFullHtml = trimmed.match(/^\s*<!DOCTYPE/i) || trimmed.match(/^\s*<html/i);
+
+    if (isFullHtml) {
+        // 使用 iframe 渲染完整 HTML
+        previewDiv.innerHTML = '<iframe id="previewFrame" style="width:100%; height:500px; border:1px solid #eee;"></iframe>';
+        const frame = document.getElementById('previewFrame');
+        if (frame) {
+            const doc = frame.contentDocument || frame.contentWindow.document;
+            doc.open();
+            doc.write(content);
+            doc.close();
+        }
+        return;
+    }
+
+    // Markdown 渲染
+    previewDiv.innerHTML = marked.parse(content);
+
+    if (window.mermaid) {
+      const mermaidBlocks = previewDiv.querySelectorAll('code.language-mermaid');
+      if (mermaidBlocks.length > 0) {
+        mermaidBlocks.forEach(block => {
+          const content = block.textContent;
+          const pre = block.parentElement;
+          const div = document.createElement('div');
+          div.className = 'mermaid';
+          div.textContent = content;
+          if (pre && pre.parentNode) {
+            pre.parentNode.replaceChild(div, pre);
+          }
+        });
+        try {
+          await window.mermaid.run({ querySelector: '#preview .mermaid' });
+        } catch (e) {
+          console.error("Mermaid render error:", e);
+        }
+      }
+    }
+  };
+
+  // 暴露给全局的函数
+  window.openEditor = async function(pathOrFile) {
+    let file;
+    
+    if (!pathOrFile) {
+        // 新建文章
+        file = null;
+    } else if (typeof pathOrFile === 'string') {
+        // 如果传入的是字符串（路径），则获取文件信息
+        let cleanPath = pathOrFile.replace(/\\/g, '/'); // 确保是正斜杠
+        if (!cleanPath.startsWith('source/')) {
+            cleanPath = 'source/' + cleanPath;
+        }
+        
+        // 处理中文路径
+        const encodedPath = cleanPath.split('/').map(encodeURIComponent).join('/');
+
+        try {
+            console.log(`正在获取文件信息: ${encodedPath}`);
+            const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${encodedPath}`);
+            if (!res.ok) {
+                const errText = await res.text();
+                throw new Error(`无法获取文件信息 (Status: ${res.status}): ${errText}`);
+            }
+            file = await res.json();
+        } catch (e) {
+            console.error(e);
+            alert('获取文件失败: ' + e.message + '\n请检查控制台 (F12) 获取更多信息。');
+            return;
+        }
+    } else {
+        file = pathOrFile;
+    }
+
+    editingNote = file;
+    editorModal.style.display = "block";
+
+    if (!file) {
+        // 新建模式
+        noteTitle.value = "";
+        noteFilename.value = "source/_posts/" + Date.now() + ".md"; // 默认文件名
+        noteCategory.value = "";
+        noteTags.value = "";
+        noteContent.value = "";
+        previewDiv.innerHTML = "";
+        document.getElementById('editorTitle').innerText = "新建文章";
+        return;
+    }
+
+    // 编辑模式
+    document.getElementById('editorTitle').innerText = "编辑文章";
+    noteTitle.value = "加载中...";
+    noteFilename.value = file.path || ""; // 填充文件路径
+    noteContent.value = "加载中...";
+
+    try {
+      // 获取文件内容
+      let content = "";
+      if (file.content && file.encoding === 'base64') {
+          // 使用 TextDecoder 处理 UTF-8 字符，比 escape/decodeURIComponent 更现代且稳健
+          try {
+              const binaryString = window.atob(file.content.replace(/\n/g, ""));
+              const bytes = new Uint8Array(binaryString.length);
+              for (let i = 0; i < binaryString.length; i++) {
+                  bytes[i] = binaryString.charCodeAt(i);
+              }
+              content = new TextDecoder('utf-8').decode(bytes);
+          } catch (e) {
+              console.warn("TextDecoder failed, falling back to legacy decode:", e);
+              content = decodeURIComponent(escape(window.atob(file.content.replace(/\n/g, ""))));
+          }
+      } else if (file.download_url) {
+          // 文件较大时（>1MB），API 不返回 content，需从 download_url 获取
+          console.log("File content too large, fetching from download_url...");
+          const rawRes = await fetch(file.download_url);
+          if (!rawRes.ok) {
+              throw new Error(`无法从 download_url 获取内容: ${rawRes.status}`);
+          }
+          content = await rawRes.text();
+      } else {
+          // 兜底：如果 API 返回结构不符合预期
+          if (file.content) {
+             // 非 base64 编码？直接使用
+             content = file.content;
+          } else {
+             throw new Error("未找到文件内容 (No content field and no download_url)");
+          }
+      }
+
+      // 解析Front Matter
+      // 使用 js-yaml 解析
+      const parts = content.split(/^---$/m);
+      if (parts.length >= 3) {
+        const frontMatterRaw = parts[1];
+        const body = parts.slice(2).join('---').trim();
+        
+        try {
+            const frontMatter = jsyaml.load(frontMatterRaw);
+            
+            // 标题
+            noteTitle.value = frontMatter.title || "";
+            
+            // 分类
+            if (frontMatter.categories) {
+                if (Array.isArray(frontMatter.categories)) {
+                    // 如果是数组，展平并用逗号分隔
+                    noteCategory.value = frontMatter.categories.flat().join(", ");
+                } else {
+                    noteCategory.value = frontMatter.categories;
+                }
+            } else if (frontMatter.category) {
+                 // 兼容 category 字段
+                 if (Array.isArray(frontMatter.category)) {
+                    noteCategory.value = frontMatter.category.flat().join(", ");
+                } else {
+                    noteCategory.value = frontMatter.category;
+                }
+            } else {
+                noteCategory.value = "";
+            }
+
+            // 标签
+            if (frontMatter.tags) {
+                if (Array.isArray(frontMatter.tags)) {
+                    noteTags.value = frontMatter.tags.flat().join(", ");
+                } else {
+                    noteTags.value = frontMatter.tags;
+                }
+            } else {
+                noteTags.value = "";
+            }
+
+        } catch (e) {
+            console.error("YAML parsing error:", e);
+            alert("YAML 解析失败，请手动检查 Front Matter 格式");
+        }
+
+        noteContent.value = body;
+        renderPreview(body);
+
+      } else {
+        // 没有Front Matter
+        noteTitle.value = file.name.replace(/\.md$/, '');
+        noteContent.value = content;
+        renderPreview(content);
+      }
+
+    } catch (e) {
+      console.error(e);
+      noteContent.value = "读取内容失败: " + e.message;
+    }
+  };
+
+  // 监听输入，实时预览
+  noteContent.addEventListener('input', () => {
+    renderPreview(noteContent.value);
+  });
+
+  // 关闭
+  cancelEditBtn.onclick = () => {
+    editorModal.style.display = "none";
+    editingNote = null;
+  };
+
+  // 点击外部关闭
+  window.onclick = (event) => {
+    if (event.target == editorModal) {
+      editorModal.style.display = "none";
+      editingNote = null;
+    }
+  };
+
+  // 保存
+  saveNoteBtn.onclick = async () => {
+    const title = noteTitle.value.trim();
+    const content = noteContent.value;
+    const categories = noteCategory.value.trim();
+    const tags = noteTags.value.trim();
+    let filepath = noteFilename.value.trim();
+
+    if (!title) {
+      alert("请输入标题");
+      return;
+    }
+    
+    if (!filepath) {
+        alert("请输入文件路径");
+        return;
+    }
+    
+    // 确保路径以 source/ 开头 (可选，视需求而定，Hexo通常在source下)
+    if (!filepath.startsWith('source/')) {
+        filepath = 'source/' + filepath;
+    }
+    // 确保以 .md 结尾
+    if (!filepath.endsWith('.md')) {
+        filepath += '.md';
+    }
+
+    // 构造新的文件内容（含 Front Matter）
+    let newFileContent = "---\n";
+    newFileContent += `title: ${title}\n`;
+    newFileContent += `date: ${new Date().toISOString()}\n`;
+    if (categories) newFileContent += `categories: [${categories}]\n`;
+    if (tags) newFileContent += `tags: [${tags}]\n`;
+    newFileContent += "---\n\n";
+    newFileContent += content;
+
+    // Base64 编码
+    // const contentBase64 = window.btoa(unescape(encodeURIComponent(newFileContent)));
+    // API 期望直接的字符串，它会在后端进行 Base64 编码
+    
+    const sha = editingNote ? editingNote.sha : null;
+    // const path = editingNote ? editingNote.path : `source/_posts/${Date.now()}-${title}.md`;
+    
+    // 使用用户指定的文件路径
+    // 注意：如果是重命名（修改了路径），sha 应该为 null（视为新文件），或者后端支持移动操作
+    // 这里简化处理：如果路径变了，就视为创建新文件。旧文件依然存在（除非后端有处理逻辑）。
+    // 真正的重命名需要 delete old + create new
+    
+    const isRename = editingNote && (editingNote.path !== filepath);
+    const finalSha = isRename ? null : sha; 
+    
+    const payload = {
+        path: filepath,
+        message: sha ? `Update ${title}` : `Create ${title}`,
+        content: newFileContent, // 直接发送内容，后端处理 Base64
+        sha: finalSha
+    };
+
+    // 决定调用哪个后端 API (本地代理)
+    // 注意：这里我们调用本地的 Serverless Function 或者 Next.js API 路由
+    // 如果是纯 Hexo 静态站，通常没有后端。
+    // 但用户之前的 new-note.js 暗示了有 Vercel API 支持。
+    // 我们需要确认 API 路径。根据之前的分析，API 在 api/ 目录下。
+    // Vercel 会将 api/ 目录下的文件部署为 Serverless Functions。
+    // 假设路径是 /api/new-note 和 /api/edit-note
+
+    // 修复：如果是重命名（isRename=true）或者新建文件（!editingNote），finalSha 为 null
+    // 此时应该调用 /api/new-note，而不是 /api/edit-note
+    const apiUrl = finalSha ? '/api/edit-note' : '/api/new-note';
+
+    saveNoteBtn.disabled = true;
+    saveNoteBtn.innerText = "保存中...";
+
+    try {
+        const res = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        
+        if (res.ok) {
+            alert("保存成功！即将刷新...");
+            location.reload();
+        } else {
+            alert("保存失败: " + (data.error || JSON.stringify(data)));
+        }
+    } catch (e) {
+        console.error(e);
+        alert("请求失败: " + e.message);
+    } finally {
+        saveNoteBtn.disabled = false;
+        saveNoteBtn.innerText = "💾 保存";
+    }
+  };
+})();
+</script>
+</body>
+</html>
