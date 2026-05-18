@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>独立开发者最佳起步路线</title>
+      <link href="/2026/05/17/1779092333657/"/>
+      <url>/2026/05/17/1779092333657/</url>
+      
+        <content type="html"><![CDATA[<!DOCTYPE html><html lang="zh-CN"><head>  <meta charset="UTF-8" />  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  <title>独立开发者最佳起步路线</title>  <style>    * {      margin: 0;      padding: 0;      box-sizing: border-box;    }<pre><code>body {  font-family: &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, sans-serif;  background: linear-gradient(135deg, #0f172a, #111827, #1e293b);  color: #e2e8f0;  min-height: 100vh;  padding: 40px 20px;  line-height: 1.8;}.container {  max-width: 1200px;  margin: 0 auto;}.hero {  text-align: center;  margin-bottom: 60px;}.hero h1 {  font-size: 52px;  font-weight: 800;  background: linear-gradient(to right, #38bdf8, #818cf8, #c084fc);  -webkit-background-clip: text;  -webkit-text-fill-color: transparent;  margin-bottom: 20px;}.hero p {  color: #94a3b8;  font-size: 18px;  max-width: 900px;  margin: 0 auto;}.roadmap {  display: flex;  flex-direction: column;  gap: 28px;  position: relative;  margin-top: 40px;}.roadmap::before {  content: &quot;&quot;;  position: absolute;  left: 50%;  top: 0;  width: 4px;  height: 100%;  background: linear-gradient(to bottom, #38bdf8, #8b5cf6);  transform: translateX(-50%);  opacity: 0.3;}.step {  width: 48%;  padding: 28px;  border-radius: 24px;  background: rgba(15, 23, 42, 0.7);  border: 1px solid rgba(148, 163, 184, 0.15);  backdrop-filter: blur(12px);  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);  position: relative;  transition: all 0.3s ease;}.step:hover {  transform: translateY(-6px);  border-color: rgba(96, 165, 250, 0.45);}.step:nth-child(odd) {  align-self: flex-start;}.step:nth-child(even) {  align-self: flex-end;}.step::after {  content: &quot;&quot;;  position: absolute;  top: 40px;  width: 18px;  height: 18px;  border-radius: 50%;  background: #38bdf8;  box-shadow: 0 0 20px #38bdf8;}.step:nth-child(odd)::after {  right: -45px;}.step:nth-child(even)::after {  left: -45px;}.step-number {  display: inline-block;  padding: 6px 14px;  border-radius: 999px;  background: linear-gradient(to right, #0284c7, #6366f1);  font-size: 14px;  font-weight: bold;  margin-bottom: 18px;}.step h2 {  font-size: 28px;  margin-bottom: 14px;  color: #f8fafc;}.step p {  color: #cbd5e1;  margin-bottom: 18px;}.tech-list {  display: flex;  flex-wrap: wrap;  gap: 10px;  margin-top: 18px;}.tag {  padding: 8px 14px;  border-radius: 999px;  background: rgba(59, 130, 246, 0.15);  border: 1px solid rgba(96, 165, 250, 0.35);  color: #7dd3fc;  font-size: 14px;}.flow-box {  margin-top: 80px;  padding: 40px;  border-radius: 28px;  background: rgba(15, 23, 42, 0.8);  border: 1px solid rgba(148, 163, 184, 0.15);}.flow-box h2 {  text-align: center;  font-size: 38px;  margin-bottom: 40px;  color: #f8fafc;}.flow {  display: flex;  justify-content: center;  align-items: center;  flex-wrap: wrap;  gap: 16px;}.flow-item {  padding: 18px 28px;  border-radius: 18px;  background: linear-gradient(135deg, #1e293b, #0f172a);  border: 1px solid rgba(148, 163, 184, 0.2);  min-width: 160px;  text-align: center;  font-weight: 600;  transition: all 0.3s ease;}.flow-item:hover {  transform: scale(1.05);  border-color: #38bdf8;}.arrow {  font-size: 24px;  color: #60a5fa;  font-weight: bold;}.tips {  margin-top: 70px;  display: grid;  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));  gap: 24px;}.tip-card {  background: rgba(15, 23, 42, 0.7);  border: 1px solid rgba(148, 163, 184, 0.12);  border-radius: 22px;  padding: 24px;  transition: all 0.3s ease;}.tip-card:hover {  transform: translateY(-6px);  border-color: rgba(168, 85, 247, 0.45);}.tip-card h3 {  font-size: 22px;  margin-bottom: 12px;  color: #f8fafc;}.tip-card p {  color: #cbd5e1;  font-size: 15px;}.footer {  margin-top: 80px;  text-align: center;  color: #64748b;  font-size: 14px;}@media (max-width: 900px) {  .roadmap::before {    left: 20px;  }  .step {    width: 100%;    padding-left: 50px;  }  .step:nth-child(even),  .step:nth-child(odd) {    align-self: center;  }  .step::after {    left: 11px !important;  }  .hero h1 {    font-size: 38px;  }  .flow {    flex-direction: column;  }  .arrow {    transform: rotate(90deg);  }}</code></pre><p>  </style></p></head><body>  <div class="container"><pre><code>&lt;section class=&quot;hero&quot;&gt;  &lt;h1&gt;独立开发者最佳起步路线&lt;/h1&gt;  &lt;p&gt;    从一个简单的 HTML 小工具开始，逐步成长为真正属于自己的互联网产品。    不需要一开始就买服务器、搭复杂系统，而是先让第一个工具真正上线并被人使用。  &lt;/p&gt;&lt;/section&gt;&lt;section class=&quot;roadmap&quot;&gt;  &lt;div class=&quot;step&quot;&gt;    &lt;div class=&quot;step-number&quot;&gt;STEP 01&lt;/div&gt;    &lt;h2&gt;制作第一个 HTML 小工具&lt;/h2&gt;    &lt;p&gt;      不需要复杂技术，先从一个真正解决问题的小工具开始。      比如：JSON 格式化、Markdown 编辑器、日语工具、时间转换器等。    &lt;/p&gt;    &lt;p&gt;      &lt;strong&gt;核心说明：&lt;/strong&gt;&lt;br&gt;      独立开发最重要的不是“技术有多复杂”，而是“有没有人在真实使用”。      所以第一步不要想着做大型系统，而是先完成一个可以真正上线的小工具。    &lt;/p&gt;    &lt;p&gt;      &lt;strong&gt;简单例子：&lt;/strong&gt;&lt;br&gt;      比如你做一个「日本年号转换工具」，用户输入：2026，页面自动显示：令和8年。      这种工具技术非常简单，但却是真实存在搜索需求的。    &lt;/p&gt;    &lt;div class=&quot;tech-list&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;HTML&lt;/span&gt;      &lt;span class=&quot;tag&quot;&gt;CSS&lt;/span&gt;      &lt;span class=&quot;tag&quot;&gt;JavaScript&lt;/span&gt;    &lt;/div&gt;  &lt;/div&gt;  &lt;div class=&quot;step&quot;&gt;    &lt;div class=&quot;step-number&quot;&gt;STEP 02&lt;/div&gt;    &lt;h2&gt;使用 GitHub 管理代码&lt;/h2&gt;    &lt;p&gt;      将你的项目上传到 GitHub，不仅方便版本管理，后续还能自动部署到网站平台。    &lt;/p&gt;    &lt;p&gt;      &lt;strong&gt;核心说明：&lt;/strong&gt;&lt;br&gt;      GitHub 相当于你的“代码仓库”和“云端备份”。      即使电脑坏了，你的代码依然安全保存，并且方便后续持续更新。    &lt;/p&gt;    &lt;p&gt;      &lt;strong&gt;简单例子：&lt;/strong&gt;&lt;br&gt;      你修改了网页按钮颜色、增加了新功能，只需要 push 到 GitHub，后续网站会自动更新。    &lt;/p&gt;    &lt;div class=&quot;tech-list&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;Git&lt;/span&gt;      &lt;span class=&quot;tag&quot;&gt;GitHub&lt;/span&gt;      &lt;span class=&quot;tag&quot;&gt;Version Control&lt;/span&gt;    &lt;/div&gt;  &lt;/div&gt;  &lt;div class=&quot;step&quot;&gt;    &lt;div class=&quot;step-number&quot;&gt;STEP 03&lt;/div&gt;    &lt;h2&gt;部署到 Cloudflare Pages&lt;/h2&gt;    &lt;p&gt;      将 GitHub 仓库连接到 Cloudflare Pages，即可一键上线。      自动 HTTPS、全球 CDN、免费托管。    &lt;/p&gt;    &lt;p&gt;      &lt;strong&gt;核心说明：&lt;/strong&gt;&lt;br&gt;      部署的意思就是：让全世界的人都能通过网址访问你的网站。      Cloudflare Pages 会帮你自动处理服务器、加速、HTTPS 等复杂问题。    &lt;/p&gt;    &lt;p&gt;      &lt;strong&gt;简单例子：&lt;/strong&gt;&lt;br&gt;      原本你的 HTML 文件只能自己电脑打开，部署后别人直接访问网址就能使用你的工具。    &lt;/p&gt;    &lt;div class=&quot;tech-list&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;Cloudflare Pages&lt;/span&gt;      &lt;span class=&quot;tag&quot;&gt;CDN&lt;/span&gt;      &lt;span class=&quot;tag&quot;&gt;HTTPS&lt;/span&gt;    &lt;/div&gt;  &lt;/div&gt;  &lt;div class=&quot;step&quot;&gt;    &lt;div class=&quot;step-number&quot;&gt;STEP 04&lt;/div&gt;    &lt;h2&gt;绑定自己的域名&lt;/h2&gt;    &lt;p&gt;      给网站一个真正属于自己的网址，例如：mytool.com。      这会让你的工具更专业、更容易传播。    &lt;/p&gt;    &lt;p&gt;      &lt;strong&gt;核心说明：&lt;/strong&gt;&lt;br&gt;      域名就是网站的“门牌号”。      有了自己的域名后，用户会更容易记住你的网站。    &lt;/p&gt;    &lt;p&gt;      &lt;strong&gt;简单例子：&lt;/strong&gt;&lt;br&gt;      比起一长串随机网址，用户更容易记住：japan-tool.com 这种简单网址。    &lt;/p&gt;    &lt;div class=&quot;tech-list&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;Domain&lt;/span&gt;      &lt;span class=&quot;tag&quot;&gt;DNS&lt;/span&gt;      &lt;span class=&quot;tag&quot;&gt;Brand&lt;/span&gt;    &lt;/div&gt;  &lt;/div&gt;  &lt;div class=&quot;step&quot;&gt;    &lt;div class=&quot;step-number&quot;&gt;STEP 05&lt;/div&gt;    &lt;h2&gt;开始获取用户与 SEO 流量&lt;/h2&gt;    &lt;p&gt;      编写工具介绍、优化搜索关键词，让用户可以通过 Google 搜索找到你的网站。    &lt;/p&gt;    &lt;p&gt;      &lt;strong&gt;核心说明：&lt;/strong&gt;&lt;br&gt;      SEO 本质上就是：让搜索引擎理解你的网站是干什么的。      搜索排名越高，访问用户就越多。    &lt;/p&gt;    &lt;p&gt;      &lt;strong&gt;简单例子：&lt;/strong&gt;&lt;br&gt;      如果有人搜索「JSON格式化工具」，而你的网页正好提供这个功能，那么用户就可能进入你的网站。    &lt;/p&gt;    &lt;div class=&quot;tech-list&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;SEO&lt;/span&gt;      &lt;span class=&quot;tag&quot;&gt;Google Search&lt;/span&gt;      &lt;span class=&quot;tag&quot;&gt;Analytics&lt;/span&gt;    &lt;/div&gt;  &lt;/div&gt;  &lt;div class=&quot;step&quot;&gt;    &lt;div class=&quot;step-number&quot;&gt;STEP 06&lt;/div&gt;    &lt;h2&gt;增加高级功能并开始盈利&lt;/h2&gt;    &lt;p&gt;      当网站有用户后，可以逐步加入 AI、会员、广告、API、模板下载等变现方式。    &lt;/p&gt;    &lt;p&gt;      &lt;strong&gt;核心说明：&lt;/strong&gt;&lt;br&gt;      不要一开始就想着赚钱，而是先获得真实用户。      当用户愿意持续使用你的工具后，再考虑收费和高级功能。    &lt;/p&gt;    &lt;p&gt;      &lt;strong&gt;简单例子：&lt;/strong&gt;&lt;br&gt;      免费用户每天只能使用 5 次 AI 翻译，高级会员则可以无限使用。    &lt;/p&gt;    &lt;div class=&quot;tech-list&quot;&gt;      &lt;span class=&quot;tag&quot;&gt;OpenAI API&lt;/span&gt;      &lt;span class=&quot;tag&quot;&gt;Stripe&lt;/span&gt;      &lt;span class=&quot;tag&quot;&gt;Membership&lt;/span&gt;    &lt;/div&gt;  &lt;/div&gt;&lt;/section&gt;&lt;section class=&quot;flow-box&quot;&gt;  &lt;h2&gt;现代独立开发者架构&lt;/h2&gt;  &lt;div class=&quot;flow&quot;&gt;    &lt;div class=&quot;flow-item&quot;&gt;HTML / JS 工具&lt;/div&gt;    &lt;div class=&quot;arrow&quot;&gt;→&lt;/div&gt;    &lt;div class=&quot;flow-item&quot;&gt;GitHub&lt;/div&gt;    &lt;div class=&quot;arrow&quot;&gt;→&lt;/div&gt;    &lt;div class=&quot;flow-item&quot;&gt;Cloudflare Pages&lt;/div&gt;    &lt;div class=&quot;arrow&quot;&gt;→&lt;/div&gt;    &lt;div class=&quot;flow-item&quot;&gt;用户访问&lt;/div&gt;    &lt;div class=&quot;arrow&quot;&gt;→&lt;/div&gt;    &lt;div class=&quot;flow-item&quot;&gt;SEO 流量&lt;/div&gt;    &lt;div class=&quot;arrow&quot;&gt;→&lt;/div&gt;    &lt;div class=&quot;flow-item&quot;&gt;盈利&lt;/div&gt;  &lt;/div&gt;&lt;/section&gt;&lt;section class=&quot;tips&quot;&gt;  &lt;div class=&quot;tip-card&quot;&gt;    &lt;h3&gt;不要一开始就研究服务器&lt;/h3&gt;    &lt;p&gt;      大部分独立开发者前期根本不需要 VPS。      先让第一个网站真正上线，比研究服务器更重要。    &lt;/p&gt;  &lt;/div&gt;  &lt;div class=&quot;tip-card&quot;&gt;    &lt;h3&gt;先解决一个真实问题&lt;/h3&gt;    &lt;p&gt;      比起做“大而全”的平台，更重要的是解决某个高频小问题。    &lt;/p&gt;  &lt;/div&gt;  &lt;div class=&quot;tip-card&quot;&gt;    &lt;h3&gt;SEO 比技术复杂度更重要&lt;/h3&gt;    &lt;p&gt;      很多赚钱的网站技术并不复杂，但因为搜索排名高，所以能持续获得用户。    &lt;/p&gt;  &lt;/div&gt;  &lt;div class=&quot;tip-card&quot;&gt;    &lt;h3&gt;持续迭代才是关键&lt;/h3&gt;    &lt;p&gt;      不需要一次做完所有功能。      先上线，再根据真实用户反馈慢慢优化。    &lt;/p&gt;  &lt;/div&gt;&lt;/section&gt;&lt;div class=&quot;footer&quot;&gt;  独立开发的核心不是“做得多复杂”，而是“有没有人真的在用”。&lt;/div&gt;</code></pre>  </div></body></html>]]></content>
+      
+      
+      <categories>
+          
+          <category> 00｜メモ </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> メモ </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>メモ</title>
       <link href="/2026/05/17/1776757263182/"/>
       <url>/2026/05/17/1776757263182/</url>
@@ -1301,9 +1326,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1359,9 +1384,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1475,9 +1500,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1504,9 +1529,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1533,9 +1558,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1591,9 +1616,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1649,9 +1674,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1678,9 +1703,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1707,9 +1732,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1939,9 +1964,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1968,9 +1993,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -1997,9 +2022,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2026,9 +2051,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2055,9 +2080,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2084,9 +2109,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2113,9 +2138,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2142,9 +2167,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2171,9 +2196,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2200,9 +2225,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2229,9 +2254,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2258,9 +2283,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2287,9 +2312,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2316,9 +2341,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2345,9 +2370,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2432,9 +2457,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2461,9 +2486,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2490,9 +2515,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2519,9 +2544,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2548,9 +2573,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2577,9 +2602,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2606,9 +2631,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2751,9 +2776,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2925,9 +2950,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2954,9 +2979,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
@@ -2983,9 +3008,9 @@
             
             <tag> 经验总结 </tag>
             
-            <tag> 日语单词 </tag>
-            
             <tag> 学习笔记 </tag>
+            
+            <tag> 日语单词 </tag>
             
         </tags>
       
